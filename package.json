@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onView:nodeDependencies"
+    "*"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -27,15 +27,16 @@
       "skaffolder-explorer": [
         {
           "id": "skaffolderExplorer",
-          "name": "Explorer"
+          "name": "Explorer",
+          "when": "jsonOutlineEnabled"
         }
       ]
     },
     "configuration": [
       {
-        "title": "JSON Outline",
+        "title": "Explorer",
         "properties": {
-          "jsonOutline.autorefresh": {
+          "treeProvider.autorefresh": {
             "type": "boolean",
             "default": false
           }
@@ -56,5 +57,8 @@
     "tslint": "^5.12.1",
     "@types/node": "^10.12.21",
     "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "jsonc-parser": "^0.4.2"
   }
 }
