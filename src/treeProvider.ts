@@ -8,17 +8,39 @@ export class TreeProvider implements vscode.TreeDataProvider<number> {
 
   private autoRefresh: boolean = true;
 
+  private skObject = [
+    {
+      name: "Film",
+      pos: 34,
+      _attr: [
+        {
+          name: "title",
+          pos: 37
+        },
+        {
+          name: "year",
+          pos: 40
+        }
+      ]
+    },
+    {
+      name: "Actor",
+      pos: 45,
+      _attr: []
+    }
+  ];
+
   constructor(data: vscode.ExtensionContext) {
     console.log("init provider");
     console.log(data);
-    this.autoRefresh = vscode.workspace
-      .getConfiguration("skaffolderExplorer")
-      .get("autorefresh");
-    vscode.workspace.onDidChangeConfiguration(() => {
-      this.autoRefresh = vscode.workspace
-        .getConfiguration("skaffolderExplorer")
-        .get("autorefresh");
-    });
+    // this.autoRefresh = vscode.workspace
+    //   .getConfiguration("skaffolderExplorer")
+    //   .get("autorefresh");
+    // vscode.workspace.onDidChangeConfiguration(() => {
+    //   this.autoRefresh = vscode.workspace
+    //     .getConfiguration("skaffolderExplorer")
+    //     .get("autorefresh");
+    // });
     this.onActiveEditorChange();
   }
 

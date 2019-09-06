@@ -6,29 +6,7 @@ import { TreeProvider } from "./treeProvider";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(data: vscode.ExtensionContext) {
-  let skObject = [
-    {
-      name: "Film",
-      pos: 34,
-      _attr: [
-        {
-          name: "title",
-          pos: 37
-        },
-        {
-          name: "year",
-          pos: 40
-        }
-      ]
-    },
-    {
-      name: "Actor",
-      pos: 45,
-      _attr: []
-    }
-  ];
-
-  const jsonOutlineProvider = new TreeProvider(skObject);
+  const jsonOutlineProvider = new TreeProvider(data);
 
   vscode.window.registerTreeDataProvider(
     "skaffolderExplorer",
