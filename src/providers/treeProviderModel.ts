@@ -24,7 +24,7 @@ export class TreeProviderModel implements vscode.TreeDataProvider<number> {
   ];
 
   constructor(data: vscode.ExtensionContext) {
-    console.log("init provider api");
+    console.log("init provider model");
   }
 
   getTreeItem(element: number): vscode.TreeItem | Thenable<vscode.TreeItem> {
@@ -42,7 +42,7 @@ export class TreeProviderModel implements vscode.TreeDataProvider<number> {
     const offsets: number[] = this.skObject.map((item, count) => {
       return count + 1;
     });
-    console.log(offsets);
+    // console.log(offsets);
 
     return offsets;
   }

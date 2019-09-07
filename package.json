@@ -27,15 +27,15 @@
       "skaffolder-explorer": [
         {
           "id": "skaffolderExplorerModel",
-          "name": "Explorer Models"
+          "name": "Models"
         },
         {
           "id": "skaffolderExplorerAPI",
-          "name": "Explorer APIs"
+          "name": "API"
         },
         {
           "id": "skaffolderExplorerPage",
-          "name": "Explorer Pages"
+          "name": "Pages"
         }
       ]
     },

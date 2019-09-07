@@ -1,0 +1,2104 @@
+{
+	"project": {
+		"_id": "5cce0c40e3f2a35ef6dd30fd",
+		"_owner": "5ab50b7f4721881a15532d54",
+		"name": "Manage_Film_Example",
+		"_projects": [],
+		"_pages": [
+			"5cce0c40e3f2a35ef6dd3106",
+			"5cce0c41e3f2a35ef6dd312a",
+			"5cce0c41e3f2a35ef6dd3132",
+			"5cce0c41e3f2a35ef6dd3136",
+			"5cce0c41e3f2a35ef6dd313e",
+			"5cce0c41e3f2a35ef6dd3142",
+			"5cce0c42e3f2a35ef6dd3148"
+		],
+		"_dbs": [
+			{
+				"_id": "5cce0c40e3f2a35ef6dd30fe",
+				"name": "Manage_Film_Example_db",
+				"_owner": "5ab50b7f4721881a15532d54",
+				"__v": 0
+			}
+		],
+		"__v": 0
+	},
+	"modules": [
+		{
+			"_id": "5cce0c41e3f2a35ef6dd312a",
+			"top": 5100,
+			"left": 6400,
+			"url": "/actors/{id}",
+			"_template_resource": "5cce0c40e3f2a35ef6dd3117",
+			"template": "Edit_Crud",
+			"name": "ActorEdit",
+			"_services": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd312c",
+					"_resource": {
+						"_id": "5cce0c40e3f2a35ef6dd3117",
+						"url": "/actor",
+						"name": "Actor",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c40e3f2a35ef6dd3113",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "create",
+					"url": "/",
+					"method": "POST",
+					"description": "CRUD ACTION create",
+					"returnType": "",
+					"crudAction": "create",
+					"_roles": [],
+					"__v": 0,
+					"_params": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3130",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd3128",
+						"url": "/film",
+						"name": "Film",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd311e",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "findBycast",
+					"url": "/findBycast/{key}",
+					"method": "GET",
+					"description": "CRUD ACTION findBycast",
+					"returnType": "",
+					"crudAction": "findBycast",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3131",
+							"_service": "5cce0c41e3f2a35ef6dd3130",
+							"name": "key",
+							"type": "Objectid",
+							"description": "Id della risorsa cast da cercare",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd312d",
+					"_resource": {
+						"_id": "5cce0c40e3f2a35ef6dd3117",
+						"url": "/actor",
+						"name": "Actor",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c40e3f2a35ef6dd3113",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "get",
+					"url": "/{id}",
+					"method": "GET",
+					"description": "CRUD ACTION get",
+					"returnType": "",
+					"crudAction": "get",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd312f",
+							"_service": "5cce0c41e3f2a35ef6dd312d",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id ",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd312b",
+					"_resource": {
+						"_id": "5cce0c40e3f2a35ef6dd3117",
+						"url": "/actor",
+						"name": "Actor",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c40e3f2a35ef6dd3113",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "update",
+					"url": "/{id}",
+					"method": "POST",
+					"description": "CRUD ACTION update",
+					"returnType": "",
+					"crudAction": "update",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd312e",
+							"_service": "5cce0c41e3f2a35ef6dd312b",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id",
+							"__v": 0
+						}
+					]
+				}
+			],
+			"_roles": [],
+			"_nesteds": [],
+			"_links": [],
+			"__v": 0,
+			"_resources": [
+				{
+					"_id": "5cce0c40e3f2a35ef6dd3117",
+					"url": "/actor",
+					"name": "Actor",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c40e3f2a35ef6dd3113",
+					"__v": 0,
+					"_roles": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3128",
+					"url": "/film",
+					"name": "Film",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c41e3f2a35ef6dd311e",
+					"__v": 0,
+					"_roles": []
+				}
+			]
+		},
+		{
+			"_id": "5cce0c41e3f2a35ef6dd3132",
+			"top": 5100,
+			"left": 5900,
+			"url": "/actors",
+			"_template_resource": "5cce0c40e3f2a35ef6dd3117",
+			"template": "List_Crud",
+			"name": "ActorList",
+			"_services": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3134",
+					"_resource": {
+						"_id": "5cce0c40e3f2a35ef6dd3117",
+						"url": "/actor",
+						"name": "Actor",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c40e3f2a35ef6dd3113",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "delete",
+					"url": "/{id}",
+					"method": "DELETE",
+					"description": "CRUD ACTION delete",
+					"returnType": "",
+					"crudAction": "delete",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3135",
+							"_service": "5cce0c41e3f2a35ef6dd3134",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3133",
+					"_resource": {
+						"_id": "5cce0c40e3f2a35ef6dd3117",
+						"url": "/actor",
+						"name": "Actor",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c40e3f2a35ef6dd3113",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "list",
+					"url": "/",
+					"method": "GET",
+					"description": "CRUD ACTION list",
+					"returnType": "",
+					"crudAction": "list",
+					"_roles": [],
+					"__v": 0,
+					"_params": []
+				}
+			],
+			"_roles": [],
+			"_nesteds": [],
+			"_links": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd312a",
+					"top": 5100,
+					"left": 6400,
+					"url": "/actors/{id}",
+					"_template_resource": "5cce0c40e3f2a35ef6dd3117",
+					"template": "Edit_Crud",
+					"name": "ActorEdit",
+					"_services": [
+						"5cce0c41e3f2a35ef6dd312c",
+						"5cce0c41e3f2a35ef6dd312b",
+						"5cce0c41e3f2a35ef6dd312d",
+						"5cce0c41e3f2a35ef6dd3130"
+					],
+					"_roles": [],
+					"_nesteds": [],
+					"_links": [],
+					"__v": 0
+				}
+			],
+			"__v": 0,
+			"_resources": [
+				{
+					"_id": "5cce0c40e3f2a35ef6dd3117",
+					"url": "/actor",
+					"name": "Actor",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c40e3f2a35ef6dd3113",
+					"__v": 0,
+					"_roles": []
+				}
+			]
+		},
+		{
+			"_id": "5cce0c41e3f2a35ef6dd3142",
+			"top": 5800,
+			"left": 6400,
+			"url": "/films/{id}",
+			"_template_resource": "5cce0c41e3f2a35ef6dd3128",
+			"template": "Edit_Crud",
+			"name": "FilmEdit",
+			"_services": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3145",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd3128",
+						"url": "/film",
+						"name": "Film",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd311e",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "create",
+					"url": "/",
+					"method": "POST",
+					"description": "CRUD ACTION create",
+					"returnType": "",
+					"crudAction": "create",
+					"_roles": [],
+					"__v": 0,
+					"_params": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3143",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd3128",
+						"url": "/film",
+						"name": "Film",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd311e",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "get",
+					"url": "/{id}",
+					"method": "GET",
+					"description": "CRUD ACTION get",
+					"returnType": "",
+					"crudAction": "get",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3144",
+							"_service": "5cce0c41e3f2a35ef6dd3143",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id ",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd313f",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd311c",
+						"url": "/filmmaker",
+						"name": "FilmMaker",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd3119",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "list",
+					"url": "/",
+					"method": "GET",
+					"description": "CRUD ACTION list",
+					"returnType": "",
+					"crudAction": "list",
+					"_roles": [],
+					"__v": 0,
+					"_params": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3133",
+					"_resource": {
+						"_id": "5cce0c40e3f2a35ef6dd3117",
+						"url": "/actor",
+						"name": "Actor",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c40e3f2a35ef6dd3113",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "list",
+					"url": "/",
+					"method": "GET",
+					"description": "CRUD ACTION list",
+					"returnType": "",
+					"crudAction": "list",
+					"_roles": [],
+					"__v": 0,
+					"_params": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3146",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd3128",
+						"url": "/film",
+						"name": "Film",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd311e",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "update",
+					"url": "/{id}",
+					"method": "POST",
+					"description": "CRUD ACTION update",
+					"returnType": "",
+					"crudAction": "update",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3147",
+							"_service": "5cce0c41e3f2a35ef6dd3146",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id",
+							"__v": 0
+						}
+					]
+				}
+			],
+			"_roles": [],
+			"_nesteds": [],
+			"_links": [],
+			"__v": 0,
+			"_resources": [
+				{
+					"_id": "5cce0c40e3f2a35ef6dd3117",
+					"url": "/actor",
+					"name": "Actor",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c40e3f2a35ef6dd3113",
+					"__v": 0,
+					"_roles": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3128",
+					"url": "/film",
+					"name": "Film",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c41e3f2a35ef6dd311e",
+					"__v": 0,
+					"_roles": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd311c",
+					"url": "/filmmaker",
+					"name": "FilmMaker",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c41e3f2a35ef6dd3119",
+					"__v": 0,
+					"_roles": []
+				}
+			]
+		},
+		{
+			"_id": "5cce0c42e3f2a35ef6dd3148",
+			"top": 5800,
+			"left": 5900,
+			"url": "/films",
+			"_template_resource": "5cce0c41e3f2a35ef6dd3128",
+			"template": "List_Crud",
+			"name": "FilmList",
+			"_services": [
+				{
+					"_id": "5cce0c42e3f2a35ef6dd314a",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd3128",
+						"url": "/film",
+						"name": "Film",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd311e",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "delete",
+					"url": "/{id}",
+					"method": "DELETE",
+					"description": "CRUD ACTION delete",
+					"returnType": "",
+					"crudAction": "delete",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c42e3f2a35ef6dd314b",
+							"_service": "5cce0c42e3f2a35ef6dd314a",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c42e3f2a35ef6dd3149",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd3128",
+						"url": "/film",
+						"name": "Film",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd311e",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "list",
+					"url": "/",
+					"method": "GET",
+					"description": "CRUD ACTION list",
+					"returnType": "",
+					"crudAction": "list",
+					"_roles": [],
+					"__v": 0,
+					"_params": []
+				}
+			],
+			"_roles": [],
+			"_nesteds": [],
+			"_links": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3142",
+					"top": 5800,
+					"left": 6400,
+					"url": "/films/{id}",
+					"_template_resource": "5cce0c41e3f2a35ef6dd3128",
+					"template": "Edit_Crud",
+					"name": "FilmEdit",
+					"_services": [
+						"5cce0c41e3f2a35ef6dd3145",
+						"5cce0c41e3f2a35ef6dd3146",
+						"5cce0c41e3f2a35ef6dd3143",
+						"5cce0c41e3f2a35ef6dd313f",
+						"5cce0c41e3f2a35ef6dd3133"
+					],
+					"_roles": [],
+					"_nesteds": [],
+					"_links": [],
+					"__v": 0
+				}
+			],
+			"__v": 0,
+			"_resources": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3128",
+					"url": "/film",
+					"name": "Film",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c41e3f2a35ef6dd311e",
+					"__v": 0,
+					"_roles": []
+				}
+			]
+		},
+		{
+			"_id": "5cce0c41e3f2a35ef6dd3136",
+			"top": 4400,
+			"left": 6400,
+			"url": "/filmmakers/{id}",
+			"_template_resource": "5cce0c41e3f2a35ef6dd311c",
+			"template": "Edit_Crud",
+			"name": "FilmMakerEdit",
+			"_services": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3139",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd311c",
+						"url": "/filmmaker",
+						"name": "FilmMaker",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd3119",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "create",
+					"url": "/",
+					"method": "POST",
+					"description": "CRUD ACTION create",
+					"returnType": "",
+					"crudAction": "create",
+					"_roles": [],
+					"__v": 0,
+					"_params": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd313c",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd3128",
+						"url": "/film",
+						"name": "Film",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd311e",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "findByfilmMaker",
+					"url": "/findByfilmMaker/{key}",
+					"method": "GET",
+					"description": "CRUD ACTION findByfilmMaker",
+					"returnType": "",
+					"crudAction": "findByfilmMaker",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd313d",
+							"_service": "5cce0c41e3f2a35ef6dd313c",
+							"name": "key",
+							"type": "Objectid",
+							"description": "Id della risorsa filmMaker da cercare",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3137",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd311c",
+						"url": "/filmmaker",
+						"name": "FilmMaker",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd3119",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "get",
+					"url": "/{id}",
+					"method": "GET",
+					"description": "CRUD ACTION get",
+					"returnType": "",
+					"crudAction": "get",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3138",
+							"_service": "5cce0c41e3f2a35ef6dd3137",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id ",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd313a",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd311c",
+						"url": "/filmmaker",
+						"name": "FilmMaker",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd3119",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "update",
+					"url": "/{id}",
+					"method": "POST",
+					"description": "CRUD ACTION update",
+					"returnType": "",
+					"crudAction": "update",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd313b",
+							"_service": "5cce0c41e3f2a35ef6dd313a",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id",
+							"__v": 0
+						}
+					]
+				}
+			],
+			"_roles": [],
+			"_nesteds": [],
+			"_links": [],
+			"__v": 0,
+			"_resources": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3128",
+					"url": "/film",
+					"name": "Film",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c41e3f2a35ef6dd311e",
+					"__v": 0,
+					"_roles": []
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd311c",
+					"url": "/filmmaker",
+					"name": "FilmMaker",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c41e3f2a35ef6dd3119",
+					"__v": 0,
+					"_roles": []
+				}
+			]
+		},
+		{
+			"_id": "5cce0c41e3f2a35ef6dd313e",
+			"top": 4400,
+			"left": 5900,
+			"url": "/filmmakers",
+			"_template_resource": "5cce0c41e3f2a35ef6dd311c",
+			"template": "List_Crud",
+			"name": "FilmMakerList",
+			"_services": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3140",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd311c",
+						"url": "/filmmaker",
+						"name": "FilmMaker",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd3119",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "delete",
+					"url": "/{id}",
+					"method": "DELETE",
+					"description": "CRUD ACTION delete",
+					"returnType": "",
+					"crudAction": "delete",
+					"_roles": [],
+					"__v": 0,
+					"_params": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3141",
+							"_service": "5cce0c41e3f2a35ef6dd3140",
+							"name": "id",
+							"type": "ObjectId",
+							"description": "Id",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd313f",
+					"_resource": {
+						"_id": "5cce0c41e3f2a35ef6dd311c",
+						"url": "/filmmaker",
+						"name": "FilmMaker",
+						"_project": "5cce0c40e3f2a35ef6dd30fd",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"_entity": "5cce0c41e3f2a35ef6dd3119",
+						"__v": 0,
+						"_roles": []
+					},
+					"name": "list",
+					"url": "/",
+					"method": "GET",
+					"description": "CRUD ACTION list",
+					"returnType": "",
+					"crudAction": "list",
+					"_roles": [],
+					"__v": 0,
+					"_params": []
+				}
+			],
+			"_roles": [],
+			"_nesteds": [],
+			"_links": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3136",
+					"top": 4400,
+					"left": 6400,
+					"url": "/filmmakers/{id}",
+					"_template_resource": "5cce0c41e3f2a35ef6dd311c",
+					"template": "Edit_Crud",
+					"name": "FilmMakerEdit",
+					"_services": [
+						"5cce0c41e3f2a35ef6dd3139",
+						"5cce0c41e3f2a35ef6dd313a",
+						"5cce0c41e3f2a35ef6dd3137",
+						"5cce0c41e3f2a35ef6dd313c"
+					],
+					"_roles": [],
+					"_nesteds": [],
+					"_links": [],
+					"__v": 0
+				}
+			],
+			"__v": 0,
+			"_resources": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd311c",
+					"url": "/filmmaker",
+					"name": "FilmMaker",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": "5cce0c41e3f2a35ef6dd3119",
+					"__v": 0,
+					"_roles": []
+				}
+			]
+		},
+		{
+			"_id": "5cce0c40e3f2a35ef6dd3106",
+			"name": "Home",
+			"url": "/home",
+			"left": 5300,
+			"top": 5100,
+			"_services": [],
+			"_roles": [],
+			"_nesteds": [],
+			"_links": [
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3132",
+					"top": 5100,
+					"left": 5900,
+					"url": "/actors",
+					"_template_resource": "5cce0c40e3f2a35ef6dd3117",
+					"template": "List_Crud",
+					"name": "ActorList",
+					"_services": [
+						"5cce0c41e3f2a35ef6dd3134",
+						"5cce0c41e3f2a35ef6dd3133"
+					],
+					"_roles": [],
+					"_nesteds": [],
+					"_links": [
+						"5cce0c41e3f2a35ef6dd312a"
+					],
+					"__v": 0
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd313e",
+					"top": 4400,
+					"left": 5900,
+					"url": "/filmmakers",
+					"_template_resource": "5cce0c41e3f2a35ef6dd311c",
+					"template": "List_Crud",
+					"name": "FilmMakerList",
+					"_services": [
+						"5cce0c41e3f2a35ef6dd3140",
+						"5cce0c41e3f2a35ef6dd313f"
+					],
+					"_roles": [],
+					"_nesteds": [],
+					"_links": [
+						"5cce0c41e3f2a35ef6dd3136"
+					],
+					"__v": 0
+				},
+				{
+					"_id": "5cce0c42e3f2a35ef6dd3148",
+					"top": 5800,
+					"left": 5900,
+					"url": "/films",
+					"_template_resource": "5cce0c41e3f2a35ef6dd3128",
+					"template": "List_Crud",
+					"name": "FilmList",
+					"_services": [
+						"5cce0c42e3f2a35ef6dd314a",
+						"5cce0c42e3f2a35ef6dd3149"
+					],
+					"_roles": [],
+					"_nesteds": [],
+					"_links": [
+						"5cce0c41e3f2a35ef6dd3142"
+					],
+					"__v": 0
+				}
+			],
+			"__v": 0,
+			"_resources": []
+		}
+	],
+	"resources": [
+		{
+			"_id": "5cce0c40e3f2a35ef6dd30fe",
+			"name": "Manage_Film_Example_db",
+			"_owner": "5ab50b7f4721881a15532d54",
+			"__v": 0,
+			"_resources": [
+				{
+					"_id": "5cce0c40e3f2a35ef6dd3117",
+					"url": "/actor",
+					"name": "Actor",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": {
+						"_id": "5cce0c40e3f2a35ef6dd3113",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"name": "Actor",
+						"__v": 0,
+						"_attrs": [
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3116",
+								"_entity": "5cce0c40e3f2a35ef6dd3113",
+								"name": "birthDate",
+								"type": "Date",
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3114",
+								"_entity": "5cce0c40e3f2a35ef6dd3113",
+								"name": "name",
+								"required": true,
+								"type": "String",
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3115",
+								"_entity": "5cce0c40e3f2a35ef6dd3113",
+								"name": "surname",
+								"type": "String",
+								"__v": 0
+							}
+						],
+						"_relations": [
+							{
+								"_id": "5cce0c41e3f2a35ef6dd3123",
+								"type": "m:m",
+								"name": "cast",
+								"_ent2": {
+									"_id": "5cce0c40e3f2a35ef6dd3113",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"name": "Actor",
+									"__v": 0,
+									"_resource": {
+										"_id": "5cce0c40e3f2a35ef6dd3117",
+										"url": "/actor",
+										"name": "Actor",
+										"_project": "5cce0c40e3f2a35ef6dd30fd",
+										"_db": "5cce0c40e3f2a35ef6dd30fe",
+										"_entity": "5cce0c40e3f2a35ef6dd3113",
+										"__v": 0,
+										"_roles": []
+									}
+								},
+								"_ent1": {
+									"_id": "5cce0c41e3f2a35ef6dd311e",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"name": "Film",
+									"__v": 0,
+									"_resource": {
+										"_id": "5cce0c41e3f2a35ef6dd3128",
+										"url": "/film",
+										"name": "Film",
+										"_project": "5cce0c40e3f2a35ef6dd30fd",
+										"_db": "5cce0c40e3f2a35ef6dd30fe",
+										"_entity": "5cce0c41e3f2a35ef6dd311e",
+										"__v": 0,
+										"_roles": []
+									}
+								},
+								"__v": 0
+							}
+						]
+					},
+					"_roles": [],
+					"__v": 0,
+					"_services": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd312c",
+							"_resource": "5cce0c40e3f2a35ef6dd3117",
+							"name": "create",
+							"url": "/",
+							"method": "POST",
+							"description": "CRUD ACTION create",
+							"returnType": "",
+							"crudAction": "create",
+							"_roles": [],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3134",
+							"_resource": "5cce0c40e3f2a35ef6dd3117",
+							"name": "delete",
+							"url": "/{id}",
+							"method": "DELETE",
+							"description": "CRUD ACTION delete",
+							"returnType": "",
+							"crudAction": "delete",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3135",
+									"_service": "5cce0c41e3f2a35ef6dd3134",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd312d",
+							"_resource": "5cce0c40e3f2a35ef6dd3117",
+							"name": "get",
+							"url": "/{id}",
+							"method": "GET",
+							"description": "CRUD ACTION get",
+							"returnType": "",
+							"crudAction": "get",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd312f",
+									"_service": "5cce0c41e3f2a35ef6dd312d",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id ",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3133",
+							"_resource": "5cce0c40e3f2a35ef6dd3117",
+							"name": "list",
+							"url": "/",
+							"method": "GET",
+							"description": "CRUD ACTION list",
+							"returnType": "",
+							"crudAction": "list",
+							"_roles": [],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd312b",
+							"_resource": "5cce0c40e3f2a35ef6dd3117",
+							"name": "update",
+							"url": "/{id}",
+							"method": "POST",
+							"description": "CRUD ACTION update",
+							"returnType": "",
+							"crudAction": "update",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd312e",
+									"_service": "5cce0c41e3f2a35ef6dd312b",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id",
+									"__v": 0
+								}
+							]
+						}
+					],
+					"_relations": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3123",
+							"type": "m:m",
+							"name": "cast",
+							"_ent2": {
+								"_id": "5cce0c40e3f2a35ef6dd3113",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Actor",
+								"__v": 0,
+								"_resource": {
+									"_id": "5cce0c40e3f2a35ef6dd3117",
+									"url": "/actor",
+									"name": "Actor",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"_entity": "5cce0c40e3f2a35ef6dd3113",
+									"__v": 0,
+									"_roles": []
+								}
+							},
+							"_ent1": {
+								"_id": "5cce0c41e3f2a35ef6dd311e",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Film",
+								"__v": 0,
+								"_resource": {
+									"_id": "5cce0c41e3f2a35ef6dd3128",
+									"url": "/film",
+									"name": "Film",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"_entity": "5cce0c41e3f2a35ef6dd311e",
+									"__v": 0,
+									"_roles": []
+								}
+							},
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3128",
+					"url": "/film",
+					"name": "Film",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": {
+						"_id": "5cce0c41e3f2a35ef6dd311e",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"name": "Film",
+						"__v": 0,
+						"_attrs": [
+							{
+								"_id": "5cce0c41e3f2a35ef6dd3121",
+								"_entity": "5cce0c41e3f2a35ef6dd311e",
+								"name": "genre",
+								"type": "String",
+								"__v": 0,
+								"_enum": [
+									{
+										"_id": "5cce0c41e3f2a35ef6dd3127",
+										"name": "Action",
+										"_attr": "5cce0c41e3f2a35ef6dd3121",
+										"__v": 0
+									},
+									{
+										"_id": "5cce0c41e3f2a35ef6dd3126",
+										"name": "Crime",
+										"_attr": "5cce0c41e3f2a35ef6dd3121",
+										"__v": 0
+									},
+									{
+										"_id": "5cce0c41e3f2a35ef6dd3124",
+										"name": "Fantasy",
+										"_attr": "5cce0c41e3f2a35ef6dd3121",
+										"__v": 0
+									},
+									{
+										"_id": "5cce0c41e3f2a35ef6dd3125",
+										"name": "Horror",
+										"_attr": "5cce0c41e3f2a35ef6dd3121",
+										"__v": 0
+									}
+								]
+							},
+							{
+								"_id": "5cce0c41e3f2a35ef6dd311f",
+								"_entity": "5cce0c41e3f2a35ef6dd311e",
+								"name": "title",
+								"type": "String",
+								"required": true,
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c41e3f2a35ef6dd3120",
+								"_entity": "5cce0c41e3f2a35ef6dd311e",
+								"name": "year",
+								"type": "Number",
+								"__v": 0
+							}
+						],
+						"_relations": [
+							{
+								"_id": "5cce0c41e3f2a35ef6dd3123",
+								"type": "m:m",
+								"name": "cast",
+								"_ent2": {
+									"_id": "5cce0c40e3f2a35ef6dd3113",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"name": "Actor",
+									"__v": 0,
+									"_resource": {
+										"_id": "5cce0c40e3f2a35ef6dd3117",
+										"url": "/actor",
+										"name": "Actor",
+										"_project": "5cce0c40e3f2a35ef6dd30fd",
+										"_db": "5cce0c40e3f2a35ef6dd30fe",
+										"_entity": "5cce0c40e3f2a35ef6dd3113",
+										"__v": 0,
+										"_roles": []
+									}
+								},
+								"_ent1": {
+									"_id": "5cce0c41e3f2a35ef6dd311e",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"name": "Film",
+									"__v": 0,
+									"_resource": {
+										"_id": "5cce0c41e3f2a35ef6dd3128",
+										"url": "/film",
+										"name": "Film",
+										"_project": "5cce0c40e3f2a35ef6dd30fd",
+										"_db": "5cce0c40e3f2a35ef6dd30fe",
+										"_entity": "5cce0c41e3f2a35ef6dd311e",
+										"__v": 0,
+										"_roles": []
+									}
+								},
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c41e3f2a35ef6dd3122",
+								"type": "1:m",
+								"required": true,
+								"name": "filmMaker",
+								"_ent2": {
+									"_id": "5cce0c41e3f2a35ef6dd3119",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"name": "FilmMaker",
+									"__v": 0,
+									"_resource": {
+										"_id": "5cce0c41e3f2a35ef6dd311c",
+										"url": "/filmmaker",
+										"name": "FilmMaker",
+										"_project": "5cce0c40e3f2a35ef6dd30fd",
+										"_db": "5cce0c40e3f2a35ef6dd30fe",
+										"_entity": "5cce0c41e3f2a35ef6dd3119",
+										"__v": 0,
+										"_roles": []
+									}
+								},
+								"_ent1": {
+									"_id": "5cce0c41e3f2a35ef6dd311e",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"name": "Film",
+									"__v": 0,
+									"_resource": {
+										"_id": "5cce0c41e3f2a35ef6dd3128",
+										"url": "/film",
+										"name": "Film",
+										"_project": "5cce0c40e3f2a35ef6dd30fd",
+										"_db": "5cce0c40e3f2a35ef6dd30fe",
+										"_entity": "5cce0c41e3f2a35ef6dd311e",
+										"__v": 0,
+										"_roles": []
+									}
+								},
+								"__v": 0
+							}
+						]
+					},
+					"_roles": [],
+					"__v": 0,
+					"_services": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3145",
+							"_resource": "5cce0c41e3f2a35ef6dd3128",
+							"name": "create",
+							"url": "/",
+							"method": "POST",
+							"description": "CRUD ACTION create",
+							"returnType": "",
+							"crudAction": "create",
+							"_roles": [],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c42e3f2a35ef6dd314a",
+							"_resource": "5cce0c41e3f2a35ef6dd3128",
+							"name": "delete",
+							"url": "/{id}",
+							"method": "DELETE",
+							"description": "CRUD ACTION delete",
+							"returnType": "",
+							"crudAction": "delete",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c42e3f2a35ef6dd314b",
+									"_service": "5cce0c42e3f2a35ef6dd314a",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3130",
+							"_resource": "5cce0c41e3f2a35ef6dd3128",
+							"name": "findBycast",
+							"url": "/findBycast/{key}",
+							"method": "GET",
+							"description": "CRUD ACTION findBycast",
+							"returnType": "",
+							"crudAction": "findBycast",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3131",
+									"_service": "5cce0c41e3f2a35ef6dd3130",
+									"name": "key",
+									"type": "Objectid",
+									"description": "Id della risorsa cast da cercare",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd313c",
+							"_resource": "5cce0c41e3f2a35ef6dd3128",
+							"name": "findByfilmMaker",
+							"url": "/findByfilmMaker/{key}",
+							"method": "GET",
+							"description": "CRUD ACTION findByfilmMaker",
+							"returnType": "",
+							"crudAction": "findByfilmMaker",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd313d",
+									"_service": "5cce0c41e3f2a35ef6dd313c",
+									"name": "key",
+									"type": "Objectid",
+									"description": "Id della risorsa filmMaker da cercare",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3143",
+							"_resource": "5cce0c41e3f2a35ef6dd3128",
+							"name": "get",
+							"url": "/{id}",
+							"method": "GET",
+							"description": "CRUD ACTION get",
+							"returnType": "",
+							"crudAction": "get",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3144",
+									"_service": "5cce0c41e3f2a35ef6dd3143",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id ",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c42e3f2a35ef6dd3149",
+							"_resource": "5cce0c41e3f2a35ef6dd3128",
+							"name": "list",
+							"url": "/",
+							"method": "GET",
+							"description": "CRUD ACTION list",
+							"returnType": "",
+							"crudAction": "list",
+							"_roles": [],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3146",
+							"_resource": "5cce0c41e3f2a35ef6dd3128",
+							"name": "update",
+							"url": "/{id}",
+							"method": "POST",
+							"description": "CRUD ACTION update",
+							"returnType": "",
+							"crudAction": "update",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3147",
+									"_service": "5cce0c41e3f2a35ef6dd3146",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id",
+									"__v": 0
+								}
+							]
+						}
+					],
+					"_relations": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3123",
+							"type": "m:m",
+							"name": "cast",
+							"_ent2": {
+								"_id": "5cce0c40e3f2a35ef6dd3113",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Actor",
+								"__v": 0,
+								"_resource": {
+									"_id": "5cce0c40e3f2a35ef6dd3117",
+									"url": "/actor",
+									"name": "Actor",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"_entity": "5cce0c40e3f2a35ef6dd3113",
+									"__v": 0,
+									"_roles": []
+								}
+							},
+							"_ent1": {
+								"_id": "5cce0c41e3f2a35ef6dd311e",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Film",
+								"__v": 0,
+								"_resource": {
+									"_id": "5cce0c41e3f2a35ef6dd3128",
+									"url": "/film",
+									"name": "Film",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"_entity": "5cce0c41e3f2a35ef6dd311e",
+									"__v": 0,
+									"_roles": []
+								}
+							},
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3122",
+							"type": "1:m",
+							"required": true,
+							"name": "filmMaker",
+							"_ent2": {
+								"_id": "5cce0c41e3f2a35ef6dd3119",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "FilmMaker",
+								"__v": 0,
+								"_resource": {
+									"_id": "5cce0c41e3f2a35ef6dd311c",
+									"url": "/filmmaker",
+									"name": "FilmMaker",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"_entity": "5cce0c41e3f2a35ef6dd3119",
+									"__v": 0,
+									"_roles": []
+								}
+							},
+							"_ent1": {
+								"_id": "5cce0c41e3f2a35ef6dd311e",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Film",
+								"__v": 0,
+								"_resource": {
+									"_id": "5cce0c41e3f2a35ef6dd3128",
+									"url": "/film",
+									"name": "Film",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"_entity": "5cce0c41e3f2a35ef6dd311e",
+									"__v": 0,
+									"_roles": []
+								}
+							},
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd311c",
+					"url": "/filmmaker",
+					"name": "FilmMaker",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": {
+						"_id": "5cce0c41e3f2a35ef6dd3119",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"name": "FilmMaker",
+						"__v": 0,
+						"_attrs": [
+							{
+								"_id": "5cce0c41e3f2a35ef6dd311a",
+								"_entity": "5cce0c41e3f2a35ef6dd3119",
+								"name": "name",
+								"required": true,
+								"type": "String",
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c41e3f2a35ef6dd311b",
+								"_entity": "5cce0c41e3f2a35ef6dd3119",
+								"name": "surname",
+								"type": "String",
+								"__v": 0
+							}
+						],
+						"_relations": [
+							{
+								"_id": "5cce0c41e3f2a35ef6dd3122",
+								"type": "1:m",
+								"required": true,
+								"name": "filmMaker",
+								"_ent2": {
+									"_id": "5cce0c41e3f2a35ef6dd3119",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"name": "FilmMaker",
+									"__v": 0,
+									"_resource": {
+										"_id": "5cce0c41e3f2a35ef6dd311c",
+										"url": "/filmmaker",
+										"name": "FilmMaker",
+										"_project": "5cce0c40e3f2a35ef6dd30fd",
+										"_db": "5cce0c40e3f2a35ef6dd30fe",
+										"_entity": "5cce0c41e3f2a35ef6dd3119",
+										"__v": 0,
+										"_roles": []
+									}
+								},
+								"_ent1": {
+									"_id": "5cce0c41e3f2a35ef6dd311e",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"name": "Film",
+									"__v": 0,
+									"_resource": {
+										"_id": "5cce0c41e3f2a35ef6dd3128",
+										"url": "/film",
+										"name": "Film",
+										"_project": "5cce0c40e3f2a35ef6dd30fd",
+										"_db": "5cce0c40e3f2a35ef6dd30fe",
+										"_entity": "5cce0c41e3f2a35ef6dd311e",
+										"__v": 0,
+										"_roles": []
+									}
+								},
+								"__v": 0
+							}
+						]
+					},
+					"_roles": [],
+					"__v": 0,
+					"_services": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3139",
+							"_resource": "5cce0c41e3f2a35ef6dd311c",
+							"name": "create",
+							"url": "/",
+							"method": "POST",
+							"description": "CRUD ACTION create",
+							"returnType": "",
+							"crudAction": "create",
+							"_roles": [],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3140",
+							"_resource": "5cce0c41e3f2a35ef6dd311c",
+							"name": "delete",
+							"url": "/{id}",
+							"method": "DELETE",
+							"description": "CRUD ACTION delete",
+							"returnType": "",
+							"crudAction": "delete",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3141",
+									"_service": "5cce0c41e3f2a35ef6dd3140",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3137",
+							"_resource": "5cce0c41e3f2a35ef6dd311c",
+							"name": "get",
+							"url": "/{id}",
+							"method": "GET",
+							"description": "CRUD ACTION get",
+							"returnType": "",
+							"crudAction": "get",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3138",
+									"_service": "5cce0c41e3f2a35ef6dd3137",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id ",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd313f",
+							"_resource": "5cce0c41e3f2a35ef6dd311c",
+							"name": "list",
+							"url": "/",
+							"method": "GET",
+							"description": "CRUD ACTION list",
+							"returnType": "",
+							"crudAction": "list",
+							"_roles": [],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd313a",
+							"_resource": "5cce0c41e3f2a35ef6dd311c",
+							"name": "update",
+							"url": "/{id}",
+							"method": "POST",
+							"description": "CRUD ACTION update",
+							"returnType": "",
+							"crudAction": "update",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd313b",
+									"_service": "5cce0c41e3f2a35ef6dd313a",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id",
+									"__v": 0
+								}
+							]
+						}
+					],
+					"_relations": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3122",
+							"type": "1:m",
+							"required": true,
+							"name": "filmMaker",
+							"_ent2": {
+								"_id": "5cce0c41e3f2a35ef6dd3119",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "FilmMaker",
+								"__v": 0,
+								"_resource": {
+									"_id": "5cce0c41e3f2a35ef6dd311c",
+									"url": "/filmmaker",
+									"name": "FilmMaker",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"_entity": "5cce0c41e3f2a35ef6dd3119",
+									"__v": 0,
+									"_roles": []
+								}
+							},
+							"_ent1": {
+								"_id": "5cce0c41e3f2a35ef6dd311e",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Film",
+								"__v": 0,
+								"_resource": {
+									"_id": "5cce0c41e3f2a35ef6dd3128",
+									"url": "/film",
+									"name": "Film",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"_db": "5cce0c40e3f2a35ef6dd30fe",
+									"_entity": "5cce0c41e3f2a35ef6dd311e",
+									"__v": 0,
+									"_roles": []
+								}
+							},
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c40e3f2a35ef6dd3107",
+					"url": "/user",
+					"type": "User",
+					"name": "User",
+					"_project": "5cce0c40e3f2a35ef6dd30fd",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"_entity": {
+						"_id": "5cce0c40e3f2a35ef6dd30ff",
+						"_db": "5cce0c40e3f2a35ef6dd30fe",
+						"type": "User",
+						"name": "User",
+						"__v": 0,
+						"_relations": [],
+						"_attrs": [
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3102",
+								"_entity": "5cce0c40e3f2a35ef6dd30ff",
+								"name": "mail",
+								"type": "String",
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3103",
+								"_entity": "5cce0c40e3f2a35ef6dd30ff",
+								"name": "name",
+								"type": "String",
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3101",
+								"_entity": "5cce0c40e3f2a35ef6dd30ff",
+								"name": "password",
+								"required": true,
+								"type": "String",
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3105",
+								"_entity": "5cce0c40e3f2a35ef6dd30ff",
+								"name": "roles",
+								"type": "String",
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3104",
+								"_entity": "5cce0c40e3f2a35ef6dd30ff",
+								"name": "surname",
+								"type": "String",
+								"__v": 0
+							},
+							{
+								"_id": "5cce0c40e3f2a35ef6dd3100",
+								"_entity": "5cce0c40e3f2a35ef6dd30ff",
+								"name": "username",
+								"required": true,
+								"type": "String",
+								"__v": 0
+							}
+						]
+					},
+					"_roles": [],
+					"__v": 0,
+					"_relations": [],
+					"_services": [
+						{
+							"_id": "5cce0c40e3f2a35ef6dd310f",
+							"_resource": "5cce0c40e3f2a35ef6dd3107",
+							"name": "changePassword",
+							"url": "/{id}/changePassword",
+							"method": "POST",
+							"description": "Change password of user from admin",
+							"returnType": "object",
+							"_roles": [
+								{
+									"_id": "5cce0c40e3f2a35ef6dd3109",
+									"description": "ADMIN",
+									"name": "ADMIN",
+									"_project": "5cce0c40e3f2a35ef6dd30fd",
+									"__v": 0
+								}
+							],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3110",
+							"_resource": "5cce0c40e3f2a35ef6dd3107",
+							"name": "create",
+							"url": "/",
+							"method": "POST",
+							"description": "CRUD ACTION create",
+							"returnType": "",
+							"crudAction": "create",
+							"_roles": [],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd310b",
+							"_resource": "5cce0c40e3f2a35ef6dd3107",
+							"name": "delete",
+							"url": "/{id}",
+							"method": "DELETE",
+							"description": "CRUD ACTION delete",
+							"returnType": "",
+							"crudAction": "delete",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c40e3f2a35ef6dd310e",
+									"_service": "5cce0c40e3f2a35ef6dd310b",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3111",
+							"_resource": "5cce0c40e3f2a35ef6dd3107",
+							"name": "get",
+							"url": "/{id}",
+							"method": "GET",
+							"description": "CRUD ACTION get",
+							"returnType": "",
+							"crudAction": "get",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c40e3f2a35ef6dd3112",
+									"_service": "5cce0c40e3f2a35ef6dd3111",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id ",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd310c",
+							"_resource": "5cce0c40e3f2a35ef6dd3107",
+							"name": "list",
+							"url": "/",
+							"method": "GET",
+							"description": "CRUD ACTION list",
+							"returnType": "",
+							"crudAction": "list",
+							"_roles": [],
+							"__v": 0,
+							"_params": []
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd310a",
+							"_resource": "5cce0c40e3f2a35ef6dd3107",
+							"name": "update",
+							"url": "/{id}",
+							"method": "POST",
+							"description": "CRUD ACTION update",
+							"returnType": "",
+							"crudAction": "update",
+							"_roles": [],
+							"__v": 0,
+							"_params": [
+								{
+									"_id": "5cce0c40e3f2a35ef6dd310d",
+									"_service": "5cce0c40e3f2a35ef6dd310a",
+									"name": "id",
+									"type": "ObjectId",
+									"description": "Id",
+									"__v": 0
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"dbs": [
+		{
+			"_id": "5cce0c40e3f2a35ef6dd30fe",
+			"name": "Manage_Film_Example_db",
+			"_owner": "5ab50b7f4721881a15532d54",
+			"__v": 0,
+			"_entity": [
+				{
+					"_id": "5cce0c40e3f2a35ef6dd3113",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"name": "Actor",
+					"__v": 0,
+					"_relations": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3123",
+							"type": "m:m",
+							"name": "cast",
+							"_ent2": {
+								"_id": "5cce0c40e3f2a35ef6dd3113",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Actor",
+								"__v": 0
+							},
+							"_ent1": {
+								"_id": "5cce0c41e3f2a35ef6dd311e",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Film",
+								"__v": 0
+							},
+							"__v": 0
+						}
+					],
+					"_attrs": [
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3116",
+							"_entity": "5cce0c40e3f2a35ef6dd3113",
+							"name": "birthDate",
+							"type": "Date",
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3114",
+							"_entity": "5cce0c40e3f2a35ef6dd3113",
+							"name": "name",
+							"required": true,
+							"type": "String",
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3115",
+							"_entity": "5cce0c40e3f2a35ef6dd3113",
+							"name": "surname",
+							"type": "String",
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd311e",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"name": "Film",
+					"__v": 0,
+					"_attrs": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3121",
+							"_entity": "5cce0c41e3f2a35ef6dd311e",
+							"name": "genre",
+							"type": "String",
+							"__v": 0,
+							"_enum": [
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3127",
+									"name": "Action",
+									"_attr": "5cce0c41e3f2a35ef6dd3121",
+									"__v": 0
+								},
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3126",
+									"name": "Crime",
+									"_attr": "5cce0c41e3f2a35ef6dd3121",
+									"__v": 0
+								},
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3124",
+									"name": "Fantasy",
+									"_attr": "5cce0c41e3f2a35ef6dd3121",
+									"__v": 0
+								},
+								{
+									"_id": "5cce0c41e3f2a35ef6dd3125",
+									"name": "Horror",
+									"_attr": "5cce0c41e3f2a35ef6dd3121",
+									"__v": 0
+								}
+							]
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd311f",
+							"_entity": "5cce0c41e3f2a35ef6dd311e",
+							"name": "title",
+							"type": "String",
+							"required": true,
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3120",
+							"_entity": "5cce0c41e3f2a35ef6dd311e",
+							"name": "year",
+							"type": "Number",
+							"__v": 0
+						}
+					],
+					"_relations": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3123",
+							"type": "m:m",
+							"name": "cast",
+							"_ent2": {
+								"_id": "5cce0c40e3f2a35ef6dd3113",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Actor",
+								"__v": 0
+							},
+							"_ent1": {
+								"_id": "5cce0c41e3f2a35ef6dd311e",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Film",
+								"__v": 0
+							},
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3122",
+							"type": "1:m",
+							"required": true,
+							"name": "filmMaker",
+							"_ent2": {
+								"_id": "5cce0c41e3f2a35ef6dd3119",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "FilmMaker",
+								"__v": 0
+							},
+							"_ent1": {
+								"_id": "5cce0c41e3f2a35ef6dd311e",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Film",
+								"__v": 0
+							},
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c41e3f2a35ef6dd3119",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"name": "FilmMaker",
+					"__v": 0,
+					"_attrs": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd311a",
+							"_entity": "5cce0c41e3f2a35ef6dd3119",
+							"name": "name",
+							"required": true,
+							"type": "String",
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c41e3f2a35ef6dd311b",
+							"_entity": "5cce0c41e3f2a35ef6dd3119",
+							"name": "surname",
+							"type": "String",
+							"__v": 0
+						}
+					],
+					"_relations": [
+						{
+							"_id": "5cce0c41e3f2a35ef6dd3122",
+							"type": "1:m",
+							"required": true,
+							"name": "filmMaker",
+							"_ent2": {
+								"_id": "5cce0c41e3f2a35ef6dd3119",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "FilmMaker",
+								"__v": 0
+							},
+							"_ent1": {
+								"_id": "5cce0c41e3f2a35ef6dd311e",
+								"_db": "5cce0c40e3f2a35ef6dd30fe",
+								"name": "Film",
+								"__v": 0
+							},
+							"__v": 0
+						}
+					]
+				},
+				{
+					"_id": "5cce0c40e3f2a35ef6dd30ff",
+					"_db": "5cce0c40e3f2a35ef6dd30fe",
+					"type": "User",
+					"name": "User",
+					"__v": 0,
+					"_relations": [],
+					"_attrs": [
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3102",
+							"_entity": "5cce0c40e3f2a35ef6dd30ff",
+							"name": "mail",
+							"type": "String",
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3103",
+							"_entity": "5cce0c40e3f2a35ef6dd30ff",
+							"name": "name",
+							"type": "String",
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3101",
+							"_entity": "5cce0c40e3f2a35ef6dd30ff",
+							"name": "password",
+							"required": true,
+							"type": "String",
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3105",
+							"_entity": "5cce0c40e3f2a35ef6dd30ff",
+							"name": "roles",
+							"type": "String",
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3104",
+							"_entity": "5cce0c40e3f2a35ef6dd30ff",
+							"name": "surname",
+							"type": "String",
+							"__v": 0
+						},
+						{
+							"_id": "5cce0c40e3f2a35ef6dd3100",
+							"_entity": "5cce0c40e3f2a35ef6dd30ff",
+							"name": "username",
+							"required": true,
+							"type": "String",
+							"__v": 0
+						}
+					]
+				}
+			]
+		}
+	],
+	"extra": {}
+}
