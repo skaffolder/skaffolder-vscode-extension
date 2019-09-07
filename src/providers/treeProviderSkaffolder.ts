@@ -7,7 +7,7 @@ export class TreeProviderSkaffolder
   implements vscode.TreeDataProvider<SkaffolderNode> {
   private skObject: SkaffolderObject;
 
-  constructor(data: vscode.ExtensionContext, private type: string) {
+  constructor(private context: vscode.ExtensionContext, private type: string) {
     console.log("init provider api");
     let dataDervice = new DataService();
     this.skObject = dataDervice.getSkObject();
@@ -33,7 +33,7 @@ export class TreeProviderSkaffolder
   private createTree(): SkaffolderNode {
     let tree: SkaffolderNode;
 
-    tree = new SkaffolderNode(this.skObject, this.type, []);
+    tree = new SkaffolderNode(this.context, this.skObject, this.type, []);
     return tree;
   }
 }
