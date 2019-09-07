@@ -1,40 +1,68 @@
-import * as vscode from 'vscode';
-import * as json from 'jsonc-parser';
+import * as vscode from "vscode";
 
 export class TreeProvider implements vscode.TreeDataProvider<number> {
-    
-    private _onDidChangeTreeData: vscode.EventEmitter<number | null> = new vscode.EventEmitter<number | null>();
-    
-    
-    private autoRefresh: boolean = true;
-
-    constructor(data: vscode.ExtensionContext) {
-        console.log('init provider');
-        console.log(data);
-        this.autoRefresh = vscode.workspace.getConfiguration('skaffolderExplorer').get('autorefresh');
-        vscode.workspace.onDidChangeConfiguration(()=> {
-            this.autoRefresh = vscode.workspace.getConfiguration('skaffolderExplorer').get('autorefresh');
-        });
-        this.onActiveEditorChange();
-    }
-
-    private onActiveEditorChange(): void {
-        if(vscode.window.activeTextEditor) {
-            if(vscode.window.activeTextEditor.document.uri.scheme === 'file') {
-                const enabled = vscode.window.activeTextEditor.document.languageId === 'json' || vscode.window.activeTextEditor.document.languageId === 'jsonc';
-                vscode.commands.executeCommand('setContext', 'jsonOutlineEnabled', enabled);
-            }
-        } else {
-            vscode.commands.executeCommand('setContext', 'jsonOutlineEnabled', false);
+  private skObject = [
+    {
+      name: "Film",
+      pos: 34,
+      _attr: [
+        {
+          name: "title",
+          pos: 37
+        },
+        {
+          name: "year",
+          pos: 40
         }
-    }  
-    
-    getTreeItem(element: number): vscode.TreeItem | Thenable<vscode.TreeItem> {
-        throw new Error("Method not implemented.");
+      ]
+    },
+    {
+      name: "Actor",
+      pos: 45,
+      _attr: []
     }
-    getChildren(element?: number | undefined): vscode.ProviderResult<number[]> {
-        throw new Error("Method not implemented.");
-    }
+  ];
 
+  constructor(data: vscode.ExtensionContext) {
+    console.log("init provider");
+    vscode.commands.executeCommand("setContext", "jsonOutlineEnabled", true);
 
+    // this.onActiveEditorChange();
+  }
+
+  // private onActiveEditorChange(): void {
+  //   if (vscode.window.activeTextEditor) {
+  //     if (vscode.window.activeTextEditor.document.uri.scheme === "file") {
+  //       const enabled =
+  //         vscode.window.activeTextEditor.document.languageId === "json" ||
+  //         vscode.window.activeTextEditor.document.languageId === "jsonc";
+  //       vscode.commands.executeCommand(
+  //         "setContext",
+  //         "jsonOutlineEnabled",
+  //         enabled
+  //       );
+  //     }
+  //   } else {
+  //     vscode.commands.executeCommand("setContext", "jsonOutlineEnabled", false);
+  //   }
+  // }
+
+  getTreeItem(element: number): vscode.TreeItem | Thenable<vscode.TreeItem> {
+    console.log(" Get tree item ", element);
+
+    let myItem: vscode.TreeItem = new vscode.TreeItem(
+      this.skObject[element - 1].name,
+      vscode.TreeItemCollapsibleState.None
+    );
+    return myItem;
+  }
+  getChildren(element?: number | undefined): vscode.ProviderResult<number[]> {
+    console.log("Get children ");
+    const offsets: number[] = this.skObject.map((item, count) => {
+      return count + 1;
+    });
+    console.log(offsets);
+
+    return offsets;
+  }
 }
