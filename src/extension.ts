@@ -8,6 +8,31 @@ import { TreeProviderSkaffolder } from "./providers/treeProviderSkaffolder";
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "Skaffolder" is now active!');
 
+  // Register commands
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "skaffolder.openmodel",
+      async (confiFilePath: vscode.Uri, files: vscode.Uri[]) => {
+        // TODO: open file config
+
+        try {
+          await vscode.commands.executeCommand<vscode.Location[]>(
+            "vscode.open",
+            confiFilePath
+          );
+        } catch (e) {
+          console.error(e);
+        }
+
+        // open file source
+        await vscode.commands.executeCommand<vscode.Location[]>(
+          "workbench.action.quickOpen",
+          files
+        );
+      }
+    )
+  );
+
   // Create trees
   const skaffolderProviderModel = new TreeProviderSkaffolder(context, "model");
   const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
@@ -28,18 +53,6 @@ export function activate(context: vscode.ExtensionContext) {
     "skaffolderExplorerPage",
     skaffolderProviderPage
   );
-
-  // Register commands
-  // const commandHandler = async (file: string = "") => {
-  //   await vscode.commands.executeCommand<vscode.Location[]>(
-  //     "workbench.action.quickOpen",
-  //     file
-  //   );
-  // };
-
-  // context.subscriptions.push(
-  //   vscode.commands.registerCommand("skaffolder.openfile", commandHandler)
-  // );
 }
 
 // this method is called when your extension is deactivated

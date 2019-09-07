@@ -11,6 +11,7 @@ export class SkaffolderNode extends vscode.TreeItem {
   ) {
     super("", vscode.TreeItemCollapsibleState.None);
 
+    // Switch action
     if (type === "api") {
       this.skaffolderObject.resources.forEach((element, index) => {
         this.children.push(
@@ -181,16 +182,19 @@ export class SkaffolderNode extends vscode.TreeItem {
         )
       };
 
-      // TODO: open file multiple
+      let contexturl = vscode.Uri.file(
+        vscode.workspace.rootPath + "/skaffolder-project.yaml"
+      );
+
       let uris = [
         vscode.Uri.file("/Users/lucacarducci/git/test/crm/readme.txt"),
         vscode.Uri.file("/Users/lucacarducci/git/test/crm/package.json")
       ];
 
       this.command = {
-        command: "workbench.action.quickOpen",
+        command: "skaffolder.openmodel",
         title: "Open SKfile",
-        arguments: uris
+        arguments: [contexturl, uris]
       };
     }
   }
