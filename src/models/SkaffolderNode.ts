@@ -182,11 +182,15 @@ export class SkaffolderNode extends vscode.TreeItem {
       };
 
       // TODO: open file multiple
-      let uri = vscode.Uri.file("/Users/lucacarducci/git/test/crm/readme.txt");
+      let uri = [
+        vscode.Uri.file("/Users/lucacarducci/git/test/crm/readme.txt"),
+        vscode.Uri.file("/Users/lucacarducci/git/test/crm/package.json")
+      ];
+
       this.command = {
-        command: "vscode.open",
+        command: "skaffolder.openfile",
         title: "Open SKfile",
-        arguments: [uri]
+        arguments: [uri[0]]
       };
     }
   }

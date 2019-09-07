@@ -5,12 +5,15 @@ import { TreeProviderSkaffolder } from "./providers/treeProviderSkaffolder";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(data: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "Skaffolder" is now active!');
-  const skaffolderProviderModel = new TreeProviderSkaffolder(data, "model");
-  const skaffolderProviderApi = new TreeProviderSkaffolder(data, "api");
-  const skaffolderProviderPage = new TreeProviderSkaffolder(data, "page");
 
+  // Create trees
+  const skaffolderProviderModel = new TreeProviderSkaffolder(context, "model");
+  const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
+  const skaffolderProviderPage = new TreeProviderSkaffolder(context, "page");
+
+  // Register trees
   vscode.window.registerTreeDataProvider(
     "skaffolderExplorerModel",
     skaffolderProviderModel
@@ -24,6 +27,19 @@ export function activate(data: vscode.ExtensionContext) {
   vscode.window.registerTreeDataProvider(
     "skaffolderExplorerPage",
     skaffolderProviderPage
+  );
+
+  // Register commands
+  const commandHandler = async (file: string = "") => {
+    console.log(`Open file ${file}`);
+    await vscode.commands.executeCommand<vscode.Location[]>(
+      "vscode.open",
+      file
+    );
+  };
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("skaffolder.openfile", commandHandler)
   );
 }
 
