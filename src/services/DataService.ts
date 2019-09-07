@@ -6,7 +6,6 @@ export class DataService {
   private dataObj: SkaffolderObject;
 
   constructor() {
-    console.log("init data service api");
     let data = fs.readFileSync(
       __dirname + "/../../src/services/dataExample.json",
       "utf-8"

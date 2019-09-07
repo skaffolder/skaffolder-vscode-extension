@@ -8,7 +8,6 @@ export class TreeProviderSkaffolder
   private skObject: SkaffolderObject;
 
   constructor(private context: vscode.ExtensionContext, private type: string) {
-    console.log("init provider api");
     let dataDervice = new DataService();
     this.skObject = dataDervice.getSkObject();
   }

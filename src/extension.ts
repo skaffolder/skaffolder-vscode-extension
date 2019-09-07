@@ -6,6 +6,7 @@ import { TreeProviderSkaffolder } from "./providers/treeProviderSkaffolder";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(data: vscode.ExtensionContext) {
+  console.log('Congratulations, your extension "Skaffolder" is now active!');
   const skaffolderProviderModel = new TreeProviderSkaffolder(data, "model");
   const skaffolderProviderApi = new TreeProviderSkaffolder(data, "api");
   const skaffolderProviderPage = new TreeProviderSkaffolder(data, "page");
