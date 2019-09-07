@@ -30,17 +30,16 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   // Register commands
-  const commandHandler = async (file: string = "") => {
-    console.log(`Open file ${file}`);
-    await vscode.commands.executeCommand<vscode.Location[]>(
-      "vscode.open",
-      file
-    );
-  };
+  // const commandHandler = async (file: string = "") => {
+  //   await vscode.commands.executeCommand<vscode.Location[]>(
+  //     "workbench.action.quickOpen",
+  //     file
+  //   );
+  // };
 
-  context.subscriptions.push(
-    vscode.commands.registerCommand("skaffolder.openfile", commandHandler)
-  );
+  // context.subscriptions.push(
+  //   vscode.commands.registerCommand("skaffolder.openfile", commandHandler)
+  // );
 }
 
 // this method is called when your extension is deactivated
