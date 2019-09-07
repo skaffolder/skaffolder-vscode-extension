@@ -180,6 +180,13 @@ export class SkaffolderNode extends vscode.TreeItem {
           path.join("media", "dark", "string.svg")
         )
       };
+
+      // TODO: open file multiple
+      this.command = {
+        command: "vscode.window.showTextDocument",
+        title: "Open SKfile",
+        arguments: ["./package.json"]
+      };
     }
   }
 
