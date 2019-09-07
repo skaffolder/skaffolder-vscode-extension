@@ -10,4 +10,5 @@ export class Resource {
   public type?: string;
   public url?: string;
   public _services: Service[] = [];
+  public _entity: Entity = new Entity();
 }

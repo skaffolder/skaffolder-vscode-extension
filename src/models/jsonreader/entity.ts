@@ -7,6 +7,7 @@ export class Entity {
   public description?: string;
   public name?: string;
   public type?: string;
-  public attributes?: ResourceAttr[];
-  public relations?: Relation[];
+
+  public _attrs: ResourceAttr[] = [];
+  public _relations: Relation[] = [];
 }

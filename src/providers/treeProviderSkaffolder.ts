@@ -1,15 +1,13 @@
 import * as vscode from "vscode";
 import { DataService } from "../services/DataService";
 import { SkaffolderObject } from "../models/SkaffolderObject";
-import { Db } from "../models/jsonreader/db";
 import { SkaffolderNode } from "../models/SkaffolderNode";
-import { createWriteStream } from "fs";
 
-export class TreeProviderApi
+export class TreeProviderSkaffolder
   implements vscode.TreeDataProvider<SkaffolderNode> {
   private skObject: SkaffolderObject;
 
-  constructor(data: vscode.ExtensionContext) {
+  constructor(data: vscode.ExtensionContext, private type: string) {
     console.log("init provider api");
     let dataDervice = new DataService();
     this.skObject = dataDervice.getSkObject();
@@ -35,7 +33,7 @@ export class TreeProviderApi
   private createTree(): SkaffolderNode {
     let tree: SkaffolderNode;
 
-    tree = new SkaffolderNode(this.skObject, "api", []);
+    tree = new SkaffolderNode(this.skObject, this.type, []);
     return tree;
   }
 }
