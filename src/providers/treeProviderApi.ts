@@ -2,31 +2,46 @@ import * as vscode from "vscode";
 import { DataService } from "../services/DataService";
 import { SkaffolderObject } from "../models/SkaffolderObject";
 import { Db } from "../models/jsonreader/db";
+import { SkaffolderNode } from "../models/SkaffolderNode";
+import { createWriteStream } from "fs";
 
-export class TreeProviderApi implements vscode.TreeDataProvider<number> {
-  private skObject: Db[];
+export class TreeProviderApi
+  implements vscode.TreeDataProvider<SkaffolderNode> {
+  private skObject: SkaffolderObject;
 
   constructor(data: vscode.ExtensionContext) {
     console.log("init provider api");
     let dataDervice = new DataService();
-    this.skObject = dataDervice.getApi();
+    this.skObject = dataDervice.getSkObject();
   }
 
-  getTreeItem(element: number): vscode.TreeItem | Thenable<vscode.TreeItem> {
-    let myItem: vscode.TreeItem = new vscode.TreeItem(
-      this.skObject[element - 1].name,
-      vscode.TreeItemCollapsibleState.None
-    );
-    return myItem;
+  getTreeItem(
+    element: SkaffolderNode
+  ): vscode.TreeItem | Thenable<vscode.TreeItem> {
+    console.log("Get item ", element);
+
+    return element;
   }
 
-  getChildren(element?: number | undefined): vscode.ProviderResult<number[]> {
-    console.log("Get children ");
-    const offsets: number[] = this.skObject.map((item, count) => {
-      return count + 1;
-    });
-    console.log(offsets);
+  getChildren(
+    element?: SkaffolderNode | undefined
+  ): vscode.ProviderResult<SkaffolderNode[]> {
+    console.log("Get children ", element);
 
-    return offsets;
+    if (element) {
+      return element.children;
+    } else {
+      let tree: SkaffolderNode = this.createTree();
+      return tree.children;
+    }
+  }
+
+  private createTree(): SkaffolderNode {
+    console.log("Create tree");
+
+    let tree: SkaffolderNode;
+
+    tree = new SkaffolderNode(this.skObject, "api", []);
+    return tree;
   }
 }

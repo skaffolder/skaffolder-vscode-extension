@@ -5,5 +5,5 @@ export class SkaffolderObject {
   constructor() {}
 
   public project?: Project;
-  public resources?: Db[];
+  public resources: Db[] = [];
 }

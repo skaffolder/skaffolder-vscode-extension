@@ -8,5 +8,5 @@ export class Db {
   public _id?: string;
   public name: string;
   public typeDb?: string;
-  public _resources?: Resource[];
+  public _resources: Resource[] = [];
 }
