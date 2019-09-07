@@ -18,16 +18,12 @@ export class TreeProviderApi
   getTreeItem(
     element: SkaffolderNode
   ): vscode.TreeItem | Thenable<vscode.TreeItem> {
-    console.log("Get item ", element);
-
     return element;
   }
 
   getChildren(
     element?: SkaffolderNode | undefined
   ): vscode.ProviderResult<SkaffolderNode[]> {
-    console.log("Get children ", element);
-
     if (element) {
       return element.children;
     } else {
@@ -37,8 +33,6 @@ export class TreeProviderApi
   }
 
   private createTree(): SkaffolderNode {
-    console.log("Create tree");
-
     let tree: SkaffolderNode;
 
     tree = new SkaffolderNode(this.skObject, "api", []);

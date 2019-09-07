@@ -1,4 +1,5 @@
 import { Entity } from "./entity";
+import { Service } from "./service";
 
 export class Resource {
   constructor() {}
@@ -8,6 +9,5 @@ export class Resource {
   public name?: string;
   public type?: string;
   public url?: string;
-  // Relations _entity
-  public _resource?: Entity[];
+  public _services: Service[] = [];
 }

@@ -11,7 +11,6 @@ export class SkaffolderNode extends vscode.TreeItem {
   ) {
     super("", vscode.TreeItemCollapsibleState.None);
 
-    console.log("type:" + type);
     if (type === "api") {
       this.skaffolderObject.resources.forEach((element, index) => {
         this.children.push(
@@ -37,6 +36,22 @@ export class SkaffolderNode extends vscode.TreeItem {
       this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
         indexMap[1]
       ].name;
+      this.collapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
+
+      // Find children
+      this.skaffolderObject.resources[indexMap[0]]._resources[
+        indexMap[1]
+      ]._services.forEach((element, index) => {
+        let indexArr: number[] = [indexMap[0], indexMap[1], index];
+        this.children.push(
+          new SkaffolderNode(skaffolderObject, "api_db_resource_api", indexArr)
+        );
+      });
+    } else if (type === "api_db_resource_api") {
+      // Set api
+      this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
+        indexMap[1]
+      ]._services[indexMap[2]].name;
     }
   }
 
