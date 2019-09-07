@@ -26,9 +26,16 @@
     "views": {
       "skaffolder-explorer": [
         {
-          "id": "skaffolderExplorer",
-          "name": "Explorer",
-          "when": "jsonOutlineEnabled"
+          "id": "skaffolderExplorerModel",
+          "name": "Explorer Models"
+        },
+        {
+          "id": "skaffolderExplorerAPI",
+          "name": "Explorer APIs"
+        },
+        {
+          "id": "skaffolderExplorerPage",
+          "name": "Explorer Pages"
         }
       ]
     },
