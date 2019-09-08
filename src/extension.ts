@@ -61,6 +61,36 @@ export function activate(context: vscode.ExtensionContext) {
     )
   );
 
+  // Register commands
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      "skaffolder.openapi",
+      async (
+        confiFilePath: vscode.Uri,
+        files: vscode.Uri[],
+        rangeModel: vscode.Range
+      ) => {
+        // Open file
+        try {
+          await vscode.commands.executeCommand<vscode.Location[]>(
+            "vscode.open",
+            confiFilePath
+          );
+        } catch (e) {
+          console.error(e);
+        }
+
+        // Select range
+        let selection: vscode.Selection = new vscode.Selection(
+          rangeModel.start,
+          rangeModel.end
+        );
+        vscode.window.visibleTextEditors[0].selection = selection;
+        vscode.window.visibleTextEditors[0].revealRange(rangeModel);
+      }
+    )
+  );
+
   // Create trees
   const skaffolderProviderModel = new TreeProviderSkaffolder(context, "model");
   const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");

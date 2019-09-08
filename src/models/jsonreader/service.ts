@@ -1,11 +1,13 @@
 import { Entity } from "./entity";
 import { Resource } from "./resource";
+import { Range } from "vscode";
 
 export class Service {
   constructor(
-    public method?: string,
-    public name?: string,
-    public _id?: string,
+    public index: Range,
+    public _id: string,
+    public name: string,
+    public method: string,
     public crudAction?: string,
     public crudType?: string,
     public description?: string,

@@ -103,6 +103,25 @@ export class SkaffolderNode extends vscode.TreeItem {
           )
         )
       };
+
+      let contexturl = vscode.Uri.file(
+        vscode.workspace.rootPath + "/openapi.yaml"
+      );
+
+      let uris = this.findRelatedFiles(
+        "api",
+        this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
+      );
+
+      let rangeModel = this.skaffolderObject.resources[indexMap[0]]._resources[
+        indexMap[1]
+      ]._services[indexMap[2]].index;
+
+      this.command = {
+        command: "skaffolder.openapi",
+        title: "Open SKfile API",
+        arguments: [contexturl, uris, rangeModel]
+      };
     }
 
     if (type === "model") {
@@ -186,10 +205,10 @@ export class SkaffolderNode extends vscode.TreeItem {
         vscode.workspace.rootPath + "/openapi.yaml"
       );
 
-      let uris = [
-        vscode.Uri.file("/Users/lucacarducci/git/test/crm/readme.txt"),
-        vscode.Uri.file("/Users/lucacarducci/git/test/crm/package.json")
-      ];
+      let uris = this.findRelatedFiles(
+        "model",
+        this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
+      );
 
       let rangeModel = this.skaffolderObject.resources[indexMap[0]]._resources[
         indexMap[1]
@@ -204,4 +223,11 @@ export class SkaffolderNode extends vscode.TreeItem {
   }
 
   public children: SkaffolderNode[] = [];
+
+  private findRelatedFiles(type: string, item: any) {
+    return [
+      vscode.Uri.file("/Users/lucacarducci/git/test/crm/readme.txt"),
+      vscode.Uri.file("/Users/lucacarducci/git/test/crm/package.json")
+    ];
+  }
 }

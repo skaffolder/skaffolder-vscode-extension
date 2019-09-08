@@ -13,7 +13,7 @@ export class SkaffolderObject {
     let count = 0;
     for (let i in lines) {
       let line = lines[i];
-      console.log("find " + word + " in " + line.indexOf(word) + " " + line);
+      // console.log("find " + word + " in " + line.indexOf(word) + " " + line);
       if (line.indexOf(word) >= 0) {
         return count;
       }
@@ -69,9 +69,24 @@ export class SkaffolderObject {
           let serviceItem = fileObj.paths[s];
           for (let m in serviceItem) {
             if (fileObj.paths[s][m]["x-resource"] === res.name) {
+              // find token position of item
+              let lineId: number = SkaffolderObject.getLinesNumberOf(
+                fileString,
+                fileObj.paths[s][m]["x-skaffolder-id-api"]
+              );
+              let pos: vscode.Position = new vscode.Position(
+                lineId >= 0 ? lineId - 2 : 0,
+                0
+              );
+
+              let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
+              let rangeApi: vscode.Range = new vscode.Range(pos, pos2);
+
               let service = new Service(
-                m,
-                fileObj.paths[s][m]["x-skaffolder-name-api"]
+                rangeApi,
+                fileObj.paths[s][m]["x-skaffolder-id-api"],
+                fileObj.paths[s][m]["x-skaffolder-name-api"],
+                m
               );
 
               res._services.push(service);
