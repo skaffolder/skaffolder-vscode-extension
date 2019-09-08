@@ -10,27 +10,12 @@ paths:
   /login:
     post:
       summary: Login API
-      security: []   # No security
+      security: [] # No security
       tags:
         - Security
       requestBody:
-        content:
-          application/json:
-            schema:      # Request body contents
-              type: object
-              properties:
-                username:
-                  type: string
-                password:
-                  type: string
-              example:   # Sample object
-                username: admin
-                password: 62f264d7ad826f02a8af714c0a54b197935b717656b80461686d450f7b3abde4c553541515de2052b9af70f710f0cd8a1a2d3f4d60aa72608d71a63a9a93c0f5
       responses:
-        '200':
-          description: OK
-      responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -51,7 +36,7 @@ paths:
                 token:
                   type: string
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -73,9 +58,8 @@ paths:
                 passwordOld:
                   type: string
       responses:
-        '200':
+        "200":
           description: OK
-                
 
   #-----  Actor  -----
   /actor/:
@@ -116,7 +100,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Actor"
-    
+
   /actor/{id}:
     delete:
       summary: CRUD ACTION delete
@@ -139,7 +123,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Id 
+          description: Id
           required: true
           schema:
             type: string
@@ -174,7 +158,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Actor"
-    
+
   #-----  Film  -----
   /film/:
     post:
@@ -214,7 +198,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Film"
-    
+
   /film/{id}:
     delete:
       summary: CRUD ACTION delete
@@ -237,7 +221,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Id 
+          description: Id
           required: true
           schema:
             type: string
@@ -272,7 +256,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Film"
-    
+
   /film/findBycast/{key}:
     get:
       summary: CRUD ACTION findBycast
@@ -294,7 +278,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Film"
-    
+
   /film/findByfilmMaker/{key}:
     get:
       summary: CRUD ACTION findByfilmMaker
@@ -316,7 +300,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Film"
-    
+
   #-----  FilmMaker  -----
   /filmmaker/:
     post:
@@ -354,7 +338,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/FilmMaker"
-    
+
   /filmmaker/{id}:
     delete:
       summary: CRUD ACTION delete
@@ -377,7 +361,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Id 
+          description: Id
           required: true
           schema:
             type: string
@@ -412,7 +396,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/FilmMaker"
-    
+
   #-----  User  -----
   /user/{id}/changePassword:
     post:
@@ -422,7 +406,7 @@ paths:
       responses:
         "200":
           description: OK
-    
+
   /user/:
     post:
       summary: CRUD ACTION create
@@ -467,7 +451,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
-    
+
   /user/{id}:
     delete:
       summary: CRUD ACTION delete
@@ -490,7 +474,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: Id 
+          description: Id
           required: true
           schema:
             type: string
@@ -525,8 +509,7 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/User"
-    
-    
+
   #-----  User  -----
   /Users/{id}/changePassword:
     post:
@@ -551,7 +534,7 @@ paths:
                 passwordAdmin:
                   type: string
       responses:
-        '200':
+        "200":
           description: OK
   /Users/{id}:
     post:
@@ -608,16 +591,16 @@ paths:
               type: object
               properties:
                 username:
-                  type: 'string'
-                password: 
-                  type: 'string'
-                mail: 
-                  type: 'string'
-                name: 
-                  type: 'string'
-                surname: 
-                  type: 'string'
-                roles: 
+                  type: "string"
+                password:
+                  type: "string"
+                mail:
+                  type: "string"
+                name:
+                  type: "string"
+                surname:
+                  type: "string"
+                roles:
                   type: array
                   items:
                     type: string
@@ -628,44 +611,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-    
+
 # JWT security
 security:
-  - bearerAuth: [] 
-  
-  
+  - bearerAuth: []
+
 # Components
 components:
-
   # Security
   securitySchemes:
-    bearerAuth:            # arbitrary name for the security scheme
+    bearerAuth: # arbitrary name for the security scheme
       type: http
       scheme: bearer
-      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+      bearerFormat: JWT # optional, arbitrary value for documentation purposes
 
   # Data Model
   schemas:
     User:
       properties:
         username:
-          type: 'string'
-        password: 
-          type: 'string'
-        mail: 
-          type: 'string'
-        name: 
-          type: 'string'
-        surname: 
-          type: 'string'
-        roles: 
+          type: "string"
+        password:
+          type: "string"
+        mail:
+          type: "string"
+        name:
+          type: "string"
+        surname:
+          type: "string"
+        roles:
           type: array
           items:
             type: string
       required:
         - username
         - password
-        
 
     Actor:
       properties:
@@ -678,10 +658,9 @@ components:
         surname:
           type: string
       required:
-        -  _id
+        - _id
         - name
-      
-    
+
     Film:
       properties:
         _id:
@@ -693,10 +672,9 @@ components:
         year:
           type: number
       required:
-        -  _id
+        - _id
         - title
-      
-    
+
     FilmMaker:
       properties:
         _id:
@@ -706,29 +684,5 @@ components:
         surname:
           type: string
       required:
-        -  _id
+        - _id
         - name
-      
-    
-    User:
-      properties:
-        _id:
-          type: string
-        mail:
-          type: string
-        name:
-          type: string
-        password:
-          type: string
-        roles:
-          type: string
-        surname:
-          type: string
-        username:
-          type: string
-      required:
-        -  _id
-        - password
-        - username
-      
-    
