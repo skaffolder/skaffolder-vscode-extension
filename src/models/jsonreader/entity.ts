@@ -1,13 +1,13 @@
 import { ResourceAttr } from "./resource-attr";
 import { Relation } from "./relation";
 export class Entity {
-  constructor() {}
+  constructor(
+    public name?: string,
+    public _id?: string,
+    public description?: string,
+    public type?: string,
 
-  public _id?: string;
-  public description?: string;
-  public name?: string;
-  public type?: string;
-
-  public _attrs: ResourceAttr[] = [];
-  public _relations: Relation[] = [];
+    public _attrs: ResourceAttr[] = [],
+    public _relations: Relation[] = []
+  ) {}
 }

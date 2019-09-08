@@ -1,5 +1,9 @@
 export class Project {
-  constructor() {}
+  constructor(obj: Project) {
+    this._id = obj._id;
+    this.name = obj.name;
+  }
 
-  public name?: string;
+  public _id: string;
+  public name: string;
 }

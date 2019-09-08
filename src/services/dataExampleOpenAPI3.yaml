@@ -1,5 +1,6 @@
 openapi: 3.0.0
 info:
+  x-skaffolder-id-project: 5cce0c40e3f2a35ef6dd30fd
   title: Manage_Film_Example
   description: You can obtain JWT token from login API
   version: 0.1
@@ -14,6 +15,18 @@ paths:
       tags:
         - Security
       requestBody:
+        content:
+          application/json:
+            schema: # Request body contents
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              example: # Sample object
+                username: admin
+                password: 62f264d7ad826f02a8af714c0a54b197935b717656b80461686d450f7b3abde4c553541515de2052b9af70f710f0cd8a1a2d3f4d60aa72608d71a63a9a93c0f5
       responses:
         "200":
           description: OK
@@ -64,6 +77,9 @@ paths:
   #-----  Actor  -----
   /actor/:
     post:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd312c
+      x-skaffolder-name-api: create
+      x-resource: Actor
       summary: CRUD ACTION create
       tags:
         - Actor
@@ -88,6 +104,9 @@ paths:
                 surname:
                   type: string
     get:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3133
+      x-skaffolder-name-api: list
+      x-resource: Actor
       summary: CRUD ACTION list
       tags:
         - Actor
@@ -103,6 +122,9 @@ paths:
 
   /actor/{id}:
     delete:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3134
+      x-skaffolder-name-api: delete
+      x-resource: Actor
       summary: CRUD ACTION delete
       tags:
         - Actor
@@ -117,6 +139,9 @@ paths:
         "200":
           description: OK
     get:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd312d
+      x-skaffolder-name-api: get
+      x-resource: Actor
       summary: CRUD ACTION get
       tags:
         - Actor
@@ -135,6 +160,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/Actor"
     post:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd312b
+      x-skaffolder-name-api: update
+      x-resource: Actor
       summary: CRUD ACTION update
       tags:
         - Actor
@@ -162,6 +190,9 @@ paths:
   #-----  Film  -----
   /film/:
     post:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3145
+      x-skaffolder-name-api: create
+      x-resource: Film
       summary: CRUD ACTION create
       tags:
         - Film
@@ -186,6 +217,9 @@ paths:
                 year:
                   type: number
     get:
+      x-skaffolder-id-api: 5cce0c42e3f2a35ef6dd3149
+      x-skaffolder-name-api: list
+      x-resource: Film
       summary: CRUD ACTION list
       tags:
         - Film
@@ -201,6 +235,9 @@ paths:
 
   /film/{id}:
     delete:
+      x-skaffolder-id-api: 5cce0c42e3f2a35ef6dd314a
+      x-skaffolder-name-api: delete
+      x-resource: Film
       summary: CRUD ACTION delete
       tags:
         - Film
@@ -215,6 +252,9 @@ paths:
         "200":
           description: OK
     get:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3143
+      x-skaffolder-name-api: get
+      x-resource: Film
       summary: CRUD ACTION get
       tags:
         - Film
@@ -233,6 +273,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/Film"
     post:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3146
+      x-skaffolder-name-api: update
+      x-resource: Film
       summary: CRUD ACTION update
       tags:
         - Film
@@ -259,6 +302,9 @@ paths:
 
   /film/findBycast/{key}:
     get:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3130
+      x-skaffolder-name-api: findBycast
+      x-resource: Film
       summary: CRUD ACTION findBycast
       tags:
         - Film
@@ -281,6 +327,9 @@ paths:
 
   /film/findByfilmMaker/{key}:
     get:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd313c
+      x-skaffolder-name-api: findByfilmMaker
+      x-resource: Film
       summary: CRUD ACTION findByfilmMaker
       tags:
         - Film
@@ -304,6 +353,9 @@ paths:
   #-----  FilmMaker  -----
   /filmmaker/:
     post:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3139
+      x-skaffolder-name-api: create
+      x-resource: FilmMaker
       summary: CRUD ACTION create
       tags:
         - FilmMaker
@@ -326,6 +378,9 @@ paths:
                 surname:
                   type: string
     get:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd313f
+      x-skaffolder-name-api: list
+      x-resource: FilmMaker
       summary: CRUD ACTION list
       tags:
         - FilmMaker
@@ -341,6 +396,9 @@ paths:
 
   /filmmaker/{id}:
     delete:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3140
+      x-skaffolder-name-api: delete
+      x-resource: FilmMaker
       summary: CRUD ACTION delete
       tags:
         - FilmMaker
@@ -355,6 +413,9 @@ paths:
         "200":
           description: OK
     get:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd3137
+      x-skaffolder-name-api: get
+      x-resource: FilmMaker
       summary: CRUD ACTION get
       tags:
         - FilmMaker
@@ -373,6 +434,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/FilmMaker"
     post:
+      x-skaffolder-id-api: 5cce0c41e3f2a35ef6dd313a
+      x-skaffolder-name-api: update
+      x-resource: FilmMaker
       summary: CRUD ACTION update
       tags:
         - FilmMaker
@@ -400,6 +464,9 @@ paths:
   #-----  User  -----
   /user/{id}/changePassword:
     post:
+      x-skaffolder-id-api: 5cce0c40e3f2a35ef6dd310f
+      x-skaffolder-name-api: changePassword
+      x-resource: User
       summary: Change password of user from admin
       tags:
         - User
@@ -409,6 +476,9 @@ paths:
 
   /user/:
     post:
+      x-skaffolder-id-api: 5cce0c40e3f2a35ef6dd3110
+      x-skaffolder-name-api: create
+      x-resource: User
       summary: CRUD ACTION create
       tags:
         - User
@@ -439,6 +509,9 @@ paths:
                 username:
                   type: string
     get:
+      x-skaffolder-id-api: 5cce0c40e3f2a35ef6dd310c
+      x-skaffolder-name-api: list
+      x-resource: User
       summary: CRUD ACTION list
       tags:
         - User
@@ -454,6 +527,9 @@ paths:
 
   /user/{id}:
     delete:
+      x-skaffolder-id-api: 5cce0c40e3f2a35ef6dd310b
+      x-skaffolder-name-api: delete
+      x-resource: User
       summary: CRUD ACTION delete
       tags:
         - User
@@ -468,6 +544,9 @@ paths:
         "200":
           description: OK
     get:
+      x-skaffolder-id-api: 5cce0c40e3f2a35ef6dd3111
+      x-skaffolder-name-api: get
+      x-resource: User
       summary: CRUD ACTION get
       tags:
         - User
@@ -486,6 +565,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/User"
     post:
+      x-skaffolder-id-api: 5cce0c40e3f2a35ef6dd310a
+      x-skaffolder-name-api: update
+      x-resource: User
       summary: CRUD ACTION update
       tags:
         - User
@@ -510,108 +592,6 @@ paths:
             schema:
               $ref: "#/components/schemas/User"
 
-  #-----  User  -----
-  /Users/{id}/changePassword:
-    post:
-      summary: Change password by admin API
-      tags:
-        - User
-      parameters:
-        - name: id
-          in: path
-          description: Id
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                passwordNew:
-                  type: string
-                passwordAdmin:
-                  type: string
-      responses:
-        "200":
-          description: OK
-  /Users/{id}:
-    post:
-      summary: Update User API
-      tags:
-        - User
-      parameters:
-        - name: id
-          in: path
-          description: Id
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-    delete:
-      summary: Delete User API
-      tags:
-        - User
-      parameters:
-        - name: id
-          in: path
-          description: Id
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-  /Users:
-    post:
-      summary: Create User API
-      tags:
-        - User
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: "string"
-                password:
-                  type: "string"
-                mail:
-                  type: "string"
-                name:
-                  type: "string"
-                surname:
-                  type: "string"
-                roles:
-                  type: array
-                  items:
-                    type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-
 # JWT security
 security:
   - bearerAuth: []
@@ -627,27 +607,9 @@ components:
 
   # Data Model
   schemas:
-    User:
-      properties:
-        username:
-          type: "string"
-        password:
-          type: "string"
-        mail:
-          type: "string"
-        name:
-          type: "string"
-        surname:
-          type: "string"
-        roles:
-          type: array
-          items:
-            type: string
-      required:
-        - username
-        - password
-
     Actor:
+      x-skaffolder-id-model: 5cce0c40e3f2a35ef6dd3117
+      x-skaffolder-id-db: 5cce0c40e3f2a35ef6dd30fe
       properties:
         _id:
           type: string
@@ -662,6 +624,8 @@ components:
         - name
 
     Film:
+      x-skaffolder-id-model: 5cce0c41e3f2a35ef6dd3128
+      x-skaffolder-id-db: 5cce0c40e3f2a35ef6dd30fe
       properties:
         _id:
           type: string
@@ -676,6 +640,8 @@ components:
         - title
 
     FilmMaker:
+      x-skaffolder-id-model: 5cce0c41e3f2a35ef6dd311c
+      x-skaffolder-id-db: 5cce0c40e3f2a35ef6dd30fe
       properties:
         _id:
           type: string
@@ -686,3 +652,48 @@ components:
       required:
         - _id
         - name
+
+    User:
+      x-skaffolder-id-model: 5cce0c40e3f2a35ef6dd3107
+      x-skaffolder-id-db: 5cce0c40e3f2a35ef6dd30fe
+      properties:
+        _id:
+          type: string
+        mail:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+        roles:
+          type: string
+        surname:
+          type: string
+        username:
+          type: string
+      required:
+        - _id
+        - password
+        - username
+
+  # Databases
+  x-skaffolder-db:
+    - x-id: 5cce0c40e3f2a35ef6dd30fe
+      x-name: Manage_Film_Example_db
+
+  # Pages
+  x-skaffolder-page:
+    - x-id: 5cce0c41e3f2a35ef6dd312a
+      x-name: ActorEdit
+    - x-id: 5cce0c41e3f2a35ef6dd3132
+      x-name: ActorList
+    - x-id: 5cce0c41e3f2a35ef6dd3142
+      x-name: FilmEdit
+    - x-id: 5cce0c42e3f2a35ef6dd3148
+      x-name: FilmList
+    - x-id: 5cce0c41e3f2a35ef6dd3136
+      x-name: FilmMakerEdit
+    - x-id: 5cce0c41e3f2a35ef6dd313e
+      x-name: FilmMakerList
+    - x-id: 5cce0c40e3f2a35ef6dd3106
+      x-name: Home
