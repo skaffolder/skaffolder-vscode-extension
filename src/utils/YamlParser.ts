@@ -100,6 +100,26 @@ export class YamlParser {
       obj.resources.push(db);
     }
 
+    // Parse pages
+    for (let p in fileObj.components["x-skaffolder-page"]) {
+      let item = fileObj.components["x-skaffolder-page"][p];
+      // find token position of item
+      let lineId: number = YamlParser.getLinesNumberOf(
+        fileString,
+        item["x-id"]
+      );
+      let pos: vscode.Position = new vscode.Position(
+        lineId >= 0 ? lineId : 0,
+        0
+      );
+
+      let pos2: vscode.Position = new vscode.Position(lineId + 2, 0);
+      let rangePage: vscode.Range = new vscode.Range(pos, pos2);
+
+      let page = new Page(rangePage, item["x-id"], item["x-name"]);
+      obj.modules.push(page);
+    }
+
     console.log("Parser result:", obj);
     return obj;
   }

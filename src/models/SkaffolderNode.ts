@@ -12,7 +12,51 @@ export class SkaffolderNode extends vscode.TreeItem {
     super("", vscode.TreeItemCollapsibleState.None);
 
     // Switch action
-    if (type === "api") {
+    if (type === "page") {
+      this.skaffolderObject.modules.forEach((element, index) => {
+        this.children.push(
+          new SkaffolderNode(context, skaffolderObject, "page_page", [index])
+        );
+      });
+    } else if (type === "page_page") {
+      // Set page
+      this.label = this.skaffolderObject.modules[indexMap[0]].name;
+      this.collapsibleState = vscode.TreeItemCollapsibleState.None;
+      this.iconPath = {
+        light: this.context.asAbsolutePath(
+          path.join("media", "light", "database.svg")
+        ),
+        dark: this.context.asAbsolutePath(
+          path.join("media", "dark", "database.svg")
+        )
+      };
+
+      let contexturl = vscode.Uri.file(
+        vscode.workspace.rootPath + "/openapi.yaml"
+      );
+
+      let uris = this.findRelatedFiles(
+        "page",
+        this.skaffolderObject.modules[indexMap[0]]._id
+      );
+
+      let rangeModel = this.skaffolderObject.modules[indexMap[0]].index;
+
+      this.command = {
+        command: "skaffolder.openpage",
+        title: "Open SKfile Page",
+        arguments: [contexturl, uris, rangeModel]
+      };
+
+      this.iconPath = {
+        light: this.context.asAbsolutePath(
+          path.join("media", "light", "page.svg")
+        ),
+        dark: this.context.asAbsolutePath(
+          path.join("media", "dark", "page.svg")
+        )
+      };
+    } else if (type === "api") {
       this.skaffolderObject.resources.forEach((element, index) => {
         this.children.push(
           new SkaffolderNode(context, skaffolderObject, "api_db", [index])

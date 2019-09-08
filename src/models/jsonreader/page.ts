@@ -1,10 +1,13 @@
-export class Page {
-  constructor() {}
+import { Range } from "vscode";
 
-  public _id?: string;
-  public description?: string;
-  public html?: string;
-  public name?: string;
-  public template?: string;
-  public url?: string;
+export class Page {
+  constructor(
+    public index: Range,
+    public _id: string,
+    public name: string,
+    public url?: string,
+    public template?: string,
+    public description?: string,
+    public html?: string
+  ) {}
 }
