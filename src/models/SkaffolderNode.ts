@@ -191,10 +191,14 @@ export class SkaffolderNode extends vscode.TreeItem {
         vscode.Uri.file("/Users/lucacarducci/git/test/crm/package.json")
       ];
 
+      let rangeModel = this.skaffolderObject.resources[indexMap[0]]._resources[
+        indexMap[1]
+      ].index;
+
       this.command = {
         command: "skaffolder.openmodel",
         title: "Open SKfile",
-        arguments: [contexturl, uris]
+        arguments: [contexturl, uris, rangeModel]
       };
     }
   }

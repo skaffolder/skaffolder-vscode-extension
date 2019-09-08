@@ -12,10 +12,33 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "skaffolder.openmodel",
-      async (confiFilePath: vscode.Uri, files: vscode.Uri[]) => {
-        // TODO: open file config
+      async (
+        confiFilePath: vscode.Uri,
+        files: vscode.Uri[],
+        rangeModel: vscode.Range
+      ) => {
+        // // open file source
+        // await vscode.commands.executeCommand<vscode.Location[]>(
+        //   "workbench.action.quickOpen",
+        //   files
+        // );
 
+        // // Simulate ctrl + P
+        // try {
+        //   await vscode.commands.executeCommand<vscode.Location[]>(
+        //     "workbench.action.quickOpen",
+        //     "package.json"
+        //   );
+        // } catch (e) {
+        //   console.error(e);
+        // }
+
+        // Open file
         try {
+          // let contexturl = vscode.Uri.file(
+          //   vscode.workspace.rootPath + "/openapi.yaml"
+          // );
+
           await vscode.commands.executeCommand<vscode.Location[]>(
             "vscode.open",
             confiFilePath
@@ -24,11 +47,16 @@ export function activate(context: vscode.ExtensionContext) {
           console.error(e);
         }
 
-        // open file source
-        await vscode.commands.executeCommand<vscode.Location[]>(
-          "workbench.action.quickOpen",
-          files
+        // Select range
+        // let pos: vscode.Position = new vscode.Position(3, 2);
+        // let pos2: vscode.Position = new vscode.Position(8, 4);
+        // let range: vscode.Range = new vscode.Range(pos, pos2);
+        let selection: vscode.Selection = new vscode.Selection(
+          rangeModel.start,
+          rangeModel.end
         );
+        vscode.window.visibleTextEditors[0].selection = selection;
+        vscode.window.visibleTextEditors[0].revealRange(rangeModel);
       }
     )
   );
