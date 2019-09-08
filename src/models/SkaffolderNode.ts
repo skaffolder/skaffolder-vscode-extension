@@ -183,7 +183,7 @@ export class SkaffolderNode extends vscode.TreeItem {
       };
 
       let contexturl = vscode.Uri.file(
-        vscode.workspace.rootPath + "/skaffolder-project.yaml"
+        vscode.workspace.rootPath + "/openapi.yaml"
       );
 
       let uris = [
