@@ -9,6 +9,7 @@ import { Resource } from "../models/jsonreader/resource";
 import { ResourceAttr } from "../models/jsonreader/resource-attr";
 import { Entity } from "../models/jsonreader/entity";
 import { Service } from "../models/jsonreader/service";
+import { YamlParser } from "../utils/YamlParser";
 
 export class DataService {
   private static dataObj: SkaffolderObject;
@@ -40,7 +41,7 @@ export class DataService {
         console.error('File "openapi.yaml" not found', e);
       }
       let fileObj = yaml.parse(dataYaml);
-      DataService.dataObj = SkaffolderObject.parseYaml(fileObj, dataYaml);
+      DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);
     }
   }
 
