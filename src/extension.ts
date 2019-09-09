@@ -8,10 +8,10 @@ import * as SkaffolderCli from "skaffolder-cli";
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "Skaffolder" is now active!');
-  let files: SkaffolderCli.GeneratorFile[] = SkaffolderCli.getGenFiles(
-    vscode.workspace.rootPath + "/.skaffolder/template"
-  );
-  console.log("result", files);
+  // let files: SkaffolderCli.GeneratorFile[] = SkaffolderCli.getGenFiles(
+  //   vscode.workspace.rootPath + "/.skaffolder/template"
+  // );
+  // console.log("result", files);
 
   // Register commands
   context.subscriptions.push(

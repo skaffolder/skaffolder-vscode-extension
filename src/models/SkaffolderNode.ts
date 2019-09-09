@@ -11,258 +11,258 @@ export class SkaffolderNode extends vscode.TreeItem {
   ) {
     super("", vscode.TreeItemCollapsibleState.None);
 
-    // Switch action
-    if (type === "page") {
-      this.skaffolderObject.modules.forEach((element, index) => {
-        this.children.push(
-          new SkaffolderNode(context, skaffolderObject, "page_page", [index])
+    if (skaffolderObject !== undefined) {
+      // Switch action
+      if (type === "page") {
+        this.skaffolderObject.modules.forEach((element, index) => {
+          this.children.push(
+            new SkaffolderNode(context, skaffolderObject, "page_page", [index])
+          );
+        });
+      } else if (type === "page_page") {
+        // Set page
+        this.label = this.skaffolderObject.modules[indexMap[0]].name;
+        this.collapsibleState = vscode.TreeItemCollapsibleState.None;
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "database.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "database.svg")
+          )
+        };
+
+        let contexturl = vscode.Uri.file(
+          vscode.workspace.rootPath + "/openapi.yaml"
         );
-      });
-    } else if (type === "page_page") {
-      // Set page
-      this.label = this.skaffolderObject.modules[indexMap[0]].name;
-      this.collapsibleState = vscode.TreeItemCollapsibleState.None;
-      this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join("media", "light", "database.svg")
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join("media", "dark", "database.svg")
-        )
-      };
 
-      let contexturl = vscode.Uri.file(
-        vscode.workspace.rootPath + "/openapi.yaml"
-      );
-
-      let uris = this.findRelatedFiles(
-        "page",
-        this.skaffolderObject.modules[indexMap[0]]._id
-      );
-
-      let rangeModel = this.skaffolderObject.modules[indexMap[0]].index;
-
-      this.command = {
-        command: "skaffolder.openpage",
-        title: "Open SKfile Page",
-        arguments: [contexturl, uris, rangeModel]
-      };
-
-      this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join("media", "light", "page.svg")
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join("media", "dark", "page.svg")
-        )
-      };
-    } else if (type === "api") {
-      this.skaffolderObject.resources.forEach((element, index) => {
-        this.children.push(
-          new SkaffolderNode(context, skaffolderObject, "api_db", [index])
+        let uris = this.findRelatedFiles(
+          "page",
+          this.skaffolderObject.modules[indexMap[0]]._id
         );
-      });
-    } else if (type === "api_db") {
-      // Set db
-      this.label = this.skaffolderObject.resources[indexMap[0]].name;
-      this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
-      this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join("media", "light", "database.svg")
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join("media", "dark", "database.svg")
-        )
-      };
 
-      // Find children
-      this.skaffolderObject.resources[indexMap[0]]._resources.forEach(
-        (element, index) => {
-          let indexArr: number[] = [indexMap[0], index];
+        let rangeModel = this.skaffolderObject.modules[indexMap[0]].index;
+
+        this.command = {
+          command: "skaffolder.openpage",
+          title: "Open SKfile Page",
+          arguments: [contexturl, uris, rangeModel]
+        };
+
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "page.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "page.svg")
+          )
+        };
+      } else if (type === "api") {
+        this.skaffolderObject.resources.forEach((element, index) => {
+          this.children.push(
+            new SkaffolderNode(context, skaffolderObject, "api_db", [index])
+          );
+        });
+      } else if (type === "api_db") {
+        // Set db
+        this.label = this.skaffolderObject.resources[indexMap[0]].name;
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "database.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "database.svg")
+          )
+        };
+
+        // Find children
+        this.skaffolderObject.resources[indexMap[0]]._resources.forEach(
+          (element, index) => {
+            let indexArr: number[] = [indexMap[0], index];
+            this.children.push(
+              new SkaffolderNode(
+                context,
+                skaffolderObject,
+                "api_db_resource",
+                indexArr
+              )
+            );
+          }
+        );
+      } else if (type === "api_db_resource") {
+        // Set resource
+        this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
+          indexMap[1]
+        ].name;
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "model.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "model.svg")
+          )
+        };
+
+        // Find children
+        this.skaffolderObject.resources[indexMap[0]]._resources[
+          indexMap[1]
+        ]._services.forEach((element, index) => {
+          let indexArr: number[] = [indexMap[0], indexMap[1], index];
           this.children.push(
             new SkaffolderNode(
               context,
               skaffolderObject,
-              "api_db_resource",
+              "api_db_resource_api",
               indexArr
             )
           );
-        }
-      );
-    } else if (type === "api_db_resource") {
-      // Set resource
-      this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ].name;
-      this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
-      this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join("media", "light", "model.svg")
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join("media", "dark", "model.svg")
-        )
-      };
-
-      // Find children
-      this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ]._services.forEach((element, index) => {
-        let indexArr: number[] = [indexMap[0], indexMap[1], index];
-        this.children.push(
-          new SkaffolderNode(
-            context,
-            skaffolderObject,
-            "api_db_resource_api",
-            indexArr
+        });
+      } else if (type === "api_db_resource_api") {
+        // Set api
+        this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
+          indexMap[1]
+        ]._services[indexMap[2]].name;
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join(
+              "media",
+              "light",
+              "api_" +
+                this.skaffolderObject.resources[indexMap[0]]._resources[
+                  indexMap[1]
+                ]._services[indexMap[2]].method +
+                ".svg"
+            )
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join(
+              "media",
+              "dark",
+              "api_" +
+                this.skaffolderObject.resources[indexMap[0]]._resources[
+                  indexMap[1]
+                ]._services[indexMap[2]].method +
+                ".svg"
+            )
           )
+        };
+
+        let contexturl = vscode.Uri.file(
+          vscode.workspace.rootPath + "/openapi.yaml"
         );
-      });
-    } else if (type === "api_db_resource_api") {
-      // Set api
-      this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ]._services[indexMap[2]].name;
-      this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join(
-            "media",
-            "light",
-            "api_" +
-              this.skaffolderObject.resources[indexMap[0]]._resources[
-                indexMap[1]
-              ]._services[indexMap[2]].method +
-              ".svg"
-          )
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join(
-            "media",
-            "dark",
-            "api_" +
-              this.skaffolderObject.resources[indexMap[0]]._resources[
-                indexMap[1]
-              ]._services[indexMap[2]].method +
-              ".svg"
-          )
-        )
-      };
 
-      let contexturl = vscode.Uri.file(
-        vscode.workspace.rootPath + "/openapi.yaml"
-      );
-
-      let uris = this.findRelatedFiles(
-        "api",
-        this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
-      );
-
-      let rangeModel = this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ]._services[indexMap[2]].index;
-
-      this.command = {
-        command: "skaffolder.openapi",
-        title: "Open SKfile API",
-        arguments: [contexturl, uris, rangeModel]
-      };
-    }
-
-    if (type === "model") {
-      this.skaffolderObject.resources.forEach((element, index) => {
-        this.children.push(
-          new SkaffolderNode(context, skaffolderObject, "model_db", [index])
+        let uris = this.findRelatedFiles(
+          "api",
+          this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
         );
-      });
-    } else if (type === "model_db") {
-      // Set db
-      this.label = this.skaffolderObject.resources[indexMap[0]].name;
-      this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
-      this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join("media", "light", "database.svg")
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join("media", "dark", "database.svg")
-        )
-      };
 
-      // Find children
-      this.skaffolderObject.resources[indexMap[0]]._resources.forEach(
-        (element, index) => {
-          let indexArr: number[] = [indexMap[0], index];
+        let rangeModel = this.skaffolderObject.resources[indexMap[0]]
+          ._resources[indexMap[1]]._services[indexMap[2]].index;
+
+        this.command = {
+          command: "skaffolder.openapi",
+          title: "Open SKfile API",
+          arguments: [contexturl, uris, rangeModel]
+        };
+      }
+
+      if (type === "model") {
+        this.skaffolderObject.resources.forEach((element, index) => {
+          this.children.push(
+            new SkaffolderNode(context, skaffolderObject, "model_db", [index])
+          );
+        });
+      } else if (type === "model_db") {
+        // Set db
+        this.label = this.skaffolderObject.resources[indexMap[0]].name;
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "database.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "database.svg")
+          )
+        };
+
+        // Find children
+        this.skaffolderObject.resources[indexMap[0]]._resources.forEach(
+          (element, index) => {
+            let indexArr: number[] = [indexMap[0], index];
+            this.children.push(
+              new SkaffolderNode(
+                context,
+                skaffolderObject,
+                "model_db_resource",
+                indexArr
+              )
+            );
+          }
+        );
+      } else if (type === "model_db_resource") {
+        // Set resource
+        this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
+          indexMap[1]
+        ].name;
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "model.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "model.svg")
+          )
+        };
+
+        // Find children
+        this.skaffolderObject.resources[indexMap[0]]._resources[
+          indexMap[1]
+        ]._entity._attrs.forEach((element, index) => {
+          let indexArr: number[] = [indexMap[0], indexMap[1], index];
           this.children.push(
             new SkaffolderNode(
               context,
               skaffolderObject,
-              "model_db_resource",
+              "model_db_resource_attr",
               indexArr
             )
           );
-        }
-      );
-    } else if (type === "model_db_resource") {
-      // Set resource
-      this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ].name;
-      this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
-      this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join("media", "light", "model.svg")
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join("media", "dark", "model.svg")
-        )
-      };
+        });
+      } else if (type === "model_db_resource_attr") {
+        // Set attr
+        this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
+          indexMap[1]
+        ]._entity._attrs[indexMap[2]].name;
 
-      // Find children
-      this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ]._entity._attrs.forEach((element, index) => {
-        let indexArr: number[] = [indexMap[0], indexMap[1], index];
-        this.children.push(
-          new SkaffolderNode(
-            context,
-            skaffolderObject,
-            "model_db_resource_attr",
-            indexArr
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "string.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "string.svg")
           )
+        };
+
+        let contexturl = vscode.Uri.file(
+          vscode.workspace.rootPath + "/openapi.yaml"
         );
-      });
-    } else if (type === "model_db_resource_attr") {
-      // Set attr
-      this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ]._entity._attrs[indexMap[2]].name;
 
-      this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join("media", "light", "string.svg")
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join("media", "dark", "string.svg")
-        )
-      };
+        let uris = this.findRelatedFiles(
+          "model",
+          this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
+        );
 
-      let contexturl = vscode.Uri.file(
-        vscode.workspace.rootPath + "/openapi.yaml"
-      );
+        let rangeModel = this.skaffolderObject.resources[indexMap[0]]
+          ._resources[indexMap[1]].index;
 
-      let uris = this.findRelatedFiles(
-        "model",
-        this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
-      );
-
-      let rangeModel = this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ].index;
-
-      this.command = {
-        command: "skaffolder.openmodel",
-        title: "Open SKfile",
-        arguments: [contexturl, uris, rangeModel]
-      };
+        this.command = {
+          command: "skaffolder.openmodel",
+          title: "Open SKfile",
+          arguments: [contexturl, uris, rangeModel]
+        };
+      }
     }
   }
 

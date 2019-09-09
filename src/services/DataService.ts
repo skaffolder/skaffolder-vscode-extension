@@ -39,9 +39,12 @@ export class DataService {
         dataYaml = fs.readFileSync(contexturl.path, "utf-8");
       } catch (e) {
         console.error('File "openapi.yaml" not found', e);
+        vscode.window.showInformationMessage("Workspace has no openapi.yaml");
       }
-      let fileObj = yaml.parse(dataYaml);
-      DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);
+      if (dataYaml !== "") {
+        let fileObj = yaml.parse(dataYaml);
+        DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);
+      }
     }
   }
 
