@@ -68,6 +68,7 @@
   "dependencies": {
     "@types/yaml": "^1.0.2",
     "jsonc-parser": "^0.4.2",
+    "skaffolder-cli": "^1.1.25",
     "yaml": "^1.6.0"
   }
 }
