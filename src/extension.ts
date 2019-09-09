@@ -3,6 +3,7 @@
 import * as vscode from "vscode";
 import { TreeProviderSkaffolder } from "./providers/treeProviderSkaffolder";
 import * as SkaffolderCli from "skaffolder-cli";
+import { DataService } from "./services/DataService";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -126,6 +127,26 @@ export function activate(context: vscode.ExtensionContext) {
     )
   );
 
+  refresh(context);
+
+  vscode.workspace.onDidSaveTextDocument(e => {
+    var filename = e.fileName
+      .replace(/\//g, "")
+      .replace(/\\/g, "")
+      .replace(
+        (vscode.workspace.rootPath || "").replace(/\//g, "").replace(/\\/g, ""),
+        ""
+      );
+
+    if (filename === "openapi.yaml") {
+      DataService.refreshData();
+      refresh(context);
+      vscode.window.showInformationMessage("Refresh");
+    }
+  });
+}
+
+let refresh = function(context: vscode.ExtensionContext) {
   // Create trees
   const skaffolderProviderModel = new TreeProviderSkaffolder(context, "model");
   const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
@@ -146,7 +167,7 @@ export function activate(context: vscode.ExtensionContext) {
     "skaffolderExplorerPage",
     skaffolderProviderPage
   );
-}
+};
 
 // this method is called when your extension is deactivated
 export function deactivate() {}

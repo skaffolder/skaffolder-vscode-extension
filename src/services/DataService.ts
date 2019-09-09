@@ -16,36 +16,43 @@ export class DataService {
 
   constructor() {
     if (!DataService.dataObj) {
-      // Example JSON
-      // let data = fs.readFileSync(
-      //   __dirname + "/../../src/services/dataExample.json",
-      //   "utf-8"
-      // );
-      // DataService.dataObj = JSON.parse(data);
-
-      // Example yaml
-      // let dataYaml: string = fs.readFileSync(
-      //   __dirname + "/../../src/services/dataExampleOpenAPI3.yaml",
-      //   "utf-8"
-      // );
-
-      // read file in workspace
-
-      let contexturl = vscode.Uri.file(
-        vscode.workspace.rootPath + "/openapi.yaml"
-      );
-      let dataYaml: string = "";
-      try {
-        dataYaml = fs.readFileSync(contexturl.path, "utf-8");
-      } catch (e) {
-        console.error('File "openapi.yaml" not found', e);
-        vscode.window.showInformationMessage("Workspace has no openapi.yaml");
-      }
-      if (dataYaml !== "") {
-        let fileObj = yaml.parse(dataYaml);
-        DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);
-      }
+      DataService.refreshData();
     }
+  }
+
+  public static refreshData() {
+    // Example JSON
+    // let data = fs.readFileSync(
+    //   __dirname + "/../../src/services/dataExample.json",
+    //   "utf-8"
+    // );
+    // DataService.dataObj = JSON.parse(data);
+
+    // Example yaml
+    // let dataYaml: string = fs.readFileSync(
+    //   __dirname + "/../../src/services/dataExampleOpenAPI3.yaml",
+    //   "utf-8"
+    // );
+
+    // read file in workspace
+    let contexturl = vscode.Uri.file(
+      vscode.workspace.rootPath + "/openapi.yaml"
+    );
+    let dataYaml: string = "";
+    try {
+      console.log("read file");
+      dataYaml = fs.readFileSync(contexturl.path, "utf-8");
+    } catch (e) {
+      console.error('File "openapi.yaml" not found', e);
+      vscode.window.showInformationMessage("Workspace has no openapi.yaml");
+    }
+
+    if (dataYaml !== "") {
+      let fileObj = yaml.parse(dataYaml);
+      DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);
+    }
+
+    return;
   }
 
   public getSkObject() {
