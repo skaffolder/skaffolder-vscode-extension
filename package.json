@@ -35,6 +35,36 @@
         }
       ]
     },
+    "commands": [
+      {
+        "command": "nodeDependencies.editEntry",
+        "title": "Edit",
+        "icon": {
+          "light": "media/light/edit.svg",
+          "dark": "media/dark/edit.svg"
+        }
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "nodeDependencies.editEntry"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "nodeDependencies.editEntry",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "nodeDependencies.editEntry",
+          "when": "view == skaffolderExplorerModel && viewItem == model",
+          "group": "inline"
+        }
+      ]
+    },
     "configuration": [
       {
         "title": "Explorer",

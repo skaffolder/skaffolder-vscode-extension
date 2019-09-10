@@ -2,6 +2,12 @@ import * as vscode from "vscode";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
+    vscode.commands.registerCommand("nodeDependencies.editEntry", node =>
+      vscode.window.showInformationMessage(
+        `Successfully called edit entry on ${node}.`
+      )
+    );
+
     // Register commands
     context.subscriptions.push(
       vscode.commands.registerCommand(

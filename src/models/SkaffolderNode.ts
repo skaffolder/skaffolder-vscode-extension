@@ -215,6 +215,7 @@ export class SkaffolderNode extends vscode.TreeItem {
             path.join("media", "dark", "model.svg")
           )
         };
+        this.contextValue = "model";
 
         // Menu model
         let indexArr: number[] = [indexMap[0], indexMap[1]];
