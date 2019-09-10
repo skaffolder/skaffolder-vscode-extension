@@ -8,6 +8,8 @@ import { SkaffolderObject } from "../models/skaffolderObject";
 import { Db } from "../models/jsonreader/db";
 import { YamlParser } from "../utils/YamlParser";
 import { Resource } from "../models/jsonreader/resource";
+import { Page } from "../models/jsonreader/page";
+import * as path from "path";
 
 var helpers = require("handlebars-helpers")({
   handlebars: handlebars
@@ -37,9 +39,15 @@ export class DataService {
     }
   }
 
-  static findRelatedFiles(type: string, item: Resource, itemDb: Db) {
+  static findRelatedFiles(type: string, item: Resource | Page, itemDb?: Db) {
     let paths: string[] = [];
-    let files: SkaffolderCli.GeneratorFile[] = DataService.getTemplateFilesForResource();
+    let files: SkaffolderCli.GeneratorFile[] = [];
+
+    if (type === "resource") {
+      files = DataService.getTemplateFilesForResource();
+    } else {
+      files = DataService.getTemplateFilesForPage();
+    }
 
     files.forEach(file => {
       let fileName = file.name;
@@ -52,11 +60,20 @@ export class DataService {
       } catch (e) {
         console.error(e);
       }
-      paths.push(fileName.replace(/\/\//g, "/"));
+      paths.push(fileName);
     });
 
     return paths;
   }
+
+  static getTemplateFilesForPage(): SkaffolderCli.GeneratorFile[] {
+    if (DataService.templateFiles === undefined) {
+      DataService.resetTemplateFiles();
+    }
+
+    return DataService.templateFilesCateg.module;
+  }
+
   static getTemplateFilesForResource(): SkaffolderCli.GeneratorFile[] {
     if (DataService.templateFiles === undefined) {
       DataService.resetTemplateFiles();

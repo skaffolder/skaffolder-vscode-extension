@@ -78,7 +78,8 @@ export class Commands {
         async (
           confiFilePath: vscode.Uri,
           rangeModel: vscode.Range,
-          files: string[]
+          model: Resource,
+          db: Db
         ) => {
           // Open file openapi
           try {
@@ -99,6 +100,8 @@ export class Commands {
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
 
           // Open files
+          let files = DataService.findRelatedFiles("resource", model, db);
+
           this.openFiles(files);
         }
       )
@@ -132,7 +135,9 @@ export class Commands {
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
 
           // Open files
-          // this.openFiles(files);
+          let files = DataService.findRelatedFiles("module", page);
+
+          this.openFiles(files);
         }
       )
     );

@@ -161,7 +161,10 @@ export class SkaffolderNode extends vscode.TreeItem {
           arguments: [
             contexturl,
             rangeModel,
-            this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
+            this.skaffolderObject.resources[indexMap[0]]._resources[
+              indexMap[1]
+            ],
+            this.skaffolderObject.resources[indexMap[0]]
           ]
         };
       }
