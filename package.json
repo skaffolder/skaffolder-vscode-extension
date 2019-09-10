@@ -30,10 +30,6 @@
           "name": "Models"
         },
         {
-          "id": "skaffolderExplorerAPI",
-          "name": "API"
-        },
-        {
           "id": "skaffolderExplorerPage",
           "name": "Pages"
         }

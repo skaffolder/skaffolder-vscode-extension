@@ -46,7 +46,7 @@ let refresh = function(context: vscode.ExtensionContext) {
       context,
       "model"
     );
-    const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
+    // const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
     const skaffolderProviderPage = new TreeProviderSkaffolder(context, "page");
 
     // Register trees
@@ -55,10 +55,10 @@ let refresh = function(context: vscode.ExtensionContext) {
       skaffolderProviderModel
     );
 
-    vscode.window.registerTreeDataProvider(
-      "skaffolderExplorerAPI",
-      skaffolderProviderApi
-    );
+    // vscode.window.registerTreeDataProvider(
+    //   "skaffolderExplorerAPI",
+    //   skaffolderProviderApi
+    // );
 
     vscode.window.registerTreeDataProvider(
       "skaffolderExplorerPage",

@@ -206,13 +206,47 @@ export class SkaffolderNode extends vscode.TreeItem {
         this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
           indexMap[1]
         ].name;
-        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
         this.iconPath = {
           light: this.context.asAbsolutePath(
             path.join("media", "light", "model.svg")
           ),
           dark: this.context.asAbsolutePath(
             path.join("media", "dark", "model.svg")
+          )
+        };
+
+        // Menu model
+        let indexArr: number[] = [indexMap[0], indexMap[1]];
+
+        this.children.push(
+          new SkaffolderNode(
+            context,
+            skaffolderObject,
+            "model_db_resource_attr_menu",
+            indexArr
+          )
+        );
+
+        this.children.push(
+          new SkaffolderNode(
+            context,
+            skaffolderObject,
+            "model_db_resource_api_menu",
+            indexArr
+          )
+        );
+      } else if (type === "model_db_resource_attr_menu") {
+        // Set menu attr
+        this.label = "attributes";
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "string.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "string.svg")
           )
         };
 
@@ -226,6 +260,34 @@ export class SkaffolderNode extends vscode.TreeItem {
               context,
               skaffolderObject,
               "model_db_resource_attr",
+              indexArr
+            )
+          );
+        });
+      } else if (type === "model_db_resource_api_menu") {
+        // Set menu apis
+        this.label = "APIs";
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
+
+        this.iconPath = {
+          light: this.context.asAbsolutePath(
+            path.join("media", "light", "api.svg")
+          ),
+          dark: this.context.asAbsolutePath(
+            path.join("media", "dark", "api.svg")
+          )
+        };
+
+        // Find children
+        this.skaffolderObject.resources[indexMap[0]]._resources[
+          indexMap[1]
+        ]._services.forEach((element, index) => {
+          let indexArr: number[] = [indexMap[0], indexMap[1], index];
+          this.children.push(
+            new SkaffolderNode(
+              context,
+              skaffolderObject,
+              "api_db_resource_api",
               indexArr
             )
           );
