@@ -1,7 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import * as SkaffolderCli from "skaffolder-cli";
 import { TreeProviderSkaffolder } from "./providers/treeProviderSkaffolder";
 import { DataService } from "./services/DataService";
 import { Commands } from "./utils/Commands";
@@ -10,10 +9,6 @@ import { Commands } from "./utils/Commands";
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "Skaffolder" is now active!');
-  // let files: SkaffolderCli.GeneratorFile[] = SkaffolderCli.getGenFiles(
-  //   vscode.workspace.rootPath + "/.skaffolder/template"
-  // );
-  // console.log("result", files);
 
   // Register commands
   Commands.registerCommands(context);

@@ -1,23 +1,44 @@
 import * as fs from "fs";
-import { SkaffolderObject } from "../models/skaffolderObject";
-import { Db } from "../models/jsonreader/db";
+import * as SkaffolderCli from "skaffolder-cli";
 import * as yaml from "yaml";
 import * as vscode from "vscode";
 
-import { Project } from "../models/jsonreader/project";
-import { Resource } from "../models/jsonreader/resource";
-import { ResourceAttr } from "../models/jsonreader/resource-attr";
-import { Entity } from "../models/jsonreader/entity";
-import { Service } from "../models/jsonreader/service";
+import { SkaffolderObject } from "../models/skaffolderObject";
+import { Db } from "../models/jsonreader/db";
 import { YamlParser } from "../utils/YamlParser";
 
 export class DataService {
   private static dataObj: SkaffolderObject;
+  private static templateFiles: SkaffolderCli.GeneratorFile[];
 
   constructor() {
     if (!DataService.dataObj) {
       DataService.refreshData();
     }
+  }
+
+  static findRelatedFiles(type: string, item: any) {
+    let files: SkaffolderCli.GeneratorFile[] = DataService.getTemplateFiles();
+
+    // TODO: find files
+    return [
+      vscode.Uri.file("/Users/lucacarducci/git/test/crm/readme.txt"),
+      vscode.Uri.file("/Users/lucacarducci/git/test/crm/package.json")
+    ];
+  }
+
+  static getTemplateFiles(): SkaffolderCli.GeneratorFile[] {
+    if (DataService.templateFiles === undefined) {
+      DataService.resetTemplateFiles();
+    }
+
+    return DataService.templateFiles;
+  }
+
+  static resetTemplateFiles() {
+    DataService.templateFiles = SkaffolderCli.getGenFiles(
+      vscode.workspace.rootPath + "/.skaffolder/template"
+    );
   }
 
   static isSkaffolderProject(): boolean {

@@ -1,4 +1,7 @@
 import * as vscode from "vscode";
+import { Resource } from "../models/jsonreader/resource";
+import { Page } from "../models/jsonreader/page";
+import { DataService } from "../services/DataService";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
@@ -14,8 +17,8 @@ export class Commands {
         "skaffolder.openmodel",
         async (
           confiFilePath: vscode.Uri,
-          files: vscode.Uri[],
-          rangeModel: vscode.Range
+          rangeModel: vscode.Range,
+          model: Resource
         ) => {
           // // open file source
           // await vscode.commands.executeCommand<vscode.Location[]>(
@@ -59,6 +62,8 @@ export class Commands {
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
 
           // Open files
+          let files = DataService.findRelatedFiles("model", model);
+
           this.openFiles(files);
         }
       )
@@ -103,8 +108,8 @@ export class Commands {
         "skaffolder.openpage",
         async (
           confiFilePath: vscode.Uri,
-          files: vscode.Uri[],
-          rangeModel: vscode.Range
+          rangeModel: vscode.Range,
+          page: Page
         ) => {
           // Open file openapi
           try {
@@ -125,7 +130,7 @@ export class Commands {
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
 
           // Open files
-          this.openFiles(files);
+          // this.openFiles(files);
         }
       )
     );

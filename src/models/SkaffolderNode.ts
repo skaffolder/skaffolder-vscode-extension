@@ -36,17 +36,16 @@ export class SkaffolderNode extends vscode.TreeItem {
           vscode.workspace.rootPath + "/openapi.yaml"
         );
 
-        let uris = this.findRelatedFiles(
-          "page",
-          this.skaffolderObject.modules[indexMap[0]]._id
-        );
-
         let rangeModel = this.skaffolderObject.modules[indexMap[0]].index;
 
         this.command = {
           command: "skaffolder.openpage",
           title: "Open SKfile Page",
-          arguments: [contexturl, uris, rangeModel]
+          arguments: [
+            contexturl,
+            rangeModel,
+            this.skaffolderObject.modules[indexMap[0]]
+          ]
         };
 
         this.iconPath = {
@@ -153,18 +152,17 @@ export class SkaffolderNode extends vscode.TreeItem {
           vscode.workspace.rootPath + "/openapi.yaml"
         );
 
-        let uris = this.findRelatedFiles(
-          "api",
-          this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
-        );
-
         let rangeModel = this.skaffolderObject.resources[indexMap[0]]
           ._resources[indexMap[1]]._services[indexMap[2]].index;
 
         this.command = {
           command: "skaffolder.openapi",
           title: "Open SKfile API",
-          arguments: [contexturl, uris, rangeModel]
+          arguments: [
+            contexturl,
+            rangeModel,
+            this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
+          ]
         };
       }
 
@@ -206,7 +204,7 @@ export class SkaffolderNode extends vscode.TreeItem {
         this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
           indexMap[1]
         ].name;
-        this.collapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
         this.iconPath = {
           light: this.context.asAbsolutePath(
             path.join("media", "light", "model.svg")
@@ -312,29 +310,21 @@ export class SkaffolderNode extends vscode.TreeItem {
           vscode.workspace.rootPath + "/openapi.yaml"
         );
 
-        let uris = this.findRelatedFiles(
-          "model",
-          this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
-        );
-
         let rangeModel = this.skaffolderObject.resources[indexMap[0]]
           ._resources[indexMap[1]].index;
 
         this.command = {
           command: "skaffolder.openmodel",
           title: "Open SKfile",
-          arguments: [contexturl, uris, rangeModel]
+          arguments: [
+            contexturl,
+            rangeModel,
+            this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
+          ]
         };
       }
     }
   }
 
   public children: SkaffolderNode[] = [];
-
-  private findRelatedFiles(type: string, item: any) {
-    return [
-      vscode.Uri.file("/Users/lucacarducci/git/test/crm/readme.txt"),
-      vscode.Uri.file("/Users/lucacarducci/git/test/crm/package.json")
-    ];
-  }
 }
