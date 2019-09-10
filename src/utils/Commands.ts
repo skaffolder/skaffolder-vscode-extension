@@ -27,7 +27,7 @@ export class Commands {
           //   console.error(e);
           // }
 
-          // Open file
+          // Open file openapi
           try {
             // let contexturl = vscode.Uri.file(
             //   vscode.workspace.rootPath + "/openapi.yaml"
@@ -51,6 +51,9 @@ export class Commands {
           );
           vscode.window.visibleTextEditors[0].selection = selection;
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
+
+          // Open files
+          this.openFiles(files);
         }
       )
     );
@@ -64,7 +67,7 @@ export class Commands {
           files: vscode.Uri[],
           rangeModel: vscode.Range
         ) => {
-          // Open file
+          // Open file openapi
           try {
             await vscode.commands.executeCommand<vscode.Location[]>(
               "vscode.open",
@@ -81,6 +84,9 @@ export class Commands {
           );
           vscode.window.visibleTextEditors[0].selection = selection;
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
+
+          // Open files
+          this.openFiles(files);
         }
       )
     );
@@ -94,7 +100,7 @@ export class Commands {
           files: vscode.Uri[],
           rangeModel: vscode.Range
         ) => {
-          // Open file
+          // Open file openapi
           try {
             await vscode.commands.executeCommand<vscode.Location[]>(
               "vscode.open",
@@ -111,8 +117,28 @@ export class Commands {
           );
           vscode.window.visibleTextEditors[0].selection = selection;
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
+
+          // Open files
+          this.openFiles(files);
         }
       )
     );
+  }
+  static openFiles(files: vscode.Uri[]) {
+    // Open files
+    let filesPath: string[] = [];
+    files.forEach(item => {
+      filesPath.push(item.path);
+    });
+
+    vscode.window.showQuickPick(filesPath).then(async item => {
+      if (item) {
+        let uri = vscode.Uri.file(item);
+        await vscode.commands.executeCommand<vscode.Location[]>(
+          "vscode.open",
+          uri
+        );
+      }
+    });
   }
 }

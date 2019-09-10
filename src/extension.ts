@@ -40,26 +40,35 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 let refresh = function(context: vscode.ExtensionContext) {
-  // Create trees
-  const skaffolderProviderModel = new TreeProviderSkaffolder(context, "model");
-  const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
-  const skaffolderProviderPage = new TreeProviderSkaffolder(context, "page");
+  if (DataService.isSkaffolderProject()) {
+    // Create trees
+    const skaffolderProviderModel = new TreeProviderSkaffolder(
+      context,
+      "model"
+    );
+    const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
+    const skaffolderProviderPage = new TreeProviderSkaffolder(context, "page");
 
-  // Register trees
-  vscode.window.registerTreeDataProvider(
-    "skaffolderExplorerModel",
-    skaffolderProviderModel
-  );
+    // Register trees
+    vscode.window.registerTreeDataProvider(
+      "skaffolderExplorerModel",
+      skaffolderProviderModel
+    );
 
-  vscode.window.registerTreeDataProvider(
-    "skaffolderExplorerAPI",
-    skaffolderProviderApi
-  );
+    vscode.window.registerTreeDataProvider(
+      "skaffolderExplorerAPI",
+      skaffolderProviderApi
+    );
 
-  vscode.window.registerTreeDataProvider(
-    "skaffolderExplorerPage",
-    skaffolderProviderPage
-  );
+    vscode.window.registerTreeDataProvider(
+      "skaffolderExplorerPage",
+      skaffolderProviderPage
+    );
+  } else {
+    vscode.window.showWarningMessage(
+      "Workspace has no openapi.yaml, this is not a Skaffolder project"
+    );
+  }
 };
 
 // this method is called when your extension is deactivated

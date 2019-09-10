@@ -20,6 +20,13 @@ export class DataService {
     }
   }
 
+  static isSkaffolderProject(): boolean {
+    let contexturl = vscode.Uri.file(
+      vscode.workspace.rootPath + "/openapi.yaml"
+    );
+    return fs.existsSync(contexturl.path);
+  }
+
   public static refreshData() {
     // Example JSON
     // let data = fs.readFileSync(
@@ -44,7 +51,7 @@ export class DataService {
       dataYaml = fs.readFileSync(contexturl.path, "utf-8");
     } catch (e) {
       console.error('File "openapi.yaml" not found', e);
-      vscode.window.showInformationMessage("Workspace has no openapi.yaml");
+      vscode.window.showWarningMessage("Workspace has no openapi.yaml");
     }
 
     if (dataYaml !== "") {
