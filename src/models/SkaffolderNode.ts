@@ -313,13 +313,17 @@ export class SkaffolderNode extends vscode.TreeItem {
         let rangeModel = this.skaffolderObject.resources[indexMap[0]]
           ._resources[indexMap[1]].index;
 
+        let db = this.skaffolderObject.resources[indexMap[0]];
         this.command = {
           command: "skaffolder.openmodel",
           title: "Open SKfile",
           arguments: [
             contexturl,
             rangeModel,
-            this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
+            this.skaffolderObject.resources[indexMap[0]]._resources[
+              indexMap[1]
+            ],
+            db
           ]
         };
       }

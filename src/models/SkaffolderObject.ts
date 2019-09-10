@@ -13,4 +13,6 @@ export class SkaffolderObject {
   public project?: Project;
   public resources: Db[] = [];
   public modules: Page[] = [];
+
+  public resource?: Resource;
 }

@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { Resource } from "../models/jsonreader/resource";
 import { Page } from "../models/jsonreader/page";
 import { DataService } from "../services/DataService";
+import { Db } from "../models/jsonreader/db";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
@@ -18,7 +19,8 @@ export class Commands {
         async (
           confiFilePath: vscode.Uri,
           rangeModel: vscode.Range,
-          model: Resource
+          model: Resource,
+          db: Db
         ) => {
           // // open file source
           // await vscode.commands.executeCommand<vscode.Location[]>(
@@ -62,7 +64,7 @@ export class Commands {
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
 
           // Open files
-          let files = DataService.findRelatedFiles("model", model);
+          let files = DataService.findRelatedFiles("resource", model, db);
 
           this.openFiles(files);
         }
@@ -75,8 +77,8 @@ export class Commands {
         "skaffolder.openapi",
         async (
           confiFilePath: vscode.Uri,
-          files: vscode.Uri[],
-          rangeModel: vscode.Range
+          rangeModel: vscode.Range,
+          files: string[]
         ) => {
           // Open file openapi
           try {
@@ -135,16 +137,11 @@ export class Commands {
       )
     );
   }
-  static openFiles(files: vscode.Uri[]) {
+  static openFiles(files: string[]) {
     // Open files
-    let filesPath: string[] = [];
-    files.forEach(item => {
-      filesPath.push(item.path);
-    });
-
-    vscode.window.showQuickPick(filesPath).then(async item => {
+    vscode.window.showQuickPick(files).then(async item => {
       if (item) {
-        let uri = vscode.Uri.file(item);
+        let uri = vscode.Uri.file(vscode.workspace.rootPath + "/" + item);
         await vscode.commands.executeCommand<vscode.Location[]>(
           "vscode.open",
           uri
