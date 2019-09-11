@@ -27,11 +27,18 @@
       "skaffolder-explorer": [
         {
           "id": "skaffolderExplorerModel",
-          "name": "Models"
+          "name": "Models",
+          "when": "isSkaffolderProject"
         },
         {
           "id": "skaffolderExplorerPage",
-          "name": "Pages"
+          "name": "Pages",
+          "when": "isSkaffolderProject"
+        },
+        {
+          "id": "skaffolderExplorerTemplates",
+          "name": "Create project",
+          "when": "!isSkaffolderProject"
         }
       ]
     },

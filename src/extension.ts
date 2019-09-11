@@ -4,6 +4,7 @@ import * as vscode from "vscode";
 import { TreeProviderSkaffolder } from "./providers/treeProviderSkaffolder";
 import { DataService } from "./services/DataService";
 import { Commands } from "./utils/Commands";
+import { TreeProviderTemplateSkaffolder } from "./providers/treeProviderTemplateSkaffolder";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -55,11 +56,26 @@ let refresh = function(context: vscode.ExtensionContext) {
     //   skaffolderProviderApi
     // );
 
+    vscode.commands.executeCommand("setContext", "isSkaffolderProject", true);
     vscode.window.registerTreeDataProvider(
       "skaffolderExplorerPage",
       skaffolderProviderPage
     );
   } else {
+    // Create trees
+    const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(
+      context
+    );
+
+    // Register trees
+    vscode.window.registerTreeDataProvider(
+      "skaffolderExplorerTemplates",
+      skaffolderProviderTemplate
+    );
+
+    // Set context
+    vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
+
     vscode.window.showWarningMessage(
       "Workspace has no openapi.yaml, this is not a Skaffolder project"
     );
