@@ -161,11 +161,14 @@ export class DataService {
     return;
   }
 
-  public getSkObject() {
+  public static getSkObject() {
+    if (!DataService.dataObj) {
+      DataService.refreshData();
+    }
     return DataService.dataObj;
   }
 
-  public getApi(): Db[] {
+  public static getApi(): Db[] {
     let obj = this.getSkObject();
 
     return obj["resources"] || [];

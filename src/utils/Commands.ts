@@ -16,6 +16,47 @@ export class Commands {
 
     // Register commands
 
+    vscode.commands.registerCommand("skaffolder.generate", data => {
+      vscode.window.showInformationMessage("Generation starts");
+      try {
+        SkaffolderCli.generate(
+          vscode.workspace.rootPath + "/",
+          DataService.getSkObject(),
+          {
+            info: function(msg: string) {
+              vscode.window.showInformationMessage(msg);
+            }
+          },
+          async function(err: string[], logs: string[]) {
+            vscode.window.showInformationMessage("Generation completed");
+
+            // Print results in file
+            const myScheme = "skaffolder";
+            const myProvider = new (class
+              implements vscode.TextDocumentContentProvider {
+              onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
+              onDidChange = this.onDidChangeEmitter.event;
+
+              // Create file content
+              provideTextDocumentContent(uri: vscode.Uri): string {
+                return logs.join("\n");
+              }
+            })();
+            vscode.workspace.registerTextDocumentContentProvider(
+              myScheme,
+              myProvider
+            );
+
+            let uri = vscode.Uri.parse("skaffolder: Generation Complete");
+            let doc = await vscode.workspace.openTextDocument(uri);
+            await vscode.window.showTextDocument(doc, { preview: false });
+          }
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
     // Create project
     try {
       // Get list templates
