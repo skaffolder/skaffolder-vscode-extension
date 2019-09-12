@@ -1,7 +1,6 @@
 export class Role {
-  constructor() {}
+  constructor(public name: string) {}
 
   public _id?: string;
   public description?: string;
-  public name?: string;
 }

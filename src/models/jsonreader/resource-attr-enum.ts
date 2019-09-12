@@ -1,7 +1,5 @@
 export class ResourceAttrEnum {
-  constructor() {}
+  constructor(public name: string, public _id?: string) {}
 
-  public _id?: string;
-  public name?: string;
   // Relations _attr
 }

@@ -7,6 +7,8 @@ import { Service } from "../models/jsonreader/service";
 import * as vscode from "vscode";
 import * as yaml from "yaml";
 import { SkaffolderObject } from "../models/SkaffolderObject";
+import { Relation } from "../models/jsonreader/relation";
+import { Entity } from "../models/jsonreader/entity";
 
 export class YamlParser {
   static getLinesNumberOf(input: string, word: string): number {
@@ -30,7 +32,7 @@ export class YamlParser {
     let obj: SkaffolderObject = new SkaffolderObject();
     obj.project = new Project({
       _id: fileObj.info["x-skaffolder-id-project"],
-      name: fileObj.info.name
+      name: fileObj.info.title
     });
 
     // Parse dbs
@@ -55,21 +57,36 @@ export class YamlParser {
         let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
         let rangeModel: vscode.Range = new vscode.Range(pos, pos2);
 
-        let res = new Resource(rangeModel, item["x-skaffolder-id-model"], r);
+        let res = new Resource(
+          rangeModel,
+          item["x-skaffolder-id-model"],
+          r,
+          item["x-skaffolder-url"]
+        );
 
+        res._entity._id = item["x-skaffolder-id-entity"];
         // Parse attributes
         for (let a in item.properties) {
           let attrItem = item.properties[a];
-          let attr = new ResourceAttr("", a, attrItem.type);
+          if (attrItem["x-skaffolder-id-attr"]) {
+            let attr = new ResourceAttr(a, attrItem);
+            res._entity._attrs.push(attr);
+          }
+        }
 
-          res._entity._attrs.push(attr);
+        // Parse relations
+        for (let r in item["x-skaffolder-relations"]) {
+          let relItem = item["x-skaffolder-relations"][r];
+          let rel = new Relation(r, relItem);
+
+          res._entity._relations.push(rel);
         }
 
         // Parse services
         for (let s in fileObj.paths) {
           let serviceItem = fileObj.paths[s];
           for (let m in serviceItem) {
-            if (fileObj.paths[s][m]["x-resource"] === res.name) {
+            if (fileObj.paths[s][m]["x-skaffolder-resource"] === res.name) {
               // find token position of item
               let lineId: number = YamlParser.getLinesNumberOf(
                 fileString,
@@ -83,12 +100,7 @@ export class YamlParser {
               let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
               let rangeApi: vscode.Range = new vscode.Range(pos, pos2);
 
-              let service = new Service(
-                rangeApi,
-                fileObj.paths[s][m]["x-skaffolder-id-api"],
-                fileObj.paths[s][m]["x-skaffolder-name-api"],
-                m
-              );
+              let service = new Service(rangeApi, m, fileObj.paths[s][m]);
 
               res._services.push(service);
             }
@@ -97,6 +109,18 @@ export class YamlParser {
 
         db._resources.push(res);
       }
+
+      // populate resources
+      db._resources.forEach(res => {
+        res._entity._relations.forEach(rel => {
+          let ent1: Entity = YamlParser.searchRel(db, String(rel._ent1));
+          let ent2: Entity = YamlParser.searchRel(db, String(rel._ent2));
+
+          rel._ent1 = ent1;
+          rel._ent2 = ent2;
+        });
+      });
+
       obj.resources.push(db);
     }
 
@@ -122,6 +146,16 @@ export class YamlParser {
 
     console.log("Parser result:", obj);
     return obj;
+  }
+
+  static searchRel(db: Db, rel_id: string): Entity {
+    for (let r in db._resources) {
+      let entity = db._resources[r]._entity;
+      if (entity._id === rel_id) {
+        return new Entity(entity.name, entity._id);
+      }
+    }
+    return new Entity();
   }
 
   constructor() {}
