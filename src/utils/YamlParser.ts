@@ -47,7 +47,7 @@ export class YamlParser {
         // find token position of item
         let lineId: number = YamlParser.getLinesNumberOf(
           fileString,
-          item["x-skaffolder-id-model"]
+          item["x-skaffolder-id-resource"]
         );
         let pos: vscode.Position = new vscode.Position(
           lineId >= 0 ? lineId - 1 : 0,
@@ -59,7 +59,7 @@ export class YamlParser {
 
         let res = new Resource(
           rangeModel,
-          item["x-skaffolder-id-model"],
+          item["x-skaffolder-id-resource"],
           r,
           item["x-skaffolder-url"]
         );
@@ -140,12 +140,44 @@ export class YamlParser {
       let pos2: vscode.Position = new vscode.Position(lineId + 2, 0);
       let rangePage: vscode.Range = new vscode.Range(pos, pos2);
 
-      let page = new Page(rangePage, item["x-id"], item["x-name"]);
+      let page = new Page(rangePage, item);
       obj.modules.push(page);
     }
 
+    // Populate pages
+    obj.modules.forEach(page => {
+      if (page._services) {
+        page._services.forEach((service: any) => {
+          service = YamlParser.searchService(obj.resources, service);
+        });
+      }
+    });
+
     console.log("Parser result:", obj);
     return obj;
+  }
+  static searchService(
+    resources: Db[],
+    serviceId: string
+  ): Service | undefined {
+    for (let d in resources) {
+      let db: Db = resources[d];
+
+      for (let r in db._resources) {
+        let res = db._resources[r];
+
+        for (let s in res._services) {
+          let serv = res._services[s];
+
+          if (serv._id === serviceId) {
+            return serv;
+          }
+        }
+      }
+    }
+    console.error("Service not found with id " + serviceId);
+
+    return undefined;
   }
 
   static searchRel(db: Db, rel_id: string): Entity {
