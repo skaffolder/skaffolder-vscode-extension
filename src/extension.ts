@@ -10,6 +10,7 @@ import { TreeProviderTemplateSkaffolder } from "./providers/treeProviderTemplate
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "Skaffolder" is now active!');
+  vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
 
   // Register commands
   Commands.registerCommands(context);
@@ -76,9 +77,9 @@ let refresh = function(context: vscode.ExtensionContext) {
     // Set context
     vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
 
-    vscode.window.showWarningMessage(
-      "Workspace has no openapi.yaml, this is not a Skaffolder project"
-    );
+    // vscode.window.showWarningMessage(
+    //   "Workspace has no openapi.yaml, this is not a Skaffolder project"
+    // );
   }
 };
 

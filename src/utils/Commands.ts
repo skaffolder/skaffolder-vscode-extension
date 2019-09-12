@@ -1,4 +1,6 @@
 import * as vscode from "vscode";
+import * as SkaffolderCli from "skaffolder-cli";
+
 import { Resource } from "../models/jsonreader/resource";
 import { Page } from "../models/jsonreader/page";
 import { DataService } from "../services/DataService";
@@ -13,6 +15,58 @@ export class Commands {
     );
 
     // Register commands
+
+    // Create project
+    try {
+      // Get list templates
+      SkaffolderCli.getTemplate((err: any, template: any[]) => {
+        vscode.commands.registerCommand("skaffolder.createProject", node => {
+          let listFrontend: any[] = [];
+          let listBackend: any[] = [];
+
+          template.filter(temp => {
+            if (temp.type === "frontend") {
+              listFrontend.push({
+                label: temp.name,
+                context: temp._id
+              });
+            } else if (temp.type === "backend") {
+              listBackend.push({
+                label: temp.name,
+                context: temp._id
+              });
+            }
+          });
+
+          // Ask name
+          // vscode.window
+          //   .showQuickPick([], {
+          //     placeHolder: "Insert the name of your project"
+          //   })
+          //   .then(nameProj => {
+          //     console.log(nameProj);
+          // Ask backend
+          vscode.window
+            .showQuickPick(listFrontend, {
+              placeHolder: "Choose your frontend language"
+            })
+            .then(frontendObj => {
+              vscode.window
+                .showQuickPick(listBackend, {
+                  placeHolder: "Choose your backend language"
+                })
+                .then(async backendObj => {
+                  console.log("ok");
+                });
+            });
+        });
+        // });
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    // Open model
     context.subscriptions.push(
       vscode.commands.registerCommand(
         "skaffolder.openmodel",
@@ -64,9 +118,15 @@ export class Commands {
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
 
           // Open files
-          let files = DataService.findRelatedFiles("resource", model, db);
+          console.log("ok");
+          try {
+            let files = DataService.findRelatedFiles("resource", model, db);
+            console.log(files);
 
-          this.openFiles(files);
+            this.openFiles(files);
+          } catch (e) {
+            console.error(e);
+          }
         }
       )
     );
@@ -144,6 +204,7 @@ export class Commands {
   }
   static openFiles(files: string[]) {
     // Open files
+    console.log(files);
     vscode.window.showQuickPick(files).then(async item => {
       if (item) {
         let uri = vscode.Uri.file(vscode.workspace.rootPath + "/" + item);

@@ -32,7 +32,7 @@ export class TreeProviderTemplateSkaffolder
   private createTree(): SkaffolderTemplateNode {
     let tree: SkaffolderTemplateNode;
 
-    tree = new SkaffolderTemplateNode(this.context);
+    tree = new SkaffolderTemplateNode(this.context, "main");
     return tree;
   }
 }

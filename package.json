@@ -103,7 +103,7 @@
     "handlebars": "^4.2.0",
     "handlebars-helpers": "^0.10.0",
     "jsonc-parser": "^0.4.2",
-    "skaffolder-cli": "^1.1.25",
+    "skaffolder-cli": "^1.1.27",
     "yaml": "^1.6.0"
   }
 }
