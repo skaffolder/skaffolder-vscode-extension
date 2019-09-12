@@ -15,7 +15,7 @@ export class Commands {
     );
 
     // Register commands
-
+    
     // Create project
     try {
       // Get list templates
@@ -39,12 +39,12 @@ export class Commands {
           });
 
           // Ask name
-          // vscode.window
-          //   .showQuickPick([], {
-          //     placeHolder: "Insert the name of your project"
-          //   })
-          //   .then(nameProj => {
-          //     console.log(nameProj);
+          vscode.window
+            .showInputBox( {
+              placeHolder: "Insert the name of your project"
+            })
+            .then(nameProj => {
+              console.log(nameProj);
           // Ask backend
           vscode.window
             .showQuickPick(listFrontend, {
@@ -56,11 +56,11 @@ export class Commands {
                   placeHolder: "Choose your backend language"
                 })
                 .then(async backendObj => {
-                  console.log("ok");
+                  SkaffolderCli.createProjectExtension(nameProj, frontendObj, backendObj);
                 });
             });
         });
-        // });
+         });
       });
     } catch (e) {
       console.error(e);
