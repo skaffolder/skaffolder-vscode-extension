@@ -144,11 +144,36 @@ export class YamlParser {
       obj.modules.push(page);
     }
 
-    // Populate pages
     obj.modules.forEach(page => {
+      // Populate pages
       if (page._services) {
-        page._services.forEach((service: any) => {
-          service = YamlParser.searchService(obj.resources, service);
+        page._services.forEach((service: any, index: number) => {
+          page._services[index] = YamlParser.searchService(
+            obj.resources,
+            service
+          );
+        });
+      }
+
+      // Populate links
+      if (
+        page._links !== null &&
+        page._links !== undefined &&
+        page._links instanceof Array
+      ) {
+        page._links.forEach((pageItem: any, index: number) => {
+          page._links[index] = YamlParser.searchPage(obj.modules, pageItem);
+        });
+      }
+
+      // Populate nesteds
+      if (
+        page._nesteds !== null &&
+        page._nesteds !== undefined &&
+        page._nesteds instanceof Array
+      ) {
+        page._nesteds.forEach((pageItem: any, index: number) => {
+          page._nesteds[index] = YamlParser.searchPage(obj.modules, pageItem);
         });
       }
     });
@@ -156,10 +181,21 @@ export class YamlParser {
     console.log("Parser result:", obj);
     return obj;
   }
-  static searchService(
-    resources: Db[],
-    serviceId: string
-  ): Service | undefined {
+
+  static searchPage(pages: Page[], pageId: string): Page | string {
+    for (let p in pages) {
+      let page: Page = pages[p];
+
+      if (page._id === pageId) {
+        return page;
+      }
+    }
+    console.error("Page not found with id " + pageId);
+
+    return "";
+  }
+
+  static searchService(resources: Db[], serviceId: string): Service | string {
     for (let d in resources) {
       let db: Db = resources[d];
 
@@ -177,7 +213,7 @@ export class YamlParser {
     }
     console.error("Service not found with id " + serviceId);
 
-    return undefined;
+    return "";
   }
 
   static searchRel(db: Db, rel_id: string): Entity {

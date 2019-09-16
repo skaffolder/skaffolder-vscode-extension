@@ -12,6 +12,25 @@ export class Page {
     this._services = yamlObj["x-services"];
     this._nesteds = yamlObj["x-nesteds"];
     this._links = yamlObj["x-links"];
+
+    let roles = yamlObj["x-roles"];
+
+    // Populate roles
+    if (roles instanceof Array) {
+      this._roles = [];
+      for (let r in roles) {
+        let rol: Role = new Role(roles[r]);
+        this._roles.push(rol);
+      }
+    }
+
+    if (roles === undefined) {
+      this._roles = undefined;
+    }
+
+    if (roles === null) {
+      this._roles = [];
+    }
   }
   public _id: string;
   public name: string;
@@ -22,6 +41,6 @@ export class Page {
   public html?: string;
   public _nesteds: Page[] | string[] = [];
   public _links: Page[] | string[] = [];
-  public _roles?: Role[] | string[];
+  public _roles?: Role[] | null;
   public _services: Service[] | string[] = [];
 }

@@ -8,9 +8,9 @@ export class ResourceAttr {
     this.unique = objOpenapi["x-skaffolder-unique"];
     this.description = objOpenapi["x-skaffolder-description"];
 
-    this.enums = [];
+    this._enum = [];
     for (var i in objOpenapi["x-skaffolder-enumeration"]) {
-      this.enums.push(
+      this._enum.push(
         new ResourceAttrEnum(objOpenapi["x-skaffolder-enumeration"][i])
       );
     }
@@ -20,7 +20,7 @@ export class ResourceAttr {
   public type?: string;
   public required?: Boolean;
   public unique?: Boolean;
-  public enums?: ResourceAttrEnum[];
+  public _enum?: ResourceAttrEnum[];
   public ref?: string;
   public description?: string;
 }
