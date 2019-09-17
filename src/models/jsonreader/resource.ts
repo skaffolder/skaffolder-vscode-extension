@@ -9,6 +9,7 @@ export class Resource {
     public _id: string,
     public name: string,
     public url: string,
+    public _db: string,
     public description?: string,
     public type?: string,
     public _services: Service[] = [],

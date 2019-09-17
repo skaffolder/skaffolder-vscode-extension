@@ -61,7 +61,8 @@ export class YamlParser {
           rangeModel,
           item["x-skaffolder-id-resource"],
           r,
-          item["x-skaffolder-url"]
+          item["x-skaffolder-url"],
+          String(db._id)
         );
 
         let entity: Entity = res._entity as Entity;

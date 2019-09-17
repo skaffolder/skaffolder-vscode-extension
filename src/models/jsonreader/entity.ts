@@ -20,7 +20,8 @@ export class Entity {
         undefined,
         resource._id,
         resource.name,
-        resource.url
+        resource.url,
+        resource._db
       );
     }
   }
