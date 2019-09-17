@@ -8,11 +8,13 @@ export class ResourceAttr {
     this.unique = objOpenapi["x-skaffolder-unique"];
     this.description = objOpenapi["x-skaffolder-description"];
 
-    this._enum = [];
-    for (var i in objOpenapi["x-skaffolder-enumeration"]) {
-      this._enum.push(
-        new ResourceAttrEnum(objOpenapi["x-skaffolder-enumeration"][i])
-      );
+    if (objOpenapi["x-skaffolder-enumeration"]) {
+      this._enum = [];
+      for (var i in objOpenapi["x-skaffolder-enumeration"]) {
+        this._enum.push(
+          new ResourceAttrEnum(objOpenapi["x-skaffolder-enumeration"][i])
+        );
+      }
     }
   }
   public _id: string;
