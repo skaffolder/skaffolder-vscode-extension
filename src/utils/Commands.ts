@@ -30,26 +30,15 @@ export class Commands {
           async function(err: string[], logs: string[]) {
             vscode.window.showInformationMessage("Generation completed");
 
-            // Print results in file
-            const myScheme = "skaffolder";
-            const myProvider = new (class
-              implements vscode.TextDocumentContentProvider {
-              onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
-              onDidChange = this.onDidChangeEmitter.event;
-
-              // Create file content
-              provideTextDocumentContent(uri: vscode.Uri): string {
-                return logs.join("\n");
-              }
-            })();
-            vscode.workspace.registerTextDocumentContentProvider(
-              myScheme,
-              myProvider
+            // Print results in HTML
+            const panel = vscode.window.createWebviewPanel(
+              "skaffolder", // Identifies the type of the webview. Used internally
+              "Skaffolder Generation Result", // Title of the panel displayed to the user
+              vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+              {} // Webview options. More on these later.
             );
 
-            let uri = vscode.Uri.parse("skaffolder: Generation Complete");
-            let doc = await vscode.workspace.openTextDocument(uri);
-            await vscode.window.showTextDocument(doc, { preview: false });
+            panel.webview.html = logs.join("<br>");
           }
         );
       } catch (e) {
