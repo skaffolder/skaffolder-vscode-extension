@@ -81,6 +81,7 @@ export class YamlParser {
           let rel = new Relation(r, relItem);
 
           entity._relations.push(rel);
+          res._relations.push(rel);
         }
 
         // Parse services

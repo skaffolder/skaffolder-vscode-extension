@@ -1,6 +1,7 @@
 import { Entity } from "./entity";
 import { Service } from "./service";
 import { Range } from "vscode";
+import { Relation } from "./relation";
 
 export class Resource {
   constructor(
@@ -11,6 +12,7 @@ export class Resource {
     public description?: string,
     public type?: string,
     public _services: Service[] = [],
-    public _entity: Entity | string = new Entity(name)
+    public _entity: Entity | string = new Entity(name),
+    public _relations: Relation[] = []
   ) {}
 }
