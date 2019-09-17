@@ -64,13 +64,14 @@ export class YamlParser {
           item["x-skaffolder-url"]
         );
 
-        res._entity._id = item["x-skaffolder-id-entity"];
+        let entity: Entity = res._entity as Entity;
+        entity._id = item["x-skaffolder-id-entity"];
         // Parse attributes
         for (let a in item.properties) {
           let attrItem = item.properties[a];
           if (attrItem["x-skaffolder-id-attr"]) {
             let attr = new ResourceAttr(a, attrItem);
-            res._entity._attrs.push(attr);
+            entity._attrs.push(attr);
           }
         }
 
@@ -79,7 +80,7 @@ export class YamlParser {
           let relItem = item["x-skaffolder-relations"][r];
           let rel = new Relation(r, relItem);
 
-          res._entity._relations.push(rel);
+          entity._relations.push(rel);
         }
 
         // Parse services
@@ -139,7 +140,7 @@ export class YamlParser {
       // populate resources
       db._resources.forEach(res => {
         // populate relations
-        res._entity._relations.forEach(rel => {
+        (res._entity as Entity)._relations.forEach(rel => {
           let ent1: Entity = YamlParser.searchRel(db, String(rel._ent1));
           let ent2: Entity = YamlParser.searchRel(db, String(rel._ent2));
 
@@ -159,7 +160,7 @@ export class YamlParser {
       });
     });
 
-    obj.dbs = JSON.parse(JSON.stringify(obj.resources));
+    obj.dbs = obj.resources;
 
     obj.modules.forEach(page => {
       // Populate pages
@@ -209,10 +210,19 @@ export class YamlParser {
       let db: Db = resources[d];
 
       for (let r in db._resources) {
-        let res = db._resources[r];
+        let res = JSON.parse(JSON.stringify(db._resources[r]));
 
         if (res._id === resId) {
-          return JSON.parse(JSON.stringify(res));
+          // clean
+          res._entity = String((res._entity as Entity)._id);
+          res._services = JSON.parse(
+            JSON.stringify(
+              res._services.map((serv: { _id: any }) => {
+                return serv ? serv._id : null;
+              })
+            )
+          );
+          return res;
         }
       }
     }
@@ -223,9 +233,20 @@ export class YamlParser {
 
   static searchPage(pages: Page[], pageId: string): Page | string {
     for (let p in pages) {
-      let page: Page = pages[p];
+      let page: Page = JSON.parse(JSON.stringify(pages[p]));
 
       if (page._id === pageId) {
+        // clean
+        page._links = [];
+        page._nesteds = [];
+        if (page._services) {
+          page._services = (page._services as Service[]).map(
+            (serv: { _id: any }) => {
+              return serv ? serv._id : null;
+            }
+          );
+        }
+
         return page;
       }
     }
@@ -242,9 +263,16 @@ export class YamlParser {
         let res = db._resources[r];
 
         for (let s in res._services) {
-          let serv = res._services[s];
+          let serv = JSON.parse(JSON.stringify(res._services[s]));
 
           if (serv._id === serviceId) {
+            // clean
+            if (serv._resource) {
+              serv._resource._services = [];
+              serv._resource._entity = String(
+                (serv._resource._entity as Entity)._id
+              );
+            }
             return serv;
           }
         }
@@ -257,7 +285,7 @@ export class YamlParser {
 
   static searchRel(db: Db, rel_id: string): Entity {
     for (let r in db._resources) {
-      let entity = db._resources[r]._entity;
+      let entity = db._resources[r]._entity as Entity;
       if (entity._id === rel_id) {
         return new Entity(entity.name, entity._id);
       }

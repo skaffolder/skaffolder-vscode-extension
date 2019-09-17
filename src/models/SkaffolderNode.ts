@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import { SkaffolderObject } from "./SkaffolderObject";
+import { Entity } from "./jsonreader/entity";
 
 export class SkaffolderNode extends vscode.TreeItem {
   constructor(
@@ -253,9 +254,8 @@ export class SkaffolderNode extends vscode.TreeItem {
         };
 
         // Find children
-        this.skaffolderObject.resources[indexMap[0]]._resources[
-          indexMap[1]
-        ]._entity._attrs.forEach((element, index) => {
+        (this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
+          ._entity as Entity)._attrs.forEach((element, index) => {
           let indexArr: number[] = [indexMap[0], indexMap[1], index];
           this.children.push(
             new SkaffolderNode(
@@ -296,9 +296,9 @@ export class SkaffolderNode extends vscode.TreeItem {
         });
       } else if (type === "model_db_resource_attr") {
         // Set attr
-        this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
+        this.label = (this.skaffolderObject.resources[indexMap[0]]._resources[
           indexMap[1]
-        ]._entity._attrs[indexMap[2]].name;
+        ]._entity as Entity)._attrs[indexMap[2]].name;
 
         this.iconPath = {
           light: this.context.asAbsolutePath(
