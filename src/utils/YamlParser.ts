@@ -62,7 +62,8 @@ export class YamlParser {
           item["x-skaffolder-id-resource"],
           r,
           item["x-skaffolder-url"],
-          String(db._id)
+          String(db._id),
+          r === "User" ? "User" : undefined
         );
 
         let entity: Entity = res._entity as Entity;

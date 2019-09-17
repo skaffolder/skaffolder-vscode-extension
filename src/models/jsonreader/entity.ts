@@ -21,7 +21,8 @@ export class Entity {
         resource._id,
         resource.name,
         resource.url,
-        resource._db
+        resource._db,
+        resource.name === "User" ? "User" : undefined
       );
     }
   }

@@ -10,8 +10,8 @@ export class Resource {
     public name: string,
     public url: string,
     public _db: string,
-    public description?: string,
     public type?: string,
+    public description?: string,
     public _services: Service[] = [],
     public _entity: Entity | string = new Entity(name),
     public _relations: Relation[] = []
