@@ -5,7 +5,7 @@ import { Relation } from "./relation";
 
 export class Resource {
   constructor(
-    public index: Range,
+    public index: Range | undefined,
     public _id: string,
     public name: string,
     public url: string,

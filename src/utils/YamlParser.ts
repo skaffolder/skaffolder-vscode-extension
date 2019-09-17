@@ -288,7 +288,7 @@ export class YamlParser {
     for (let r in db._resources) {
       let entity = db._resources[r]._entity as Entity;
       if (entity._id === rel_id) {
-        return new Entity(entity.name, entity._id);
+        return new Entity(entity.name, entity._id, db._id, db._resources[r]);
       }
     }
     return new Entity();
