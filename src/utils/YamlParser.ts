@@ -110,17 +110,6 @@ export class YamlParser {
         db._resources.push(res);
       }
 
-      // populate resources
-      db._resources.forEach(res => {
-        res._entity._relations.forEach(rel => {
-          let ent1: Entity = YamlParser.searchRel(db, String(rel._ent1));
-          let ent2: Entity = YamlParser.searchRel(db, String(rel._ent2));
-
-          rel._ent1 = ent1;
-          rel._ent2 = ent2;
-        });
-      });
-
       obj.resources.push(db);
     }
 
@@ -143,6 +132,30 @@ export class YamlParser {
       let page = new Page(rangePage, item);
       obj.modules.push(page);
     }
+
+    // POPULATE
+
+    obj.resources.forEach(db => {
+      // populate resources
+      db._resources.forEach(res => {
+        // populate relations
+        res._entity._relations.forEach(rel => {
+          let ent1: Entity = YamlParser.searchRel(db, String(rel._ent1));
+          let ent2: Entity = YamlParser.searchRel(db, String(rel._ent2));
+
+          rel._ent1 = ent1;
+          rel._ent2 = ent2;
+        });
+
+        // populate services
+        res._services.forEach(serv => {
+          serv._resource = YamlParser.searchResource(
+            obj.resources,
+            String(serv._resource)
+          );
+        });
+      });
+    });
 
     obj.modules.forEach(page => {
       // Populate pages
@@ -180,6 +193,22 @@ export class YamlParser {
 
     console.log("Parser result:", obj);
     return obj;
+  }
+  static searchResource(resources: Db[], resId: string): Resource | undefined {
+    for (let d in resources) {
+      let db: Db = resources[d];
+
+      for (let r in db._resources) {
+        let res = db._resources[r];
+
+        if (res._id === resId) {
+          return res;
+        }
+      }
+    }
+    console.error("Resource not found with id " + resId);
+
+    return;
   }
 
   static searchPage(pages: Page[], pageId: string): Page | string {
