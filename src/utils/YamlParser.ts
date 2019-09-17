@@ -154,8 +154,12 @@ export class YamlParser {
             String(serv._resource)
           );
         });
+
+        res._services = YamlParser.orderByName(res._services);
       });
     });
+
+    obj.dbs = JSON.parse(JSON.stringify(obj.resources));
 
     obj.modules.forEach(page => {
       // Populate pages
@@ -194,6 +198,12 @@ export class YamlParser {
     console.log("Parser result:", obj);
     return obj;
   }
+  static orderByName(services: Service[]): Service[] {
+    return services.sort((a, b) => {
+      return a.name > b.name ? 1 : 0;
+    });
+  }
+
   static searchResource(resources: Db[], resId: string): Resource | undefined {
     for (let d in resources) {
       let db: Db = resources[d];
@@ -202,7 +212,7 @@ export class YamlParser {
         let res = db._resources[r];
 
         if (res._id === resId) {
-          return res;
+          return JSON.parse(JSON.stringify(res));
         }
       }
     }

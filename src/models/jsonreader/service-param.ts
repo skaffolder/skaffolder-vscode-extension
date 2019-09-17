@@ -2,7 +2,7 @@ export class ServiceParam {
   constructor(objYaml: any) {
     this.name = objYaml.name;
     this.description = objYaml.description;
-    this.type = objYaml.schema.type;
+    this.type = objYaml["x-skaffolder-type"];
   }
 
   public _id?: string;
