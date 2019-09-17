@@ -167,11 +167,22 @@ export class YamlParser {
     obj.modules.forEach(page => {
       // Populate pages
       if (page._services) {
+        let resourcesMap: Map<String, Resource> = new Map<String, Resource>();
         page._services.forEach((service: any, index: number) => {
           page._services[index] = YamlParser.searchService(
             obj.resources,
             service
           );
+
+          let resJSon = (page._services[index] as Service)._resource;
+          if (resJSon) {
+            let res: Resource = resJSon;
+            resourcesMap.set(res._id, res);
+          }
+        });
+
+        resourcesMap.forEach(item => {
+          page._resources.push(item);
         });
       }
 

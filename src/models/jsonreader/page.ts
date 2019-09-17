@@ -1,6 +1,7 @@
 import { Range } from "vscode";
 import { Role } from "./role";
 import { Service } from "./service";
+import { Resource } from "./resource";
 
 export class Page {
   constructor(public index: Range, yamlObj: any) {
@@ -43,4 +44,5 @@ export class Page {
   public _links: Page[] | string[] = [];
   public _roles?: Role[] | null;
   public _services: Service[] | string[] = [];
+  public _resources: Resource[] = [];
 }
