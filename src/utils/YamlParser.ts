@@ -39,6 +39,7 @@ export class YamlParser {
     for (let d in fileObj.components["x-skaffolder-db"]) {
       let itemDb = fileObj.components["x-skaffolder-db"][d];
       let db = new Db(itemDb["x-id"], itemDb["x-name"]);
+      let dbEntity = new Db(itemDb["x-id"], itemDb["x-name"]);
 
       // Parse resources
       for (let r in fileObj.components["schemas"]) {
@@ -112,9 +113,11 @@ export class YamlParser {
         }
 
         db._resources.push(res);
+        dbEntity._entity.push(res._entity as Entity);
       }
 
       obj.resources.push(db);
+      obj.dbs.push(dbEntity);
     }
 
     // Parse pages
@@ -162,8 +165,6 @@ export class YamlParser {
         res._services = YamlParser.orderByName(res._services);
       });
     });
-
-    obj.dbs = obj.resources;
 
     obj.modules.forEach(page => {
       // Populate pages

@@ -48,8 +48,17 @@ logo {
 
 h1 {}
 
-.file-result {}
+.file-result {
+  margin-left: 15px;
+}
 
+.file-result.elaborated {
+  margin-left: 0px;
+}
+
+.file-result.elaborated label{
+  color: #dadada
+}
 .file-result.edit label{
   color: #0078CE
 }
@@ -183,11 +192,8 @@ h1 {}
           vscode.window.visibleTextEditors[0].revealRange(rangeModel);
 
           // Open files
-          console.log("ok");
           try {
             let files = DataService.findRelatedFiles("resource", model, db);
-            console.log(files);
-
             this.openFiles(files);
           } catch (e) {
             console.error(e);
@@ -269,7 +275,6 @@ h1 {}
   }
   static openFiles(files: string[]) {
     // Open files
-    console.log(files);
     vscode.window.showQuickPick(files).then(async item => {
       if (item) {
         let uri = vscode.Uri.file(vscode.workspace.rootPath + "/" + item);
