@@ -121,9 +121,12 @@ export class SkaffolderNode extends vscode.TreeItem {
         });
       } else if (type === "api_db_resource_api") {
         // Set api
-        this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
+        let api = this.skaffolderObject.resources[indexMap[0]]._resources[
           indexMap[1]
-        ]._services[indexMap[2]].name;
+        ]._services[indexMap[2]];
+        this.label = api.name;
+        this.description = api.method;
+
         this.iconPath = {
           light: this.context.asAbsolutePath(
             path.join(
@@ -296,9 +299,11 @@ export class SkaffolderNode extends vscode.TreeItem {
         });
       } else if (type === "model_db_resource_attr") {
         // Set attr
-        this.label = (this.skaffolderObject.resources[indexMap[0]]._resources[
+        let attr = (this.skaffolderObject.resources[indexMap[0]]._resources[
           indexMap[1]
-        ]._entity as Entity)._attrs[indexMap[2]].name;
+        ]._entity as Entity)._attrs[indexMap[2]];
+        this.label = attr.name;
+        this.description = attr.type;
 
         this.iconPath = {
           light: this.context.asAbsolutePath(
@@ -318,11 +323,9 @@ export class SkaffolderNode extends vscode.TreeItem {
 
         let db = this.skaffolderObject.resources[indexMap[0]];
         this.command = {
-          command: "skaffolder.openmodel",
+          command: "skaffolder.openfiles",
           title: "Open SKfile",
           arguments: [
-            contexturl,
-            rangeModel,
             this.skaffolderObject.resources[indexMap[0]]._resources[
               indexMap[1]
             ],

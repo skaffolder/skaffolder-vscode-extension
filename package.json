@@ -44,7 +44,7 @@
     },
     "commands": [
       {
-        "command": "nodeDependencies.editEntry",
+        "command": "skaffolder.editmodel",
         "title": "Edit",
         "icon": {
           "light": "media/light/edit.svg",
@@ -69,7 +69,7 @@
       ],
       "view/item/context": [
         {
-          "command": "nodeDependencies.editEntry",
+          "command": "skaffolder.editmodel",
           "when": "view == skaffolderExplorerModel && viewItem == model",
           "group": "inline"
         }
