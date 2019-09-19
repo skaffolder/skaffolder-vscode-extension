@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as SkaffolderCli from "skaffolder-cli";
 import * as yaml from "yaml";
 import * as vscode from "vscode";
-import * as handlebars from "handlebars";
+import * as Handlebars from "handlebars";
 
 import { SkaffolderObject } from "../models/skaffolderObject";
 import { Db } from "../models/jsonreader/db";
@@ -11,9 +11,7 @@ import { Resource } from "../models/jsonreader/resource";
 import { Page } from "../models/jsonreader/page";
 import * as path from "path";
 
-var helpers = require("handlebars-helpers")({
-  handlebars: handlebars
-});
+SkaffolderCli.registerHelpers(Handlebars);
 
 export class DataService {
   private static dataObj: SkaffolderObject;
@@ -25,13 +23,6 @@ export class DataService {
     resource: SkaffolderCli.GeneratorFile[];
     oneTime: SkaffolderCli.GeneratorFile[];
   };
-  // private static templateFilesCateg: {
-  //   db: SkaffolderCli.GeneratorFile[];
-  //   module: SkaffolderCli.GeneratorFile[];
-  //   table: SkaffolderCli.GeneratorFile[];
-  //   resource: SkaffolderCli.GeneratorFile[];
-  //   oneTime: SkaffolderCli.GeneratorFile[];
-  // };
 
   constructor() {
     if (!DataService.dataObj) {
@@ -43,18 +34,21 @@ export class DataService {
     let paths: string[] = [];
     let files: SkaffolderCli.GeneratorFile[] = [];
 
+    let param: any = DataService.dataObj;
     if (type === "resource") {
       files = DataService.getTemplateFilesForResource();
-    } else {
+      param.resource = item;
+      param.entity = (item as Resource)._entity;
+      param.db = itemDb;
+    } else if (type === "module") {
       files = DataService.getTemplateFilesForPage();
+      param.module = item;
+      param.db = itemDb;
     }
 
     files.forEach(file => {
       let fileName = file.name;
-      let template = handlebars.compile(file.name);
-      let param: any = DataService.dataObj;
-      param[type] = item;
-      param.db = itemDb;
+      let template = Handlebars.compile(file.name);
       try {
         fileName = template(param);
       } catch (e) {
@@ -161,11 +155,14 @@ export class DataService {
     return;
   }
 
-  public getSkObject() {
+  public static getSkObject() {
+    if (!DataService.dataObj) {
+      DataService.refreshData();
+    }
     return DataService.dataObj;
   }
 
-  public getApi(): Db[] {
+  public static getApi(): Db[] {
     let obj = this.getSkObject();
 
     return obj["resources"] || [];

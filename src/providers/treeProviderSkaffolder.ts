@@ -8,8 +8,7 @@ export class TreeProviderSkaffolder
   private skObject: SkaffolderObject;
 
   constructor(private context: vscode.ExtensionContext, private type: string) {
-    let dataDervice = new DataService();
-    this.skObject = dataDervice.getSkObject();
+    this.skObject = DataService.getSkObject();
   }
 
   getTreeItem(

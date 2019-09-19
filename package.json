@@ -17,14 +17,14 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "skaffolder-explorer",
+          "id": "skaffolderExplorer",
           "title": "Skaffolder",
           "icon": "media/logo.svg"
         }
       ]
     },
     "views": {
-      "skaffolder-explorer": [
+      "skaffolderExplorer": [
         {
           "id": "skaffolderExplorerModel",
           "name": "Models",
@@ -44,29 +44,32 @@
     },
     "commands": [
       {
-        "command": "nodeDependencies.editEntry",
+        "command": "skaffolder.editmodel",
         "title": "Edit",
         "icon": {
           "light": "media/light/edit.svg",
           "dark": "media/dark/edit.svg"
         }
+      },
+      {
+        "command": "skaffolder.generate",
+        "title": "Generate",
+        "icon": {
+          "light": "media/light/logo.svg",
+          "dark": "media/dark/logo.svg"
+        }
       }
     ],
     "menus": {
-      "commandPalette": [
-        {
-          "command": "nodeDependencies.editEntry"
-        }
-      ],
       "view/title": [
         {
-          "command": "nodeDependencies.editEntry",
+          "command": "skaffolder.generate",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "nodeDependencies.editEntry",
+          "command": "skaffolder.editmodel",
           "when": "view == skaffolderExplorerModel && viewItem == model",
           "group": "inline"
         }
