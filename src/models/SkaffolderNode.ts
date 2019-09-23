@@ -2,8 +2,20 @@ import * as vscode from "vscode";
 import * as path from "path";
 import { SkaffolderObject } from "./SkaffolderObject";
 import { Entity } from "./jsonreader/entity";
+import { Resource } from "./jsonreader/resource";
+import { Db } from "./jsonreader/db";
+import { Page } from "./jsonreader/page";
 
 export class SkaffolderNode extends vscode.TreeItem {
+  params?: {
+    db?: Db;
+    model?: Resource;
+    page?: Page;
+    type?: string;
+    contextUrl?: vscode.Uri;
+    range?: vscode.Range;
+  } = {};
+
   constructor(
     private context: vscode.ExtensionContext,
     public readonly skaffolderObject: SkaffolderObject,
@@ -39,14 +51,21 @@ export class SkaffolderNode extends vscode.TreeItem {
 
         let rangeModel = this.skaffolderObject.modules[indexMap[0]].index;
 
-        this.command = {
-          command: "skaffolder.openpage",
-          title: "Open SKfile Page",
-          arguments: [
-            contexturl,
-            rangeModel,
-            this.skaffolderObject.modules[indexMap[0]]
-          ]
+        // this.command = {
+        //   command: "skaffolder.openpage",
+        //   title: "Open SKfile Page",
+        //   arguments: [
+        //     contexturl,
+        //     rangeModel,
+        //     this.skaffolderObject.modules[indexMap[0]]
+        //   ]
+        // };
+
+        this.params = {
+          type: "module",
+          contextUrl: contexturl,
+          page: this.skaffolderObject.modules[indexMap[0]],
+          range: rangeModel
         };
 
         this.iconPath = {
@@ -159,18 +178,21 @@ export class SkaffolderNode extends vscode.TreeItem {
         let rangeModel = this.skaffolderObject.resources[indexMap[0]]
           ._resources[indexMap[1]]._services[indexMap[2]].index;
 
-        this.command = {
-          command: "skaffolder.openapi",
-          title: "Open SKfile API",
-          arguments: [
-            contexturl,
-            rangeModel,
-            this.skaffolderObject.resources[indexMap[0]]._resources[
-              indexMap[1]
-            ],
-            this.skaffolderObject.resources[indexMap[0]]
-          ]
+        this.params = {
+          type: "resource",
+          contextUrl: contexturl,
+          db: this.skaffolderObject.resources[indexMap[0]],
+          model: this.skaffolderObject.resources[indexMap[0]]._resources[
+            indexMap[1]
+          ],
+          range: rangeModel
         };
+
+        // this.command = {
+        //   command: "skaffolder.openapi",
+        //   title: "Open SKfile API",
+        //   arguments: [contexturl, rangeModel, this.params.model, this.params.db]
+        // };
       }
 
       if (type === "model") {
@@ -222,26 +244,41 @@ export class SkaffolderNode extends vscode.TreeItem {
         };
         this.contextValue = "model";
 
+        // Find children
+        this.skaffolderObject.resources[indexMap[0]]._resources[
+          indexMap[1]
+        ]._services.forEach((element, index) => {
+          let indexArr: number[] = [indexMap[0], indexMap[1], index];
+          this.children.push(
+            new SkaffolderNode(
+              context,
+              skaffolderObject,
+              "api_db_resource_api",
+              indexArr
+            )
+          );
+        });
+
         // Menu model
-        let indexArr: number[] = [indexMap[0], indexMap[1]];
+        // let indexArr: number[] = [indexMap[0], indexMap[1]];
 
-        this.children.push(
-          new SkaffolderNode(
-            context,
-            skaffolderObject,
-            "model_db_resource_attr_menu",
-            indexArr
-          )
-        );
+        // this.children.push(
+        //   new SkaffolderNode(
+        //     context,
+        //     skaffolderObject,
+        //     "model_db_resource_attr_menu",
+        //     indexArr
+        //   )
+        // );
 
-        this.children.push(
-          new SkaffolderNode(
-            context,
-            skaffolderObject,
-            "model_db_resource_api_menu",
-            indexArr
-          )
-        );
+        // this.children.push(
+        //   new SkaffolderNode(
+        //     context,
+        //     skaffolderObject,
+        //     "model_db_resource_api_menu",
+        //     indexArr
+        //   )
+        // );
       } else if (type === "model_db_resource_attr_menu") {
         // Set menu attr
         this.label = "attributes";
@@ -321,17 +358,16 @@ export class SkaffolderNode extends vscode.TreeItem {
         let rangeModel = this.skaffolderObject.resources[indexMap[0]]
           ._resources[indexMap[1]].index;
 
-        let db = this.skaffolderObject.resources[indexMap[0]];
-        this.command = {
-          command: "skaffolder.openfiles",
-          title: "Open SKfile",
-          arguments: [
-            this.skaffolderObject.resources[indexMap[0]]._resources[
-              indexMap[1]
-            ],
-            db
-          ]
-        };
+        // this.command = {
+        //   command: "skaffolder.openfiles",
+        //   title: "Open SKfile",
+        //   arguments: [
+        //     this.skaffolderObject.resources[indexMap[0]]._resources[
+        //       indexMap[1]
+        //     ],
+        //     this.skaffolderObject.resources[indexMap[0]]
+        //   ]
+        // };
       }
     }
   }

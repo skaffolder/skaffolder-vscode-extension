@@ -44,11 +44,19 @@
     },
     "commands": [
       {
-        "command": "skaffolder.editmodel",
+        "command": "skaffolder.editValue",
         "title": "Edit",
         "icon": {
           "light": "media/light/edit.svg",
           "dark": "media/dark/edit.svg"
+        }
+      },
+      {
+        "command": "skaffolder.openfiles",
+        "title": "Open files",
+        "icon": {
+          "light": "media/light/open.svg",
+          "dark": "media/dark/open.svg"
         }
       },
       {
@@ -69,8 +77,11 @@
       ],
       "view/item/context": [
         {
-          "command": "skaffolder.editmodel",
-          "when": "view == skaffolderExplorerModel && viewItem == model",
+          "command": "skaffolder.editValue",
+          "group": "inline"
+        },
+        {
+          "command": "skaffolder.openfiles",
           "group": "inline"
         }
       ]
