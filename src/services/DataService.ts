@@ -15,6 +15,7 @@ SkaffolderCli.registerHelpers(Handlebars);
 
 export class DataService {
   private static dataObj: SkaffolderObject;
+  private static mapResource: Map<String, Resource> | undefined;
   private static templateFiles: SkaffolderCli.GeneratorFile[];
   private static templateFilesCateg: {
     db: SkaffolderCli.GeneratorFile[];
@@ -152,7 +153,21 @@ export class DataService {
       DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);
     }
 
+    DataService.mapResource = undefined;
     return;
+  }
+
+  static findResource(_id: string): Resource | undefined {
+    if (!DataService.mapResource) {
+      DataService.mapResource = new Map<String, Resource>();
+
+      DataService.getSkObject().resources.forEach(db => {
+        db._resources.forEach(res => {
+          (DataService.mapResource as Map<String, Resource>).set(res._id, res);
+        });
+      });
+    }
+    return (DataService.mapResource as Map<String, Resource>).get(_id);
   }
 
   public static getSkObject() {
