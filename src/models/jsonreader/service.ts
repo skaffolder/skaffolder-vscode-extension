@@ -5,7 +5,7 @@ import { Role } from "./role";
 import { ServiceParam } from "./service-param";
 
 export class Service {
-  constructor(public index: Range, public method: string, objYaml: any) {
+  constructor(public index: Range | undefined, public method: string, objYaml: any) {
     this._id = objYaml["x-skaffolder-id-api"];
     this.name = objYaml["x-skaffolder-name-api"];
 

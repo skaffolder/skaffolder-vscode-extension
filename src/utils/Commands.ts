@@ -5,6 +5,7 @@ import { Resource } from "../models/jsonreader/resource";
 import { Page } from "../models/jsonreader/page";
 import { DataService } from "../services/DataService";
 import { Db } from "../models/jsonreader/db";
+import { logger } from "handlebars";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
@@ -131,7 +132,15 @@ export class Commands {
                   placeHolder: "Choose your backend language"
                 })
                 .then(async backendObj => {
-                  SkaffolderCli.createProjectExtension(nameProj, frontendObj, backendObj);
+                  vscode.window.showInformationMessage("Start creation project!");
+
+                  let skObj= DataService.createSkObj(nameProj as string);
+                  
+                  SkaffolderCli.createProjectExtension(vscode.workspace.rootPath + '/', "", {
+                    info: function(msg: string) {
+                      vscode.window.showInformationMessage(msg);
+                    }
+                  }, frontendObj, backendObj, skObj);
                 });
             });
         });
@@ -267,3 +276,5 @@ export class Commands {
     });
   }
 }
+
+

@@ -4,7 +4,7 @@ import { Service } from "./service";
 import { Resource } from "./resource";
 
 export class Page {
-  constructor(public index: Range, yamlObj: any) {
+  constructor(public index: Range | undefined, yamlObj: any) {
     this._id = yamlObj["x-id"];
     this.name = yamlObj["x-name"];
     this.url = yamlObj["x-url"];
