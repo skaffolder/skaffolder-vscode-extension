@@ -130,7 +130,24 @@ export class Commands {
                       placeHolder: "Choose your backend language"
                     })
                     .then(async backendObj => {
-                      // SkaffolderCli.createProjectExtension(nameProj, frontendObj, backendObj);
+                      vscode.window.showInformationMessage(
+                        "Start creation project!"
+                      );
+
+                      let skObj = DataService.createSkObj(nameProj as string);
+
+                      SkaffolderCli.createProjectExtension(
+                        vscode.workspace.rootPath + "/",
+                        "",
+                        {
+                          info: function(msg: string) {
+                            vscode.window.showInformationMessage(msg);
+                          }
+                        },
+                        frontendObj,
+                        backendObj,
+                        skObj
+                      );
                     });
                 });
             });
