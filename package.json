@@ -69,7 +69,7 @@
       },
       {
         "command": "skaffolder.export",
-        "title": "Generate",
+        "title": "Export YAML to Skaffolder",
         "icon": {
           "light": "media/light/open.svg",
           "dark": "media/dark/open.svg"
