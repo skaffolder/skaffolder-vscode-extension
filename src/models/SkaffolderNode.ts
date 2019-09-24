@@ -28,13 +28,16 @@ export class SkaffolderNode extends vscode.TreeItem {
 
     if (skaffolderObject !== undefined) {
       // Switch action
+      // Pages tree
       if (type === "page") {
         this.showPageRoot(context, skaffolderObject);
       } else if (type === "page_page") {
         this.showPage(context, skaffolderObject, indexMap);
       } else if (type === "page_page_api") {
         this.showPageApi(indexMap);
-      } else if (type === "model") {
+      }
+      // Model tree
+      else if (type === "model") {
         this.showModelRoot(context, skaffolderObject);
       } else if (type === "model_db") {
         this.showDbModel(indexMap, context, skaffolderObject);
@@ -67,9 +70,9 @@ export class SkaffolderNode extends vscode.TreeItem {
     skaffolderObject: SkaffolderObject
   ) {
     // Set resource
-    this.label = this.skaffolderObject.resources[indexMap[0]]._resources[
-      indexMap[1]
-    ].name;
+    let db = this.skaffolderObject.resources[indexMap[0]];
+    let resource = db._resources[indexMap[1]];
+    this.label = resource.name;
     this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
     this.iconPath = {
       light: this.context.asAbsolutePath(
@@ -78,10 +81,17 @@ export class SkaffolderNode extends vscode.TreeItem {
       dark: this.context.asAbsolutePath(path.join("media", "dark", "model.svg"))
     };
     this.contextValue = "model";
+
+    // Set params node
+    this.params = {
+      type: "resource",
+      db: db,
+      model: resource,
+      range: resource.index
+    };
+
     // Find children
-    this.skaffolderObject.resources[indexMap[0]]._resources[
-      indexMap[1]
-    ]._services.forEach((element, index) => {
+    resource._services.forEach((element, index) => {
       let indexArr: number[] = [indexMap[0], indexMap[1], index];
       this.children.push(
         new SkaffolderNode(
@@ -100,7 +110,8 @@ export class SkaffolderNode extends vscode.TreeItem {
     skaffolderObject: SkaffolderObject
   ) {
     // Set db
-    this.label = this.skaffolderObject.resources[indexMap[0]].name;
+    let db = this.skaffolderObject.resources[indexMap[0]];
+    this.label = db.name;
     this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
     this.iconPath = {
       light: this.context.asAbsolutePath(
@@ -110,20 +121,25 @@ export class SkaffolderNode extends vscode.TreeItem {
         path.join("media", "dark", "database.svg")
       )
     };
+
+    this.params = {
+      type: "db",
+      db: db,
+      range: db.index
+    };
+
     // Find children
-    this.skaffolderObject.resources[indexMap[0]]._resources.forEach(
-      (element, index) => {
-        let indexArr: number[] = [indexMap[0], index];
-        this.children.push(
-          new SkaffolderNode(
-            context,
-            skaffolderObject,
-            "model_db_resource",
-            indexArr
-          )
-        );
-      }
-    );
+    db._resources.forEach((element, index) => {
+      let indexArr: number[] = [indexMap[0], index];
+      this.children.push(
+        new SkaffolderNode(
+          context,
+          skaffolderObject,
+          "model_db_resource",
+          indexArr
+        )
+      );
+    });
 
     // Menu model
     // let indexArr: number[] = [indexMap[0], indexMap[1]];
@@ -160,11 +176,26 @@ export class SkaffolderNode extends vscode.TreeItem {
 
   private showPageApi(indexMap: number[]) {
     // Set api
-
-    let api = this.skaffolderObject.modules[indexMap[0]]._services[
+    let apiPage = this.skaffolderObject.modules[indexMap[0]]._services[
       indexMap[1]
     ] as Service;
-    this.label = api.name;
+
+    // Find api
+    let api: Service = DataService.findApi(apiPage._id) as Service;
+    let resource: Resource = DataService.findResource(
+      (api._resource as Resource)._id
+    ) as Resource;
+
+    // Find db api
+    let db;
+    let dbId = (api._resource as Resource)._db;
+    this.skaffolderObject.resources.forEach(item => {
+      if (item._id === dbId) {
+        db = item;
+      }
+    });
+
+    this.label = resource.name + "." + api.name;
     this.description = api.method;
     this.iconPath = {
       light: this.context.asAbsolutePath(
@@ -174,33 +205,20 @@ export class SkaffolderNode extends vscode.TreeItem {
         path.join("media", "dark", "api_" + api.method + ".svg")
       )
     };
-    let contexturl = vscode.Uri.file(
-      vscode.workspace.rootPath + "/openapi.yaml"
-    );
-    let rangeModel = api.index;
-    // Find db api
-    let db;
-    let dbId = (api._resource as Resource)._db;
-    this.skaffolderObject.resources.forEach(item => {
-      if (item._id === dbId) {
-        db = item;
-      }
-    });
     this.params = {
       type: "resource",
-      contextUrl: contexturl,
       db: db,
-      model: DataService.findResource((api._resource as Resource)._id),
-      range: rangeModel
+      model: resource,
+      range: api.index
     };
   }
 
   private showApi(indexMap: number[]) {
     // Set api
 
-    let api = this.skaffolderObject.resources[indexMap[0]]._resources[
-      indexMap[1]
-    ]._services[indexMap[2]];
+    let db = this.skaffolderObject.resources[indexMap[0]];
+    let model = db._resources[indexMap[1]];
+    let api = model._services[indexMap[2]];
     this.label = api.name;
     this.description = api.method;
     this.iconPath = {
@@ -225,20 +243,11 @@ export class SkaffolderNode extends vscode.TreeItem {
         )
       )
     };
-    let contexturl = vscode.Uri.file(
-      vscode.workspace.rootPath + "/openapi.yaml"
-    );
-    let rangeModel = this.skaffolderObject.resources[indexMap[0]]._resources[
-      indexMap[1]
-    ]._services[indexMap[2]].index;
     this.params = {
       type: "resource",
-      contextUrl: contexturl,
-      db: this.skaffolderObject.resources[indexMap[0]],
-      model: this.skaffolderObject.resources[indexMap[0]]._resources[
-        indexMap[1]
-      ],
-      range: rangeModel
+      db: db,
+      model: model,
+      range: api.index
     };
   }
 

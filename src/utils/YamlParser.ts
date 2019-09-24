@@ -38,8 +38,30 @@ export class YamlParser {
     // Parse dbs
     for (let d in fileObj.components["x-skaffolder-db"]) {
       let itemDb = fileObj.components["x-skaffolder-db"][d];
-      let db = new Db(itemDb["x-id"], itemDb["x-name"]);
-      let dbEntity = new Db(itemDb["x-id"], itemDb["x-name"]);
+
+      // find token position of item
+      let lineId: number = YamlParser.getLinesNumberOf(
+        fileString,
+        "x-skaffolder-database-id: " + itemDb["x-skaffolder-database-id"]
+      );
+      let pos: vscode.Position = new vscode.Position(
+        lineId >= 0 ? lineId - 1 : 0,
+        0
+      );
+
+      let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
+      let rangeModel: vscode.Range = new vscode.Range(pos, pos2);
+
+      let db = new Db(
+        itemDb["x-skaffolder-database-id"],
+        itemDb["x-skaffolder-database-name"],
+        rangeModel
+      );
+      let dbEntity = new Db(
+        itemDb["x-skaffolder-database-id"],
+        itemDb["x-skaffolder-database-name"],
+        rangeModel
+      );
 
       // Parse resources
       for (let r in fileObj.components["schemas"]) {
@@ -48,14 +70,14 @@ export class YamlParser {
         // find token position of item
         let lineId: number = YamlParser.getLinesNumberOf(
           fileString,
-          item["x-skaffolder-id-resource"]
+          "x-skaffolder-id-resource: " + item["x-skaffolder-id-resource"]
         );
         let pos: vscode.Position = new vscode.Position(
-          lineId >= 0 ? lineId - 1 : 0,
+          lineId >= 0 ? lineId : 0,
           0
         );
 
-        let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
+        let pos2: vscode.Position = new vscode.Position(lineId + 2, 0);
         let rangeModel: vscode.Range = new vscode.Range(pos, pos2);
 
         let res = new Resource(
@@ -98,7 +120,7 @@ export class YamlParser {
                 fileObj.paths[s][m]["x-skaffolder-id-api"]
               );
               let pos: vscode.Position = new vscode.Position(
-                lineId >= 0 ? lineId - 2 : 0,
+                lineId >= 0 ? lineId - 1 : 0,
                 0
               );
 
@@ -126,7 +148,7 @@ export class YamlParser {
       // find token position of item
       let lineId: number = YamlParser.getLinesNumberOf(
         fileString,
-        item["x-id"]
+        item["x-skaffolder-database-id"]
       );
       let pos: vscode.Position = new vscode.Position(
         lineId >= 0 ? lineId : 0,

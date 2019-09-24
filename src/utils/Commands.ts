@@ -164,10 +164,15 @@ export class Commands {
         async (context: SkaffolderNode) => {
           if (context.params && context.params.range) {
             // Open file openapi
+
+            let contexturl = vscode.Uri.file(
+              vscode.workspace.rootPath + "/openapi.yaml"
+            );
+
             try {
               await vscode.commands.executeCommand<vscode.Location[]>(
                 "vscode.open",
-                context.params.contextUrl
+                contexturl
               );
             } catch (e) {
               console.error(e);
@@ -207,6 +212,10 @@ export class Commands {
               } else if (context.params.type === "module") {
                 let files = DataService.findRelatedFiles("module", context
                   .params.page as Page);
+                this.openFiles(files);
+              } else if (context.params.type === "db") {
+                let files = DataService.findRelatedFiles("db", context.params
+                  .db as Db);
                 this.openFiles(files);
               } else {
                 console.error("Type " + context.params.type + " not valid");
