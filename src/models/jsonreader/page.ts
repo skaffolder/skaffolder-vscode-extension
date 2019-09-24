@@ -5,16 +5,16 @@ import { Resource } from "./resource";
 
 export class Page {
   constructor(public index: Range | undefined, yamlObj: any) {
-    this._id = yamlObj["x-id"];
-    this.name = yamlObj["x-name"];
-    this.url = yamlObj["x-url"];
-    this.template = yamlObj["x-template"];
-    this._template_resource = yamlObj["x-resource"];
-    this._services = yamlObj["x-services"];
-    this._nesteds = yamlObj["x-nesteds"];
-    this._links = yamlObj["x-links"];
+    this._id = yamlObj["x-skaffolder-id"];
+    this.name = yamlObj["x-skaffolder-name"];
+    this.url = yamlObj["x-skaffolder-url"];
+    this.template = yamlObj["x-skaffolder-template"];
+    this._template_resource = yamlObj["x-skaffolder-resource"];
+    this._services = yamlObj["x-skaffolder-services"];
+    this._nesteds = yamlObj["x-skaffolder-nesteds"];
+    this._links = yamlObj["x-skaffolder-links"];
 
-    let roles = yamlObj["x-roles"];
+    let roles = yamlObj["x-skaffolder-roles"];
 
     // Populate roles
     if (roles instanceof Array) {

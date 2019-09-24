@@ -5,9 +5,13 @@ import { Role } from "./role";
 import { ServiceParam } from "./service-param";
 
 export class Service {
-  constructor(public index: Range | undefined, public method: string, objYaml: any) {
-    this._id = objYaml["x-skaffolder-id-api"];
-    this.name = objYaml["x-skaffolder-name-api"];
+  constructor(
+    public index: Range | undefined,
+    public method: string,
+    objYaml: any
+  ) {
+    this._id = objYaml["x-skaffolder-id"];
+    this.name = objYaml["x-skaffolder-name"];
 
     this.crudAction = objYaml["x-skaffolder-crudAction"];
     this.crudType = objYaml["x-skaffolder-crudType"];
@@ -15,7 +19,7 @@ export class Service {
     this.returnDesc = objYaml["x-skaffolder-returnDesc"];
     this.returnType = objYaml["x-skaffolder-returnType"];
     this.url = objYaml["x-skaffolder-url"];
-    this._resource = objYaml["x-skaffolder-resource-id"];
+    this._resource = objYaml["x-skaffolder-id-resource"];
 
     // Parse roles
     if (objYaml["x-skaffolder-roles"]) {
