@@ -392,4 +392,26 @@ export class DataService {
     ];
     return skObj;
   }
+
+  static readConfig(): any {
+    let config = {};
+    try {
+      let configFile = fs.readFileSync(
+        vscode.workspace.rootPath + "/.skaffolder/config.json",
+        "utf-8"
+      );
+      try {
+        config = JSON.parse(configFile);
+      } catch (e) {
+        console.error(".skaffolder/config.json JSON not parsable");
+      }
+    } catch (e) {
+      console.error(".skaffolder/config.json JSON not found");
+    }
+    return config;
+  }
+
+  static exportProject(params: any, cb: any) {
+    SkaffolderCli.exportProject(params, cb);
+  }
 }

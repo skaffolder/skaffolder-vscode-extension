@@ -6,6 +6,7 @@ import { Page } from "../models/jsonreader/page";
 import { DataService } from "../services/DataService";
 import { Db } from "../models/jsonreader/db";
 import { SkaffolderNode } from "../models/SkaffolderNode";
+import { StatusBarManager } from "./StatusBarManager";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
@@ -16,6 +17,27 @@ export class Commands {
     );
 
     // Register commands
+    vscode.commands.registerCommand("skaffolder.login", data => {
+      SkaffolderCli.login(
+        {},
+        {},
+        {
+          info: function(msg: string) {
+            console.log(msg);
+          }
+        },
+        StatusBarManager.refresh
+      );
+    });
+
+    vscode.commands.registerCommand("skaffolder.export", data => {
+      let params: any = DataService.readConfig();
+      params.skObject = DataService.getSkObject();
+      DataService.exportProject(params, function(err: any, logs: any) {
+        console.log(err, logs);
+      });
+    });
+
     vscode.commands.registerCommand("skaffolder.generate", data => {
       vscode.window.showInformationMessage("Generation starts");
       try {

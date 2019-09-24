@@ -66,12 +66,24 @@
           "light": "media/light/logo.svg",
           "dark": "media/dark/logo.svg"
         }
+      },
+      {
+        "command": "skaffolder.export",
+        "title": "Generate",
+        "icon": {
+          "light": "media/light/open.svg",
+          "dark": "media/dark/open.svg"
+        }
       }
     ],
     "menus": {
       "view/title": [
         {
           "command": "skaffolder.generate",
+          "group": "navigation"
+        },
+        {
+          "command": "skaffolder.export",
           "group": "navigation"
         }
       ],

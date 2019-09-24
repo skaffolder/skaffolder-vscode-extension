@@ -5,6 +5,8 @@ import { TreeProviderSkaffolder } from "./providers/treeProviderSkaffolder";
 import { DataService } from "./services/DataService";
 import { Commands } from "./utils/Commands";
 import { TreeProviderTemplateSkaffolder } from "./providers/treeProviderTemplateSkaffolder";
+import SkaffolderCli = require("skaffolder-cli");
+import { StatusBarManager } from "./utils/StatusBarManager";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -17,6 +19,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Load interface
   refresh(context);
+
+  // Load status bar
+  StatusBarManager.init();
 
   // Check changes file
   vscode.workspace.onDidSaveTextDocument(e => {
