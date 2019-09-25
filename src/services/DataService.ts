@@ -18,6 +18,7 @@ SkaffolderCli.registerHelpers(Handlebars);
 
 export class DataService {
   private static dataObj: SkaffolderObject;
+  private static yamlObj: any;
   private static mapResource: Map<String, Resource> | undefined;
   private static mapService: Map<String, Service> | undefined;
   private static templateFiles: SkaffolderCli.GeneratorFile[];
@@ -169,6 +170,8 @@ export class DataService {
 
     if (dataYaml !== "") {
       let fileObj = yaml.parse(dataYaml);
+
+      DataService.yamlObj = fileObj;
       DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);
     }
 
@@ -213,6 +216,13 @@ export class DataService {
       DataService.refreshData();
     }
     return DataService.dataObj;
+  }
+
+  static getYaml(): any {
+    if (!DataService.yamlObj) {
+      DataService.refreshData();
+    }
+    return DataService.yamlObj;
   }
 
   public static getApi(): Db[] {

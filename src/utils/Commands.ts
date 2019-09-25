@@ -32,7 +32,7 @@ export class Commands {
 
     vscode.commands.registerCommand("skaffolder.export", data => {
       let params: any = DataService.readConfig();
-      params.skObject = DataService.getSkObject();
+      params.skObject = DataService.getYaml();
       DataService.exportProject(params, function(err: any, logs: any) {
         console.log(err, logs);
       });
