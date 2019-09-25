@@ -71,11 +71,13 @@ export class SkaffolderNode extends vscode.TreeItem {
 
   showPageNotFound() {
     this.label = "No pages found";
+    this.contextValue = "empty";
     this.collapsibleState = vscode.TreeItemCollapsibleState.None;
   }
 
   showModelsNotFound() {
     this.label = "No models found";
+    this.contextValue = "empty";
     this.collapsibleState = vscode.TreeItemCollapsibleState.None;
   }
 
@@ -106,17 +108,21 @@ export class SkaffolderNode extends vscode.TreeItem {
     };
 
     // Find children
-    resource._services.forEach((element, index) => {
-      let indexArr: number[] = [indexMap[0], indexMap[1], index];
-      this.children.push(
-        new SkaffolderNode(
-          context,
-          skaffolderObject,
-          "api_db_resource_api",
-          indexArr
-        )
-      );
-    });
+    if (resource._services && resource._services.length > 0) {
+      resource._services.forEach((element, index) => {
+        let indexArr: number[] = [indexMap[0], indexMap[1], index];
+        this.children.push(
+          new SkaffolderNode(
+            context,
+            skaffolderObject,
+            "api_db_resource_api",
+            indexArr
+          )
+        );
+      });
+    } else {
+      this.collapsibleState = vscode.TreeItemCollapsibleState.None;
+    }
   }
 
   private showDbModel(

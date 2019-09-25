@@ -90,11 +90,13 @@
       "view/item/context": [
         {
           "command": "skaffolder.editValue",
-          "group": "inline"
+          "group": "inline",
+          "when": "viewItem != empty"
         },
         {
           "command": "skaffolder.openfiles",
-          "group": "inline"
+          "group": "inline",
+          "when": "viewItem != empty"
         }
       ]
     },
