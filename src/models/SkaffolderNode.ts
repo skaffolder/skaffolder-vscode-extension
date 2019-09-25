@@ -35,7 +35,10 @@ export class SkaffolderNode extends vscode.TreeItem {
         this.showPage(context, skaffolderObject, indexMap);
       } else if (type === "page_page_api") {
         this.showPageApi(indexMap);
+      } else if (type === "page_page_not_found") {
+        this.showPageNotFound();
       }
+
       // Model tree
       else if (type === "model") {
         this.showModelRoot(context, skaffolderObject);
@@ -45,6 +48,8 @@ export class SkaffolderNode extends vscode.TreeItem {
         this.showDbResource(indexMap, context, skaffolderObject);
       } else if (type === "api_db_resource_api") {
         this.showApi(indexMap);
+      } else if (type === "model_db_not_found") {
+        this.showModelsNotFound();
       }
 
       // } else if (type === "api") {
@@ -63,6 +68,16 @@ export class SkaffolderNode extends vscode.TreeItem {
   }
 
   public children: SkaffolderNode[] = [];
+
+  showPageNotFound() {
+    this.label = "No pages found";
+    this.collapsibleState = vscode.TreeItemCollapsibleState.None;
+  }
+
+  showModelsNotFound() {
+    this.label = "No models found";
+    this.collapsibleState = vscode.TreeItemCollapsibleState.None;
+  }
 
   private showDbResource(
     indexMap: number[],
@@ -313,11 +328,20 @@ export class SkaffolderNode extends vscode.TreeItem {
     context: vscode.ExtensionContext,
     skaffolderObject: SkaffolderObject
   ) {
-    this.skaffolderObject.modules.forEach((element, index) => {
+    if (
+      this.skaffolderObject.modules &&
+      this.skaffolderObject.modules.length > 0
+    ) {
+      this.skaffolderObject.modules.forEach((element, index) => {
+        this.children.push(
+          new SkaffolderNode(context, skaffolderObject, "page_page", [index])
+        );
+      });
+    } else {
       this.children.push(
-        new SkaffolderNode(context, skaffolderObject, "page_page", [index])
+        new SkaffolderNode(context, skaffolderObject, "page_page_not_found", [])
       );
-    });
+    }
   }
   /*
   private showAttributeResource(indexMap: number[]) {
