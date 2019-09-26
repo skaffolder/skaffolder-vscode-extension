@@ -50,6 +50,8 @@ export class YamlParser {
       }
     >();
     let unamedDb = new Db("", "Unamed_Db");
+    let unamedRes = new Resource(undefined, "", "Unamed_Resource", "", "");
+    // unamedDb._resources.push(unamedRes);
     let unamedDbObj = {
       dbObj: unamedDb,
       dbEntityObj: unamedDb
@@ -87,6 +89,9 @@ export class YamlParser {
         dbEntityObj: dbEntity
       });
     }
+
+    // ResourceMap
+    let resourceMap: Map<string, Resource> = new Map<string, Resource>();
 
     // Parse resources
     for (let r in fileObj.components["schemas"]) {
@@ -136,31 +141,6 @@ export class YamlParser {
         res._relations.push(rel);
       }
 
-      // Parse services
-      for (let s in fileObj.paths) {
-        let serviceItem = fileObj.paths[s];
-        for (let m in serviceItem) {
-          if (fileObj.paths[s][m]["x-skaffolder-resource"] === res.name) {
-            // find token position of item
-            let lineId: number = YamlParser.getLinesNumberOf(
-              fileString,
-              fileObj.paths[s][m]["x-skaffolder-id"]
-            );
-            let pos: vscode.Position = new vscode.Position(
-              lineId >= 0 ? lineId - 1 : 0,
-              0
-            );
-
-            let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
-            let rangeApi: vscode.Range = new vscode.Range(pos, pos2);
-
-            let service = new Service(rangeApi, m, fileObj.paths[s][m]);
-
-            res._services.push(service);
-          }
-        }
-      }
-
       let db = dbs.get(res._db);
       if (db) {
         db.dbObj._resources.push(res);
@@ -169,6 +149,43 @@ export class YamlParser {
         unamedDbObj.dbObj._resources.push(res);
         unamedDbObj.dbEntityObj._entity.push(res._entity as Entity);
       }
+
+      resourceMap.set(res.name.toLowerCase(), res);
+    }
+
+    // Parse services
+    for (let s in fileObj.paths) {
+      let serviceItem = fileObj.paths[s];
+      for (let m in serviceItem) {
+        let resName: string =
+          fileObj.paths[s][m]["x-skaffolder-resource"] || "";
+        let res = resourceMap.get(resName.toLowerCase());
+        // find token position of item
+        let lineId: number = YamlParser.getLinesNumberOf(
+          fileString,
+          fileObj.paths[s][m]["x-skaffolder-id"]
+        );
+        let pos: vscode.Position = new vscode.Position(
+          lineId >= 0 ? lineId - 1 : 0,
+          0
+        );
+
+        let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
+        let rangeApi: vscode.Range = new vscode.Range(pos, pos2);
+
+        let service = new Service(rangeApi, m, fileObj.paths[s][m]);
+        if (res) {
+          res._services.push(service);
+        } else {
+          unamedRes._services.push(service);
+        }
+      }
+    }
+
+    // Add unamed res if not empty
+    if (unamedRes._services.length > 0) {
+      unamedDb._resources.unshift(unamedRes);
+      unamedDb._entity.unshift(unamedRes._entity as Entity);
     }
 
     // Set dbs
@@ -177,6 +194,7 @@ export class YamlParser {
       obj.resources.push(value.dbObj);
     });
 
+    // Add unamed db if not empty
     if (unamedDbObj.dbEntityObj._entity.length > 0) {
       obj.dbs.push(unamedDbObj.dbEntityObj);
       obj.resources.push(unamedDbObj.dbObj);
