@@ -169,7 +169,16 @@ export class DataService {
     }
 
     if (dataYaml !== "") {
-      let fileObj = yaml.parse(dataYaml);
+      let fileObj;
+      try {
+        fileObj = yaml.parse(dataYaml);
+      } catch (e) {
+        console.error('File "openapi.yaml" not parsable');
+        console.error(e);
+        vscode.window.showErrorMessage(e.message);
+        vscode.window.showErrorMessage('File "openapi.yaml" not parsable');
+        throw e;
+      }
 
       DataService.yamlObj = fileObj;
       DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);

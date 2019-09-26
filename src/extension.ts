@@ -17,9 +17,6 @@ export function activate(context: vscode.ExtensionContext) {
   // Register commands
   Commands.registerCommands(context);
 
-  // Load interface
-  refresh(context);
-
   // Load status bar
   StatusBarManager.init();
 
@@ -35,10 +32,16 @@ export function activate(context: vscode.ExtensionContext) {
 
     if (filename === "openapi.yaml") {
       DataService.refreshData();
+      // Load interface
       refresh(context);
       vscode.window.showInformationMessage("Refresh");
     }
   });
+
+  // Load interface
+  try {
+    refresh(context);
+  } catch (e) {}
 }
 
 let refresh = function(context: vscode.ExtensionContext) {
