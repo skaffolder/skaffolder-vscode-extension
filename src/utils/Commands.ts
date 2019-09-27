@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
 import * as SkaffolderCli from "skaffolder-cli";
-
 import { Resource } from "../models/jsonreader/resource";
 import { Page } from "../models/jsonreader/page";
 import { DataService } from "../services/DataService";
 import { Db } from "../models/jsonreader/db";
 import { SkaffolderNode } from "../models/SkaffolderNode";
 import { StatusBarManager } from "./StatusBarManager";
+import * as fs from "fs";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
@@ -40,7 +40,7 @@ export class Commands {
 
     vscode.commands.registerCommand("skaffolder.generate", data => {
       vscode.window.showInformationMessage("Generation starts");
-      try {
+      try { 
         SkaffolderCli.generate(
           vscode.workspace.rootPath + "/",
           DataService.getSkObject(),
@@ -146,36 +146,40 @@ export class Commands {
                 .showQuickPick(listFrontend, {
                   placeHolder: "Choose your frontend language"
                 })
-                .then(frontendObj => {
-                  vscode.window
-                    .showQuickPick(listBackend, {
-                      placeHolder: "Choose your backend language"
-                    })
-                    .then(async backendObj => {
-                      vscode.window.showInformationMessage(
-                        "Start creation project!"
-                      );
-
-                      let skObj = DataService.createSkObj(nameProj as string);
-
-                      SkaffolderCli.createProjectExtension(
-                        vscode.workspace.rootPath + "/",
-                        "",
-                        {
-                          info: function(msg: string) {
-                            vscode.window.showInformationMessage(msg);
-                          }
-                        },
-                        frontendObj,
-                        backendObj,
-                        skObj
-                      );
+            .then(frontendObj => {
+              vscode.window
+                .showQuickPick(listBackend, {
+                  placeHolder: "Choose your backend language"
+                })
+                .then(async backendObj => {
+                  vscode.window.showInformationMessage("Start creation project!");
+                  let skObj= DataService.createSkObj(nameProj as string);
+                    SkaffolderCli.createProjectExtension(vscode.workspace.rootPath + '/', "", {
+                      info: function(msg: string) {
+                        vscode.window.showInformationMessage(msg);
+                      }
+                    }, frontendObj, backendObj, skObj,  
+                    function(skObj) {
+                      SkaffolderCli.init(vscode.workspace.rootPath + '/', skObj.project, skObj.modules, skObj.resource, skObj.dbs);
+                      let content = fs.readFileSync(vscode.workspace.rootPath + "/.skaffolder/template/openapi.yaml.hbs" as string, "utf-8");
+                      let file = SkaffolderCli.getProperties(content,"openapi.yaml.hbs","/.skaffolder/template/");
+                      SkaffolderCli.generateFile([], {
+                      name: "openapi.yaml",
+                      overwrite: file.overwrite,
+                      template: file.template
+                      }, skObj, {});
+                      vscode.window.showInformationMessage("Project create with openapi");
+                   
                     });
+                    
+                  
                 });
+                
             });
         });
       });
-    } catch (e) {
+    });
+   } catch (e) {
       console.error(e);
     }
 
