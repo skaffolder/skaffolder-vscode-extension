@@ -80,23 +80,25 @@
       "view/title": [
         {
           "command": "skaffolder.generate",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "isSkaffolderProject"
         },
         {
           "command": "skaffolder.export",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "isSkaffolderProject"
         }
       ],
       "view/item/context": [
         {
           "command": "skaffolder.editValue",
           "group": "inline",
-          "when": "viewItem != empty"
+          "when": "viewItem != empty && isSkaffolderProject"
         },
         {
           "command": "skaffolder.openfiles",
           "group": "inline",
-          "when": "viewItem != empty"
+          "when": "viewItem != empty && isSkaffolderProject"
         }
       ]
     },
