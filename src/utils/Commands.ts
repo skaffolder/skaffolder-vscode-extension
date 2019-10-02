@@ -139,6 +139,10 @@ export class Commands {
       // Get list templates
       SkaffolderCli.getTemplate((err: any, template: any[]) => {
         vscode.commands.registerCommand("skaffolder.createProject", node => {
+          if(vscode.workspace.rootPath === undefined) {
+            vscode.window.showInformationMessage("Please open a workspace!");
+            return;
+          }
           let listFrontend: any[] = [];
           let listBackend: any[] = [];
 
@@ -155,7 +159,6 @@ export class Commands {
               });
             }
           });
-
           // Ask name
           vscode.window
             .showInputBox({
@@ -196,7 +199,6 @@ export class Commands {
                     
                   
                 });
-                
             });
         });
       });
