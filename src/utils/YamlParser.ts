@@ -157,28 +157,32 @@ export class YamlParser {
     for (let s in fileObj.paths) {
       let serviceItem = fileObj.paths[s];
       for (let m in serviceItem) {
-        let resName: string =
-          fileObj.paths[s][m]["x-skaffolder-resource"] || "";
-        let res = resourceMap.get(resName.toLowerCase());
-        // find token position of item
-        let lineId: number = YamlParser.getLinesNumberOf(
-          fileString,
-          fileObj.paths[s][m]["x-skaffolder-id"]
-        );
-        let pos: vscode.Position = new vscode.Position(
-          lineId >= 0 ? lineId - 1 : 0,
-          0
-        );
+        if (fileObj.paths[s][m]["x-skaffolder-ignore"] !==true)
+        {
+          let resName: string =
+            fileObj.paths[s][m]["x-skaffolder-resource"] || "";
+          let res = resourceMap.get(resName.toLowerCase());
+          // find token position of item
+          let lineId: number = YamlParser.getLinesNumberOf(
+            fileString,
+            fileObj.paths[s][m]["x-skaffolder-id"]
+          );
+          let pos: vscode.Position = new vscode.Position(
+            lineId >= 0 ? lineId - 1 : 0,
+            0
+          );
 
-        let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
-        let rangeApi: vscode.Range = new vscode.Range(pos, pos2);
+          let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
+          let rangeApi: vscode.Range = new vscode.Range(pos, pos2);
 
-        let service = new Service(rangeApi, m, fileObj.paths[s][m]);
-        if (res) {
-          res._services.push(service);
-        } else {
-          unamedRes._services.push(service);
+          let service = new Service(rangeApi, m, fileObj.paths[s][m]);
+          if (res) {
+            res._services.push(service);
+          } else {
+            unamedRes._services.push(service);
+          }
         }
+
       }
     }
 
