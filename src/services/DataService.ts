@@ -181,7 +181,9 @@ export class DataService {
       }
 
       DataService.yamlObj = fileObj;
-      DataService.dataObj = YamlParser.parseYaml(fileObj, dataYaml);
+      let yamlObjCopy:any;
+      yamlObjCopy = JSON.parse(JSON.stringify(fileObj));
+      DataService.dataObj = YamlParser.parseYaml(yamlObjCopy, dataYaml);
     }
 
     DataService.mapResource = undefined;
