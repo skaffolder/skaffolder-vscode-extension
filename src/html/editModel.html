@@ -11,33 +11,32 @@
                                 img-src 'self' vscode-resource: data:"
     />
     <title>Edit Model</title>
-
-    <style>
-      .logo {
-        width: 50%;
-        min-width: 300px;
-        height: 50px;
-      }
-    </style>
   </head>
-
+  <style>
+    .logo {
+      width: 50%;
+      min-width: 300px;
+      height: 50px;
+    }
+  </style>
   <body>
     <h1 id="lines-of-code-counter">0</h1>
-    <script>
+     <script>
       (function() {
         const counter = document.getElementById("lines-of-code-counter");
-        counter.textContent = "test";
-
+        
         console.log("ok");
         var save = function() {
+          counter.textContent = "test";
           vscode.postMessage({
             command: "save",
             text: "test"
           });
         };
       })();
-    </script>
+    </script> 
 
-    <button onclick="save()">Save</button>
+    <button id="button" onclick="save()">Save</button>
+    
   </body>
 </html>
