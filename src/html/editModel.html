@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self' vscode-resource: https:;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' vscode-resource: https:;
                                 script-src vscode-resource: 'self' 'unsafe-inline' 'unsafe-eval' https:;
                                 style-src vscode-resource: 'self' 'unsafe-inline';
-                                img-src 'self' vscode-resource: data:"
-    />
-    <title>Edit Model</title>
-  </head>
-  <style>
-    .logo {
-      width: 50%;
-      min-width: 300px;
-      height: 50px;
-    }
-  </style>
-  <body>
-    <h1 id="lines-of-code-counter">0</h1>
-     <script>
-      (function() {
-        const counter = document.getElementById("lines-of-code-counter");
-        
-        console.log("ok");
-        var save = function() {
-          counter.textContent = "test";
-          vscode.postMessage({
-            command: "save",
-            text: "test"
-          });
-        };
-      })();
-    </script> 
+                                img-src 'self' vscode-resource: data:" />
+  <title>Edit Model</title>
+</head>
+<style>
+  .logo {
+    width: 50%;
+    min-width: 300px;
+    height: 50px;
+  }
+</style>
 
-    <button id="button" onclick="save()">Save</button>
-    
-  </body>
+<body>
+  <h1 id="lines-of-code-counter">0</h1>
+
+  <button id="button">Save</button>
+
+</body>
+<script type="text/javascript">
+  (function () {
+    const counter = document.getElementById("lines-of-code-counter");
+    const vscode = acquireVsCodeApi();
+    console.log("ok");
+    var save = function () {
+      counter.textContent += 1;
+      vscode.postMessage({
+        command: "save",
+        text: "test"
+      });
+    };
+    document.getElementById("button").addEventListener("click", save);
+  })();
+</script>
+
 </html>

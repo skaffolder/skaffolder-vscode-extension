@@ -24,7 +24,7 @@ export class Commands {
         {},
         {},
         {
-          info: function(msg: string) {
+          info: function (msg: string) {
             console.log(msg);
           }
         },
@@ -35,7 +35,7 @@ export class Commands {
     vscode.commands.registerCommand("skaffolder.export", data => {
       let params: any = DataService.readConfig();
       params.skObject = DataService.getYaml();
-      DataService.exportProject(params, function(err: any, logs: any) {
+      DataService.exportProject(params, function (err: any, logs: any) {
         console.log(err, logs);
       });
     });
@@ -47,11 +47,11 @@ export class Commands {
           vscode.workspace.rootPath + "/",
           DataService.getSkObject(),
           {
-            info: function(msg: string) {
+            info: function (msg: string) {
               vscode.window.showInformationMessage(msg);
             }
           },
-          async function(err: string[], logs: string[]) {
+          async function (err: string[], logs: string[]) {
             vscode.window.showInformationMessage("Generation completed");
 
             // Print results in HTML
@@ -132,14 +132,14 @@ export class Commands {
                         vscode.workspace.rootPath + "/",
                         "",
                         {
-                          info: function(msg: string) {
+                          info: function (msg: string) {
                             vscode.window.showInformationMessage(msg);
                           }
                         },
                         frontendObj,
                         backendObj,
                         skObj,
-                        function(skObj) {
+                        function (skObj) {
                           SkaffolderCli.init(
                             vscode.workspace.rootPath + "/",
                             skObj.project,
@@ -182,56 +182,88 @@ export class Commands {
     }
 
     // Edit model
-    
 
     context.subscriptions.push(
       vscode.commands.registerCommand(
-        "skaffolder.editValue", () => {
-          ModelPanel.createOrShow(context.extensionPath);
+        "skaffolder.editValue",
+        async (contextNode: SkaffolderNode) => {
+          const panel = vscode.window.createWebviewPanel(
+            "skaffolder",
+            "Skaffolder Edit",
+            vscode.ViewColumn.One,
+            {
+              enableScripts: true
+            }
+          );
+          try {
+            // const filePath: vscode.Uri = vscode.Uri.file(
+            //   path.join(context.extensionPath, "src", "html", "editModel.html")
+            // );
+            // panel.webview.html = fs.readFileSync(filePath.fsPath, "utf8");
+            panel.webview.html = `<!DOCTYPE html>
+            <html lang="en">
+            
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta http-equiv="Content-Security-Policy" content="default-src 'self' vscode-resource: https:;
+                                            script-src vscode-resource: 'self' 'unsafe-inline' 'unsafe-eval' https:;
+                                            style-src vscode-resource: 'self' 'unsafe-inline';
+                                            img-src 'self' vscode-resource: data:" />
+              <title>Edit Model</title>
+            </head>
+            <style>
+              .logo {
+                width: 50%;
+                min-width: 300px;
+                height: 50px;
+              }
+            </style>
+            
+            <body>
+            <h1 id="lines-of-code-counter">0</h1>
+
+            <button id="button">Save</button>
+              ${ contextNode.skaffolderObject.dbs[0]._entity}
+            </body>
+            <script type="text/javascript">
+              (function () {
+              const counter = document.getElementById("lines-of-code-counter");
+              const vscode = acquireVsCodeApi();
+              console.log("ok");
+              var save = function () {
+                counter.textContent += 1;
+                vscode.postMessage({
+                  command: "save",
+                  text: "test"
+              });
+            };
+            document.getElementById("button").addEventListener("click", save);
+            })();
+</script>
+            </html>`;
+
+          } catch (e) {
+            console.error(e);
+          }
+          //Handle messages from the webview
+          panel.webview.onDidReceiveMessage(
+            message => {
+              console.log("ok");
+              vscode.window.showInformationMessage("message");
+              switch (message.command) {
+                case "save":
+                  vscode.window.showInformationMessage("Hello");
+                  return;
+              }
+            },
+            undefined,
+            context.subscriptions
+          );
         }
-        
       )
-    )
-
-    // context.subscriptions.push(
-    //   vscode.commands.registerCommand(
-    //     "skaffolder.editValue",
-    //     async (contextNode: SkaffolderNode) => {
-    //       const panel = vscode.window.createWebviewPanel(
-    //         "skaffolder", // Identifies the type of the webview. Used internally
-    //         "Skaffolder Edit", // Title of the panel displayed to the user
-    //         vscode.ViewColumn.One, // Editor column to show the new webview panel in.
-    //         {
-    //           enableScripts: true
-    //         }
-    //       );
-          
-    //       try {
-    //         const filePath: vscode.Uri = vscode.Uri.file(
-    //           path.join(context.extensionPath, "src", "html", "editModel.html")
-    //         );
-
-    //         panel.webview.html = fs.readFileSync(filePath.fsPath, "utf8");
-    //       } catch (e) {
-    //         console.error(e);
-    //       }
-    //       // Handle messages from the webview
-    //       panel.webview.onDidReceiveMessage(
-    //         message => {
-    //           console.log("ok");
-    //           vscode.window.showInformationMessage("message");
-    //           switch (message.command) {
-    //             case "save":
-    //               vscode.window.showInformationMessage("Hello");
-    //               return;
-    //           }
-    //         },
-    //         undefined,
-    //         context.subscriptions
-    //       );
-    //     }
-    //   )
-    // );
+    );
+    
 
     // Edit model
     context.subscriptions.push(
@@ -391,86 +423,3 @@ export class Commands {
   }
 }
 
-class ModelPanel {
-  public static currentPanel: ModelPanel | undefined;
-
- 
-  private readonly _panel: vscode.WebviewPanel;
-	private readonly _extensionPath: string;
-
-  public static createOrShow(extensionPath: string) {
-		const column = vscode.window.activeTextEditor
-			? vscode.window.activeTextEditor.viewColumn
-			: undefined;
-
-		// If we already have a panel, show it.
-		if (ModelPanel.currentPanel) {
-			ModelPanel.currentPanel._panel.reveal(column);
-			return;
-		}
-
-		// Otherwise, create a new panel.
-		const panel = vscode.window.createWebviewPanel(
-			"skaffolder",
-			'Skaffolder Edit',
-			column || vscode.ViewColumn.One,
-			{
-				// Enable javascript in the webview
-				enableScripts: true,
-			}
-		);
-
-		ModelPanel.currentPanel = new ModelPanel(panel, extensionPath);
-  }
-  
-  private constructor(panel: vscode.WebviewPanel, extensionPath: string) {
-		this._panel = panel;
-    this._extensionPath = extensionPath;
-
-    this._update();
-  }
-
-  private _update() {
-    const webview = this._panel.webview;
-    this._panel.webview.html = this._getHtmlForWebview(webview);
-  }
-  private _getHtmlForWebview(webview: vscode.Webview) {
-		// Local path to main script run in the webview
-		const scriptPathOnDisk = vscode.Uri.file(
-      path.join(this._extensionPath, 'src', 'js',"test.js")
-		);
-      
-		// And the uri we use to load this script in the webview
-		const scriptUri = webview.asWebViewUri(scriptPathOnDisk);
-
-		// Use a nonce to whitelist which scripts can be run
-		const nonce = getNonce();
-
-		return `<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <!--
-                Use a content security policy to only allow loading images from https or from our extension directory,
-                and only allow scripts that have a specific nonce.
-                -->
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src  https:; script-src 'nonce-${nonce}';">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Cat Coding</title>
-            </head>
-            <body>
-                <h1 id="lines-of-code-counter">0</h1>
-                <button id="button" onclick="save()">Save</button>
-                <script nonce="${nonce}" src="${scriptUri}"></script>
-            </body>
-            </html>`;
-	}
-}
-function getNonce() {
-	let text = '';
-	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	for (let i = 0; i < 32; i++) {
-		text += possible.charAt(Math.floor(Math.random() * possible.length));
-	}
-	return text;
-}
