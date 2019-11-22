@@ -217,6 +217,36 @@ export class Commands {
               body {
                 background-color: #33343C;
               }
+
+              .auto-vertical {
+                margin-bottom: auto;
+                margin-top: auto;
+              }
+
+              .left {
+                float: left;
+              }
+
+              .block {
+                display: block;
+              }
+
+              .ml-15 {
+                margin-left: 15px;
+              }
+
+              .mt-5 {
+                margin-top: 5px;
+              }
+
+              .ft-13 {
+                font-size: 13px;
+              }
+
+              .ft-20 {
+                font-size: 20px;
+              }
+
               .title-container {
                 margin-top: 20px;
                 width: 100%;
@@ -226,34 +256,28 @@ export class Commands {
               }
               
               .section1 {
-                float: left;
-                display: block;
-                width: 50%;
+                width: 60%;
                 border-right: 1px solid white;
-                margin-top: 10px;
                
               }
 
               .section2 {
-                float: left;
-                display: block;
-                margin-top: 10px;
-                width: 40%;
-                
+                width: 30%;
+                float: right;
               }
 
               .entity-name {
                 color: #698CCA;
-                font-size: 13px;
                 margin-left: 10px;
                 
               }
 
-              .title {
-                margin-bottom: auto;
-                margin-left: 15px;
-                font-size: 20px;
-
+              .button-save {
+                background-color: #87E283;
+                color: black;
+                border-radius: 20px;
+                float: right;
+                margin-right: 20px;
               }
               
               .logo {
@@ -266,14 +290,24 @@ export class Commands {
             <body>
             <div id="container">
               <div class="title-container">
-                <div class="section1">
-                  <h1 class="title"> Model 
-                  <span class="entity-name"> ${ contextNode.skaffolderObject.dbs[0]._entity[0].name } </span>
+                <div class="section1 auto-vertical left block">
+                  <h1 class="ft-20 ml-15"> Model 
+                   <span class="entity-name ft-13"> ${ contextNode.skaffolderObject.dbs[0]._entity[0].name } </span>
                   </h1>
                 </div>
-                <div class="section2">
-                 <h1 class="title"> Ciao </h1>
+                <div class="section2 auto-vertical  block">
+                 <p class="ml-15 ft-13"> Delete model 
+                  <span>
+                    <button id="save" class="button-save mt-5"> Save </button>
+                  </span>
+                 </p>
                 </div>
+              </div>
+              <div class="name">
+                <h3 class="ft-13">
+                  Name
+                </h3>
+                <input type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0].name }">
               </div>
             </div>
             <h1 id="lines-of-code-counter">0</h1>
