@@ -191,6 +191,7 @@ export class Commands {
             "skaffolder",
             "Skaffolder Edit",
             vscode.ViewColumn.One,
+            
             {
               enableScripts: true
             }
@@ -213,6 +214,48 @@ export class Commands {
               <title>Edit Model</title>
             </head>
             <style>
+              body {
+                background-color: #33343C;
+              }
+              .title-container {
+                margin-top: 20px;
+                width: 100%;
+                height: 50px;
+                border-radius: 5px;
+                background-color: #222329;
+              }
+              
+              .section1 {
+                float: left;
+                display: block;
+                width: 50%;
+                border-right: 1px solid white;
+                margin-top: 10px;
+               
+              }
+
+              .section2 {
+                float: left;
+                display: block;
+                margin-top: 10px;
+                width: 40%;
+                
+              }
+
+              .entity-name {
+                color: #698CCA;
+                font-size: 13px;
+                margin-left: 10px;
+                
+              }
+
+              .title {
+                margin-bottom: auto;
+                margin-left: 15px;
+                font-size: 20px;
+
+              }
+              
               .logo {
                 width: 50%;
                 min-width: 300px;
@@ -221,10 +264,28 @@ export class Commands {
             </style>
             
             <body>
+            <div id="container">
+              <div class="title-container">
+                <div class="section1">
+                  <h1 class="title"> Model 
+                  <span class="entity-name"> ${ contextNode.skaffolderObject.dbs[0]._entity[0].name } </span>
+                  </h1>
+                </div>
+                <div class="section2">
+                 <h1 class="title"> Ciao </h1>
+                </div>
+              </div>
+            </div>
             <h1 id="lines-of-code-counter">0</h1>
 
             <button id="button">Save</button>
-              ${ contextNode.skaffolderObject.dbs[0]._entity}
+              
+              
+              ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].name || undefined } <br>
+              ${ contextNode.skaffolderObject.dbs[0]._entity[0].name } <br>
+              ${ context.asAbsolutePath}
+              
+              
             </body>
             <script type="text/javascript">
               (function () {
@@ -232,7 +293,7 @@ export class Commands {
               const vscode = acquireVsCodeApi();
               console.log("ok");
               var save = function () {
-                counter.textContent += 1;
+                counter.textContent = "test";
                 vscode.postMessage({
                   command: "save",
                   text: "test"
@@ -249,11 +310,9 @@ export class Commands {
           //Handle messages from the webview
           panel.webview.onDidReceiveMessage(
             message => {
-              console.log("ok");
-              vscode.window.showInformationMessage("message");
               switch (message.command) {
                 case "save":
-                  vscode.window.showInformationMessage("Hello");
+                  vscode.window.showInformationMessage("Save");
                   return;
               }
             },
