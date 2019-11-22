@@ -247,6 +247,13 @@ export class Commands {
                 font-size: 20px;
               }
 
+              .border-bottom {
+                border-top: none !important;
+                border-right: none !important;
+                border-left: none !important;
+                border-bottom: 1px solid white !important;
+              }
+
               .title-container {
                 margin-top: 20px;
                 width: 100%;
@@ -279,6 +286,23 @@ export class Commands {
                 float: right;
                 margin-right: 20px;
               }
+
+              .name {
+                border-bottom: 1px solid black;
+                width: 50%;
+              }
+
+              .input-text {
+                width: 30%;
+                background-color: transparent;
+                font-size: 13px;
+              }
+
+              .input-text-attr {
+                width: 15%;
+                background-color: transparent;
+                font-size: 13px;
+              }
               
               .logo {
                 width: 50%;
@@ -306,8 +330,23 @@ export class Commands {
               <div class="name">
                 <h3 class="ft-13">
                   Name
+                <span>
+                  <input class="input-text border-bottom ml-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0].name }">
+                </span>
                 </h3>
-                <input type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0].name }">
+              </div>
+              <div class="attributes">
+                <h3 class="ft-13">
+                Attributes:
+                </h3>
+                <p> 
+                  <span> 
+                    <input class="input-text-attr border-bottom ml-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0]._attrs[0].name }">
+                  </span>
+                  <span> 
+                    <input class="input-text-attr border-bottom ml-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0]._attrs[0].type }">
+                  </span>
+                </p>
               </div>
             </div>
             <h1 id="lines-of-code-counter">0</h1>
