@@ -193,7 +193,8 @@ export class Commands {
             vscode.ViewColumn.One,
             
             {
-              enableScripts: true
+              enableScripts: true,
+              localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'src','css', 'editModel.css'))]
             }
           );
           try {
@@ -212,6 +213,7 @@ export class Commands {
                                             style-src vscode-resource: 'self' 'unsafe-inline';
                                             img-src 'self' vscode-resource: data:" />
               <title>Edit Model</title>
+              
             </head>
             <style>
               body {
@@ -222,38 +224,42 @@ export class Commands {
                 margin-bottom: auto;
                 margin-top: auto;
               }
-
+            
               .left {
                 float: left;
               }
-
+            
               .block {
                 display: block;
               }
-
+            
               .ml-15 {
                 margin-left: 15px;
               }
-
+            
               .mt-5 {
                 margin-top: 5px;
+              }
+
+              .ft-10 {
+                font-size: 10px;
               }
 
               .ft-13 {
                 font-size: 13px;
               }
-
+            
               .ft-20 {
                 font-size: 20px;
               }
-
+            
               .border-bottom {
                 border-top: none !important;
                 border-right: none !important;
                 border-left: none !important;
                 border-bottom: 1px solid white !important;
               }
-
+            
               .title-container {
                 margin-top: 20px;
                 width: 100%;
@@ -267,18 +273,18 @@ export class Commands {
                 border-right: 1px solid white;
                
               }
-
+            
               .section2 {
                 width: 30%;
                 float: right;
               }
-
+            
               .entity-name {
                 color: #698CCA;
                 margin-left: 10px;
                 
               }
-
+            
               .button-save {
                 background-color: #87E283;
                 color: black;
@@ -286,18 +292,26 @@ export class Commands {
                 float: right;
                 margin-right: 20px;
               }
-
-              .name {
-                border-bottom: 1px solid black;
-                width: 50%;
+              
+              .button-param {
+                background-color: transparent;
+                color: white;
+                border-radius: 5px;
+                border: 1px solid white;
               }
-
+              
+            
               .input-text {
                 width: 30%;
                 background-color: transparent;
                 font-size: 13px;
               }
 
+              .input-desc {
+                background-color: transparent;
+                font-size: 13px;
+              }
+            
               .input-text-attr {
                 width: 15%;
                 background-color: transparent;
@@ -309,14 +323,16 @@ export class Commands {
                 min-width: 300px;
                 height: 50px;
               }
+              
             </style>
             
             <body>
-            <div id="container">
+            <div id="api-container">
               <div class="title-container">
                 <div class="section1 auto-vertical left block">
-                  <h1 class="ft-20 ml-15"> Model 
-                   <span class="entity-name ft-13"> ${ contextNode.skaffolderObject.dbs[0]._entity[0].name } </span>
+                  <h1 class="ft-20 ml-15"> API
+                    <span class="entity-name ft-13"> ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].name  } </span>
+                    <span class="ml-15 ft-13"> ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].method }</span>
                   </h1>
                 </div>
                 <div class="section2 auto-vertical  block">
@@ -331,32 +347,53 @@ export class Commands {
                 <h3 class="ft-13">
                   Name
                 <span>
-                  <input class="input-text border-bottom ml-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0].name }">
+                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].name }">
                 </span>
                 </h3>
               </div>
-              <div class="attributes">
+              <div class="name">
                 <h3 class="ft-13">
-                Attributes:
+                  Url
+                <span>
+                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].url }">
+                </span>
                 </h3>
-                <p> 
-                  <span> 
-                    <input class="input-text-attr border-bottom ml-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0]._attrs[0].name }">
-                  </span>
-                  <span> 
-                    <input class="input-text-attr border-bottom ml-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0]._attrs[0].type }">
-                  </span>
-                </p>
               </div>
+              <div class="name">
+                <h3 class="ft-13">
+                  Method
+                <span>
+                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].method }">
+                </span>
+                </h3>
+              </div>
+              <div class="name">
+                <h3 class="ft-13">
+                  Description
+                <span>
+                  <input class="input-desc border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].description }">
+                </span>
+                </h3>
+              </div>
+              <div class="name">
+                <h3 class="ft-13">
+                  Restriction
+                <span>
+                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].returnDesc }">
+                </span>
+                </h3>
+              </div>
+              <div class="name">
+                <h3 class="ft-13">
+                  Return
+                <span>
+                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].returnType}">
+                </span>
+                </h3>
+              </div>
+              <div class="button-add">
+                <button id="add-param" class="button-param mt-5"> Add param </button>
             </div>
-            <h1 id="lines-of-code-counter">0</h1>
-
-            <button id="button">Save</button>
-              
-              
-              ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].name || undefined } <br>
-              ${ contextNode.skaffolderObject.dbs[0]._entity[0].name } <br>
-              ${ context.asAbsolutePath}
               
               
             </body>
