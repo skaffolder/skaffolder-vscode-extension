@@ -1,6 +1,3 @@
-body {
-    background-color: #33343C;   
-  }
 .auto-vertical {
     margin-bottom: auto;
     margin-top: auto;
@@ -20,6 +17,10 @@ body {
 
   .mt-5 {
     margin-top: 5px;
+  }
+
+  .ft-10 {
+    font-size: 10px;
   }
 
   .ft-13 {
@@ -69,14 +70,22 @@ body {
     float: right;
     margin-right: 20px;
   }
-
-  .name {
-    border-bottom: 1px solid black;
-    width: 50%;
+  
+  .button-param {
+    background-color: transparent;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid white;
   }
+  
 
   .input-text {
     width: 30%;
+    background-color: transparent;
+    font-size: 13px;
+  }
+
+  .input-desc {
     background-color: transparent;
     font-size: 13px;
   }

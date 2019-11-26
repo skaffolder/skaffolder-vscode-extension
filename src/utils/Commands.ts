@@ -8,9 +8,11 @@ import { Db } from "../models/jsonreader/db";
 import { SkaffolderNode } from "../models/SkaffolderNode";
 import { StatusBarManager } from "./StatusBarManager";
 import * as fs from "fs";
+import * as test from "../test/test";
 
 
 export class Commands {
+
   static registerCommands(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("nodeDependencies.editEntry", node =>
       vscode.window.showInformationMessage(
@@ -180,7 +182,6 @@ export class Commands {
     } catch (e) {
       console.error(e);
     }
-
     // Edit model
 
     context.subscriptions.push(
@@ -194,7 +195,7 @@ export class Commands {
             
             {
               enableScripts: true,
-              localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'src','css', 'editModel.css'))]
+            
             }
           );
           try {
@@ -202,227 +203,217 @@ export class Commands {
             //   path.join(context.extensionPath, "src", "html", "editModel.html")
             // );
             // panel.webview.html = fs.readFileSync(filePath.fsPath, "utf8");
-            panel.webview.html = `<!DOCTYPE html>
-            <html lang="en">
+
+            panel.webview.html = new test.Test().test1(contextNode, context.extensionPath);
+            // panel.webview.html = `<!DOCTYPE html>
+            // <html lang="en">
             
-            <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <meta http-equiv="Content-Security-Policy" content="default-src 'self' vscode-resource: https:;
-                                            script-src vscode-resource: 'self' 'unsafe-inline' 'unsafe-eval' https:;
-                                            style-src vscode-resource: 'self' 'unsafe-inline';
-                                            img-src 'self' vscode-resource: data:" />
-              <title>Edit Model</title>
+            // <head>
+            //   <meta charset="UTF-8" />
+            //   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            //   <meta http-equiv="Content-Security-Policy" content="default-src 'self' vscode-resource: https:;
+            //                                 script-src vscode-resource: 'self' 'unsafe-inline' 'unsafe-eval' https:;
+            //                                 style-src vscode-resource: 'self' 'unsafe-inline';
+            //                                 img-src 'self' vscode-resource: data:" />
+            //   <title>Edit Model</title>
+            // </head>
+            // <style>
+            //   body {
+            //     background-color: #33343C;
+            //   }
+
+            //   .auto-vertical {
+            //     margin-bottom: auto;
+            //     margin-top: auto;
+            //   }
+
+            //   .left {
+            //     float: left;
+            //   }
+
+            //   .block {
+            //     display: block;
+            //   }
+
+            //   .ml-15 {
+            //     margin-left: 15px;
+            //   }
+
+            //   .mr-15 {
+            //     margin-right: 15px;
+            //   }
+
+            //   .mt-5 {
+            //     margin-top: 5px;
+            //   }
+
+            //   .ft-13 {
+            //     font-size: 13px;
+            //   }
+
+            //   .ft-20 {
+            //     font-size: 20px;
+            //   }
+
+            //   .border-bottom {
+            //     border-top: none !important;
+            //     border-right: none !important;
+            //     border-left: none !important;
+            //     border-bottom: 1px solid white !important;
+            //   }
+
+            //   .title-container {
+            //     margin-top: 20px;
+            //     width: 100%;
+            //     height: 50px;
+            //     border-radius: 5px;
+            //     background-color: #222329;
+            //   }
               
-            </head>
-            <style>
-              body {
-                background-color: #33343C;
-              }
-
-              .auto-vertical {
-                margin-bottom: auto;
-                margin-top: auto;
-              }
-            
-              .left {
-                float: left;
-              }
-            
-              .block {
-                display: block;
-              }
-            
-              .ml-15 {
-                margin-left: 15px;
-              }
-            
-              .mt-5 {
-                margin-top: 5px;
-              }
-
-              .ft-10 {
-                font-size: 10px;
-              }
-
-              .ft-13 {
-                font-size: 13px;
-              }
-            
-              .ft-20 {
-                font-size: 20px;
-              }
-            
-              .border-bottom {
-                border-top: none !important;
-                border-right: none !important;
-                border-left: none !important;
-                border-bottom: 1px solid white !important;
-              }
-            
-              .title-container {
-                margin-top: 20px;
-                width: 100%;
-                height: 50px;
-                border-radius: 5px;
-                background-color: #222329;
-              }
-              
-              .section1 {
-                width: 60%;
-                border-right: 1px solid white;
+            //   .section1 {
+            //     width: 60%;
+            //     border-right: 1px solid white;
                
-              }
-            
-              .section2 {
-                width: 30%;
-                float: right;
-              }
-            
-              .entity-name {
-                color: #698CCA;
-                margin-left: 10px;
-                
-              }
-            
-              .button-save {
-                background-color: #87E283;
-                color: black;
-                border-radius: 20px;
-                float: right;
-                margin-right: 20px;
-              }
-              
-              .button-param {
-                background-color: transparent;
-                color: white;
-                border-radius: 5px;
-                border: 1px solid white;
-              }
-              
-            
-              .input-text {
-                width: 30%;
-                background-color: transparent;
-                font-size: 13px;
-              }
+            //   }
 
-              .input-desc {
-                background-color: transparent;
-                font-size: 13px;
-              }
+            //   .section2 {
+            //     width: 30%;
+            //     float: right;
+            //   }
+
+            //   .entity-name {
+            //     color: #698CCA;
+            //     margin-left: 10px;
+                
+            //   }
+
+            //   .button-save {
+            //     background-color: #87E283;
+            //     color: black;
+            //     border-radius: 20px;
+            //     float: right;
+            //     margin-right: 20px;
+            //   }
+
+            //   .button-required {
+            //     background-color: #5996F3;
+            //     color: white;
+            //     border-radius: 5px;
+            //   }
+
+            //   .name {
+            //     border-bottom: 1px solid black;
+            //     width: 50%;
+            //   }
+
+            //   .input-text {
+            //     width: 30%;
+            //     background-color: transparent;
+            //     font-size: 13px;
+            //   }
+
+            //   .input-text-attr {
+            //     width: 15%;
+            //     background-color: transparent;
+            //     font-size: 13px;
+            //   }
+              
+            //   .logo {
+            //     width: 50%;
+            //     min-width: 300px;
+            //     height: 50px;
+            //   }
+            // </style>
             
-              .input-text-attr {
-                width: 15%;
-                background-color: transparent;
-                font-size: 13px;
-              }
-              
-              .logo {
-                width: 50%;
-                min-width: 300px;
-                height: 50px;
-              }
-              
-            </style>
-            
-            <body>
-            <div id="api-container">
-              <div class="title-container">
-                <div class="section1 auto-vertical left block">
-                  <h1 class="ft-20 ml-15"> API
-                    <span class="entity-name ft-13"> ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].name  } </span>
-                    <span class="ml-15 ft-13"> ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].method }</span>
-                  </h1>
-                </div>
-                <div class="section2 auto-vertical  block">
-                 <p class="ml-15 ft-13"> Delete model 
-                  <span>
-                    <button id="save" class="button-save mt-5"> Save </button>
-                  </span>
-                 </p>
-                </div>
-              </div>
-              <div class="name">
-                <h3 class="ft-13">
-                  Name
-                <span>
-                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].name }">
-                </span>
-                </h3>
-              </div>
-              <div class="name">
-                <h3 class="ft-13">
-                  Url
-                <span>
-                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].url }">
-                </span>
-                </h3>
-              </div>
-              <div class="name">
-                <h3 class="ft-13">
-                  Method
-                <span>
-                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].method }">
-                </span>
-                </h3>
-              </div>
-              <div class="name">
-                <h3 class="ft-13">
-                  Description
-                <span>
-                  <input class="input-desc border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].description }">
-                </span>
-                </h3>
-              </div>
-              <div class="name">
-                <h3 class="ft-13">
-                  Restriction
-                <span>
-                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].returnDesc }">
-                </span>
-                </h3>
-              </div>
-              <div class="name">
-                <h3 class="ft-13">
-                  Return
-                <span>
-                  <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.resources[0]._resources[0]._services[0].returnType}">
-                </span>
-                </h3>
-              </div>
-              <div class="button-add">
-                <button id="add-param" class="button-param mt-5"> Add param </button>
-            </div>
+            // <body>
+            // <div id="container">
+            //   <div class="title-container">
+            //     <div class="section1 auto-vertical left block">
+            //       <h1 class="ft-20 ml-15"> Model 
+            //        <span class="entity-name ft-13"> ${ contextNode.skaffolderObject.dbs[0]._entity[0].name } </span>
+            //       </h1>
+            //     </div>
+            //     <div class="section2 auto-vertical  block">
+            //      <p class="ml-15 ft-13"> Delete model 
+            //       <span>
+            //         <button id="save" class="button-save mt-5"> Save </button>
+            //       </span>
+            //      </p>
+            //     </div>
+            //   </div>
+            //   <div class="name">
+            //     <h3 class="ft-13">
+            //       Name
+            //     <span>
+            //       <input class="input-text border-bottom ml-15" type="text" placeholder=" ${ contextNode.skaffolderObject.dbs[0]._entity[0].name }">
+            //     </span>
+            //     </h3>
+            //   </div>
+            //   $ { work}
+            //   <div class="attributes name">
+            //     <h3 class="ft-13">
+            //     Attributes:
+            //     </h3>
+            //     <p> 
+            //       <span> 
+            //         <input class="input-text-attr border-bottom ml-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0]._attrs[0].name }">
+            //       </span>
+            //       <span> 
+            //         <input class="input-text-attr border-bottom ml-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[0]._attrs[0].type }">
+            //       </span>
+            //       <span>
+            //         <button id="required" class="button-required ml-15"> Required </button>
+            //       </span>
+            //       <span>
+            //         <button id="unique" class="button-required ml-15"> Unique </button>
+            //       </span>
+            //       <span>
+            //         <button id="enumeration" class="button-required ml-15"> Enumeration </button>
+            //       </span>
+            //     </p>
+            //   </div>
+            //   <div class="relation">
+            //     <h3 class="ft-13">
+            //       Relation:
+            //     </h3>
+            //     <p class="relations">
+            //       Type
+            //       <span>
+            //         <input class="input-text-attr border-bottom ml-15 mr-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[1]._relations[0].type } ">
+            //       </span>
+            //       Name
+            //       <span>
+            //         <input class="input-text-attr border-bottom ml-15 mr-15" type="text" placeholder="${ contextNode.skaffolderObject.dbs[0]._entity[1]._relations[0].name} ">
+            //       </span>
+            //       <span>
+            //         <button id="required" class="button-required"> Required </button>
+            //       </span>
+
+            // </div>
               
               
-            </body>
-            <script type="text/javascript">
-              (function () {
-              const counter = document.getElementById("lines-of-code-counter");
-              const vscode = acquireVsCodeApi();
-              console.log("ok");
-              var save = function () {
-                counter.textContent = "test";
-                vscode.postMessage({
-                  command: "save",
-                  text: "test"
-              });
-            };
-            document.getElementById("button").addEventListener("click", save);
-            })();
-</script>
-            </html>`;
+            // </body>
+            // </html>`;
 
           } catch (e) {
             console.error(e);
           }
+
+          panel.webview.postMessage({
+            command: "my-command",
+            data: JSON.stringify(contextNode.skaffolderObject)
+          });
+
           //Handle messages from the webview
           panel.webview.onDidReceiveMessage(
             message => {
               switch (message.command) {
                 case "save":
                   vscode.window.showInformationMessage("Save");
+                  return;
+                case "get-data": 
+                  console.log("get data");
+                  console.log(JSON.stringify(message));
                   return;
               }
             },
@@ -578,6 +569,7 @@ export class Commands {
       )
     );
   }
+
   static openFiles(files: string[]) {
     // Open files
     vscode.window.showQuickPick(files).then(async item => {
@@ -591,4 +583,3 @@ export class Commands {
     });
   }
 }
-
