@@ -5,7 +5,7 @@ import * as vscode from "vscode";
 
 
 
-export class Test {
+export class Webview {
     assetsFile = (name: string, extensionPath: string) => {
 
         const file = path.join(extensionPath, 'src', name);
@@ -14,8 +14,8 @@ export class Test {
             .toString();
     }
 
-    test1(contextNode: SkaffolderNode, extensionPath: string) {
-        var dino =  this.assetsFile("", extensionPath);
+    webView(contextNode: SkaffolderNode, extensionPath: string) {
+        var dino = this.assetsFile("", extensionPath);
         console.log(dino);
 
         return `<!DOCTYPE html>
@@ -29,16 +29,16 @@ export class Test {
                                                  style-src vscode-resource: 'self' 'unsafe-inline';
                                                  img-src 'self' vscode-resource: data:" />
             <title>Edit Model</title>
-            <link=rel="stylesheet" href="${ this.assetsFile("/css/editModel.css", extensionPath)}">
+            <link=rel="stylesheet" href="${ this.assetsFile("/css/style.scss", extensionPath)}">
         </head>
         
         <body>
-            <div ng-view></div>
+            <div ng-include="'./html/editApi.html'"></div>
         
         </body>
         <script src="${ this.assetsFile("/js/angular.min.js", extensionPath)}"></script>
         <script src="${ this.assetsFile("/js/angular-route.min.js", extensionPath)}"></script>
-        <script src="${ this.assetsFile('/js/test.js', extensionPath)}"></script>
+        <script src="${ this.assetsFile('/js/angularController.js', extensionPath)}"></script>
         
         </html>`;
     }
