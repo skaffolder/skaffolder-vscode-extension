@@ -1,10 +1,6 @@
-// Body
-
 body {
   background-color: #33343c;
 }
-
-// Common
 
 .auto-vertical {
   margin-bottom: auto;
@@ -59,8 +55,6 @@ body {
   height: 50px;
 }
 
-// Margin
-
 .ml-15 {
   margin-left: 15px;
 }
@@ -68,8 +62,6 @@ body {
 .mt-5 {
   margin-top: 5px;
 }
-
-// Font
 
 .ft-10 {
   font-size: 10px;
@@ -83,19 +75,13 @@ body {
   font-size: 20px;
 }
 
-// Display
-
 .block {
   display: block;
 }
 
-// Float
-
 .left {
   float: left;
 }
-
-// Button
 
 .button-save {
   background-color: #87e283;
@@ -110,4 +96,26 @@ body {
   color: white;
   border-radius: 5px;
   margin-right: 10px;
+}
+
+.name {
+  border-bottom: 1px solid black;
+  width: 50%;
+}
+
+.input-desc {
+  background-color: transparent;
+  font-size: 13px;
+}
+
+.button-param {
+  background-color: transparent;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.input-desc {
+  background-color: transparent;
+  font-size: 13px;
 }

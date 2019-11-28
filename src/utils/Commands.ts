@@ -204,17 +204,12 @@ export class Commands {
             // );
             // panel.webview.html = fs.readFileSync(filePath.fsPath, "utf8");
 
-            panel.webview.html = new webviewExt.Webview().webView(contextNode, context.extensionPath);
+            panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editModel");
 
 
           } catch (e) {
             console.error(e);
           }
-
-          panel.webview.postMessage({
-            command: "my-command",
-            data: JSON.stringify(contextNode.skaffolderObject)
-          });
 
           //Handle messages from the webview
           panel.webview.onDidReceiveMessage(
@@ -223,10 +218,12 @@ export class Commands {
                 case "save":
                   vscode.window.showInformationMessage("Save");
                   return;
-                case "get-data":
-                  console.log("get data");
-                  console.log(JSON.stringify(message));
-                  return;
+                case "webview-ready":
+                  panel.webview.postMessage({
+                    command: "get-data",
+                    data: JSON.stringify(contextNode.skaffolderObject)
+                  });
+                  break;
               }
             },
             undefined,

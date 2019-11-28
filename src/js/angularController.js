@@ -1,38 +1,33 @@
-window.addEventListener('message', event => {
-    const message = event.data;
+vscode = acquireVsCodeApi();
 
-    if (message.command == 'my-command') {
-        contextNode = JSON.parse(message.data);
-    }
-});
-
-var app = angular.module("Skaffolder_Extension", ['ngRoute']).config(["$routeProvider",
-    function ($routeProvider) {
-        console.log(globalPath)
-        $routeProvider.otherwise({
-            templateUrl: globalPath + "/html/editApi.html"
-        })
-    }]
-)
+var app = angular.module("Skaffolder_Extension", []).config(["$sceDelegateProvider", function ($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+        "vscode-resource:/**"
+    ])
+}])
 
 app.run(["$rootScope", function ($rootScope) {
-    console.log(globalPath);
-    var cb = function () {
-        if (typeof contextNode == "undefined") {
-            setTimeout(cb, 10);
-        } else {
-            $rootScope.$emit('data', contextNode);
-            $rootScope.data = contextNode;
-        }
+    $rootScope.controllerReady = () => {
+        vscode.postMessage({
+            command: "webview-ready"
+        });
     }
-    cb();
+
+    window.addEventListener('message', (event) => {
+        const message = event.data;
+
+        if (message.command == 'get-data') {
+            let contextNode = JSON.parse(message.data);
+            $rootScope.$emit("root-scope-data", contextNode)
+        }
+    });
 }])
 
 app.controller("EditModelController", ["$scope", "$rootScope", function ($scope, $rootScope) {
-    $rootScope.$on("data", (e, data) => {
-        $scope.contextNode = data;
-        $scope.$apply();
-    })
+    $rootScope.$on('root-scope-data', (e, data) => {
+        $scope.contextNode = data
+        $scope.$apply()
+    });
 
-    $scope.ciccio = "ciaccioo2";
+    $rootScope.controllerReady();
 }]);
