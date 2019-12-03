@@ -199,12 +199,45 @@ export class Commands {
             }
           );
           try {
-            // const filePath: vscode.Uri = vscode.Uri.file(
-            //   path.join(context.extensionPath, "src", "html", "editModel.html")
-            // );
-            // panel.webview.html = fs.readFileSync(filePath.fsPath, "utf8");
 
-            panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editModel");
+            if (contextNode.params) {
+              if (contextNode.params.type === "db") {
+                panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editDb");
+              } else if (contextNode.params.type === "resource" && contextNode.contextValue === "model") {
+                panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editModel");
+              } else if (contextNode.params.type === "resource") {
+                console.log(contextNode.params.model, contextNode)
+                panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editApi");
+                
+                panel.webview.onDidReceiveMessage(
+                  message => {
+                    switch (message.command) {
+                      case "save":
+                        vscode.window.showInformationMessage("Save");
+                        return;
+                      case "webview-ready":
+                        panel.webview.postMessage({
+                          command: "get-data",
+                          data: JSON.stringify({
+                              service: contextNode.params!.model!._services.find((item: any) => {
+                                return item.name === contextNode.label;
+                              })
+                          })
+                        });
+                        break;
+                    }
+                  },
+                  undefined,
+                  context.subscriptions
+                );
+              } else if (contextNode.params.type === "module") {
+                panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editPage");
+              } else {
+                console.error("Type " + contextNode.params.type + " not valid");
+              }
+            } else {
+              console.error("Type node not provided");
+            }
 
 
           } catch (e) {
@@ -212,23 +245,23 @@ export class Commands {
           }
 
           //Handle messages from the webview
-          panel.webview.onDidReceiveMessage(
-            message => {
-              switch (message.command) {
-                case "save":
-                  vscode.window.showInformationMessage("Save");
-                  return;
-                case "webview-ready":
-                  panel.webview.postMessage({
-                    command: "get-data",
-                    data: JSON.stringify(contextNode.skaffolderObject)
-                  });
-                  break;
-              }
-            },
-            undefined,
-            context.subscriptions
-          );
+          // panel.webview.onDidReceiveMessage(
+          //   message => {
+          //     switch (message.command) {
+          //       case "save":
+          //         vscode.window.showInformationMessage("Save");
+          //         return;
+          //       case "webview-ready":
+          //         panel.webview.postMessage({
+          //           command: "get-data",
+          //           data: JSON.stringify({ skObject: contextNode.params, label: contextNode.label })
+          //         });
+          //         break;
+          //     }
+          //   },
+          //   undefined,
+          //   context.subscriptions
+          // );
         }
       )
     );

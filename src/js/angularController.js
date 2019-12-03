@@ -31,3 +31,13 @@ app.controller("EditModelController", ["$scope", "$rootScope", function ($scope,
 
     $rootScope.controllerReady();
 }]);
+
+app.controller("EditApiController", ["$scope", "$rootScope", function ($scope, $rootScope) {
+    $scope.service = {};
+
+    $rootScope.$on('root-scope-data', (e, data) => {
+        $scope.service = data
+        $scope.$apply()
+    });
+    $rootScope.controllerReady();
+}]);
