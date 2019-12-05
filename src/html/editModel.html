@@ -6,7 +6,7 @@
       </h1>
     </div>
     <div class="section2 auto-vertical  block">
-      <p class="ml-15 ft-13"> 
+      <p class="ml-15 ft-13">
         <span>
           <button id="delete" class="">Delete model</button>
         </span>
@@ -20,7 +20,8 @@
     <h3 class="ft-13">
       Name
       <span>
-        <input class="input-text border-bottom ml-15" type="text" placeholder="Name" value=" {{ contextNode.skObject.model._entity.name }} "/>
+        <input class="input-text border-bottom ml-15" type="text" placeholder="Name"
+          value=" {{ contextNode.skObject.model._entity.name }} " />
       </span>
     </h3>
   </div>
@@ -28,21 +29,20 @@
     <h3 class="ft-13">
       Attributes:
     </h3>
-    <p ng-repeat= "attr in contextNode.skObject.model._entity._attrs">
+    <p ng-repeat="attr in contextNode.skObject.model._entity._attrs">
       <span>
-        <input class="input-text-attr border-bottom ml-15" type="text"
-          value=" {{ attr.name }}" placeholder="Name" />
+        <input class="input-text-attr border-bottom ml-15" type="text" value=" {{ attr.name }}" placeholder="Name" />
       </span>
       <span>
-        <select class="input-text-attr border-bottom ml-15" placeholder="Type" value="{{ attr.type }}" >
-            <option value="" disabled>Type</option>
-            <option value="String">String</option>
-            <option value="Number">Number</option>
-            <option value="Date">Date</option>
-            <option value="Boolean">Boolean</option>
-            <option value="Integer">Integer</option>
-            <option value="Decimal">Decimal</option>
-            <option value="Custom">Custom</option>
+        <select class="input-text-attr border-bottom ml-15" placeholder="Type" value="{{ attr.type }}">
+          <option value="" disabled>Type</option>
+          <option value="String">String</option>
+          <option value="Number">Number</option>
+          <option value="Date">Date</option>
+          <option value="Boolean">Boolean</option>
+          <option value="Integer">Integer</option>
+          <option value="Decimal">Decimal</option>
+          <option value="Custom">Custom</option>
         </select>
       </span>
       <span>
@@ -65,13 +65,13 @@
       <span>
         <select class="input-text-attr border-bottom ml-15 mr-15" placeholder="Type" value="{{ rel.type }}">
           <option value="m:m">m:m</option>
-          <option value="1:m">1:m</option>        
+          <option value="1:m">1:m</option>
         </select>
       </span>
       Name
       <span>
-        <input class="input-text-attr border-bottom ml-15 mr-15" type="text"
-          value=" {{ rel.name }} " placeholder="Name">
+        <input class="input-text-attr border-bottom ml-15 mr-15" type="text" value=" {{ rel.name }} "
+          placeholder="Name">
       </span>
       <span>
         <button id="required" class="button-required"> Required </button>

@@ -2,9 +2,9 @@
   <div class="title-container">
     <div class="section1 auto-vertical left block">
       <h1 class="ft-20 ml-15"> API
-        <span class="entity-name ft-13"> {{ service.name }}
+        <span class="entity-name ft-13"> {{ service.service.name }}
         </span>
-        <span class="ml-15 ft-13"> {{  }}</span>
+        <span class="ml-15 ft-13"> {{ service.service.method }}</span>
       </h1>
     </div>
     <div class="section2 auto-vertical  block">
@@ -19,8 +19,7 @@
     <h3 class="ft-13">
       Name
       <span>
-        <input class="input-text border-bottom ml-15" type="text"
-          placeholder=" {{ contextNode.resources[0]._resources[0]._services[0].name }}">
+        <input class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.name }}">
       </span>
     </h3>
   </div>
@@ -28,8 +27,7 @@
     <h3 class="ft-13">
       Url
       <span>
-        <input class="input-text border-bottom ml-15" type="text"
-          placeholder=" {{ contextNode.resources[0]._resources[0]._services[0].url }}">
+        <input class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.url }}">
       </span>
     </h3>
   </div>
@@ -37,8 +35,7 @@
     <h3 class="ft-13">
       Method
       <span>
-        <input class="input-text border-bottom ml-15" type="text"
-          placeholder=" {{ contextNode.resources[0]._resources[0]._services[0].method }}">
+        <input class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.method }}">
       </span>
     </h3>
   </div>
@@ -46,8 +43,7 @@
     <h3 class="ft-13">
       Description
       <span>
-        <input class="input-desc border-bottom ml-15" type="text"
-          placeholder=" {{ contextNode.resources[0]._resources[0]._services[0].description }}">
+        <input class="input-desc border-bottom ml-15" type="text" placeholder=" {{ service.service.description }}">
       </span>
     </h3>
   </div>
@@ -55,8 +51,7 @@
     <h3 class="ft-13">
       Restriction
       <span>
-        <input class="input-text border-bottom ml-15" type="text"
-          placeholder=" {{ contextNode.resources[0]._resources[0]._services[0].returnDesc }}">
+        <input class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.returnDesc }}">
       </span>
     </h3>
   </div>
@@ -64,8 +59,7 @@
     <h3 class="ft-13">
       Return
       <span>
-        <input class="input-text border-bottom ml-15" type="text"
-          placeholder=" {{ contextNode.resources[0]._resources[0]._services[0].returnType }}">
+        <input class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.returnType }}">
       </span>
     </h3>
   </div>

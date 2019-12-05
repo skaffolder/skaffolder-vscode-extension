@@ -32,7 +32,11 @@ export class Webview {
             <div ng-include="'${ this.assetsFile(`/html/${page}.html`, extensionPath)}'"></div>
         </body>
         <script src="${ this.assetsFile("/js/angular.min.js", extensionPath)}"></script>
-        <script src="${ this.assetsFile('/js/angularController.js', extensionPath)}"></script>
+        <script src="${ this.assetsFile('/js/app.js', extensionPath)}"></script>
+        <script src="${ this.assetsFile('/js/controller/editModelController.js', extensionPath)}"></script>
+        <script src="${ this.assetsFile('/js/controller/editApiController.js', extensionPath)}"></script>
+        <script src="${ this.assetsFile('/js/controller/editPageController.js', extensionPath)}"></script>
+        <script src="${ this.assetsFile('/js/controller/editDbController.js', extensionPath)}"></script>
         
         </html>`;
     }

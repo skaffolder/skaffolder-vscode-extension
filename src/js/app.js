@@ -18,26 +18,22 @@ app.run(["$rootScope", function ($rootScope) {
 
         if (message.command == 'get-data') {
             let contextNode = JSON.parse(message.data);
-            $rootScope.$emit("root-scope-data", contextNode)
+            $rootScope.$emit("root-scope-data", contextNode);
+        }
+        if (message.command == 'get-service') {
+            let service = JSON.parse(message.data);
+            $rootScope.$emit("root-scope-service", service);
+        }
+        if (message.command == 'get-db') {
+            let db = JSON.parse(message.data);
+            $rootScope.$emit("root-scope-db", db);
+        }
+        if (message.command == 'get-page') {
+            let page = JSON.parse(message.data);
+            $rootScope.$emit("root-scope-db", page);
         }
     });
+
+    
 }])
 
-app.controller("EditModelController", ["$scope", "$rootScope", function ($scope, $rootScope) {
-    $rootScope.$on('root-scope-data', (e, data) => {
-        $scope.contextNode = data
-        $scope.$apply()
-    });
-
-    $rootScope.controllerReady();
-}]);
-
-app.controller("EditApiController", ["$scope", "$rootScope", function ($scope, $rootScope) {
-    $scope.service = {};
-
-    $rootScope.$on('root-scope-data', (e, data) => {
-        $scope.service = data
-        $scope.$apply()
-    });
-    $rootScope.controllerReady();
-}]);

@@ -203,12 +203,8 @@ export class Commands {
             if (contextNode.params) {
               if (contextNode.params.type === "db") {
                 panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editDb");
-              } else if (contextNode.params.type === "resource" && contextNode.contextValue === "model") {
-                panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editModel");
-              } else if (contextNode.params.type === "resource") {
-                console.log(contextNode.params.model, contextNode)
-                panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editApi");
-                
+
+                //Message.Command EditDb
                 panel.webview.onDidReceiveMessage(
                   message => {
                     switch (message.command) {
@@ -217,12 +213,8 @@ export class Commands {
                         return;
                       case "webview-ready":
                         panel.webview.postMessage({
-                          command: "get-data",
-                          data: JSON.stringify({
-                              service: contextNode.params!.model!._services.find((item: any) => {
-                                return item.name === contextNode.label;
-                              })
-                          })
+                          command: "get-db",
+                          data: JSON.stringify({ skObject: contextNode.params, label: contextNode.label })
                         });
                         break;
                     }
@@ -230,11 +222,80 @@ export class Commands {
                   undefined,
                   context.subscriptions
                 );
-              } else if (contextNode.params.type === "module") {
-                panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editPage");
-              } else {
-                console.error("Type " + contextNode.params.type + " not valid");
-              }
+              } else
+                if (contextNode.params.type === "resource" && contextNode.contextValue === "model") {
+                  panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editModel");
+                  console.log(contextNode);
+                  //Message.Command editModel
+                  panel.webview.onDidReceiveMessage(
+                    message => {
+                      switch (message.command) {
+                        case "save":
+                          vscode.window.showInformationMessage("Save");
+                          return;
+                        case "webview-ready":
+                          panel.webview.postMessage({
+                            command: "get-data",
+                            data: JSON.stringify({ skObject: contextNode.params, label: contextNode.label })
+                          });
+                          break;
+                      }
+                    },
+                    undefined,
+                    context.subscriptions
+                  );
+                } else if (contextNode.params.type === "resource") {
+                  panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editApi");
+
+                  //Message.Command editApi
+                  panel.webview.onDidReceiveMessage(
+                    message => {
+                      switch (message.command) {
+                        case "save":
+                          vscode.window.showInformationMessage("Save");
+                          return;
+                        case "webview-ready":
+                          panel.webview.postMessage({
+                            command: "get-service",
+                            data: JSON.stringify({
+                              service: contextNode.params!.model!._services.find((item: any) => {
+                                return item.name === contextNode.label;
+                              })
+                            })
+                          });
+                          break;
+                      }
+                    },
+                    undefined,
+                    context.subscriptions
+                  );
+                } else if (contextNode.params.type === "module") {
+                  panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editPage");
+                  console.log(contextNode.params.page);
+                  //Message.Command editPage
+                  panel.webview.onDidReceiveMessage(
+                    message => {
+                      switch (message.command) {
+                        case "save":
+                          vscode.window.showInformationMessage("Save");
+                          return;
+                        case "webview-ready":
+                          panel.webview.postMessage({
+                            command: "get-page",
+                            data: JSON.stringify({
+                              page: contextNode.params!.page!,
+                              label: contextNode.label
+                            })
+                          });
+                          break;
+                      }
+                    },
+                    undefined,
+                    context.subscriptions
+                  );
+                } else {
+                  console.error("Type " + contextNode.params.type + " not valid");
+                }
             } else {
               console.error("Type node not provided");
             }
@@ -245,23 +306,23 @@ export class Commands {
           }
 
           //Handle messages from the webview
-          // panel.webview.onDidReceiveMessage(
-          //   message => {
-          //     switch (message.command) {
-          //       case "save":
-          //         vscode.window.showInformationMessage("Save");
-          //         return;
-          //       case "webview-ready":
-          //         panel.webview.postMessage({
-          //           command: "get-data",
-          //           data: JSON.stringify({ skObject: contextNode.params, label: contextNode.label })
-          //         });
-          //         break;
-          //     }
-          //   },
-          //   undefined,
-          //   context.subscriptions
-          // );
+          panel.webview.onDidReceiveMessage(
+            message => {
+              switch (message.command) {
+                case "save":
+                  vscode.window.showInformationMessage("Save");
+                  return;
+                case "webview-ready":
+                  panel.webview.postMessage({
+                    command: "get-data",
+                    data: JSON.stringify({ skObject: contextNode.params, label: contextNode.label })
+                  });
+                  break;
+              }
+            },
+            undefined,
+            context.subscriptions
+          );
         }
       )
     );

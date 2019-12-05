@@ -1,0 +1,27 @@
+<div id="container" ng-controller="EditPageController">
+    <div class="title-container">
+        <div class="section1 auto-vertical left block">
+            <h1 class="ft-20 ml-15"> Database
+                <span class="entity-name ft-13"> {{ page.label}} </span>
+            </h1>
+        </div>
+        <div class="section2 auto-vertical  block">
+            <p class="ml-15 ft-13">
+                <span>
+                    <button id="delete" class="">Delete model</button>
+                </span>
+                <span>
+                    <button id="save" class="button-save mt-5"> Save </button>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="name">
+        <h3 class="ft-13">
+            Name
+            <span>
+                <input class="input-text border-bottom ml-15" type="text" placeholder=" {{ page.page.name }}">
+            </span>
+        </h3>
+    </div>
+</div>
