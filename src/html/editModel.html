@@ -20,7 +20,7 @@
     <h3 class="ft-13">
       Name
       <span>
-        <input class="input-text border-bottom ml-15" type="text" placeholder="Name"
+        <input ng-model="contextNode.skObject.model._entity.name" class="input-text border-bottom ml-15" type="text" placeholder="Name"
           value=" {{ contextNode.skObject.model._entity.name }} " />
       </span>
     </h3>
@@ -29,12 +29,31 @@
     <h3 class="ft-13">
       Attributes:
     </h3>
+    <p>
+      <span>
+        <input class="input-text-attr border-bottom ml-15" type="text" value="_ID" disabled />
+      </span>
+      <span>
+        <select class="input-text-attr border-bottom ml-15" required disabled>
+          <option value="" selected required>Primary Key</option>
+        </select>
+      </span>
+      <span>
+        <button id="required" class="button-required ml-15" selected> Required </button>
+      </span>
+      <span>
+        <button id="unique" class="button-required ml-15" selected> Unique </button>
+      </span>
+      <span>
+        <button id="enumeration" class="button-required ml-15"> Enumeration </button>
+      </span>
+    </p>
     <p ng-repeat="attr in contextNode.skObject.model._entity._attrs">
       <span>
         <input class="input-text-attr border-bottom ml-15" type="text" value=" {{ attr.name }}" placeholder="Name" />
       </span>
       <span>
-        <select class="input-text-attr border-bottom ml-15" placeholder="Type" value="{{ attr.type }}">
+        <select class="input-text-attr border-bottom ml-15" placeholder="Type" ng-model="attr.type" value="{{ attr.type }}">
           <option value="" disabled>Type</option>
           <option value="String">String</option>
           <option value="Number">Number</option>
@@ -46,13 +65,13 @@
         </select>
       </span>
       <span>
-        <button id="required" class=" ml-15"> Required </button>
+        <button id="required" class="button-required ml-15"> Required </button>
       </span>
       <span>
-        <button id="unique" class=" ml-15"> Unique </button>
+        <button id="unique" class="button-required ml-15"> Unique </button>
       </span>
       <span>
-        <button id="enumeration" class=" ml-15"> Enumeration </button>
+        <button id="enumeration" class="button-required ml-15"> Enumeration </button>
       </span>
     </p>
   </div>
@@ -63,7 +82,7 @@
     <p class="relations" ng-repeat="rel in contextNode.skObject.model._entity._relations">
       Type
       <span>
-        <select class="input-text-attr border-bottom ml-15 mr-15" placeholder="Type" value="{{ rel.type }}">
+        <select class="input-text-attr border-bottom ml-15 mr-15" placeholder="Type" ng-model="rel.type" value="{{ rel.type }}">
           <option value="m:m">m:m</option>
           <option value="1:m">1:m</option>
         </select>

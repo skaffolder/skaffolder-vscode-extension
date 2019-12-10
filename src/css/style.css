@@ -38,13 +38,13 @@ body {
 }
 
 .input-text {
-  width: 30%;
+  width: 40%;
   background-color: transparent;
   font-size: 13px;
 }
 
 .input-text-attr {
-  width: 15%;
+  width: 20%;
   background-color: transparent;
   font-size: 13px;
 }
@@ -91,11 +91,10 @@ body {
   margin-right: 20px;
 }
 
-.button-required {
+.button-required:active {
   background-color: #698cca;
   color: white;
   border-radius: 5px;
-  margin-right: 10px;
 }
 
 .name {

@@ -24,4 +24,46 @@
             </span>
         </h3>
     </div>
+    <div class="name">
+        <h3 class="ft-13">
+            Url
+            <span>
+                <input class="input-text border-bottom ml-15" type="text" placeholder=" {{ page.page.url }}">
+            </span>
+        </h3>
+    </div>
+    <div class="name">
+        <h3 class="ft-13">
+            Roles
+            <span>
+                <select class="input-text-attr border-bottom ml-15" placeholder="Roles" ng-model="page.page._roles"
+                    value="{{ page.page._roles">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+            </span>
+        </h3>
+    </div>
+    <div class="name">
+        <h3 class="ft-13">
+            Link
+            <span>
+                <select class="input-text-attr border-bottom ml-15" placeholder="Link" ng-model="page.page._links"
+                    value="{{ page.page._links">
+                    <option ng-repeat="link in page.page._links" value="link.name">{{ link.name }}</option>
+                </select>
+            </span>
+        </h3>
+    </div>
+    <div class="name">
+        <h3 class="ft-13">
+                Nesteds
+            <span>
+                <select class="input-text-attr border-bottom ml-15" placeholder="Link" ng-model="page.page.__nesteds"
+                        value="{{ page.page._nesteds">
+                    <option ng-repeat="nested in page.page._nesteds" value="nested.name">{{ nested.name }}</option>
+                </select>
+            </span>
+        </h3>
+    </div>
 </div>
