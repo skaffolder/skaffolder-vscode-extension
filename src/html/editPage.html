@@ -35,33 +35,44 @@
     <div class="name">
         <h3 class="ft-13">
             Roles
-            <span>
-                <select class="input-text-attr border-bottom ml-15" placeholder="Roles" ng-model="page.page._roles"
-                    value="{{ page.page._roles">
-                    <option value="public">Public</option>
-                    <option value="private">Private</option>
-                </select>
-            </span>
+            <span class="label-public ml-15" ng-if="!page.page._roles">Public</span>
+            <span class="label-private ml-15" ng-if="page.page._roles.length == 0">Private</span>
         </h3>
     </div>
     <div class="name">
         <h3 class="ft-13">
             Link
+            <span ng-repeat="links in page.page._links ">
+                <div class="link">
+                    {{ links.name }}
+                </div>
+            </span>
             <span>
-                <select class="input-text-attr border-bottom ml-15" placeholder="Link" ng-model="page.page._links"
-                    value="{{ page.page._links">
-                    <option ng-repeat="link in page.page._links" value="link.name">{{ link.name }}</option>
+                <button id="add-link" class="button-param mt-5"> Add linked </button>
+            </span>
+            <span>
+                <select class="input-text-attr border-bottom ml-15" placeholder="Link" ng-model="page.prova"
+                    value="{{ page.prova }}">
+                    <option ng-repeat="link in page.api" value="link.name">{{ link.name }}</option>
                 </select>
             </span>
         </h3>
     </div>
     <div class="name">
         <h3 class="ft-13">
-                Nesteds
+            Nesteds
+            <span ng-repeat="nesteds in page.page._nesteds ">
+                <div class="nested">
+                    {{ nesteds.name }}
+                </div>
+            </span>
             <span>
-                <select class="input-text-attr border-bottom ml-15" placeholder="Link" ng-model="page.page.__nesteds"
-                        value="{{ page.page._nesteds">
-                    <option ng-repeat="nested in page.page._nesteds" value="nested.name">{{ nested.name }}</option>
+                <button id="add-nesteds" class="button-param mt-5"> Add nested </button>
+            </span>
+            <span>
+                <select class="input-text-attr border-bottom ml-15" placeholder="Nested" ng-model="page.page.__nesteds"
+                    value="{{ page.page._nesteds }}">
+                    <option ng-repeat="nested in page.api" value="nested.name">{{ nested.name }}</option>
                 </select>
             </span>
         </h3>

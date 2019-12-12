@@ -271,7 +271,11 @@ export class Commands {
                   );
                 } else if (contextNode.params.type === "module") {
                   panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editPage");
-                  console.log(contextNode.params.page);
+                  // let prova = (contextNode.params!.page!._links[0] as Page).name;
+                  // console.log(contextNode.params!.page!._roles);
+                  // console.log(prova);
+                  console.log(contextNode.params!);
+
                   //Message.Command editPage
                   panel.webview.onDidReceiveMessage(
                     message => {
@@ -284,7 +288,8 @@ export class Commands {
                             command: "get-page",
                             data: JSON.stringify({
                               page: contextNode.params!.page!,
-                              label: contextNode.label
+                              label: contextNode.label,
+                              api : contextNode.skaffolderObject.modules,
                             })
                           });
                           break;
