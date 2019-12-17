@@ -225,7 +225,7 @@ export class Commands {
               } else
                 if (contextNode.params.type === "resource" && contextNode.contextValue === "model") {
                   panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editModel");
-                  console.log(contextNode);
+                  console.log(contextNode.params!.model!._entity);
                   //Message.Command editModel
                   panel.webview.onDidReceiveMessage(
                     message => {
@@ -271,10 +271,6 @@ export class Commands {
                   );
                 } else if (contextNode.params.type === "module") {
                   panel.webview.html = new webviewExt.Webview().webView(context.extensionPath, "editPage");
-                  // let prova = (contextNode.params!.page!._links[0] as Page).name;
-                  // console.log(contextNode.params!.page!._roles);
-                  // console.log(prova);
-                  console.log(contextNode.params!);
 
                   //Message.Command editPage
                   panel.webview.onDidReceiveMessage(
@@ -289,7 +285,7 @@ export class Commands {
                             data: JSON.stringify({
                               page: contextNode.params!.page!,
                               label: contextNode.label,
-                              api : contextNode.skaffolderObject.modules,
+                              api: contextNode.skaffolderObject.modules,
                             })
                           });
                           break;
@@ -309,25 +305,6 @@ export class Commands {
           } catch (e) {
             console.error(e);
           }
-
-          //Handle messages from the webview
-          panel.webview.onDidReceiveMessage(
-            message => {
-              switch (message.command) {
-                case "save":
-                  vscode.window.showInformationMessage("Save");
-                  return;
-                case "webview-ready":
-                  panel.webview.postMessage({
-                    command: "get-data",
-                    data: JSON.stringify({ skObject: contextNode.params, label: contextNode.label })
-                  });
-                  break;
-              }
-            },
-            undefined,
-            context.subscriptions
-          );
         }
       )
     );

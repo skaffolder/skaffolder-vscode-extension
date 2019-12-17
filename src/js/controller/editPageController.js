@@ -1,6 +1,6 @@
 app.controller("EditPageController", ["$scope", "$rootScope", function ($scope, $rootScope) {
 
-    $rootScope.$on('root-scope-db', (e, data) => {
+    $rootScope.$on('root-scope-page', (e, data) => {
         $scope.page = data
         $scope.$apply()
     });

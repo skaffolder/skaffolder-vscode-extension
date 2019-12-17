@@ -39,10 +39,10 @@
         </select>
       </span>
       <span>
-        <button id="required" class="button-required ml-15" selected> Required </button>
+        <button id="required" class="button-required btn-success ml-15" selected> Required </button>
       </span>
       <span>
-        <button id="unique" class="button-required ml-15" selected> Unique </button>
+        <button id="unique" class="button-required btn-success ml-15" selected> Unique </button>
       </span>
       <span>
         <button id="enumeration" class="button-required ml-15"> Enumeration </button>
@@ -65,15 +65,18 @@
         </select>
       </span>
       <span>
-        <button id="required" class="button-required ml-15"> Required </button>
+        <button  ng-class="{'btn-success':attr.required }" id="required" class="button-required ml-15"> Required </button>
       </span>
       <span>
-        <button id="unique" class="button-required ml-15"> Unique </button>
+        <button ng-class="{'btn-success':attr.unique }" id="unique" class="button-required ml-15"> Unique </button>
       </span>
       <span>
-        <button id="enumeration" class="button-required ml-15"> Enumeration </button>
+        <button ng-class="{'btn-success':attr._enum }" id="enumeration" class="button-required ml-15"> Enumeration </button>
       </span>
     </p>
+    <div>
+      <button>Add Attribute</button>
+    </div>
   </div>
   <div class="relation">
     <h3 class="ft-13">

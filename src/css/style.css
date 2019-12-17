@@ -91,10 +91,14 @@ body {
   margin-right: 20px;
 }
 
-.button-required:active {
-  background-color: #698cca;
-  color: white;
+.button-required {
+  background-color: white;
+  color: black;
   border-radius: 5px;
+}
+
+.btn-success {
+  background-color: #698cca !important;
 }
 
 .name {
@@ -122,8 +126,8 @@ body {
 .label-public {
   background-color: green;
   font-size: 10px;
-  height: 20px !important;
-  width: 20px !important;
+  height: 40px !important;
+  width: 40px !important;
 }
 
 .label-private {

@@ -30,7 +30,7 @@ app.run(["$rootScope", function ($rootScope) {
         }
         if (message.command == 'get-page') {
             let page = JSON.parse(message.data);
-            $rootScope.$emit("root-scope-db", page);
+            $rootScope.$emit("root-scope-page", page);
         }
     });
 

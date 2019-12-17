@@ -106,9 +106,11 @@ body {
 }
 
 .button-required {
-  &:active {
-  background-color: #698cca;
-  color: white;
+  background-color: white;
+  color: black;
   border-radius: 5px;
-  }
+}
+
+.btn-success {
+  background-color: #698cca !important;
 }
