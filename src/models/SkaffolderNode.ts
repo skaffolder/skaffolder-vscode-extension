@@ -215,9 +215,9 @@ export class SkaffolderNode extends vscode.TreeItem {
         db = item;
       }
     });
-
     this.label = resource.name + "." + api.name;
-    this.description = api.method;
+    this.description = resource.name + api.url;
+    this.tooltip = api.method;
     this.iconPath = {
       light: this.context.asAbsolutePath(
         path.join("media", "light", "api_" + api.method + ".svg")
@@ -240,8 +240,10 @@ export class SkaffolderNode extends vscode.TreeItem {
     let db = this.skaffolderObject.resources[indexMap[0]];
     let model = db._resources[indexMap[1]];
     let api = model._services[indexMap[2]];
+    let resource = db._resources[indexMap[1]];
+    this.tooltip = api.method;
     this.label = api.name;
-    this.description = api.method;
+    this.description = resource.name + api.url;
     this.iconPath = {
       light: this.context.asAbsolutePath(
         path.join(

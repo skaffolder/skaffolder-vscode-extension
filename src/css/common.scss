@@ -5,6 +5,9 @@ body {
 }
 
 // Common
+.name {
+  border-bottom: 1px solid black;
+}
 
 .auto-vertical {
   margin-bottom: auto;
@@ -93,6 +96,16 @@ body {
 
 .left {
   float: left;
+}
+
+.right {
+  float: right;
+}
+
+// Text
+
+.center {
+  text-align: center;
 }
 
 // Button

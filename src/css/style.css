@@ -2,6 +2,10 @@ body {
   background-color: #33343c;
 }
 
+.name {
+  border-bottom: 1px solid black;
+}
+
 .auto-vertical {
   margin-bottom: auto;
   margin-top: auto;
@@ -83,6 +87,14 @@ body {
   float: left;
 }
 
+.right {
+  float: right;
+}
+
+.center {
+  text-align: center;
+}
+
 .button-save {
   background-color: #87e283;
   color: black;
@@ -101,9 +113,23 @@ body {
   background-color: #698cca !important;
 }
 
-.name {
-  border-bottom: 1px solid black;
-  width: 50%;
+.container-model .name h3 {
+  min-width: 100px;
+}
+.container-model .name .inline-block {
+  display: inline-block;
+}
+.container-model .name .input-model-name {
+  border: none;
+  width: 100%;
+  background-color: #3C3C3C;
+  font-size: 13px;
+}
+.container-model .input-model {
+  border: none;
+  width: 20%;
+  background-color: #3C3C3C;
+  font-size: 13px;
 }
 
 .input-desc {
@@ -111,29 +137,55 @@ body {
   font-size: 13px;
 }
 
-.button-param {
+.container-api .name h3 {
+  min-width: 100px;
+}
+.container-api .name .inline-block {
+  display: inline-block;
+}
+.container-api .button-param {
   background-color: transparent;
   color: white;
   border-radius: 5px;
   border: 1px solid white;
 }
-
-.input-desc {
-  background-color: transparent;
+.container-api .input-api {
+  border: none;
+  width: 100%;
+  background-color: #3C3C3C;
   font-size: 13px;
 }
 
-.label-public {
+.container-page .name h3 {
+  min-width: 100px;
+}
+.container-page .name .inline-block {
+  display: inline-block;
+}
+.container-page .button-param {
+  background-color: transparent;
+  color: white;
+  margin-left: 20px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+.container-page .input-page {
+  border: none;
+  width: 100%;
+  background-color: #3C3C3C;
+  font-size: 13px;
+  color: white;
+}
+.container-page .label-public {
   background-color: green;
   font-size: 10px;
-  height: 40px !important;
-  width: 40px !important;
+  height: 10px !important;
+  width: 20px !important;
 }
-
-.label-private {
+.container-page .label-private {
   background-color: red;
-  font-size: 10px;
+  font-size: 13px;
   border-radius: 20px;
-  width: 50px;
-  height: 50px;
+  height: 20px !important;
+  width: 60px !important;
 }
