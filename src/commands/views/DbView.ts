@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as webviewExt from "../../test/webView";
+import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 
@@ -9,7 +9,7 @@ export class DbView {
     const panel = vscode.window.createWebviewPanel("skaffolder", "Sk Database - " + contextNode.label, vscode.ViewColumn.One, {
       enableScripts: true
     });
-    panel.webview.html = new webviewExt.Webview().webView(EditNodeCommand.context.extensionPath, "editDb");
+    panel.webview.html = Webview.serve("editDb");
 
     // Message.Command editDb
     panel.webview.onDidReceiveMessage(

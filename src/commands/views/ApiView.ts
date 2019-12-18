@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as webviewExt from "../../test/webView";
+import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 
@@ -15,7 +15,7 @@ export class ApiView {
         enableScripts: true
       }
     );
-    panel.webview.html = new webviewExt.Webview().webView(EditNodeCommand.context.extensionPath, "editApi");
+    panel.webview.html = Webview.serve("editApi");
 
     // Message.Command editApi
     panel.webview.onDidReceiveMessage(

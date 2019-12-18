@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
-import * as webviewExt from "../../test/webView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
+import { Webview } from "../../utils/WebView";
 
 export class ModuleView {
   static async open(contextNode: SkaffolderNode) {
@@ -9,7 +9,8 @@ export class ModuleView {
     const panel = vscode.window.createWebviewPanel("skaffolder", "SK Page - " + contextNode.label, vscode.ViewColumn.One, {
       enableScripts: true
     });
-    panel.webview.html = new webviewExt.Webview().webView(EditNodeCommand.context.extensionPath, "editPage");
+
+    panel.webview.html = Webview.serve("editPage");
 
     // Message.Command editPage
     panel.webview.onDidReceiveMessage(

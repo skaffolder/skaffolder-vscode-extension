@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as webviewExt from "../../test/webView";
+import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 
@@ -9,7 +9,8 @@ export class ModelView {
     const panel = vscode.window.createWebviewPanel("skaffolder", "SK Model - " + contextNode.label, vscode.ViewColumn.One, {
       enableScripts: true
     });
-    panel.webview.html = new webviewExt.Webview().webView(EditNodeCommand.context.extensionPath, "editModel");
+
+    panel.webview.html = Webview.serve("editModel");
     console.log(contextNode.params!.model!._entity);
 
     // Message.Command editModel
