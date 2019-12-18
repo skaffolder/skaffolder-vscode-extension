@@ -4,6 +4,9 @@ import * as path from "path";
 import { SkaffolderNode } from "../SkaffolderNode";
 
 export class ModelDbNode {
+  /**
+   * Create node for each Db in the project
+   */
   static execute(node: SkaffolderNode, indexMap: number[]) {
     // Set db
     let db = node.skaffolderObject.resources[indexMap[0]];

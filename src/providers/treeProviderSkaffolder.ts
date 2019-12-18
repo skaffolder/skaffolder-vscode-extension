@@ -3,23 +3,21 @@ import { DataService } from "../services/DataService";
 import { SkaffolderObject } from "../models/SkaffolderObject";
 import { SkaffolderNode } from "../models/SkaffolderNode";
 
-export class TreeProviderSkaffolder
-  implements vscode.TreeDataProvider<SkaffolderNode> {
+/**
+ * This is a TreeDataProvider implementation
+ */
+export class TreeProviderSkaffolder implements vscode.TreeDataProvider<SkaffolderNode> {
   private skObject: SkaffolderObject;
 
   constructor(private context: vscode.ExtensionContext, private type: string) {
     this.skObject = DataService.getSkObject();
   }
 
-  getTreeItem(
-    element: SkaffolderNode
-  ): vscode.TreeItem | Thenable<vscode.TreeItem> {
+  getTreeItem(element: SkaffolderNode): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return element;
   }
 
-  getChildren(
-    element?: SkaffolderNode | undefined
-  ): vscode.ProviderResult<SkaffolderNode[]> {
+  getChildren(element?: SkaffolderNode | undefined): vscode.ProviderResult<SkaffolderNode[]> {
     if (element) {
       return element.children;
     } else {

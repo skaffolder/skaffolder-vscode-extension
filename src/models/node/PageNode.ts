@@ -4,6 +4,9 @@ import { SkaffolderNode } from "../SkaffolderNode";
 import { Page } from "../jsonreader/page";
 
 export class PageNode {
+  /**
+   * Create node for each page
+   */
   static execute(node: SkaffolderNode, indexMap: number[]) {
     let page: Page = node.skaffolderObject.modules[indexMap[0]];
     node.label = page.name;
@@ -14,15 +17,7 @@ export class PageNode {
     };
     let contexturl = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
     let rangeModel = page.index;
-    // this.command = {
-    //   command: "skaffolder.openpage",
-    //   title: "Open SKfile Page",
-    //   arguments: [
-    //     contexturl,
-    //     rangeModel,
-    //     page
-    //   ]
-    // };
+
     node.params = {
       type: "module",
       contextUrl: contexturl,

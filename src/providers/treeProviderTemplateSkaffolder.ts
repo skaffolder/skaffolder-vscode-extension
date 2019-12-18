@@ -1,26 +1,19 @@
 import * as vscode from "vscode";
-import { DataService } from "../services/DataService";
-import { SkaffolderObject } from "../models/SkaffolderObject";
 import { SkaffolderTemplateNode } from "../models/SkaffolderTemplateNode";
 
-export class TreeProviderTemplateSkaffolder
-  implements vscode.TreeDataProvider<SkaffolderTemplateNode> {
+/**
+ * This is a TreeDataProvider implementation when the current folder is not a Skaffolder project folder
+ */
+export class TreeProviderTemplateSkaffolder implements vscode.TreeDataProvider<SkaffolderTemplateNode> {
   private templateList: any;
 
-  constructor(private context: vscode.ExtensionContext) {
-    // let dataDervice = new DataService();
-    // this.templateList = dataDervice.getTemplateList();
-  }
+  constructor(private context: vscode.ExtensionContext) {}
 
-  getTreeItem(
-    element: SkaffolderTemplateNode
-  ): vscode.TreeItem | Thenable<vscode.TreeItem> {
+  getTreeItem(element: SkaffolderTemplateNode): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return element;
   }
 
-  getChildren(
-    element?: SkaffolderTemplateNode | undefined
-  ): vscode.ProviderResult<SkaffolderTemplateNode[]> {
+  getChildren(element?: SkaffolderTemplateNode | undefined): vscode.ProviderResult<SkaffolderTemplateNode[]> {
     if (element) {
       return element.children;
     } else {

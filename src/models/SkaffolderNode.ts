@@ -1,12 +1,8 @@
 import * as vscode from "vscode";
-import * as path from "path";
 import { SkaffolderObject } from "./SkaffolderObject";
-import { Entity } from "./jsonreader/entity";
 import { Resource } from "./jsonreader/resource";
 import { Db } from "./jsonreader/db";
 import { Page } from "./jsonreader/page";
-import { Service } from "./jsonreader/service";
-import { DataService } from "../services/DataService";
 import { PageRoot } from "./node/PageRoot";
 import { PageNode } from "./node/PageNode";
 import { PageApiNode } from "./node/PageApiNode";
@@ -17,10 +13,13 @@ import { ModelResourceNode } from "./node/ModelResourceNode";
 import { ModelApiNode } from "./node/ModelApiNode";
 import { ModelNotFound } from "./node/ModelNotFound";
 
+/**
+ * Tree interface when in a Skaffolder project folder
+ */
 export class SkaffolderNode extends vscode.TreeItem {
+  // Declare vars
   public children: SkaffolderNode[] = [];
-
-  params?: {
+  public params?: {
     db?: Db;
     model?: Resource;
     page?: Page;
@@ -29,6 +28,7 @@ export class SkaffolderNode extends vscode.TreeItem {
     range?: vscode.Range;
   } = {};
 
+  // Constructor
   constructor(
     public context: vscode.ExtensionContext,
     public readonly skaffolderObject: SkaffolderObject,
@@ -37,8 +37,8 @@ export class SkaffolderNode extends vscode.TreeItem {
   ) {
     super("", vscode.TreeItemCollapsibleState.None);
 
+    // Switch action by node type
     if (skaffolderObject !== undefined) {
-      // Switch action
       // Pages tree
       if (type === "page") {
         PageRoot.execute(this);

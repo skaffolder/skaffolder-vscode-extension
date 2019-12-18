@@ -2,6 +2,9 @@ import * as path from "path";
 import { SkaffolderNode } from "../SkaffolderNode";
 
 export class ModelApiNode {
+  /**
+   * Create node for each API in the model
+   */
   static execute(node: SkaffolderNode, indexMap: number[]) {
     // Set api
     let db = node.skaffolderObject.resources[indexMap[0]];

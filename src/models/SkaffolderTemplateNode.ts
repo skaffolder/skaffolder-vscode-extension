@@ -1,6 +1,9 @@
 import * as vscode from "vscode";
 import * as path from "path";
 
+/**
+ * Tree interface for not Skaffolder project folder
+ */
 export class SkaffolderTemplateNode extends vscode.TreeItem {
   public children: SkaffolderTemplateNode[] = [];
 
@@ -20,12 +23,8 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
     } else if (type === "createButton") {
       this.label = "Create projects";
       this.iconPath = {
-        light: this.context.asAbsolutePath(
-          path.join("media", "light", "plus.svg")
-        ),
-        dark: this.context.asAbsolutePath(
-          path.join("media", "dark", "plus.svg")
-        )
+        light: this.context.asAbsolutePath(path.join("media", "light", "plus.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "plus.svg"))
       };
       this.command = {
         command: "skaffolder.createProject",

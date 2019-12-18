@@ -5,6 +5,9 @@ import { DataService } from "../../services/DataService";
 import { Resource } from "../jsonreader/resource";
 
 export class PageApiNode {
+  /**
+   * Create node for each API in the page
+   */
   static execute(
     node: SkaffolderNode,
 

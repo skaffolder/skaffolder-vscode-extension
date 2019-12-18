@@ -25,10 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
     var filename = e.fileName
       .replace(/\//g, "")
       .replace(/\\/g, "")
-      .replace(
-        (vscode.workspace.rootPath || "").replace(/\//g, "").replace(/\\/g, ""),
-        ""
-      );
+      .replace((vscode.workspace.rootPath || "").replace(/\//g, "").replace(/\\/g, ""), "");
 
     if (filename === "openapi.yaml") {
       DataService.refreshData();
@@ -47,40 +44,21 @@ export function activate(context: vscode.ExtensionContext) {
 let refresh = function(context: vscode.ExtensionContext) {
   if (DataService.isSkaffolderProject()) {
     // Create trees
-    const skaffolderProviderModel = new TreeProviderSkaffolder(
-      context,
-      "model"
-    );
+    const skaffolderProviderModel = new TreeProviderSkaffolder(context, "model");
     // const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
     const skaffolderProviderPage = new TreeProviderSkaffolder(context, "page");
 
     // Register trees
-    vscode.window.registerTreeDataProvider(
-      "skaffolderExplorerModel",
-      skaffolderProviderModel
-    );
-
-    // vscode.window.registerTreeDataProvider(
-    //   "skaffolderExplorerAPI",
-    //   skaffolderProviderApi
-    // );
+    vscode.window.registerTreeDataProvider("skaffolderExplorerModel", skaffolderProviderModel);
 
     vscode.commands.executeCommand("setContext", "isSkaffolderProject", true);
-    vscode.window.registerTreeDataProvider(
-      "skaffolderExplorerPage",
-      skaffolderProviderPage
-    );
+    vscode.window.registerTreeDataProvider("skaffolderExplorerPage", skaffolderProviderPage);
   } else {
     // Create trees
-    const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(
-      context
-    );
+    const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(context);
 
     // Register trees
-    vscode.window.registerTreeDataProvider(
-      "skaffolderExplorerTemplates",
-      skaffolderProviderTemplate
-    );
+    vscode.window.registerTreeDataProvider("skaffolderExplorerTemplates", skaffolderProviderTemplate);
 
     // Set context
     vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
