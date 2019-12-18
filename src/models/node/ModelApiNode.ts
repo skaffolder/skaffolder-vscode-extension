@@ -1,5 +1,7 @@
 import * as path from "path";
 import { SkaffolderNode } from "../SkaffolderNode";
+import { Commands } from "../../utils/Commands";
+import { EditNodeCommand } from "../../commands/EditNodeCommand";
 
 export class ModelApiNode {
   /**
@@ -13,6 +15,14 @@ export class ModelApiNode {
     node.tooltip = api.method.toUpperCase() + " " + api.url;
     node.label = api.name;
     node.description = api.url;
+
+    // Execute command
+    node.command = {
+      command: "skaffolder.editNode",
+      title: "Edit",
+      arguments: [node]
+    };
+
     node.iconPath = {
       light: node.context.asAbsolutePath(
         path.join(

@@ -13,6 +13,13 @@ export class PageApiNode {
 
     indexMap: number[]
   ) {
+    // Execute command
+    node.command = {
+      command: "skaffolder.editNode",
+      title: "Edit",
+      arguments: [node]
+    };
+
     // Set api
     let apiPage = node.skaffolderObject.modules[indexMap[0]]._services[indexMap[1]] as Service;
 
