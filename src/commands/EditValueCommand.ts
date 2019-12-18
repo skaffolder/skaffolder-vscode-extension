@@ -1,6 +1,11 @@
 import { SkaffolderNode } from "../models/SkaffolderNode";
 import * as vscode from "vscode";
-import * as webviewExt from "../test/webView";
+
+// ImportViews
+import { DbView } from "./views/DbView";
+import { ModelView } from "./views/ModelView";
+import { ApiView } from "./views/ApiView";
+import { ModuleView } from "./views/ModuleView";
 
 export class EditValueCommand {
   static context: vscode.ExtensionContext;
@@ -10,132 +15,21 @@ export class EditValueCommand {
   }
 
   static async command(contextNode: SkaffolderNode) {
-    const panel = vscode.window.createWebviewPanel(
-      "skaffolder",
-      "Skaffolder Edit",
-      vscode.ViewColumn.One,
+    const panel = vscode.window.createWebviewPanel("skaffolder", "Skaffolder Edit", vscode.ViewColumn.One, {
+      enableScripts: true
+    });
 
-      {
-        enableScripts: true
-      }
-    );
     try {
       if (contextNode.params) {
+        // Routing views
         if (contextNode.params.type === "db") {
-          panel.webview.html = new webviewExt.Webview().webView(
-            EditValueCommand.context.extensionPath,
-            "editDb"
-          );
-
-          //Message.Command EditDb
-          panel.webview.onDidReceiveMessage(
-            message => {
-              switch (message.command) {
-                case "save":
-                  vscode.window.showInformationMessage("Save");
-                  return;
-                case "webview-ready":
-                  panel.webview.postMessage({
-                    command: "get-db",
-                    data: JSON.stringify({
-                      skObject: contextNode.params,
-                      label: contextNode.label
-                    })
-                  });
-                  break;
-              }
-            },
-            undefined,
-            EditValueCommand.context.subscriptions
-          );
-        } else if (
-          contextNode.params.type === "resource" &&
-          contextNode.contextValue === "model"
-        ) {
-          panel.webview.html = new webviewExt.Webview().webView(
-            EditValueCommand.context.extensionPath,
-            "editModel"
-          );
-          console.log(contextNode.params!.model!._entity);
-          //Message.Command editModel
-          panel.webview.onDidReceiveMessage(
-            message => {
-              switch (message.command) {
-                case "save":
-                  vscode.window.showInformationMessage("Save");
-                  return;
-                case "webview-ready":
-                  panel.webview.postMessage({
-                    command: "get-data",
-                    data: JSON.stringify({
-                      skObject: contextNode.params,
-                      label: contextNode.label
-                    })
-                  });
-                  break;
-              }
-            },
-            undefined,
-            EditValueCommand.context.subscriptions
-          );
+          DbView.open(contextNode, panel);
+        } else if (contextNode.params.type === "resource" && contextNode.contextValue === "model") {
+          ModelView.open(contextNode, panel);
         } else if (contextNode.params.type === "resource") {
-          panel.webview.html = new webviewExt.Webview().webView(
-            EditValueCommand.context.extensionPath,
-            "editApi"
-          );
-
-          //Message.Command editApi
-          panel.webview.onDidReceiveMessage(
-            message => {
-              switch (message.command) {
-                case "save":
-                  vscode.window.showInformationMessage("Save");
-                  return;
-                case "webview-ready":
-                  panel.webview.postMessage({
-                    command: "get-service",
-                    data: JSON.stringify({
-                      service: contextNode.params!.model!._services.find(
-                        (item: any) => {
-                          return item.name === contextNode.label;
-                        }
-                      )
-                    })
-                  });
-                  break;
-              }
-            },
-            undefined,
-            EditValueCommand.context.subscriptions
-          );
+          ApiView.open(contextNode, panel);
         } else if (contextNode.params.type === "module") {
-          panel.webview.html = new webviewExt.Webview().webView(
-            EditValueCommand.context.extensionPath,
-            "editPage"
-          );
-
-          //Message.Command editPage
-          panel.webview.onDidReceiveMessage(
-            message => {
-              switch (message.command) {
-                case "save":
-                  vscode.window.showInformationMessage("Save");
-                  return;
-                case "webview-ready":
-                  panel.webview.postMessage({
-                    command: "get-page",
-                    data: JSON.stringify({
-                      page: contextNode.params!.page!,
-                      label: contextNode.label,
-                      api: contextNode.skaffolderObject.modules
-                    })
-                  });
-                  break;
-              }
-            },
-            undefined,
-            EditValueCommand.context.subscriptions
-          );
+          ModuleView.open(contextNode, panel);
         } else {
           console.error("Type " + contextNode.params.type + " not valid");
         }
