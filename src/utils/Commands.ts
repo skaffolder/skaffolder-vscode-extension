@@ -14,68 +14,34 @@ import { EditValueYamlCommand } from "../commands/EditValueYamlCommand";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
-    // Register commands
+    // Set context
+    EditValueCommand.setContext(context);
     GenerateCommand.setContext(context);
-    vscode.commands.registerCommand("skaffolder.login", LoginCommand.command);
-    vscode.commands.registerCommand("skaffolder.export", ExportCommand.command);
-    vscode.commands.registerCommand(
-      "skaffolder.generate",
-      GenerateCommand.command
-    );
-
-    // Create project
     try {
       // Get list templates
       SkaffolderCli.getTemplate((err: any, template: any[]) => {
         CreateProjectCommand.setTemplate(template);
-        vscode.commands.registerCommand(
-          "skaffolder.createProject",
-          CreateProjectCommand.command
-        );
       });
     } catch (e) {
       console.error(e);
     }
 
-    // Edit model
-    EditValueCommand.setContext(context);
-    context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "skaffolder.editValue",
-        EditValueCommand.command
-      )
-    );
-
-    // Edit model
-    context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "skaffolder.editValue_yaml",
-        EditValueYamlCommand.command
-      )
-    );
-
-    // Open files
-    context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "skaffolder.openfiles",
-        OpenFilesCommand.command
-      )
-    );
-
     // Register commands
-    context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "skaffolder.openapi",
-        OpenApiCommand.command
-      )
-    );
+    let loginCmd = vscode.commands.registerCommand("skaffolder.login", LoginCommand.command);
+    let exportCmd = vscode.commands.registerCommand("skaffolder.export", ExportCommand.command);
+    let genCmd = vscode.commands.registerCommand("skaffolder.generate", GenerateCommand.command);
+    let createCmd = vscode.commands.registerCommand("skaffolder.createProject", CreateProjectCommand.command);
+    let editCmd = vscode.commands.registerCommand("skaffolder.editValue", EditValueCommand.command);
+    let openFileCmd = vscode.commands.registerCommand("skaffolder.openfiles", OpenFilesCommand.command);
+    let openApiCmd = vscode.commands.registerCommand("skaffolder.openapi", OpenApiCommand.command);
+    let openPageCmd = vscode.commands.registerCommand("skaffolder.openpage", OpenPageCommand.command);
+    let editYamlCmd = vscode.commands.registerCommand("skaffolder.editValue_yaml", EditValueYamlCommand.command);
 
-    // Register commands
-    context.subscriptions.push(
-      vscode.commands.registerCommand(
-        "skaffolder.openpage",
-        OpenPageCommand.command
-      )
-    );
+    // Context subscription
+    context.subscriptions.push(editCmd);
+    context.subscriptions.push(editYamlCmd);
+    context.subscriptions.push(openFileCmd);
+    context.subscriptions.push(openApiCmd);
+    context.subscriptions.push(openPageCmd);
   }
 }
