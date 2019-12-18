@@ -90,6 +90,7 @@ export class SkaffolderNode extends vscode.TreeItem {
     let db = this.skaffolderObject.resources[indexMap[0]];
     let resource = db._resources[indexMap[1]];
     this.label = resource.name;
+    this.description = resource.url;
     this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
     this.iconPath = {
       light: this.context.asAbsolutePath(
@@ -216,7 +217,7 @@ export class SkaffolderNode extends vscode.TreeItem {
       }
     });
     this.label = resource.name + "." + api.name;
-    this.description = resource.name + api.url;
+    this.description = resource.url + api.url;
     this.tooltip = api.method;
     this.iconPath = {
       light: this.context.asAbsolutePath(
@@ -240,10 +241,9 @@ export class SkaffolderNode extends vscode.TreeItem {
     let db = this.skaffolderObject.resources[indexMap[0]];
     let model = db._resources[indexMap[1]];
     let api = model._services[indexMap[2]];
-    let resource = db._resources[indexMap[1]];
-    this.tooltip = api.method;
+    this.tooltip = api.method.toUpperCase() + " " + api.url;
     this.label = api.name;
-    this.description = resource.name + api.url;
+    this.description = api.url;
     this.iconPath = {
       light: this.context.asAbsolutePath(
         path.join(

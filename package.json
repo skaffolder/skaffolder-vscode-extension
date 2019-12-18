@@ -47,32 +47,32 @@
         "command": "skaffolder.editValue",
         "title": "Edit",
         "icon": {
-          "light": "media/light/edit.svg",
-          "dark": "media/dark/edit.svg"
+          "light": "media/light/editScuro.svg",
+          "dark": "media/dark/editGrigio.svg"
         }
       },
       {
         "command": "skaffolder.openfiles",
         "title": "Open files",
         "icon": {
-          "light": "media/light/open.svg",
-          "dark": "media/dark/open.svg"
+          "light": "media/light/openFilesScuro.svg",
+          "dark": "media/dark/openFilesGrigio.svg"
         }
       },
       {
         "command": "skaffolder.generate",
         "title": "Generate",
         "icon": {
-          "light": "media/light/logo.svg",
-          "dark": "media/dark/logo.svg"
+          "light": "media/light/generateScuro.svg",
+          "dark": "media/dark/generateGrigio.svg"
         }
       },
       {
         "command": "skaffolder.export",
         "title": "Export YAML to Skaffolder",
         "icon": {
-          "light": "media/light/open.svg",
-          "dark": "media/dark/open.svg"
+          "light": "media/light/uploadScuro.svg",
+          "dark": "media/dark/uploadGrigio.svg"
         }
       }
     ],
