@@ -81,11 +81,7 @@ export class SkaffolderNode extends vscode.TreeItem {
     this.collapsibleState = vscode.TreeItemCollapsibleState.None;
   }
 
-  private showDbResource(
-    indexMap: number[],
-    context: vscode.ExtensionContext,
-    skaffolderObject: SkaffolderObject
-  ) {
+  private showDbResource(indexMap: number[], context: vscode.ExtensionContext, skaffolderObject: SkaffolderObject) {
     // Set resource
     let db = this.skaffolderObject.resources[indexMap[0]];
     let resource = db._resources[indexMap[1]];
@@ -93,9 +89,7 @@ export class SkaffolderNode extends vscode.TreeItem {
     this.description = resource.url;
     this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
     this.iconPath = {
-      light: this.context.asAbsolutePath(
-        path.join("media", "light", "model.svg")
-      ),
+      light: this.context.asAbsolutePath(path.join("media", "light", "model.svg")),
       dark: this.context.asAbsolutePath(path.join("media", "dark", "model.svg"))
     };
     this.contextValue = "model";
@@ -112,36 +106,21 @@ export class SkaffolderNode extends vscode.TreeItem {
     if (resource._services && resource._services.length > 0) {
       resource._services.forEach((element, index) => {
         let indexArr: number[] = [indexMap[0], indexMap[1], index];
-        this.children.push(
-          new SkaffolderNode(
-            context,
-            skaffolderObject,
-            "api_db_resource_api",
-            indexArr
-          )
-        );
+        this.children.push(new SkaffolderNode(context, skaffolderObject, "api_db_resource_api", indexArr));
       });
     } else {
       this.collapsibleState = vscode.TreeItemCollapsibleState.None;
     }
   }
 
-  private showDbModel(
-    indexMap: number[],
-    context: vscode.ExtensionContext,
-    skaffolderObject: SkaffolderObject
-  ) {
+  private showDbModel(indexMap: number[], context: vscode.ExtensionContext, skaffolderObject: SkaffolderObject) {
     // Set db
     let db = this.skaffolderObject.resources[indexMap[0]];
     this.label = db.name;
     this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
     this.iconPath = {
-      light: this.context.asAbsolutePath(
-        path.join("media", "light", "database.svg")
-      ),
-      dark: this.context.asAbsolutePath(
-        path.join("media", "dark", "database.svg")
-      )
+      light: this.context.asAbsolutePath(path.join("media", "light", "database.svg")),
+      dark: this.context.asAbsolutePath(path.join("media", "dark", "database.svg"))
     };
 
     this.params = {
@@ -153,14 +132,7 @@ export class SkaffolderNode extends vscode.TreeItem {
     // Find children
     db._resources.forEach((element, index) => {
       let indexArr: number[] = [indexMap[0], index];
-      this.children.push(
-        new SkaffolderNode(
-          context,
-          skaffolderObject,
-          "model_db_resource",
-          indexArr
-        )
-      );
+      this.children.push(new SkaffolderNode(context, skaffolderObject, "model_db_resource", indexArr));
     });
 
     // Menu model
@@ -185,28 +157,19 @@ export class SkaffolderNode extends vscode.TreeItem {
     // );
   }
 
-  private showModelRoot(
-    context: vscode.ExtensionContext,
-    skaffolderObject: SkaffolderObject
-  ) {
+  private showModelRoot(context: vscode.ExtensionContext, skaffolderObject: SkaffolderObject) {
     this.skaffolderObject.resources.forEach((element, index) => {
-      this.children.push(
-        new SkaffolderNode(context, skaffolderObject, "model_db", [index])
-      );
+      this.children.push(new SkaffolderNode(context, skaffolderObject, "model_db", [index]));
     });
   }
 
   private showPageApi(indexMap: number[]) {
     // Set api
-    let apiPage = this.skaffolderObject.modules[indexMap[0]]._services[
-      indexMap[1]
-    ] as Service;
+    let apiPage = this.skaffolderObject.modules[indexMap[0]]._services[indexMap[1]] as Service;
 
     // Find api
     let api: Service = DataService.findApi(apiPage._id) as Service;
-    let resource: Resource = DataService.findResource(
-      (api._resource as Resource)._id
-    ) as Resource;
+    let resource: Resource = DataService.findResource((api._resource as Resource)._id) as Resource;
 
     // Find db api
     let db;
@@ -220,12 +183,8 @@ export class SkaffolderNode extends vscode.TreeItem {
     this.description = resource.url + api.url;
     this.tooltip = api.method;
     this.iconPath = {
-      light: this.context.asAbsolutePath(
-        path.join("media", "light", "api_" + api.method + ".svg")
-      ),
-      dark: this.context.asAbsolutePath(
-        path.join("media", "dark", "api_" + api.method + ".svg")
-      )
+      light: this.context.asAbsolutePath(path.join("media", "light", "api_" + api.method + ".svg")),
+      dark: this.context.asAbsolutePath(path.join("media", "dark", "api_" + api.method + ".svg"))
     };
     this.params = {
       type: "resource",
@@ -249,20 +208,14 @@ export class SkaffolderNode extends vscode.TreeItem {
         path.join(
           "media",
           "light",
-          "api_" +
-            this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
-              ._services[indexMap[2]].method +
-            ".svg"
+          "api_" + this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]._services[indexMap[2]].method + ".svg"
         )
       ),
       dark: this.context.asAbsolutePath(
         path.join(
           "media",
           "dark",
-          "api_" +
-            this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]
-              ._services[indexMap[2]].method +
-            ".svg"
+          "api_" + this.skaffolderObject.resources[indexMap[0]]._resources[indexMap[1]]._services[indexMap[2]].method + ".svg"
         )
       )
     };
@@ -274,25 +227,15 @@ export class SkaffolderNode extends vscode.TreeItem {
     };
   }
 
-  private showPage(
-    context: vscode.ExtensionContext,
-    skaffolderObject: SkaffolderObject,
-    indexMap: number[]
-  ) {
+  private showPage(context: vscode.ExtensionContext, skaffolderObject: SkaffolderObject, indexMap: number[]) {
     let page: Page = this.skaffolderObject.modules[indexMap[0]];
     this.label = page.name;
     this.collapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
     this.iconPath = {
-      light: this.context.asAbsolutePath(
-        path.join("media", "light", "database.svg")
-      ),
-      dark: this.context.asAbsolutePath(
-        path.join("media", "dark", "database.svg")
-      )
+      light: this.context.asAbsolutePath(path.join("media", "light", "database.svg")),
+      dark: this.context.asAbsolutePath(path.join("media", "dark", "database.svg"))
     };
-    let contexturl = vscode.Uri.file(
-      vscode.workspace.rootPath + "/openapi.yaml"
-    );
+    let contexturl = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
     let rangeModel = page.index;
     // this.command = {
     //   command: "skaffolder.openpage",
@@ -310,9 +253,7 @@ export class SkaffolderNode extends vscode.TreeItem {
       range: rangeModel
     };
     this.iconPath = {
-      light: this.context.asAbsolutePath(
-        path.join("media", "light", "page.svg")
-      ),
+      light: this.context.asAbsolutePath(path.join("media", "light", "page.svg")),
       dark: this.context.asAbsolutePath(path.join("media", "dark", "page.svg"))
     };
 
@@ -320,35 +261,18 @@ export class SkaffolderNode extends vscode.TreeItem {
     if (page._services) {
       page._services.forEach((element: any, index: any) => {
         let indexArr: number[] = [indexMap[0], index];
-        this.children.push(
-          new SkaffolderNode(
-            context,
-            skaffolderObject,
-            "page_page_api",
-            indexArr
-          )
-        );
+        this.children.push(new SkaffolderNode(context, skaffolderObject, "page_page_api", indexArr));
       });
     }
   }
 
-  private showPageRoot(
-    context: vscode.ExtensionContext,
-    skaffolderObject: SkaffolderObject
-  ) {
-    if (
-      this.skaffolderObject.modules &&
-      this.skaffolderObject.modules.length > 0
-    ) {
+  private showPageRoot(context: vscode.ExtensionContext, skaffolderObject: SkaffolderObject) {
+    if (this.skaffolderObject.modules && this.skaffolderObject.modules.length > 0) {
       this.skaffolderObject.modules.forEach((element, index) => {
-        this.children.push(
-          new SkaffolderNode(context, skaffolderObject, "page_page", [index])
-        );
+        this.children.push(new SkaffolderNode(context, skaffolderObject, "page_page", [index]));
       });
     } else {
-      this.children.push(
-        new SkaffolderNode(context, skaffolderObject, "page_page_not_found", [])
-      );
+      this.children.push(new SkaffolderNode(context, skaffolderObject, "page_page_not_found", []));
     }
   }
   /*

@@ -7,7 +7,7 @@ import { LoginCommand } from "../commands/LoginCommand";
 import { ExportCommand } from "../commands/ExportCommand";
 import { GenerateCommand } from "../commands/GenerateCommand";
 import { CreateProjectCommand } from "../commands/CreateProjectCommand";
-import { EditValueCommand } from "../commands/EditValueCommand";
+import { EditNodeCommand } from "../commands/EditNodeCommand";
 import { OpenFilesCommand } from "../commands/OpenFilesCommand";
 import { OpenApiCommand } from "../commands/OpenApiCommand";
 import { EditValueYamlCommand } from "../commands/EditValueYamlCommand";
@@ -15,7 +15,7 @@ import { EditValueYamlCommand } from "../commands/EditValueYamlCommand";
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
     // Set context
-    EditValueCommand.setContext(context);
+    EditNodeCommand.setContext(context);
     GenerateCommand.setContext(context);
     try {
       // Get list templates
@@ -31,14 +31,14 @@ export class Commands {
     let exportCmd = vscode.commands.registerCommand("skaffolder.export", ExportCommand.command);
     let genCmd = vscode.commands.registerCommand("skaffolder.generate", GenerateCommand.command);
     let createCmd = vscode.commands.registerCommand("skaffolder.createProject", CreateProjectCommand.command);
-    let editCmd = vscode.commands.registerCommand("skaffolder.editValue", EditValueCommand.command);
+    let editNodeCmd = vscode.commands.registerCommand("skaffolder.editNode", EditNodeCommand.command);
     let openFileCmd = vscode.commands.registerCommand("skaffolder.openfiles", OpenFilesCommand.command);
     let openApiCmd = vscode.commands.registerCommand("skaffolder.openapi", OpenApiCommand.command);
     let openPageCmd = vscode.commands.registerCommand("skaffolder.openpage", OpenPageCommand.command);
     let editYamlCmd = vscode.commands.registerCommand("skaffolder.editValue_yaml", EditValueYamlCommand.command);
 
     // Context subscription
-    context.subscriptions.push(editCmd);
+    context.subscriptions.push(editNodeCmd);
     context.subscriptions.push(editYamlCmd);
     context.subscriptions.push(openFileCmd);
     context.subscriptions.push(openApiCmd);

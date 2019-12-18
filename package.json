@@ -44,7 +44,7 @@
     },
     "commands": [
       {
-        "command": "skaffolder.editValue",
+        "command": "skaffolder.editNode",
         "title": "Edit",
         "icon": {
           "light": "media/light/editScuro.svg",
@@ -91,7 +91,7 @@
       ],
       "view/item/context": [
         {
-          "command": "skaffolder.editValue",
+          "command": "skaffolder.editNode",
           "group": "inline",
           "when": "viewItem != empty && isSkaffolderProject"
         },

@@ -1,12 +1,15 @@
-import * as SkaffolderCli from "skaffolder-cli";
 import * as vscode from "vscode";
 import * as webviewExt from "../../test/webView";
-import { EditValueCommand } from "../EditValueCommand";
+import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 
 export class ModuleView {
-  static async open(contextNode: SkaffolderNode, panel: vscode.WebviewPanel) {
-    panel.webview.html = new webviewExt.Webview().webView(EditValueCommand.context.extensionPath, "editPage");
+  static async open(contextNode: SkaffolderNode) {
+    // Init panel
+    const panel = vscode.window.createWebviewPanel("skaffolder", "SK Page - " + contextNode.label, vscode.ViewColumn.One, {
+      enableScripts: true
+    });
+    panel.webview.html = new webviewExt.Webview().webView(EditNodeCommand.context.extensionPath, "editPage");
 
     // Message.Command editPage
     panel.webview.onDidReceiveMessage(
@@ -28,7 +31,7 @@ export class ModuleView {
         }
       },
       undefined,
-      EditValueCommand.context.subscriptions
+      EditNodeCommand.context.subscriptions
     );
   }
 }

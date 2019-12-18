@@ -1,12 +1,21 @@
-import * as SkaffolderCli from "skaffolder-cli";
 import * as vscode from "vscode";
 import * as webviewExt from "../../test/webView";
-import { EditValueCommand } from "../EditValueCommand";
+import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 
 export class ApiView {
-  static async open(contextNode: SkaffolderNode, panel: vscode.WebviewPanel) {
-    panel.webview.html = new webviewExt.Webview().webView(EditValueCommand.context.extensionPath, "editApi");
+  static async open(contextNode: SkaffolderNode) {
+    // Init panel
+    let nameRes = contextNode.params!.model!.name;
+    const panel = vscode.window.createWebviewPanel(
+      "skaffolder",
+      "Sk API - " + nameRes + " " + contextNode.label,
+      vscode.ViewColumn.One,
+      {
+        enableScripts: true
+      }
+    );
+    panel.webview.html = new webviewExt.Webview().webView(EditNodeCommand.context.extensionPath, "editApi");
 
     // Message.Command editApi
     panel.webview.onDidReceiveMessage(
@@ -28,7 +37,7 @@ export class ApiView {
         }
       },
       undefined,
-      EditValueCommand.context.subscriptions
+      EditNodeCommand.context.subscriptions
     );
   }
 }

@@ -7,29 +7,25 @@ import { ModelView } from "./views/ModelView";
 import { ApiView } from "./views/ApiView";
 import { ModuleView } from "./views/ModuleView";
 
-export class EditValueCommand {
+export class EditNodeCommand {
   static context: vscode.ExtensionContext;
 
   static setContext(context: vscode.ExtensionContext) {
-    EditValueCommand.context = context;
+    EditNodeCommand.context = context;
   }
 
   static async command(contextNode: SkaffolderNode) {
-    const panel = vscode.window.createWebviewPanel("skaffolder", "Skaffolder Edit", vscode.ViewColumn.One, {
-      enableScripts: true
-    });
-
     try {
       if (contextNode.params) {
         // Routing views
         if (contextNode.params.type === "db") {
-          DbView.open(contextNode, panel);
+          DbView.open(contextNode);
         } else if (contextNode.params.type === "resource" && contextNode.contextValue === "model") {
-          ModelView.open(contextNode, panel);
+          ModelView.open(contextNode);
         } else if (contextNode.params.type === "resource") {
-          ApiView.open(contextNode, panel);
+          ApiView.open(contextNode);
         } else if (contextNode.params.type === "module") {
-          ModuleView.open(contextNode, panel);
+          ModuleView.open(contextNode);
         } else {
           console.error("Type " + contextNode.params.type + " not valid");
         }
