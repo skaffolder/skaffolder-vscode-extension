@@ -1,0 +1,33 @@
+// Container
+.container-content {
+  padding: 5px 30px;
+}
+
+// Title box
+.title-container {
+  background-color: $mid-gray;
+  padding: 10px 30px;
+  margin-top: 25px;
+  font-weight: bold;
+
+  .title-topic {
+    font-size: x-large;
+    color: $light-gray2;
+  }
+
+  .title-text {
+    font-size: medium;
+    color: $light-gray;
+    margin-left: 10px;
+  }
+}
+
+// Footer
+.footer {
+  background-color: $mid-gray;
+  width: 100%;
+  padding: 10px 30px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+}

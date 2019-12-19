@@ -1,166 +1,84 @@
-.name {
-  border-bottom: 1px solid black; }
-
-.auto-vertical {
-  margin-bottom: auto;
-  margin-top: auto; }
-
-.border-bottom {
-  border-top: none !important;
-  border-right: none !important;
-  border-left: none !important;
-  border-bottom: 1px solid white !important; }
-
-.title-container {
-  margin-top: 20px;
-  width: 100%;
-  height: 50px;
-  border-radius: 5px;
-  background-color: #222329; }
-
-.section1 {
-  width: 60%;
-  border-right: 1px solid white; }
-
-.section2 {
-  width: 30%;
+.pull-right {
   float: right; }
 
-.entity-name {
-  color: #698cca;
-  margin-left: 10px; }
-
-.input-text {
-  width: 40%;
-  background-color: transparent;
-  font-size: 13px; }
-
-.input-text-attr {
-  width: 20%;
-  background-color: transparent;
-  font-size: 13px; }
-
-.logo {
-  width: 50%;
-  min-width: 300px;
-  height: 50px; }
-
-.ml-15 {
-  margin-left: 15px; }
-
-.mt-5 {
-  margin-top: 5px; }
-
-.ft-10 {
-  font-size: 10px; }
-
-.ft-13 {
-  font-size: 13px; }
-
-.ft-20 {
-  font-size: 20px; }
-
-.block {
-  display: block; }
-
-.left {
+.pull-left {
   float: left; }
 
-.right {
-  float: right; }
+.form-group {
+  margin-top: 10px; }
+  .form-group label {
+    font-size: small;
+    margin-bottom: 5px;
+    display: block; }
 
-.center {
-  text-align: center; }
-
-.button-save {
-  background-color: #87e283;
-  color: black;
-  border-radius: 20px;
-  float: right;
-  margin-right: 20px; }
-
-.button-required {
-  background-color: white;
-  color: black;
-  border-radius: 5px; }
-
-.btn-success {
-  background-color: #698cca !important; }
-
-body.vscode-dark {
-  color: #1E1E1E; }
-
-.container-model .name h3 {
-  min-width: 100px; }
-
-.container-model .name .inline-block {
-  display: inline-block; }
-
-.container-model .name .input-model-name {
+input {
+  background-color: var(--vscode-editorIndentGuide-background);
+  color: var(--vscode-editor-foreground);
   border: none;
+  font-size: small;
+  padding: 3px 7px;
   width: 100%;
-  background-color: #3C3C3C;
-  font-size: 13px; }
+  max-width: 200px; }
+  input:focus {
+    outline: 0; }
 
-.container-model .input-model {
+.primary-button {
+  background-color: var(--vscode-button-background);
   border: none;
-  width: 20%;
-  background-color: #3C3C3C;
-  font-size: 13px; }
+  color: var(--vscode-button-foreground);
+  padding: 5px 20px;
+  cursor: pointer;
+  font-size: small; }
+  .primary-button:focus {
+    outline: 0; }
+  .primary-button:hover {
+    background-color: var(--vscode-button-hoverBackground); }
 
-.input-desc {
+.delete-button {
   background-color: transparent;
-  font-size: 13px; }
-
-.container-api .name h3 {
-  min-width: 100px; }
-
-.container-api .name .inline-block {
-  display: inline-block; }
-
-.container-api .button-param {
-  background-color: transparent;
-  color: white;
-  border-radius: 5px;
-  border: 1px solid white; }
-
-.container-api .input-api {
   border: none;
+  color: var(--vscode-inputValidation-errorBorder);
+  padding: 5px 20px;
+  cursor: pointer;
+  font-size: small;
+  font-weight: bold; }
+  .delete-button:hover {
+    background-color: var(--vscode-inputValidation-errorBackground); }
+  .delete-button:focus {
+    outline: 0; }
+
+.badge {
+  background-color: var(--vscode-editor-foreground);
+  color: var(--vscode-editor-background);
+  display: inline-block;
+  padding: 3px 6px;
+  font-weight: bold;
+  margin-right: 10px; }
+  .badge.public {
+    background-color: #58b75c; }
+
+.container-content {
+  padding: 5px 30px; }
+
+.title-container {
+  background-color: var(--vscode-editorIndentGuide-background);
+  padding: 10px 30px;
+  margin-top: 25px;
+  font-weight: bold; }
+  .title-container .title-topic {
+    font-size: x-large;
+    color: var(--vscode-input-placeholderForeground); }
+  .title-container .title-text {
+    font-size: medium;
+    color: var(--vscode-editor-foreground);
+    margin-left: 10px; }
+
+.footer {
+  background-color: var(--vscode-editorIndentGuide-background);
   width: 100%;
-  background-color: #3C3C3C;
-  font-size: 13px; }
-
-.container-page .name h3 {
-  min-width: 100px; }
-
-.container-page .name .inline-block {
-  display: inline-block; }
-
-.container-page .button-param {
-  background-color: transparent;
-  color: white;
-  margin-left: 20px;
-  border-radius: 5px;
-  border: 1px solid white; }
-
-.container-page .input-page {
-  border: none;
-  width: 100%;
-  background-color: #3C3C3C;
-  font-size: 13px;
-  color: white; }
-
-.container-page .label-public {
-  background-color: green;
-  font-size: 10px;
-  height: 10px !important;
-  width: 20px !important; }
-
-.container-page .label-private {
-  background-color: red;
-  font-size: 13px;
-  border-radius: 20px;
-  height: 20px !important;
-  width: 60px !important; }
+  padding: 10px 30px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px; }
 
 /*# sourceMappingURL=style.css.map */

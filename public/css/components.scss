@@ -1,0 +1,73 @@
+// Input
+.form-group {
+  margin-top: 10px;
+  label {
+    font-size: small;
+    margin-bottom: 5px;
+    display: block;
+  }
+}
+
+input {
+  background-color: $mid-gray;
+  color: $light-gray;
+  border: none;
+  font-size: small;
+  padding: 3px 7px;
+  width: 100%;
+  max-width: 200px;
+  &:focus {
+    outline: 0;
+  }
+}
+
+// Button
+.primary-button {
+  background-color: $button-bg;
+  border: none;
+  color: $button-text;
+  padding: 5px 20px;
+  cursor: pointer;
+  font-size: small;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    background-color: $button-bg-hover;
+  }
+}
+
+// Delete button
+.delete-button {
+  background-color: transparent;
+  border: none;
+  color: $red;
+  padding: 5px 20px;
+  cursor: pointer;
+  font-size: small;
+  font-weight: bold;
+
+  &:hover {
+    background-color: $red-hover;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+// Badge
+.badge {
+  background-color: $light-gray;
+  color: $dark-gray;
+  display: inline-block;
+  padding: 3px 6px;
+  font-weight: bold;
+  margin-right: 10px;
+
+  &.public {
+    background-color: $green;
+  }
+}

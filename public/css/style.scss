@@ -1,3 +1,20 @@
-@import './common.scss';
-@import './vscodeDark.scss';
+// Colors
+$light-gray: var(--vscode-editor-foreground);
+$light-gray2: var(--vscode-input-placeholderForeground);
+$mid-gray: var(--vscode-editorIndentGuide-background);
+$dark-gray: var(--vscode-editor-background);
+$button-bg: var(--vscode-button-background);
+$button-bg-hover: var(--vscode-button-hoverBackground);
+$button-text: var(--vscode-button-foreground);
+$red: var(--vscode-inputValidation-errorBorder);
+$red-hover: var(--vscode-inputValidation-errorBackground);
 
+$input-bg: var(--vscode-input-background);
+$input-foreground: var(--vscode-input-foreground);
+
+$green: #58b75c;
+
+// Imports
+@import "./common.scss";
+@import "./components.scss";
+@import "./layout.scss";
