@@ -9,7 +9,10 @@ app.service("DataServiceUtils", [
         const cb = event => {
           if (event.data.command == command) {
             try {
-              const data = callback(event.data.data);
+              let data = event.data.data;
+
+              // Execute callback
+              if (callback) data = callback(event.data.data);
               deferred.resolve(data);
 
               // Remove listener

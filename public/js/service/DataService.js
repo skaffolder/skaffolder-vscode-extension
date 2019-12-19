@@ -3,11 +3,11 @@ app.service("DataService", [
   function(DataServiceUtils) {
     return {
       // Call data
+      savePage: () => {
+        return DataServiceUtils.askData("savePage");
+      },
       getPage: () => {
-        return DataServiceUtils.askData("getPage", response => {
-          let data = JSON.parse(response);
-          return data;
-        });
+        return DataServiceUtils.askData("getPage");
       }
     };
   }
