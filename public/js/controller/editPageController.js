@@ -5,11 +5,5 @@ app.controller("EditPageController", [
     DataService.getPage().then(data => {
       $scope.page = data;
     });
-
-    $scope.test = () => {
-      vscode.postMessage({
-        command: "getPage"
-      });
-    };
   }
 ]);

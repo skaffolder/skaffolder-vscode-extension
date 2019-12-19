@@ -27,6 +27,7 @@ export class Webview {
         <script src="${Webview.assetsFile("/js/app.js")}"></script>
         
         <!-- Import Services --> 
+        <script src="${Webview.assetsFile("/js/service/DataServiceUtils.js")}"></script>
         <script src="${Webview.assetsFile("/js/service/DataService.js")}"></script>
         
         <!-- Import Controllers --> 
