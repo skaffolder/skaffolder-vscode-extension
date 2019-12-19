@@ -22,10 +22,10 @@ input {
 }
 
 // Button
-.primary-button {
-  background-color: $button-bg;
+button {
+  background-color: $light-gray;
+  color: $dark-gray;
   border: none;
-  color: $button-text;
   padding: 5px 20px;
   cursor: pointer;
   font-size: small;
@@ -33,6 +33,15 @@ input {
   &:focus {
     outline: 0;
   }
+
+  &:hover {
+    background-color: $light-gray2;
+  }
+}
+
+.primary-button {
+  background-color: $button-bg;
+  color: $button-text;
 
   &:hover {
     background-color: $button-bg-hover;
@@ -42,19 +51,11 @@ input {
 // Delete button
 .delete-button {
   background-color: transparent;
-  border: none;
   color: $red;
-  padding: 5px 20px;
-  cursor: pointer;
-  font-size: small;
   font-weight: bold;
 
   &:hover {
     background-color: $red-hover;
-  }
-
-  &:focus {
-    outline: 0;
   }
 }
 
@@ -66,6 +67,7 @@ input {
   padding: 3px 6px;
   font-weight: bold;
   margin-right: 10px;
+  border-radius: 8px;
 
   &.public {
     background-color: $green;
@@ -74,61 +76,15 @@ input {
 
 // Select
 select {
-  align-items: center;
-  background-color: rgb(60, 60, 60);
-  border-bottom-color: rgb(60, 60, 60);
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-collapse: separate;
-  border-image-outset: 0px;
-  border-image-repeat: stretch;
-  border-image-slice: 100%;
-  border-image-source: none;
-  border-image-width: 1;
-  border-left-color: rgb(60, 60, 60);
-  border-left-style: solid;
-  border-left-width: 1px;
-  border-right-color: rgb(60, 60, 60);
-  border-right-style: solid;
-  border-right-width: 1px;
-  border-top-color: rgb(60, 60, 60);
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  box-sizing: border-box;
-  color: rgb(240, 240, 240);
-  cursor: default;
-  display: inline-block;
-  font-family: -apple-system, system-ui, sans-serif;
-  font-size: 13px;
-  font-stretch: 100%;
-  font-style: normal;
-  font-variant-caps: normal;
-  font-variant-east-asian: normal;
-  font-variant-ligatures: normal;
-  font-variant-numeric: normal;
-  font-weight: 400;
-  height: 26px;
-  letter-spacing: normal;
-  line-height: 18.2px;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 0px;
-  padding-bottom: 2px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 2px;
-  text-align: start;
-  text-indent: 0px;
-  text-rendering: auto;
-  text-shadow: none;
-  text-transform: none;
-  user-select: none;
-  white-space: pre;
-  width: 320px;
-  word-spacing: 0px;
+  background-color: $mid-gray;
+  color: $light-gray;
+  border: none;
+  font-size: small;
+  padding: 3px 7px;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 0px !important;
+  &:focus {
+    outline: 0;
+  }
 }
