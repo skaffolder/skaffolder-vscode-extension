@@ -1,79 +1,92 @@
 <div class="container-page" ng-controller="EditPageController">
-    <div class="title-container">
-        <div class="section1 auto-vertical left block">
-            <h1 class="ft-20 ml-15"> Page
-                <span class="entity-name ft-13"> {{ page.label}} </span>
-            </h1>
-        </div>
-        <div class="section2 auto-vertical  block">
-            <p class="ml-15 ft-13">
-                <span>
-                    <button id="delete" class="">Delete page</button>
-                </span>
-                <span>
-                    <button id="save" class="button-save mt-5"> Save </button>
-                </span>
-            </p>
-        </div>
+  <div class="title-container">
+    <div class="section1 auto-vertical left block">
+      <h1 class="ft-20 ml-15">
+        Page
+        <span class="entity-name ft-13"> {{ page.label}} </span>
+      </h1>
     </div>
-    <div class="name">
-        <h3 class="ft-13 inline-block">
-            Name
-        </h3>
-        <div class="inline-block">
-            <input class="input-page ml-15" ng-model="page.page.name" value="{{ page.page.name }}" type="text" placeholder=" {{ page.page.name }}">
-        </div>
+    <div class="section2 auto-vertical  block">
+      <p class="ml-15 ft-13">
+        <span>
+          <button id="delete" class="">Delete page</button>
+        </span>
+        <span>
+          <button id="save" class="button-save mt-5">Save</button>
+        </span>
+      </p>
     </div>
-    <div class="name">
-        <h3 class="ft-13 inline-block">
-            Url
-        </h3>
-        <div class="inline-block">
-            <input class="input-page ml-15" ng-model="page.page.url" value="{{ page.page.url }}" type="text" placeholder=" {{ page.page.url }}">
-        </div>
+  </div>
+  <div class="name">
+    <h3 class="ft-13 inline-block">
+      Name
+    </h3>
+    <div class="inline-block">
+      <input
+        class="input-page ml-15"
+        ng-model="page.page.name"
+        value="{{ page.page.name }}"
+        type="text"
+        placeholder=" {{ page.page.name }}"
+      />
     </div>
-    <div class="name">
-        <h3 class="ft-13 inline-block">
-            Roles
-        </h3>
-        <div class="label-public inline-block ml-15" ng-if="!page.page._roles">Public</div>
-        <div class="label-private inline-block ml-15" ng-if="page.page._roles.length == 0">Private</div>
+  </div>
+  <div class="name">
+    <h3 class="ft-13 inline-block">
+      Url
+    </h3>
+    <div class="inline-block">
+      <input
+        class="input-page ml-15"
+        ng-model="page.page.url"
+        value="{{ page.page.url }}"
+        type="text"
+        placeholder=" {{ page.page.url }}"
+      />
     </div>
-    <div class="name">
-        <h3 class="ft-13 inline-block">
-            Link
-        </h3>
-        <div class="inline-block" ng-repeat="links in page.page._links ">
-            <div class="link inline-block">
-                {{ links.name }}
-            </div>
-        </div>
-        <div class="inline-block">
-            <select class="input-page  ml-15" placeholder="Link" ng-model="page.prova" value="{{ page.prova }}">
-                <option ng-repeat="link in page.api" value="link.name">{{ link.name }}</option>
-            </select>
-        </div>
-        <div class="inline-block">
-            <button id="add-link" class="button-param mt-5"> Add linked </button>
-        </div>
+  </div>
+  <div class="name">
+    <h3 class="ft-13 inline-block">
+      Roles
+    </h3>
+    <div class="label-public inline-block ml-15" ng-if="!page.page._roles">Public</div>
+    <div class="label-private inline-block ml-15" ng-if="page.page._roles.length == 0">Private</div>
+  </div>
+  <div class="name">
+    <h3 class="ft-13 inline-block">
+      Link
+    </h3>
+    <div class="inline-block" ng-repeat="links in page.page._links ">
+      <div class="link inline-block">
+        {{ links.name }}
+      </div>
     </div>
-    <div class="name">
-        <h3 class="ft-13 inline-block">
-            Nesteds
-        </h3>
-        <div class="inline-block" ng-repeat="nesteds in page.page._nesteds ">
-            <div class="nested inline-block">
-                {{ nesteds.name }}
-            </div>
-        </div>
-        <div class="inline-block">
-            <select class="input-page ml-15" placeholder="Nested" ng-model="page.page.__nesteds"
-                value="{{ page.page._nesteds }}">
-                <option ng-repeat="nested in page.api" value="nested.name">{{ nested.name }}</option>
-            </select>
-        </div>
-        <div class="inline-block">
-            <button id="add-nesteds" class="button-param mt-5"> Add nested </button>
-        </div>
+    <div class="inline-block">
+      <select class="input-page  ml-15" placeholder="Link" ng-model="page.prova" value="{{ page.prova }}">
+        <option ng-repeat="link in page.api" value="link.name">{{ link.name }}</option>
+      </select>
     </div>
+    <div class="inline-block">
+      <button id="add-link" class="button-param mt-5">Add linked</button>
+    </div>
+  </div>
+  <div class="name">
+    <h3 class="ft-13 inline-block">
+      Nesteds
+    </h3>
+    <div class="inline-block" ng-repeat="nesteds in page.page._nesteds ">
+      <div class="nested inline-block">
+        {{ nesteds.name }}
+      </div>
+    </div>
+    <div class="inline-block">
+      <select class="input-page ml-15" placeholder="Nested" ng-model="page.page.__nesteds" value="{{ page.page._nesteds }}">
+        <option ng-repeat="nested in page.api" value="nested.name">{{ nested.name }}</option>
+      </select>
+    </div>
+    <div class="inline-block">
+      <button id="add-nesteds" class="button-param mt-5">Add nested</button>
+      <button id="a" class="button-param mt-5" ng-click="test()">Test</button>
+    </div>
+  </div>
 </div>

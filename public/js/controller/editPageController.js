@@ -1,8 +1,15 @@
-app.controller("EditPageController", ["$scope", "$rootScope", function ($scope, $rootScope) {
-
-    $rootScope.$on('root-scope-page', (e, data) => {
-        $scope.page = data
-        $scope.$apply()
+app.controller("EditPageController", [
+  "$scope",
+  "DataService",
+  function($scope, DataService) {
+    DataService.getPage().then(data => {
+      $scope.page = data;
     });
-    $rootScope.controllerReady();
-}]);
+
+    $scope.test = () => {
+      vscode.postMessage({
+        command: "getPage"
+      });
+    };
+  }
+]);

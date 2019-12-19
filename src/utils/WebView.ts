@@ -22,8 +22,14 @@ export class Webview {
             <div ng-include="'${Webview.assetsFile(`/html/${page}.html`)}'"></div>
         </body>
 
+        <!-- Import --> 
         <script src="${Webview.assetsFile("/js/angular.min.js")}"></script>
         <script src="${Webview.assetsFile("/js/app.js")}"></script>
+        
+        <!-- Import Services --> 
+        <script src="${Webview.assetsFile("/js/service/DataService.js")}"></script>
+        
+        <!-- Import Controllers --> 
         <script src="${Webview.assetsFile("/js/controller/editModelController.js")}"></script>
         <script src="${Webview.assetsFile("/js/controller/editApiController.js")}"></script>
         <script src="${Webview.assetsFile("/js/controller/editPageController.js")}"></script>

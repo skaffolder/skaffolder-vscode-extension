@@ -3,7 +3,7 @@ import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 import { Webview } from "../../utils/WebView";
 
-export class ModuleView {
+export class PageView {
   static async open(contextNode: SkaffolderNode) {
     // Init panel
     const panel = vscode.window.createWebviewPanel("skaffolder", "SK Page - " + contextNode.label, vscode.ViewColumn.One, {
@@ -19,9 +19,9 @@ export class ModuleView {
           case "save":
             vscode.window.showInformationMessage("Save");
             return;
-          case "webview-ready":
+          case "getPage":
             panel.webview.postMessage({
-              command: "get-page",
+              command: "getPage",
               data: JSON.stringify({
                 page: contextNode.params!.page!,
                 label: contextNode.label,

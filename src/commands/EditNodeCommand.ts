@@ -5,7 +5,7 @@ import * as vscode from "vscode";
 import { DbView } from "./views/DbView";
 import { ModelView } from "./views/ModelView";
 import { ApiView } from "./views/ApiView";
-import { ModuleView } from "./views/ModuleView";
+import { PageView } from "./views/PageView";
 
 export class EditNodeCommand {
   static context: vscode.ExtensionContext;
@@ -25,7 +25,7 @@ export class EditNodeCommand {
         } else if (contextNode.params.type === "resource") {
           ApiView.open(contextNode);
         } else if (contextNode.params.type === "module") {
-          ModuleView.open(contextNode);
+          PageView.open(contextNode);
         } else {
           console.error("Type " + contextNode.params.type + " not valid");
         }
