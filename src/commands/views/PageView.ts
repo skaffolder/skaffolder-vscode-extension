@@ -2,6 +2,9 @@ import * as vscode from "vscode";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 import { Webview } from "../../utils/WebView";
+import { Offline } from "skaffolder-cli";
+import { Page } from "../../models/jsonreader/page";
+import { Service } from "../../models/jsonreader/service";
 
 export class PageView {
   static async open(contextNode: SkaffolderNode) {
@@ -9,6 +12,10 @@ export class PageView {
     const panel = vscode.window.createWebviewPanel("skaffolder", "SK Page - " + contextNode.label, vscode.ViewColumn.One, {
       enableScripts: true
     });
+
+    if (vscode.workspace.rootPath !== undefined) {
+      Offline.pathWorkspace = vscode.workspace.rootPath;
+    }
 
     panel.webview.html = Webview.serve("editPage");
 
@@ -18,9 +25,24 @@ export class PageView {
         console.log("server received");
         switch (message.command) {
           case "savePage":
-            console.log("server msg", message.data);
 
-            //TODO: call sk cli save
+            if (message.data && message.data.page) {
+              var page = message.data.page as Page;
+
+              var yamlPage = {
+                "x-skaffolder-id": page._id,
+                "x-skaffolder-name": page.name,
+                "x-skaffolder-url": page.url,
+                "x-skaffolder-template": page.template,
+                "x-skaffolder-resource": page._template_resource,
+                "x-skaffolder-services": page._services ? (page._services as Service[]).map((_serv) => { return _serv._id; }) : page._services,
+                "x-skaffolder-nesteds": page._nesteds ? (page._nesteds as Page[]).map((_page) => { return _page._id; }) : page._nesteds,
+                "x-skaffolder-links": page._links ? (page._links as Page[]).map((_page) => { return _page._id; }) : page._links,
+                "x-skaffolder-roles": page._roles,
+              };
+
+              Offline.createPage(yamlPage);
+            }
 
             vscode.window.showInformationMessage("Save");
             panel.webview.postMessage({
