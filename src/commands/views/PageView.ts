@@ -18,7 +18,10 @@ export class PageView {
         console.log("server received");
         switch (message.command) {
           case "savePage":
-            console.log("server msg");
+            console.log("server msg", message.data);
+
+            //TODO: call sk cli save
+
             vscode.window.showInformationMessage("Save");
             panel.webview.postMessage({
               command: "savePage",

@@ -2,7 +2,7 @@ app.service("DataServiceUtils", [
   "$q",
   function($q) {
     return {
-      askData: (command, callback) => {
+      askData: (command, param, callback) => {
         // Init promise
         const deferred = $q.defer();
 
@@ -30,7 +30,8 @@ app.service("DataServiceUtils", [
 
         // Ask for data
         vscode.postMessage({
-          command: command
+          command: command,
+          data: param
         });
 
         // Return promise

@@ -3,8 +3,8 @@ app.service("DataService", [
   function(DataServiceUtils) {
     return {
       // Call data
-      savePage: () => {
-        return DataServiceUtils.askData("savePage");
+      savePage: page => {
+        return DataServiceUtils.askData("savePage", page);
       },
       getPage: () => {
         return DataServiceUtils.askData("getPage");
