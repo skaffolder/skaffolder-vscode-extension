@@ -74,6 +74,14 @@
           "light": "media/light/uploadScuro.svg",
           "dark": "media/dark/uploadGrigio.svg"
         }
+      },
+      {
+        "command": "skaffolder.createPage",
+        "title": "Create new Page",
+        "icon": {
+          "light": "media/light/page.svg",
+          "dark": "media/dark/page.svg"
+        }
       }
     ],
     "menus": {
@@ -85,6 +93,11 @@
         },
         {
           "command": "skaffolder.export",
+          "group": "navigation",
+          "when": "isSkaffolderProject"
+        },
+        {
+          "command": "skaffolder.createPage",
           "group": "navigation",
           "when": "isSkaffolderProject"
         }
@@ -133,7 +146,7 @@
     "handlebars": "^4.2.0",
     "handlebars-helpers": "^0.10.0",
     "jsonc-parser": "^0.4.2",
-    "skaffolder-cli": "^1.1.27",
-    "yaml": "^1.6.0"
+    "yaml": "^1.6.0",
+    "skaffolder-cli": "1.1.30"
   }
 }

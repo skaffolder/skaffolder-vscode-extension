@@ -11,7 +11,7 @@ import { EditNodeCommand } from "../commands/EditNodeCommand";
 import { OpenFilesCommand } from "../commands/OpenFilesCommand";
 import { OpenApiCommand } from "../commands/OpenApiCommand";
 import { EditValueYamlCommand } from "../commands/EditValueYamlCommand";
-
+import { CreatePageCommand } from "../commands/CreatePageCommand";
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
     // Set context
@@ -25,12 +25,13 @@ export class Commands {
     } catch (e) {
       console.error(e);
     }
-
+    
     // Register commands
     let loginCmd = vscode.commands.registerCommand("skaffolder.login", LoginCommand.command);
     let exportCmd = vscode.commands.registerCommand("skaffolder.export", ExportCommand.command);
     let genCmd = vscode.commands.registerCommand("skaffolder.generate", GenerateCommand.command);
     let createCmd = vscode.commands.registerCommand("skaffolder.createProject", CreateProjectCommand.command);
+    let createpageCmd = vscode.commands.registerCommand("skaffolder.createPage", CreatePageCommand.command);
     let editNodeCmd = vscode.commands.registerCommand("skaffolder.editNode", EditNodeCommand.command);
     let openFileCmd = vscode.commands.registerCommand("skaffolder.openfiles", OpenFilesCommand.command);
     let openApiCmd = vscode.commands.registerCommand("skaffolder.openapi", OpenApiCommand.command);
