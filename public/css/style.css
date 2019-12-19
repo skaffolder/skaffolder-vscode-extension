@@ -57,6 +57,65 @@ input {
   .badge.public {
     background-color: #58b75c; }
 
+select {
+  align-items: center;
+  background-color: #3c3c3c;
+  border-bottom-color: #3c3c3c;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-collapse: separate;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: #3c3c3c;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: #3c3c3c;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: #3c3c3c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  box-sizing: border-box;
+  color: #f0f0f0;
+  cursor: default;
+  display: inline-block;
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 13px;
+  font-stretch: 100%;
+  font-style: normal;
+  font-variant-caps: normal;
+  font-variant-east-asian: normal;
+  font-variant-ligatures: normal;
+  font-variant-numeric: normal;
+  font-weight: 400;
+  height: 26px;
+  letter-spacing: normal;
+  line-height: 18.2px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 2px;
+  text-align: start;
+  text-indent: 0px;
+  text-rendering: auto;
+  text-shadow: none;
+  text-transform: none;
+  user-select: none;
+  white-space: pre;
+  width: 320px;
+  word-spacing: 0px; }
+
 .container-content {
   padding: 5px 30px; }
 
