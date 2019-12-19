@@ -99,7 +99,7 @@
         {
           "command": "skaffolder.createPage",
           "group": "navigation",
-          "when": "isSkaffolderProject"
+          "when": "isSkaffolderProject && view==skaffolderExplorerModel"
         }
       ],
       "view/item/context": [
