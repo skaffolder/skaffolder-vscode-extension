@@ -17,7 +17,7 @@
     "settings.textInputBackground": "#292929",
     "sideBarTitle.foreground": "#bbbbbb",
     "statusBarItem.remoteBackground": "#16825d",
-    "statusBarItem.remoteForeground": "#ffffff"
+    "statusBarItem.remoteForeground": "#ffffff",
     "activityBar.activeBorder": "#ffffff",
     "activityBar.background": "#333333",
     "activityBar.dropBackground": "#ffffff1f",
@@ -75,7 +75,7 @@
     "editor.symbolHighlightBackground": "#ea5c0055",
     "editor.wordHighlightBackground": "#575757b8",
     "editor.wordHighlightStrongBackground": "#004972b8",
-    "editorActiveLineNumber.foreground": "#c6c6c6",
+    // "editorActiveLineNumber.foreground": "#c6c6c6",
     "editorBracketMatch.background": "#0064001a",
     "editorBracketMatch.border": "#888888",
     "editorCodeLens.foreground": "#999999",
