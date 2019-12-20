@@ -25,14 +25,23 @@
       </div>
     </div>
 
-    <div>
-      <h3>
+    <div class="form-group">
+      <label>
         Roles
-      </h3>
-      <div class="badge public" ng-if="!page.page._roles">Public</div>
-      <div class="badge" ng-if="page.page._roles.length == 0">Private</div>
-      <div class="badge" ng-repeat="role in page.page._roles">{{role.name}}</div>
+      </label>
+      <div>
+        <div class="badge public" ng-if="!page.page._roles">Public</div>
+        <div class="badge" ng-if="page.page._roles.length == 0">Private</div>
+        <div class="badge" ng-repeat="role in page.page._roles">
+          {{role.name}}
+          <div class="ico-remove" ng-click="removeRole($index)"></div>
+        </div>
+      </div>
     </div>
+    <div class="mt-10">
+      <a href="" ng-click="addRole()">Add role</a>
+    </div>
+
     <div class="name">
       <h3 class="ft-13 inline-block">
         Link

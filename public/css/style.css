@@ -4,6 +4,9 @@
 .pull-left {
   float: left; }
 
+.mt-10 {
+  margin-top: 10px; }
+
 .form-group {
   margin-top: 10px; }
   .form-group label {
@@ -70,8 +73,18 @@ select {
   select:focus {
     outline: 0; }
 
+.ico-remove {
+  background-image: url(../img/x.svg);
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  margin-left: 5px; }
+
 .container-content {
-  padding: 5px 30px; }
+  padding: 5px 30px;
+  padding-bottom: 80px; }
 
 .title-container {
   background-color: var(--vscode-editorIndentGuide-background);

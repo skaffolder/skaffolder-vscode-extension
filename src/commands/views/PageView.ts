@@ -5,6 +5,8 @@ import { Webview } from "../../utils/WebView";
 import { Offline } from "skaffolder-cli";
 import { Page } from "../../models/jsonreader/page";
 import { Service } from "../../models/jsonreader/service";
+import { refreshTree } from "../../extension";
+import { DataService } from "../../services/DataService";
 
 export class PageView {
   static async open(contextNode: SkaffolderNode) {
@@ -71,6 +73,8 @@ export class PageView {
               data: { result: "ok" }
             });
 
+            refreshTree();
+
             return;
           case "getPage":
             panel.webview.postMessage({
@@ -81,6 +85,41 @@ export class PageView {
                 api: contextNode.skaffolderObject.modules
               }
             });
+            break;
+          case "chooseRole":
+            let roleList: any[] = DataService.getYaml().components["x-skaffolder-roles"];
+            let roleArray: string[] = roleList.map(roleItem => roleItem["x-skaffolder-name"]);
+            if (message.data === undefined) {
+              // public
+              roleArray.unshift("* PRIVATE");
+            } else {
+              // private o roles
+              roleArray.unshift("* PUBLIC");
+
+              // remove selected
+              let oldRoleObj: any[] = message.data;
+              let oldRole: string[] = oldRoleObj.map(item => item.name);
+              roleArray = roleArray.filter(role => oldRole.indexOf(role) === -1);
+            }
+            vscode.window
+              .showQuickPick(roleArray, {
+                placeHolder: "Select a role"
+              })
+              .then(role => {
+                let roleItem: any = role;
+                if (role) {
+                  roleList.filter(item => {
+                    if (item["x-skaffolder-name"] === role) {
+                      roleItem = { name: item["x-skaffolder-name"], _id: item["x-skaffolder-id"] };
+                    }
+                  });
+                }
+
+                panel.webview.postMessage({
+                  command: "chooseRole",
+                  data: roleItem
+                });
+              });
             break;
         }
       },

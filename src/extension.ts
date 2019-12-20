@@ -8,45 +8,52 @@ import { TreeProviderTemplateSkaffolder } from "./providers/treeProviderTemplate
 import SkaffolderCli = require("skaffolder-cli");
 import { StatusBarManager } from "./utils/StatusBarManager";
 
+let contextExtension: vscode.ExtensionContext;
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "Skaffolder" is now active!');
   vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
+  contextExtension = context;
 
   // Register commands
-  Commands.registerCommands(context);
+  Commands.registerCommands(contextExtension);
 
   // Load status bar
   StatusBarManager.init();
 
   // Check changes file
-  vscode.workspace.onDidChangeTextDocument(e => {
-    var filename = e.document.fileName
+  vscode.workspace.onDidSaveTextDocument(e => {
+    var filename = e.fileName
       .replace(/\//g, "")
       .replace(/\\/g, "")
       .replace((vscode.workspace.rootPath || "").replace(/\//g, "").replace(/\\/g, ""), "");
 
     if (filename === "openapi.yaml") {
-      DataService.refreshData();
-      // Load interface
-      refresh(context);
-      vscode.window.showInformationMessage("Refresh");
+      refreshTree();
     }
   });
 
   // Load interface
   try {
-    refresh(context);
+    refresh();
   } catch (e) {}
 }
 
-let refresh = function(context: vscode.ExtensionContext) {
+export function refreshTree() {
+  DataService.refreshData();
+  // Load interface
+  refresh();
+  vscode.window.showInformationMessage("Refresh");
+}
+
+let refresh = function() {
   if (DataService.isSkaffolderProject()) {
     // Create trees
-    const skaffolderProviderModel = new TreeProviderSkaffolder(context, "model");
+    const skaffolderProviderModel = new TreeProviderSkaffolder(contextExtension, "model");
     // const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
-    const skaffolderProviderPage = new TreeProviderSkaffolder(context, "page");
+    const skaffolderProviderPage = new TreeProviderSkaffolder(contextExtension, "page");
 
     // Register trees
     vscode.window.registerTreeDataProvider("skaffolderExplorerModel", skaffolderProviderModel);
@@ -55,7 +62,7 @@ let refresh = function(context: vscode.ExtensionContext) {
     vscode.window.registerTreeDataProvider("skaffolderExplorerPage", skaffolderProviderPage);
   } else {
     // Create trees
-    const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(context);
+    const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(contextExtension);
 
     // Register trees
     vscode.window.registerTreeDataProvider("skaffolderExplorerTemplates", skaffolderProviderTemplate);

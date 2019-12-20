@@ -88,3 +88,14 @@ select {
     outline: 0;
   }
 }
+
+// Icons
+.ico-remove {
+  background-image: url(../img/x.svg);
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  margin-left: 5px;
+}

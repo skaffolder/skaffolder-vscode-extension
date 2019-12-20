@@ -5,10 +5,10 @@ import { Resource } from "../models/jsonreader/resource";
 import { ResourceAttr } from "../models/jsonreader/resource-attr";
 import { Service } from "../models/jsonreader/service";
 import * as vscode from "vscode";
-import * as yaml from "yaml";
 import { SkaffolderObject } from "../models/SkaffolderObject";
 import { Relation } from "../models/jsonreader/relation";
 import { Entity } from "../models/jsonreader/entity";
+import { Role } from "../models/jsonreader/role";
 
 export class YamlParser {
   static getLinesNumberOf(input: string, word: string): number {
@@ -33,6 +33,11 @@ export class YamlParser {
     obj.project = new Project({
       _id: fileObj.info["x-skaffolder-id-project"],
       name: fileObj.info.title
+    });
+
+    // Set roles
+    fileObj.components["x-skaffolder-roles"].forEach((value: any) => {
+      obj.roles.push(new Role(value["x-skaffolder-id"], value["x-skaffolder-name"]));
     });
 
     // Parse dbs
@@ -61,28 +66,14 @@ export class YamlParser {
       let itemDb = fileObj.components["x-skaffolder-db"][d];
 
       // find token position of item
-      let lineId: number = YamlParser.getLinesNumberOf(
-        fileString,
-        "x-skaffolder-id: " + itemDb["x-skaffolder-id"]
-      );
-      let pos: vscode.Position = new vscode.Position(
-        lineId >= 0 ? lineId - 1 : 0,
-        0
-      );
+      let lineId: number = YamlParser.getLinesNumberOf(fileString, "x-skaffolder-id: " + itemDb["x-skaffolder-id"]);
+      let pos: vscode.Position = new vscode.Position(lineId >= 0 ? lineId - 1 : 0, 0);
 
       let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
       let rangeModel: vscode.Range = new vscode.Range(pos, pos2);
 
-      let db = new Db(
-        itemDb["x-skaffolder-id"],
-        itemDb["x-skaffolder-name"],
-        rangeModel
-      );
-      let dbEntity = new Db(
-        itemDb["x-skaffolder-id"],
-        itemDb["x-skaffolder-name"],
-        rangeModel
-      );
+      let db = new Db(itemDb["x-skaffolder-id"], itemDb["x-skaffolder-name"], rangeModel);
+      let dbEntity = new Db(itemDb["x-skaffolder-id"], itemDb["x-skaffolder-name"], rangeModel);
 
       dbs.set(db._id, {
         dbObj: db,
@@ -98,14 +89,8 @@ export class YamlParser {
       let item = fileObj.components["schemas"][r];
 
       // find token position of item
-      let lineId: number = YamlParser.getLinesNumberOf(
-        fileString,
-        "x-skaffolder-id: " + item["x-skaffolder-id"]
-      );
-      let pos: vscode.Position = new vscode.Position(
-        lineId >= 0 ? lineId : 0,
-        0
-      );
+      let lineId: number = YamlParser.getLinesNumberOf(fileString, "x-skaffolder-id: " + item["x-skaffolder-id"]);
+      let pos: vscode.Position = new vscode.Position(lineId >= 0 ? lineId : 0, 0);
 
       let pos2: vscode.Position = new vscode.Position(lineId + 2, 0);
       let rangeModel: vscode.Range = new vscode.Range(pos, pos2);
@@ -157,20 +142,12 @@ export class YamlParser {
     for (let s in fileObj.paths) {
       let serviceItem = fileObj.paths[s];
       for (let m in serviceItem) {
-        if (fileObj.paths[s][m]["x-skaffolder-ignore"] !==true)
-        {
-          let resName: string =
-            fileObj.paths[s][m]["x-skaffolder-resource"] || "";
+        if (fileObj.paths[s][m]["x-skaffolder-ignore"] !== true) {
+          let resName: string = fileObj.paths[s][m]["x-skaffolder-resource"] || "";
           let res = resourceMap.get(resName.toLowerCase());
           // find token position of item
-          let lineId: number = YamlParser.getLinesNumberOf(
-            fileString,
-            fileObj.paths[s][m]["x-skaffolder-id"]
-          );
-          let pos: vscode.Position = new vscode.Position(
-            lineId >= 0 ? lineId - 1 : 0,
-            0
-          );
+          let lineId: number = YamlParser.getLinesNumberOf(fileString, fileObj.paths[s][m]["x-skaffolder-id"]);
+          let pos: vscode.Position = new vscode.Position(lineId >= 0 ? lineId - 1 : 0, 0);
 
           let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
           let rangeApi: vscode.Range = new vscode.Range(pos, pos2);
@@ -182,7 +159,6 @@ export class YamlParser {
             unamedRes._services.push(service);
           }
         }
-
       }
     }
 
@@ -208,14 +184,8 @@ export class YamlParser {
     for (let p in fileObj.components["x-skaffolder-page"]) {
       let item = fileObj.components["x-skaffolder-page"][p];
       // find token position of item
-      let lineId: number = YamlParser.getLinesNumberOf(
-        fileString,
-        item["x-skaffolder-id"]
-      );
-      let pos: vscode.Position = new vscode.Position(
-        lineId >= 0 ? lineId : 0,
-        0
-      );
+      let lineId: number = YamlParser.getLinesNumberOf(fileString, item["x-skaffolder-id"]);
+      let pos: vscode.Position = new vscode.Position(lineId >= 0 ? lineId : 0, 0);
 
       let pos2: vscode.Position = new vscode.Position(lineId + 2, 0);
       let rangePage: vscode.Range = new vscode.Range(pos, pos2);
@@ -240,10 +210,7 @@ export class YamlParser {
 
         // populate services
         res._services.forEach(serv => {
-          serv._resource = YamlParser.searchResource(
-            obj.resources,
-            String(serv._resource)
-          );
+          serv._resource = YamlParser.searchResource(obj.resources, String(serv._resource));
         });
 
         res._services = YamlParser.orderByName(res._services);
@@ -255,10 +222,7 @@ export class YamlParser {
       if (page._services) {
         let resourcesMap: Map<String, Resource> = new Map<String, Resource>();
         page._services.forEach((service: any, index: number) => {
-          page._services[index] = YamlParser.searchService(
-            obj.resources,
-            service
-          );
+          page._services[index] = YamlParser.searchService(obj.resources, service);
 
           let resJSon = (page._services[index] as Service)._resource;
           if (resJSon) {
@@ -273,24 +237,23 @@ export class YamlParser {
       }
 
       // Populate links
-      if (
-        page._links !== null &&
-        page._links !== undefined &&
-        page._links instanceof Array
-      ) {
+      if (page._links !== null && page._links !== undefined && page._links instanceof Array) {
         page._links.forEach((pageItem: any, index: number) => {
           page._links[index] = YamlParser.searchPage(obj.modules, pageItem);
         });
       }
 
       // Populate nesteds
-      if (
-        page._nesteds !== null &&
-        page._nesteds !== undefined &&
-        page._nesteds instanceof Array
-      ) {
+      if (page._nesteds !== null && page._nesteds !== undefined && page._nesteds instanceof Array) {
         page._nesteds.forEach((pageItem: any, index: number) => {
           page._nesteds[index] = YamlParser.searchPage(obj.modules, pageItem);
+        });
+      }
+
+      // Populate roles
+      if (page._roles) {
+        page._roles.forEach(role => {
+          role.name = YamlParser.searchRole(obj.roles, role._id);
         });
       }
     });
@@ -330,6 +293,14 @@ export class YamlParser {
     return;
   }
 
+  static searchRole(roles: Role[], roleId: string): string | undefined {
+    for (let r in roles) {
+      if (roles[r]._id === roleId) {
+        return roles[r].name;
+      }
+    }
+  }
+
   static searchPage(pages: Page[], pageId: string): Page | string {
     for (let p in pages) {
       let page: Page = JSON.parse(JSON.stringify(pages[p]));
@@ -339,11 +310,9 @@ export class YamlParser {
         page._links = [];
         page._nesteds = [];
         if (page._services) {
-          page._services = (page._services as Service[]).map(
-            (serv: { _id: any }) => {
-              return serv ? serv._id : null;
-            }
-          );
+          page._services = (page._services as Service[]).map((serv: { _id: any }) => {
+            return serv ? serv._id : null;
+          });
         }
 
         return page;
@@ -368,9 +337,7 @@ export class YamlParser {
             // clean
             if (serv._resource) {
               serv._resource._services = [];
-              serv._resource._entity = String(
-                (serv._resource._entity as Entity)._id
-              );
+              serv._resource._entity = String((serv._resource._entity as Entity)._id);
             }
             return serv;
           }

@@ -8,6 +8,9 @@ app.service("DataService", [
       },
       getPage: () => {
         return DataServiceUtils.askData("getPage");
+      },
+      chooseRole: roles => {
+        return DataServiceUtils.askData("chooseRole", roles);
       }
     };
   }
