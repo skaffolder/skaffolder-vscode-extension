@@ -26,7 +26,7 @@ export class YamlParser {
   }
 
   static parseYaml(fileObj: any, fileString: string): SkaffolderObject {
-    console.log("yaml file content", fileObj);
+    // console.log("yaml file content", fileObj);
 
     // Parse project
     let obj: SkaffolderObject = new SkaffolderObject();
@@ -211,6 +211,13 @@ export class YamlParser {
         // populate services
         res._services.forEach(serv => {
           serv._resource = YamlParser.searchResource(obj.resources, String(serv._resource));
+
+          // Populate roles
+          if (serv._roles) {
+            serv._roles.forEach(role => {
+              role.name = YamlParser.searchRole(obj.roles, role._id);
+            });
+          }
         });
 
         res._services = YamlParser.orderByName(res._services);
@@ -258,7 +265,7 @@ export class YamlParser {
       }
     });
 
-    console.log("Parser result:", obj);
+    // console.log("Parser result:", obj);
     return obj;
   }
   static orderByName(services: Service[]): Service[] {
