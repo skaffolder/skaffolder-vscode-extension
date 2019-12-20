@@ -36,11 +36,7 @@ export class DataService {
     }
   }
 
-  static findRelatedFiles(
-    type: string,
-    item: Resource | Page | Db,
-    itemDb?: Db
-  ) {
+  static findRelatedFiles(type: string, item: Resource | Page | Db, itemDb?: Db) {
     let paths: string[] = [];
     let files: SkaffolderCli.GeneratorFile[] = [];
 
@@ -94,9 +90,7 @@ export class DataService {
       DataService.resetTemplateFiles();
     }
 
-    return DataService.templateFilesCateg.resource.concat(
-      DataService.templateFilesCateg.table
-    );
+    return DataService.templateFilesCateg.resource.concat(DataService.templateFilesCateg.table);
   }
 
   static getTemplateFiles(): SkaffolderCli.GeneratorFile[] {
@@ -108,9 +102,7 @@ export class DataService {
   }
 
   static resetTemplateFiles() {
-    DataService.templateFiles = SkaffolderCli.getGenFiles(
-      vscode.workspace.rootPath + "/.skaffolder/template"
-    );
+    DataService.templateFiles = SkaffolderCli.getGenFiles(vscode.workspace.rootPath + "/.skaffolder/template");
 
     DataService.templateFilesCateg = {
       module: [],
@@ -135,9 +127,7 @@ export class DataService {
   }
 
   static isSkaffolderProject(): boolean {
-    let contexturl = vscode.Uri.file(
-      vscode.workspace.rootPath + "/openapi.yaml"
-    );
+    let contexturl = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
     return fs.existsSync(contexturl.path);
   }
 
@@ -156,12 +146,10 @@ export class DataService {
     // );
 
     // read file in workspace
-    let contexturl = vscode.Uri.file(
-      vscode.workspace.rootPath + "/openapi.yaml"
-    );
+    let contexturl = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
     let dataYaml: string = "";
     try {
-      console.log("read file");
+      // Read file
       dataYaml = fs.readFileSync(contexturl.path, "utf-8");
     } catch (e) {
       console.error('File "openapi.yaml" not found', e);
@@ -181,7 +169,7 @@ export class DataService {
       }
 
       DataService.yamlObj = fileObj;
-      let yamlObjCopy:any;
+      let yamlObjCopy: any;
       yamlObjCopy = JSON.parse(JSON.stringify(fileObj));
       DataService.dataObj = YamlParser.parseYaml(yamlObjCopy, dataYaml);
     }
@@ -198,10 +186,7 @@ export class DataService {
       DataService.getSkObject().resources.forEach(db => {
         db._resources.forEach(res => {
           res._services.forEach(serv => {
-            (DataService.mapService as Map<String, Service>).set(
-              serv._id,
-              serv
-            );
+            (DataService.mapService as Map<String, Service>).set(serv._id, serv);
           });
         });
       });
@@ -417,10 +402,7 @@ export class DataService {
   static readConfig(): any {
     let config = {};
     try {
-      let configFile = fs.readFileSync(
-        vscode.workspace.rootPath + "/.skaffolder/config.json",
-        "utf-8"
-      );
+      let configFile = fs.readFileSync(vscode.workspace.rootPath + "/.skaffolder/config.json", "utf-8");
       try {
         config = JSON.parse(configFile);
       } catch (e) {
