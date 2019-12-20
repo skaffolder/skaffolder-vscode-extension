@@ -9,7 +9,7 @@ import { Service } from "../../models/jsonreader/service";
 export class PageView {
   static async open(contextNode: SkaffolderNode) {
     // Init panel
-    const panel = vscode.window.createWebviewPanel("skaffolder", "SK Page - " + contextNode.label, vscode.ViewColumn.Active, {
+    const panel = vscode.window.createWebviewPanel("skaffolder", "SK Page - " + contextNode.label, vscode.ViewColumn.One, {
       enableScripts: true
     });
 
@@ -33,7 +33,6 @@ export class PageView {
     // Message.Command editPage
     panel.webview.onDidReceiveMessage(
       message => {
-        console.log("server received");
         switch (message.command) {
           case "savePage":
             if (message.data && message.data.page) {
@@ -66,11 +65,12 @@ export class PageView {
               Offline.createPage(yamlPage);
             }
 
-            vscode.window.showInformationMessage("Save");
+            // vscode.window.showInformationMessage("Saved");
             panel.webview.postMessage({
               command: "savePage",
               data: { result: "ok" }
             });
+
             return;
           case "getPage":
             panel.webview.postMessage({
