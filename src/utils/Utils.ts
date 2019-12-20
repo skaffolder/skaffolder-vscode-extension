@@ -6,10 +6,7 @@ export class Utils {
     vscode.window.showQuickPick(files).then(async item => {
       if (item) {
         let uri = vscode.Uri.file(vscode.workspace.rootPath + "/" + item);
-        await vscode.commands.executeCommand<vscode.Location[]>(
-          "vscode.open",
-          uri
-        );
+        await vscode.commands.executeCommand<vscode.Location[]>("vscode.open", uri);
       }
     });
   }
