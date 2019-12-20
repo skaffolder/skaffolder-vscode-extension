@@ -15,7 +15,11 @@ export class OpenPageCommand {
           // Select range
           let selection: vscode.Selection = new vscode.Selection(rangeModel.start, rangeModel.end);
           tab.selection = selection;
-          tab.revealRange(rangeModel);
+
+          // Scroll to pos
+          let posend: vscode.Position = new vscode.Position(rangeModel.end.line + 100, 0);
+          let rangeScroll: vscode.Range = new vscode.Range(rangeModel.start, posend);
+          tab.revealRange(rangeScroll);
         });
       });
     } catch (e) {
