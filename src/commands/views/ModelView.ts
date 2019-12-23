@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
+import { Offline } from "skaffolder-cli";
 
 export class ModelView {
   static async open(contextNode: SkaffolderNode) {
@@ -10,8 +11,16 @@ export class ModelView {
       enableScripts: true
     });
 
+    // Open yaml
+    if (contextNode.params) {
+      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.range);
+    }
+
+    // Serve page
+    if (vscode.workspace.rootPath !== undefined) {
+      Offline.pathWorkspace = vscode.workspace.rootPath;
+    }
     panel.webview.html = Webview.serve("editModel");
-    console.log(contextNode.params!.model!._entity);
 
     // Message.Command editModel
     panel.webview.onDidReceiveMessage(
@@ -20,13 +29,10 @@ export class ModelView {
           case "save":
             vscode.window.showInformationMessage("Save");
             return;
-          case "webview-ready":
+          case "getModel":
             panel.webview.postMessage({
-              command: "get-data",
-              data: JSON.stringify({
-                skObject: contextNode.params,
-                label: contextNode.label
-              })
+              command: "getModel",
+              data: contextNode.params ? contextNode.params.model : null
             });
             break;
         }

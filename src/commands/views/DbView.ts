@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
+import { Offline } from "skaffolder-cli";
 
 export class DbView {
   static async open(contextNode: SkaffolderNode) {
@@ -9,6 +10,16 @@ export class DbView {
     const panel = vscode.window.createWebviewPanel("skaffolder", "Sk Database - " + contextNode.label, vscode.ViewColumn.One, {
       enableScripts: true
     });
+
+    // Open yaml
+    if (contextNode.params) {
+      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.range);
+    }
+
+    // Serve page
+    if (vscode.workspace.rootPath !== undefined) {
+      Offline.pathWorkspace = vscode.workspace.rootPath;
+    }
     panel.webview.html = Webview.serve("editDb");
 
     // Message.Command editDb

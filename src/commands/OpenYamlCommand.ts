@@ -1,10 +1,8 @@
 import * as vscode from "vscode";
-import { Page } from "../models/jsonreader/page";
-import { DataService } from "../services/DataService";
-import { Utils } from "../utils/Utils";
 
-export class OpenPageCommand {
-  static async command(configFilePath: vscode.Uri, rangeModel: vscode.Range, page: Page) {
+export class OpenYamlCommand {
+  static async command(rangeModel: vscode.Range) {
+    let configFilePath = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
     // Open file openapi
     try {
       // await vscode.commands.executeCommand<vscode.Location[]>("vscode.open", configFilePath);

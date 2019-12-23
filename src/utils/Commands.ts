@@ -2,16 +2,16 @@ import * as vscode from "vscode";
 import * as SkaffolderCli from "skaffolder-cli";
 
 // Commands import
-import { OpenPageCommand } from "../commands/OpenPageCommand";
+import { OpenYamlCommand } from "../commands/OpenYamlCommand";
 import { LoginCommand } from "../commands/LoginCommand";
 import { ExportCommand } from "../commands/ExportCommand";
 import { GenerateCommand } from "../commands/GenerateCommand";
 import { CreateProjectCommand } from "../commands/CreateProjectCommand";
 import { EditNodeCommand } from "../commands/EditNodeCommand";
 import { OpenFilesCommand } from "../commands/OpenFilesCommand";
-import { OpenApiCommand } from "../commands/OpenApiCommand";
 import { EditValueYamlCommand } from "../commands/EditValueYamlCommand";
 import { CreatePageCommand } from "../commands/CreatePageCommand";
+
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
     // Set context
@@ -25,7 +25,7 @@ export class Commands {
     } catch (e) {
       console.error(e);
     }
-    
+
     // Register commands
     let loginCmd = vscode.commands.registerCommand("skaffolder.login", LoginCommand.command);
     let exportCmd = vscode.commands.registerCommand("skaffolder.export", ExportCommand.command);
@@ -34,15 +34,13 @@ export class Commands {
     let createpageCmd = vscode.commands.registerCommand("skaffolder.createPage", CreatePageCommand.command);
     let editNodeCmd = vscode.commands.registerCommand("skaffolder.editNode", EditNodeCommand.command);
     let openFileCmd = vscode.commands.registerCommand("skaffolder.openfiles", OpenFilesCommand.command);
-    let openApiCmd = vscode.commands.registerCommand("skaffolder.openapi", OpenApiCommand.command);
-    let openPageCmd = vscode.commands.registerCommand("skaffolder.openpage", OpenPageCommand.command);
+    let openYamlCmd = vscode.commands.registerCommand("skaffolder.openyaml", OpenYamlCommand.command);
     let editYamlCmd = vscode.commands.registerCommand("skaffolder.editValue_yaml", EditValueYamlCommand.command);
 
     // Context subscription
     context.subscriptions.push(editNodeCmd);
     context.subscriptions.push(editYamlCmd);
     context.subscriptions.push(openFileCmd);
-    context.subscriptions.push(openApiCmd);
-    context.subscriptions.push(openPageCmd);
+    context.subscriptions.push(openYamlCmd);
   }
 }

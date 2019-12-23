@@ -377,11 +377,7 @@ export class DataService {
         url: "/{id}/changePassword",
         description: "Change password of user from admin",
         returnType: "Object",
-        _roles: [
-          {
-            name: "ADMIN"
-          }
-        ],
+        _roles: [],
         _params: []
       }
     ];

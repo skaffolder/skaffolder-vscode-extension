@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
+import { Offline } from "skaffolder-cli";
 
 export class ApiView {
   static async open(contextNode: SkaffolderNode) {
@@ -15,6 +16,16 @@ export class ApiView {
         enableScripts: true
       }
     );
+
+    // Open yaml
+    if (contextNode.params) {
+      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.range);
+    }
+
+    // Serve page
+    if (vscode.workspace.rootPath !== undefined) {
+      Offline.pathWorkspace = vscode.workspace.rootPath;
+    }
     panel.webview.html = Webview.serve("editApi");
 
     // Message.Command editApi

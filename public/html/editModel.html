@@ -1,102 +1,110 @@
-<div class="container-model" ng-controller="EditModelController">
+<div class="container-page" ng-controller="EditModelController">
   <div class="title-container">
-    <div class="section1 auto-vertical left block">
-      <h1 class="ft-20 ml-15"> Model
-        <span class="entity-name ft-13"> {{ contextNode.label}} </span>
-      </h1>
+    <span class="title-topic">
+      Model
+    </span>
+    <span class="title-text"> {{ model.name}} </span>
+  </div>
+
+  <div class="container-content">
+    <div class="form-group">
+      <label>
+        Name
+      </label>
+      <div>
+        <input ng-model="model.name" type="text" placeholder="Name" />
+      </div>
     </div>
-    <div class="section2 auto-vertical  block">
-      <p class="ml-15 ft-13">
+
+    <div class="form-group">
+      <label>
+        URL
+      </label>
+      <div>
+        <input ng-model="model.url" type="text" placeholder="URL" />
+      </div>
+    </div>
+
+    <!-- Attributes -->
+
+    <div class="attributes name">
+      <h3 class="ft-13">
+        Attributes:
+      </h3>
+      <p>
         <span>
-          <button id="delete" class="">Delete model</button>
+          <input class="input-model ml-15" type="text" value="_id" disabled />
         </span>
         <span>
-          <button id="save" class="button-save mt-5"> Save </button>
+          <select class="input-model ml-15" required disabled>
+            <option value="" selected required>Primary Key</option>
+          </select>
+        </span>
+        <span>
+          <button id="required" class="button-required btn-success ml-15" selected>Required</button>
+        </span>
+        <span>
+          <button id="unique" class="button-required btn-success ml-15" selected>Unique</button>
+        </span>
+        <span>
+          <button id="enumeration" class="button-required ml-15">Enumeration</button>
+        </span>
+      </p>
+      <p ng-repeat="attr in model._entity._attrs">
+        <span>
+          <input class="input-model ml-15" type="text" value=" {{ attr.name }}" placeholder="Name" />
+        </span>
+        <span>
+          <select class="input-model ml-15" placeholder="Type" ng-model="attr.type" value="{{ attr.type }}">
+            <option value="" disabled>Type</option>
+            <option value="String">String</option>
+            <option value="Number">Number</option>
+            <option value="Date">Date</option>
+            <option value="Boolean">Boolean</option>
+            <option value="Integer">Integer</option>
+            <option value="Decimal">Decimal</option>
+            <option value="Custom">Custom</option>
+          </select>
+        </span>
+        <span>
+          <button ng-class="{'btn-success':attr.required }" id="required" class="button-required ml-15">Required</button>
+        </span>
+        <span>
+          <button ng-class="{'btn-success':attr.unique }" id="unique" class="button-required ml-15">Unique</button>
+        </span>
+        <span>
+          <button ng-class="{'btn-success':attr._enum }" id="enumeration" class="button-required ml-15">Enumeration</button>
+        </span>
+      </p>
+      <div>
+        <button>Add Attribute</button>
+      </div>
+    </div>
+    <div class="relation">
+      <h3 class="ft-13">
+        Relation:
+      </h3>
+      <p class="relations" ng-repeat="rel in model._entity._relations">
+        Type
+        <span>
+          <select class="input-model border-bottom ml-15 mr-15" placeholder="Type" ng-model="rel.type" value="{{ rel.type }}">
+            <option value="m:m">m:m</option>
+            <option value="1:m">1:m</option>
+          </select>
+        </span>
+        Name
+        <span>
+          <input class="input-model border-bottom ml-15 mr-15" type="text" value=" {{ rel.name }} " placeholder="Name" />
+        </span>
+        <span>
+          <button id="required" class="button-required">Required</button>
         </span>
       </p>
     </div>
-  </div>
-  <div class="name">
-    <h3 class="ft-13 inline-block">
-      Name
-    </h3>
-      <div class="inline-block">
-        <input ng-model="contextNode.skObject.model._entity.name" class="input-model-name ml-15" type="text" placeholder="Name"
-          value=" {{ contextNode.skObject.model._entity.name }} " />
-      </div>
-  </div>
-  <div class="attributes name">
-    <h3 class="ft-13">
-      Attributes:
-    </h3>
-    <p>
-      <span>
-        <input class="input-model ml-15" type="text" value="_ID" disabled />
-      </span>
-      <span>
-        <select class="input-model ml-15" required disabled>
-          <option value="" selected required>Primary Key</option>
-        </select>
-      </span>
-      <span>
-        <button id="required" class="button-required btn-success ml-15" selected> Required </button>
-      </span>
-      <span>
-        <button id="unique" class="button-required btn-success ml-15" selected> Unique </button>
-      </span>
-      <span>
-        <button id="enumeration" class="button-required ml-15"> Enumeration </button>
-      </span>
-    </p>
-    <p ng-repeat="attr in contextNode.skObject.model._entity._attrs">
-      <span>
-        <input class="input-model ml-15" type="text" value=" {{ attr.name }}" placeholder="Name" />
-      </span>
-      <span>
-        <select class="input-model ml-15" placeholder="Type" ng-model="attr.type" value="{{ attr.type }}">
-          <option value="" disabled>Type</option>
-          <option value="String">String</option>
-          <option value="Number">Number</option>
-          <option value="Date">Date</option>
-          <option value="Boolean">Boolean</option>
-          <option value="Integer">Integer</option>
-          <option value="Decimal">Decimal</option>
-          <option value="Custom">Custom</option>
-        </select>
-      </span>
-      <span>
-        <button  ng-class="{'btn-success':attr.required }" id="required" class="button-required ml-15"> Required </button>
-      </span>
-      <span>
-        <button ng-class="{'btn-success':attr.unique }" id="unique" class="button-required ml-15"> Unique </button>
-      </span>
-      <span>
-        <button ng-class="{'btn-success':attr._enum }" id="enumeration" class="button-required ml-15"> Enumeration </button>
-      </span>
-    </p>
-    <div>
-      <button>Add Attribute</button>
+
+    <div class="footer">
+      <button class="primary-button" ng-click="save()">Save</button>
+      <button class="delete-button" ng-click="delete()">Delete</button>
     </div>
-  </div>
-  <div class="relation">
-    <h3 class="ft-13">
-      Relation:
-    </h3>
-    <p class="relations" ng-repeat="rel in contextNode.skObject.model._entity._relations">
-      Type
-      <span>
-        <select class="input-model border-bottom ml-15 mr-15" placeholder="Type" ng-model="rel.type" value="{{ rel.type }}">
-          <option value="m:m">m:m</option>
-          <option value="1:m">1:m</option>
-        </select>
-      </span>
-      Name
-      <span>
-        <input class="input-model border-bottom ml-15 mr-15" type="text" value=" {{ rel.name }} "
-          placeholder="Name">
-      </span>
-      <span>
-        <button id="required" class="button-required"> Required </button>
-      </span>
   </div>
 </div>

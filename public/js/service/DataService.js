@@ -2,7 +2,7 @@ app.service("DataService", [
   "DataServiceUtils",
   function(DataServiceUtils) {
     return {
-      // Call data
+      // Page
       savePage: page => {
         return DataServiceUtils.askData("savePage", page);
       },
@@ -11,6 +11,10 @@ app.service("DataService", [
       },
       chooseRole: roles => {
         return DataServiceUtils.askData("chooseRole", roles);
+      },
+      // Model
+      getModel: () => {
+        return DataServiceUtils.askData("getModel");
       }
     };
   }
