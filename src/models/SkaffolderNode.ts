@@ -14,6 +14,7 @@ import { ModelApiNode } from "./node/ModelApiNode";
 import { ModelNotFound } from "./node/ModelNotFound";
 import { Service } from "./jsonreader/service";
 import { PageApiNotFound } from "./node/PageApiNotFound";
+import { ModelApiNotFound } from "./node/ModelApiNotFound";
 
 /**
  * Tree interface when in a Skaffolder project folder
@@ -64,6 +65,8 @@ export class SkaffolderNode extends vscode.TreeItem {
         ModelResourceNode.execute(this, indexMap);
       } else if (type === "api_db_resource_api") {
         ModelApiNode.execute(this, indexMap);
+      } else if (type === "api_db_resource_api_notfound") {
+        ModelApiNotFound.execute(this);
       } else if (type === "model_db_not_found") {
         ModelNotFound.execute(this);
       }

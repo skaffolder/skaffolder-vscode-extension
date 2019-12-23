@@ -35,7 +35,8 @@ export class ModelResourceNode {
         node.children.push(new SkaffolderNode(node.context, node.skaffolderObject, "api_db_resource_api", indexArr));
       });
     } else {
-      node.collapsibleState = vscode.TreeItemCollapsibleState.None;
+      node.children.push(new SkaffolderNode(node.context, node.skaffolderObject, "api_db_resource_api_notfound", []));
+      node.collapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
     }
   }
 }
