@@ -16,6 +16,113 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <label>
+        URL
+      </label>
+      <div>
+        <input ng-model="api.url" type="text" placeholder="URL" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Method
+      </label>
+      <div>
+        <select ng-model="api.method" placeholder="Method">
+          <option value="get">GET</option>
+          <option value="post">POST</option>
+          <option value="patch">PATCH</option>
+          <option value="delete">DELETE</option>
+          <option value="put">PUT</option>
+          <option value="option">OPTION</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Description
+      </label>
+      <div>
+        <textarea ng-model="api.description" placeholder="Description"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Roles
+      </label>
+      <div>
+        <div class="badge public" ng-if="!api._roles">Public</div>
+        <div class="badge" ng-if="api._roles.length == 0">Private</div>
+        <div class="badge" ng-repeat="role in api._roles">
+          {{role.name}}
+          <div class="ico-remove" ng-click="removeRole($index)"></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10">
+      <a href="" ng-click="addRole()">Add role</a>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Return type
+      </label>
+      <div>
+        <select ng-model="api.returnType" placeholder="Return Type">
+          <option>Object</option>
+          <option value="String">String</option>
+          <option value="Number">Number</option>
+          <option value="Date">Date</option>
+          <option value="Boolean">Boolean</option>
+          <option value="Integer">Integer</option>
+          <option value="Decimal">Decimal</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-20"></div>
+    <div class="form-group mt-20">
+      <label>
+        Parameters list
+      </label>
+
+      <div ng-if="!api._params || api._params.length == 0">
+        <b>No parameters found</b>
+      </div>
+      <div ng-repeat="par in api._params" class="mt-20">
+        <div class="mt-20">
+          <input ng-model="par.name" type="text" placeholder="Name" />
+        </div>
+
+        <div class="mt-10">
+          <select ng-model="par.type" placeholder="Return Type">
+            <option>Object</option>
+            <option value="String">String</option>
+            <option value="Number">Number</option>
+            <option value="Date">Date</option>
+            <option value="Boolean">Boolean</option>
+            <option value="Integer">Integer</option>
+            <option value="Decimal">Decimal</option>
+          </select>
+        </div>
+
+        <div class="mt-10">
+          <textarea ng-model="par.description" type="text" placeholder="Description"></textarea>
+        </div>
+        <div class="mt-10">
+          <a href="" ng-click="removeParam($index)">Remove parameter</a>
+        </div>
+
+        <hr />
+      </div>
+
+      <button class="primary-button mt-20" ng-click="addParam()">Add parameter</button>
+    </div>
+
     <div class="footer">
       <button class="primary-button" ng-click="save()">Save</button>
       <button class="delete-button" ng-click="delete()">Delete</button>

@@ -7,6 +7,9 @@
 .mt-10 {
   margin-top: 10px; }
 
+.mt-20 {
+  margin-top: 20px; }
+
 .form-group {
   margin-top: 10px; }
   .form-group label {
@@ -23,6 +26,18 @@ input {
   width: 100%;
   max-width: 200px; }
   input:focus {
+    outline: 0; }
+
+textarea {
+  background-color: var(--vscode-editorIndentGuide-background);
+  color: var(--vscode-editor-foreground);
+  border: none;
+  font-size: small;
+  padding: 3px 7px;
+  width: 100%;
+  max-width: 200px;
+  height: 60px; }
+  textarea:focus {
     outline: 0; }
 
 button {

@@ -9,9 +9,6 @@ app.service("DataService", [
       getPage: () => {
         return DataServiceUtils.askData("getPage");
       },
-      chooseRole: roles => {
-        return DataServiceUtils.askData("chooseRole", roles);
-      },
       // Model
       getModel: () => {
         return DataServiceUtils.askData("getModel");
@@ -23,6 +20,11 @@ app.service("DataService", [
       // API
       getApi: () => {
         return DataServiceUtils.askData("getApi");
+      },
+
+      // Utils
+      chooseRole: roles => {
+        return DataServiceUtils.askData("chooseRole", roles);
       }
     };
   }

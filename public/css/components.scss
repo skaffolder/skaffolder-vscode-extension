@@ -21,6 +21,21 @@ input {
   }
 }
 
+// Textarea
+textarea {
+  background-color: $mid-gray;
+  color: $light-gray;
+  border: none;
+  font-size: small;
+  padding: 3px 7px;
+  width: 100%;
+  max-width: 200px;
+  height: 60px;
+  &:focus {
+    outline: 0;
+  }
+}
+
 // Button
 button {
   background-color: $light-gray;
