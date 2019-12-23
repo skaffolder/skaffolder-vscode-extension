@@ -36,9 +36,11 @@ export class YamlParser {
     });
 
     // Set roles
-    fileObj.components["x-skaffolder-roles"].forEach((value: any) => {
-      obj.roles.push(new Role(value["x-skaffolder-id"], value["x-skaffolder-name"]));
-    });
+    if (fileObj.components["x-skaffolder-roles"]) {
+      fileObj.components["x-skaffolder-roles"].forEach((value: any) => {
+        obj.roles.push(new Role(value["x-skaffolder-id"], value["x-skaffolder-name"]));
+      });
+    }
 
     // Parse dbs
     let dbs: Map<

@@ -171,7 +171,15 @@ export class DataService {
       DataService.yamlObj = fileObj;
       let yamlObjCopy: any;
       yamlObjCopy = JSON.parse(JSON.stringify(fileObj));
-      DataService.dataObj = YamlParser.parseYaml(yamlObjCopy, dataYaml);
+      try {
+        DataService.dataObj = YamlParser.parseYaml(yamlObjCopy, dataYaml);
+      } catch (e) {
+        console.error("Error in parsing YAML");
+        console.error(e);
+        vscode.window.showErrorMessage(e.message);
+        vscode.window.showErrorMessage("Error in parsing YAML");
+        throw e;
+      }
     }
 
     DataService.mapResource = undefined;
