@@ -67,7 +67,8 @@ export class CreateProjectCommand {
                       skObj.project,
                       skObj.modules,
                       skObj.resource,
-                      skObj.dbs
+                      skObj.dbs,
+                      skObj.roles
                     );
                     let content = fs.readFileSync(
                       (vscode.workspace.rootPath +

@@ -12,6 +12,11 @@ app.controller("EditPageController", [
       });
     };
 
+    $scope.addLinked = () => {
+      DataService.addLinked($scope.page).then(data => {
+      })
+    }
+
     $scope.removeRole = index => {
       $scope.page.page._roles.splice(index, 1);
     };

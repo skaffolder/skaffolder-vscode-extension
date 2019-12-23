@@ -25,6 +25,9 @@ app.service("DataService", [
       // Utils
       chooseRole: roles => {
         return DataServiceUtils.askData("chooseRole", roles);
+      },
+      addLinked: link => {
+        return DataServiceUtils.askData("addLinked", link);
       }
     };
   }
