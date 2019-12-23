@@ -89,6 +89,7 @@ export class PageView {
           case "chooseRole":
             let roleList: any[] = DataService.getYaml().components["x-skaffolder-roles"];
             let roleArray: string[] = roleList.map(roleItem => roleItem["x-skaffolder-name"]);
+
             if (message.data === undefined) {
               // public
               roleArray.unshift("* PRIVATE");
@@ -121,6 +122,27 @@ export class PageView {
                 });
               });
             break;
+            case "addLinked":
+              let linkList: any [] = DataService.getYaml().components["x-skaffolder-page"];
+              let linkArray: string [] = linkList.map(linkItem => linkItem["x-skaffolder-links"]);
+              let pageList: string [] = linkList.map(pageItem => pageItem["x-skaffolder-name"]);
+              console.log(message.data);
+              vscode.window.showQuickPick(pageList, {
+                placeHolder: "Select linked page"
+              }).then(link => {
+                let linkItem: any = link;
+                if(link) {
+                  
+                }
+                panel.webview.postMessage({
+                  command: "addLinked",
+                  data: linkItem
+                });
+              });
+              
+                
+              
+              
         }
       },
       undefined,
