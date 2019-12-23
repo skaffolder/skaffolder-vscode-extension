@@ -1,8 +1,11 @@
 // Input
 .form-group {
   margin-top: 10px;
+  margin-bottom: 25px;
+
   label {
     font-size: small;
+    font-weight: bold;
     margin-bottom: 5px;
     display: block;
   }
@@ -15,7 +18,7 @@ input {
   font-size: small;
   padding: 3px 7px;
   width: 100%;
-  max-width: 200px;
+  max-width: 400px;
   &:focus {
     outline: 0;
   }
@@ -29,7 +32,7 @@ textarea {
   font-size: small;
   padding: 3px 7px;
   width: 100%;
-  max-width: 200px;
+  max-width: 400px;
   height: 60px;
   &:focus {
     outline: 0;
@@ -96,9 +99,10 @@ select {
   border: none;
   font-size: small;
   padding: 3px 7px;
-  width: 100%;
-  max-width: 200px;
+  width: calc(100% + 15px);
+  max-width: 415px;
   border-radius: 0px !important;
+
   &:focus {
     outline: 0;
   }
