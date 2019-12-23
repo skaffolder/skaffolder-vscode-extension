@@ -40,9 +40,10 @@ export class ModelApiNode {
       )
     };
     node.params = {
-      type: "resource",
+      type: "service",
       db: db,
       model: model,
+      service: api,
       range: api.index
     };
   }

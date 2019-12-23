@@ -1,69 +1,24 @@
-<div id="api-container" ng-controller="EditApiController">
+<div class="container-page" ng-controller="EditApiController">
   <div class="title-container">
-    <div class="section1 auto-vertical left block">
-      <h1 class="ft-20 ml-15"> API
-        <span class="entity-name ft-13"> {{ service.service.name }}
-        </span>
-        <span class="ml-15 ft-13"> {{ service.service.method }}</span>
-      </h1>
+    <span class="title-topic">
+      API
+    </span>
+    <span class="title-text"> {{ api._resource.name}} {{ api.name}} </span>
+  </div>
+
+  <div class="container-content">
+    <div class="form-group">
+      <label>
+        Name
+      </label>
+      <div>
+        <input ng-model="api.name" type="text" placeholder="Name" />
+      </div>
     </div>
-    <div class="section2 auto-vertical  block">
-      <p class="ml-15 ft-13"> Delete API
-        <span>
-          <button id="save" class="button-save mt-5"> Save </button>
-        </span>
-      </p>
+
+    <div class="footer">
+      <button class="primary-button" ng-click="save()">Save</button>
+      <button class="delete-button" ng-click="delete()">Delete</button>
     </div>
-  </div>
-  <div class="name">
-    <h3 class="ft-13">
-      Name
-      <span>
-        <input ng-model="service.service.name" class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.name }}">
-      </span>
-    </h3>
-  </div>
-  <div class="name">
-    <h3 class="ft-13">
-      Url
-      <span>
-        <input ng-model="service.service.url" class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.url }}">
-      </span>
-    </h3>
-  </div>
-  <div class="name">
-    <h3 class="ft-13">
-      Method
-      <span>
-        <input ng-model="service.service.method" class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.method }}">
-      </span>
-    </h3>
-  </div>
-  <div class="name">
-    <h3 class="ft-13">
-      Description
-      <span>
-        <input ng-model="service.service.description" class="input-desc border-bottom ml-15" type="text" placeholder=" {{ service.service.description }}">
-      </span>
-    </h3>
-  </div>
-  <div class="name">
-    <h3 class="ft-13">
-      Restriction
-      <span>
-        <input ng-model="service.service.returnDesc" class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.returnDesc }}">
-      </span>
-    </h3>
-  </div>
-  <div class="name">
-    <h3 class="ft-13">
-      Return
-      <span>
-        <input ng-model="service.service.returnType" class="input-text border-bottom ml-15" type="text" placeholder=" {{ service.service.returnType }}">
-      </span>
-    </h3>
-  </div>
-  <div class="button-add">
-    <button id="add-param" class="button-param mt-5"> Add param </button>
   </div>
 </div>

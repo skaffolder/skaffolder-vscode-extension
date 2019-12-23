@@ -15,6 +15,14 @@ app.service("DataService", [
       // Model
       getModel: () => {
         return DataServiceUtils.askData("getModel");
+      },
+      // Db
+      getDb: () => {
+        return DataServiceUtils.askData("getDb");
+      },
+      // API
+      getApi: () => {
+        return DataServiceUtils.askData("getApi");
       }
     };
   }

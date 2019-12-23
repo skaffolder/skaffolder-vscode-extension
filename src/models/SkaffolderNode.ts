@@ -12,6 +12,8 @@ import { ModelDbNode } from "./node/ModelDbNode";
 import { ModelResourceNode } from "./node/ModelResourceNode";
 import { ModelApiNode } from "./node/ModelApiNode";
 import { ModelNotFound } from "./node/ModelNotFound";
+import { Service } from "./jsonreader/service";
+import { PageApiNotFound } from "./node/PageApiNotFound";
 
 /**
  * Tree interface when in a Skaffolder project folder
@@ -23,6 +25,7 @@ export class SkaffolderNode extends vscode.TreeItem {
     db?: Db;
     model?: Resource;
     page?: Page;
+    service?: Service;
     type?: string;
     contextUrl?: vscode.Uri;
     range?: vscode.Range;
@@ -48,6 +51,8 @@ export class SkaffolderNode extends vscode.TreeItem {
         PageApiNode.execute(this, indexMap);
       } else if (type === "page_page_not_found") {
         PageNotFound.execute(this);
+      } else if (type === "page_page_api_notfound") {
+        PageApiNotFound.execute(this);
       }
 
       // Model tree

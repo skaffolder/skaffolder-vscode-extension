@@ -20,9 +20,9 @@ export class EditNodeCommand {
         // Routing views
         if (contextNode.params.type === "db") {
           DbView.open(contextNode);
-        } else if (contextNode.params.type === "resource" && contextNode.contextValue === "model") {
-          ModelView.open(contextNode);
         } else if (contextNode.params.type === "resource") {
+          ModelView.open(contextNode);
+        } else if (contextNode.params.type === "service") {
           ApiView.open(contextNode);
         } else if (contextNode.params.type === "module") {
           PageView.open(contextNode);

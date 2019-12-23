@@ -7,8 +7,6 @@ app.service("DataServiceUtils", [
         const deferred = $q.defer();
 
         const cb = event => {
-          console.log("mess");
-          console.log(event.data.command);
           if (event.data.command == command) {
             try {
               let data = event.data.data;

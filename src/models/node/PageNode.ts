@@ -35,6 +35,8 @@ export class PageNode {
         let indexArr: number[] = [indexMap[0], index];
         node.children.push(new SkaffolderNode(node.context, node.skaffolderObject, "page_page_api", indexArr));
       });
+    } else {
+      node.children.push(new SkaffolderNode(node.context, node.skaffolderObject, "page_page_api_notfound", []));
     }
   }
 }

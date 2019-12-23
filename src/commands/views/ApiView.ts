@@ -3,6 +3,7 @@ import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 import { Offline } from "skaffolder-cli";
+import { Service } from "../../models/jsonreader/service";
 
 export class ApiView {
   static async open(contextNode: SkaffolderNode) {
@@ -35,14 +36,11 @@ export class ApiView {
           case "save":
             vscode.window.showInformationMessage("Save");
             return;
-          case "webview-ready":
+          case "getApi":
+            console.log(contextNode.params ? contextNode.params.service : null);
             panel.webview.postMessage({
-              command: "get-service",
-              data: JSON.stringify({
-                service: contextNode.params!.model!._services.find((item: any) => {
-                  return item.name === contextNode.label;
-                })
-              })
+              command: "getApi",
+              data: contextNode.params ? contextNode.params.service : null
             });
             break;
         }

@@ -1,27 +1,24 @@
-<div id="container" ng-controller="EditDbController">
+<div class="container-page" ng-controller="EditDbController">
   <div class="title-container">
-    <div class="section1 auto-vertical left block">
-      <h1 class="ft-20 ml-15"> Database
-        <span class="entity-name ft-13"> {{ db.label}} </span>
-      </h1>
-    </div>
-    <div class="section2 auto-vertical  block">
-      <p class="ml-15 ft-13">
-        <span>
-          <button id="delete" class="">Delete db</button>
-        </span>
-        <span>
-          <button id="save" class="button-save mt-5"> Save </button>
-        </span>
-      </p>
-    </div>
+    <span class="title-topic">
+      Database
+    </span>
+    <span class="title-text"> {{ db.name}} </span>
   </div>
-  <div class="name">
-    <h3 class="ft-13">
-      Name
-      <span>
-        <input ng-model="db.skObject.db.name" class="input-text border-bottom ml-15" type="text" placeholder=" {{ db.skObject.db.name }}">
-      </span>
-    </h3>
+
+  <div class="container-content">
+    <div class="form-group">
+      <label>
+        Name
+      </label>
+      <div>
+        <input ng-model="db.name" type="text" placeholder="Name" />
+      </div>
+    </div>
+
+    <div class="footer">
+      <button class="primary-button" ng-click="save()">Save</button>
+      <button class="delete-button" ng-click="delete()">Delete</button>
+    </div>
   </div>
 </div>

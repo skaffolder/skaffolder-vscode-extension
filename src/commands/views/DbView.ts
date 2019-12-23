@@ -29,13 +29,10 @@ export class DbView {
           case "save":
             vscode.window.showInformationMessage("Save");
             return;
-          case "webview-ready":
+          case "getDb":
             panel.webview.postMessage({
-              command: "get-db",
-              data: JSON.stringify({
-                skObject: contextNode.params,
-                label: contextNode.label
-              })
+              command: "getDb",
+              data: contextNode.params ? contextNode.params.db : null
             });
             break;
         }

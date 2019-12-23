@@ -1,8 +1,9 @@
-app.controller("EditApiController", ["$scope", "$rootScope", function ($scope, $rootScope) {
-
-    $rootScope.$on('root-scope-service', (e, data) => {
-        $scope.service = data
-        $scope.$apply()
+app.controller("EditApiController", [
+  "$scope",
+  "DataService",
+  function($scope, DataService) {
+    DataService.getApi().then(data => {
+      $scope.api = data;
     });
-    $rootScope.controllerReady();
-}]);
+  }
+]);
