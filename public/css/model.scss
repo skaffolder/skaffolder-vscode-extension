@@ -1,0 +1,20 @@
+.attr-container {
+  .btn-attr {
+    display: inline-block;
+    margin-right: 10px;
+
+    button {
+      margin-top: 10px;
+    }
+  }
+
+  .remove-attr {
+    display: inline-block;
+  }
+
+  .enum-container {
+    input {
+      width: 70%;
+    }
+  }
+}

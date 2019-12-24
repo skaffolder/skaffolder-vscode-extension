@@ -27,35 +27,16 @@
 
     <!-- Attributes -->
 
-    <div class="attributes name">
-      <h3 class="ft-13">
-        Attributes:
-      </h3>
-      <p>
-        <span>
-          <input class="input-model ml-15" type="text" value="_id" disabled />
-        </span>
-        <span>
-          <select class="input-model ml-15" required disabled>
-            <option value="" selected required>Primary Key</option>
-          </select>
-        </span>
-        <span>
-          <button id="required" class="button-required btn-success ml-15" selected>Required</button>
-        </span>
-        <span>
-          <button id="unique" class="button-required btn-success ml-15" selected>Unique</button>
-        </span>
-        <span>
-          <button id="enumeration" class="button-required ml-15">Enumeration</button>
-        </span>
-      </p>
-      <p ng-repeat="attr in model._entity._attrs">
-        <span>
-          <input class="input-model ml-15" type="text" value=" {{ attr.name }}" placeholder="Name" />
-        </span>
-        <span>
-          <select class="input-model ml-15" placeholder="Type" ng-model="attr.type" value="{{ attr.type }}">
+    <div class="form-group">
+      <label>
+        Attributes
+      </label>
+      <div ng-repeat="attr in model._entity._attrs" class="attr-container mt-30">
+        <div class="mt-10">
+          <input type="text" ng-model="attr.name" placeholder="Name" />
+        </div>
+        <div class="mt-10">
+          <select placeholder="Type" ng-model="attr.type">
             <option value="" disabled>Type</option>
             <option value="String">String</option>
             <option value="Number">Number</option>
@@ -65,19 +46,36 @@
             <option value="Decimal">Decimal</option>
             <option value="Custom">Custom</option>
           </select>
-        </span>
-        <span>
-          <button ng-class="{'btn-success':attr.required }" id="required" class="button-required ml-15">Required</button>
-        </span>
-        <span>
-          <button ng-class="{'btn-success':attr.unique }" id="unique" class="button-required ml-15">Unique</button>
-        </span>
-        <span>
-          <button ng-class="{'btn-success':attr._enum }" id="enumeration" class="button-required ml-15">Enumeration</button>
-        </span>
-      </p>
+        </div>
+        <div class="mt-10">
+          <div class="btn-attr">
+            <button ng-class="{'primary-button':attr.required }" ng-click="attr.required=!attr.required">Required</button>
+            <button ng-class="{'primary-button':attr.unique }" ng-click="attr.unique=!attr.unique">Unique</button>
+            <button ng-class="{'primary-button':attr._enum.length > 0 }" ng-click="showEnums = !showEnums">Enumeration</button>
+          </div>
+
+          <div class="remove-attr">
+            <a href="" ng-click="removeAttr($index)">Remove attribute</a>
+          </div>
+        </div>
+        <div class="mt-10" ng-show="showEnums">
+          <label ng-if="attr._enum.length > 0">Enumeration values</label>
+
+          <div class="mt-10 enum-container" ng-repeat="enum in attr._enum">
+            <input ng-model="enum.name" />
+            <a href="" ng-click="removeEnum($index, attr)">Remove</a>
+          </div>
+
+          <div class="mt-10">
+            <a href="" ng-click="attr = addEnum(attr)">Add enumeration value</a>
+          </div>
+        </div>
+        <div class="mt-30">
+          <hr />
+        </div>
+      </div>
       <div>
-        <button>Add Attribute</button>
+        <button class="primary-button button-xs mt-20" ng-click="addAttr()">Add Attribute</button>
       </div>
     </div>
     <div class="relation">

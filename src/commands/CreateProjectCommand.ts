@@ -71,15 +71,10 @@ export class CreateProjectCommand {
                       skObj.roles
                     );
                     let content = fs.readFileSync(
-                      (vscode.workspace.rootPath +
-                        "/.skaffolder/template/openapi.yaml.hbs") as string,
+                      (vscode.workspace.rootPath + "/.skaffolder/template/openapi.yaml.hbs") as string,
                       "utf-8"
                     );
-                    let file = SkaffolderCli.getProperties(
-                      content,
-                      "openapi.yaml.hbs",
-                      "/.skaffolder/template/"
-                    );
+                    let file = SkaffolderCli.getProperties(content, "openapi.yaml.hbs", "/.skaffolder/template/");
                     SkaffolderCli.generateFile(
                       [],
                       {
@@ -90,9 +85,7 @@ export class CreateProjectCommand {
                       skObj,
                       {}
                     );
-                    vscode.window.showInformationMessage(
-                      "Project create with openapi"
-                    );
+                    vscode.window.showInformationMessage("Project create with openapi");
                   }
                 );
               });

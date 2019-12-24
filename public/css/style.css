@@ -10,6 +10,19 @@
 .mt-20 {
   margin-top: 20px; }
 
+.mt-30 {
+  margin-top: 30px; }
+
+.ml-10 {
+  margin-left: 10px; }
+
+.ml-20 {
+  margin-left: 20px;
+  display: inline-block; }
+
+.ml-30 {
+  margin-left: 30px; }
+
 .form-group {
   margin-top: 10px;
   margin-bottom: 25px; }
@@ -123,5 +136,17 @@ select {
   position: fixed;
   bottom: 0px;
   left: 0px; }
+
+.attr-container .btn-attr {
+  display: inline-block;
+  margin-right: 10px; }
+  .attr-container .btn-attr button {
+    margin-top: 10px; }
+
+.attr-container .remove-attr {
+  display: inline-block; }
+
+.attr-container .enum-container input {
+  width: 70%; }
 
 /*# sourceMappingURL=style.css.map */
