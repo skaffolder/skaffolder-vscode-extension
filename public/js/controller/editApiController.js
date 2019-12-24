@@ -2,10 +2,17 @@ app.controller("EditApiController", [
   "$scope",
   "DataService",
   function($scope, DataService) {
+    // Get data
     DataService.getApi().then(data => {
       $scope.api = data;
     });
 
+    // Actions
+    $scope.openFiles = () => {
+      DataService.openFiles();
+    };
+
+    // Roles functions
     $scope.removeRole = index => {
       $scope.api._roles.splice(index, 1);
     };
@@ -25,6 +32,7 @@ app.controller("EditApiController", [
       });
     };
 
+    // Parameters functions
     $scope.removeParam = index => {
       $scope.api._params.splice(index, 1);
     };

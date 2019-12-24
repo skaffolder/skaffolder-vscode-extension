@@ -71,6 +71,13 @@ export class PageView {
             refreshTree();
 
             return;
+          case "openFiles":
+            panel.webview.postMessage({
+              command: "openFiles"
+            });
+            // Execute Command
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
+            break;
           case "getPage":
             panel.webview.postMessage({
               command: "getPage",
@@ -117,27 +124,24 @@ export class PageView {
                 });
               });
             break;
-            case "addLinked":
-              let linkList: any [] = DataService.getYaml().components["x-skaffolder-page"];
-              let linkArray: string [] = linkList.map(linkItem => linkItem["x-skaffolder-links"]);
-              let pageList: string [] = linkList.map(pageItem => pageItem["x-skaffolder-name"]);
-              console.log(message.data);
-              vscode.window.showQuickPick(pageList, {
+          case "addLinked":
+            let linkList: any[] = DataService.getYaml().components["x-skaffolder-page"];
+            let linkArray: string[] = linkList.map(linkItem => linkItem["x-skaffolder-links"]);
+            let pageList: string[] = linkList.map(pageItem => pageItem["x-skaffolder-name"]);
+            console.log(message.data);
+            vscode.window
+              .showQuickPick(pageList, {
                 placeHolder: "Select linked page"
-              }).then(link => {
+              })
+              .then(link => {
                 let linkItem: any = link;
-                if(link) {
-                  
+                if (link) {
                 }
                 panel.webview.postMessage({
                   command: "addLinked",
                   data: linkItem
                 });
               });
-              
-                
-              
-              
         }
       },
       undefined,

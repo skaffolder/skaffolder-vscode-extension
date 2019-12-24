@@ -2,9 +2,15 @@ app.controller("EditPageController", [
   "$scope",
   "DataService",
   function($scope, DataService) {
+    // Get data
     DataService.getPage().then(data => {
       $scope.page = data;
     });
+
+    // Actions
+    $scope.openFiles = () => {
+      DataService.openFiles();
+    };
 
     $scope.save = () => {
       DataService.savePage($scope.page).then(data => {
@@ -12,11 +18,12 @@ app.controller("EditPageController", [
       });
     };
 
+    // Linked functions
     $scope.addLinked = () => {
-      DataService.addLinked($scope.page).then(data => {
-      })
-    }
+      DataService.addLinked($scope.page).then(data => {});
+    };
 
+    // Roles functions
     $scope.removeRole = index => {
       $scope.page.page._roles.splice(index, 1);
     };

@@ -10,6 +10,11 @@ app.controller("EditModelController", [
       $scope.model_list = data;
     });
 
+    // Actions
+    $scope.openFiles = () => {
+      DataService.openFiles();
+    };
+
     // Attribues functions
     $scope.removeAttr = index => {
       $scope.model._entity._attrs.splice(index, 1);

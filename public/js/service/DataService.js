@@ -31,6 +31,9 @@ app.service("DataService", [
       },
       addLinked: link => {
         return DataServiceUtils.askData("addLinked", link);
+      },
+      openFiles: link => {
+        return DataServiceUtils.askData("openFiles", link);
       }
     };
   }

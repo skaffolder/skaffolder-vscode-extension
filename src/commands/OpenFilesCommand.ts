@@ -10,20 +10,14 @@ export class OpenFilesCommand {
     // Open files
     try {
       if (context.params) {
-        if (context.params.type === "resource") {
-          let files = DataService.findRelatedFiles(
-            "resource",
-            context.params.model as Resource,
-            context.params.db as Db
-          );
+        if (context.params.type === "service" || context.params.type === "resource") {
+          let files = DataService.findRelatedFiles("resource", context.params.model as Resource, context.params.db as Db);
           Utils.openFiles(files);
         } else if (context.params.type === "module") {
-          let files = DataService.findRelatedFiles("module", context.params
-            .page as Page);
+          let files = DataService.findRelatedFiles("module", context.params.page as Page);
           Utils.openFiles(files);
         } else if (context.params.type === "db") {
-          let files = DataService.findRelatedFiles("db", context.params
-            .db as Db);
+          let files = DataService.findRelatedFiles("db", context.params.db as Db);
           Utils.openFiles(files);
         } else {
           console.error("Type " + context.params.type + " not valid");

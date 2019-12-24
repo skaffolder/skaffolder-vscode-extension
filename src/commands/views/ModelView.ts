@@ -30,6 +30,13 @@ export class ModelView {
           case "save":
             vscode.window.showInformationMessage("Save");
             return;
+          case "openFiles":
+            panel.webview.postMessage({
+              command: "openFiles"
+            });
+            // Execute Command
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
+            break;
           case "getModel":
             panel.webview.postMessage({
               command: "getModel",

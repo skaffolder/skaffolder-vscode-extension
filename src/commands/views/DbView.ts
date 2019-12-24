@@ -29,6 +29,13 @@ export class DbView {
           case "save":
             vscode.window.showInformationMessage("Save");
             return;
+          case "openFiles":
+            panel.webview.postMessage({
+              command: "openFiles"
+            });
+            // Execute Command
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
+            break;
           case "getDb":
             panel.webview.postMessage({
               command: "getDb",
