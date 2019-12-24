@@ -37,12 +37,7 @@ export class GenerateCommand {
           );
 
           const filePath: vscode.Uri = vscode.Uri.file(
-            path.join(
-              GenerateCommand.context.extensionPath,
-              "src",
-              "html",
-              "reportGeneration.html"
-            )
+            path.join(GenerateCommand.context.extensionPath, "public", "html", "reportGeneration.html")
           );
           var html = fs.readFileSync(filePath.fsPath, "utf8");
           html += logs.join("\n");
