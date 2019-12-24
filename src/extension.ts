@@ -44,8 +44,8 @@ export function activate(context: vscode.ExtensionContext) {
 export function refreshTree() {
   DataService.refreshData();
   // Load interface
-  refresh();
   vscode.window.showInformationMessage("Refresh");
+  return refresh();
 }
 
 let refresh = function() {
@@ -60,6 +60,11 @@ let refresh = function() {
 
     vscode.commands.executeCommand("setContext", "isSkaffolderProject", true);
     vscode.window.registerTreeDataProvider("skaffolderExplorerPage", skaffolderProviderPage);
+
+    return {
+      model: skaffolderProviderModel,
+      page: skaffolderProviderPage
+    };
   } else {
     // Create trees
     const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(contextExtension);

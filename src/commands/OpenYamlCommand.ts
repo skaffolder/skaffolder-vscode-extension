@@ -8,7 +8,7 @@ export class OpenYamlCommand {
       // await vscode.commands.executeCommand<vscode.Location[]>("vscode.open", configFilePath);
       let docProm = vscode.workspace.openTextDocument(configFilePath);
       docProm.then(doc => {
-        let tab = vscode.window.showTextDocument(doc, vscode.ViewColumn.Beside);
+        let tab = vscode.window.showTextDocument(doc, vscode.ViewColumn.Two);
         tab.then(tab => {
           // Select range
           let selection: vscode.Selection = new vscode.Selection(rangeModel.start, rangeModel.end);
