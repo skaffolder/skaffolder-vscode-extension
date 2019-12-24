@@ -3,9 +3,6 @@ import { Offline } from "skaffolder-cli";
 import { refreshTree } from "../extension";
 import { SkaffolderNode } from "../models/SkaffolderNode";
 import { PageView } from "./views/PageView";
-import { Page } from "../models/jsonreader/page";
-import { SkaffolderObject } from "../models/SkaffolderObject";
-import { TreeProviderSkaffolder } from "../providers/treeProviderSkaffolder";
 
 export class CreatePageCommand {
   static async command(contextNode: SkaffolderNode) {
@@ -32,7 +29,7 @@ export class CreatePageCommand {
 
           // Open page view
           if (trees) {
-            let pageNodes: vscode.ProviderResult<SkaffolderNode[]> = trees.page.getChildren();
+            let pageNodes: any = trees.page.getChildren();
             for (let p in pageNodes) {
               let pageNode: SkaffolderNode = pageNodes[p];
               if (pageNode.params && pageNode.params.page && pageNode.params.page._id === page["x-skaffolder-id"]) {
