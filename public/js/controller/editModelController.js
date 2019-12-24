@@ -6,6 +6,9 @@ app.controller("EditModelController", [
     DataService.getModel().then(data => {
       $scope.model = data;
     });
+    DataService.getAllModels().then(data => {
+      $scope.model_list = data;
+    });
 
     // Attribues functions
     $scope.removeAttr = index => {
@@ -26,6 +29,16 @@ app.controller("EditModelController", [
       if (!attr._enum) attr._enum = [];
       attr._enum.push({});
       return attr;
+    };
+
+    // Relations functions
+    $scope.removeRel = index => {
+      $scope.model._entity._relations.splice(index, 1);
+    };
+
+    $scope.addRel = () => {
+      if (!$scope.model._entity._relations) $scope.model._entity._relations = [];
+      !$scope.model._entity._relations.push({});
     };
   }
 ]);

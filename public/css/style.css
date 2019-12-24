@@ -149,4 +149,13 @@ select {
 .attr-container .enum-container input {
   width: 70%; }
 
+.rel-container .btn-rel {
+  display: inline-block;
+  margin-right: 10px; }
+  .rel-container .btn-rel button {
+    margin-top: 10px; }
+
+.rel-container .remove-rel {
+  display: inline-block; }
+
 /*# sourceMappingURL=style.css.map */

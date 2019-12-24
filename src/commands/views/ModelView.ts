@@ -3,6 +3,7 @@ import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 import { Offline } from "skaffolder-cli";
+import { Resource } from "../../models/jsonreader/resource";
 
 export class ModelView {
   static async open(contextNode: SkaffolderNode) {
@@ -33,6 +34,23 @@ export class ModelView {
             panel.webview.postMessage({
               command: "getModel",
               data: contextNode.params ? contextNode.params.model : null
+            });
+            break;
+          case "getAllModels":
+            let listModels: Resource[] = [];
+            if (contextNode.skaffolderObject.resources && contextNode.skaffolderObject.resources.length === 1) {
+              listModels = contextNode.skaffolderObject.resources[0]._resources;
+            } else if (contextNode.skaffolderObject.resources) {
+              contextNode.skaffolderObject.resources.forEach(db => {
+                if (contextNode.params && contextNode.params.db && db._id === contextNode.params.db._id) {
+                  listModels = db._resources;
+                }
+              });
+            }
+
+            panel.webview.postMessage({
+              command: "getAllModels",
+              data: listModels
             });
             break;
         }

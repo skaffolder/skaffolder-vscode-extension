@@ -78,28 +78,50 @@
         <button class="primary-button button-xs mt-20" ng-click="addAttr()">Add Attribute</button>
       </div>
     </div>
-    <div class="relation">
-      <h3 class="ft-13">
-        Relation:
-      </h3>
-      <p class="relations" ng-repeat="rel in model._entity._relations">
-        Type
-        <span>
-          <select class="input-model border-bottom ml-15 mr-15" placeholder="Type" ng-model="rel.type" value="{{ rel.type }}">
+
+    <!-- Relations -->
+
+    <div class="form-group">
+      <label>
+        Relations
+      </label>
+      <div ng-repeat="rel in model._entity._relations" class="rel-container mt-30">
+        <div class="mt-10">
+          <input type="text" ng-model="rel.name" placeholder="Name" />
+        </div>
+        <div class="mt-10">
+          <select placeholder="Type" ng-model="rel.type">
             <option value="m:m">m:m</option>
             <option value="1:m">1:m</option>
           </select>
-        </span>
-        Name
-        <span>
-          <input class="input-model border-bottom ml-15 mr-15" type="text" value=" {{ rel.name }} " placeholder="Name" />
-        </span>
-        <span>
-          <button id="required" class="button-required">Required</button>
-        </span>
-      </p>
+        </div>
+        <div class="mt-10">
+          <select placeholder="Type" ng-model="rel._ent2.name">
+            <!-- TODO: UPDATES only the name, should update all the object or the _id -->
+            <option ng-repeat="mod in model_list" ng-value="mod.name">{{mod.name}}</option>
+          </select>
+        </div>
+
+        <div class="mt-10">
+          <div class="btn-rel">
+            <button ng-class="{'primary-button':rel.required }" ng-click="rel.required=!rel.required">Required</button>
+          </div>
+
+          <div class="remove-rel">
+            <a href="" ng-click="removeRel($index)">Remove relation</a>
+          </div>
+
+          <div class="mt-30">
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="primary-button button-xs mt-20" ng-click="addRel()">Add Relation</button>
+      </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer">
       <button class="primary-button" ng-click="save()">Save</button>
       <button class="delete-button" ng-click="delete()">Delete</button>

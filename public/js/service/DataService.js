@@ -13,6 +13,9 @@ app.service("DataService", [
       getModel: () => {
         return DataServiceUtils.askData("getModel");
       },
+      getAllModels: () => {
+        return DataServiceUtils.askData("getAllModels");
+      },
       // Db
       getDb: () => {
         return DataServiceUtils.askData("getDb");

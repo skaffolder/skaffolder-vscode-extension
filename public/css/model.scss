@@ -18,3 +18,18 @@
     }
   }
 }
+
+.rel-container {
+  .btn-rel {
+    display: inline-block;
+    margin-right: 10px;
+
+    button {
+      margin-top: 10px;
+    }
+  }
+
+  .remove-rel {
+    display: inline-block;
+  }
+}
