@@ -26,6 +26,11 @@
     "views": {
       "skaffolderExplorer": [
         {
+          "id": "skaffolderExplorerHeader",
+          "name": "Skaffolder Actions",
+          "when": "isSkaffolderProject"
+        },
+        {
           "id": "skaffolderExplorerModel",
           "name": "Models",
           "when": "isSkaffolderProject"
@@ -60,19 +65,11 @@
         }
       },
       {
-        "command": "skaffolder.generate",
-        "title": "Generate",
-        "icon": {
-          "light": "media/light/generateScuro.svg",
-          "dark": "media/dark/generateGrigio.svg"
-        }
-      },
-      {
         "command": "skaffolder.export",
         "title": "Export YAML to Skaffolder",
         "icon": {
-          "light": "media/light/uploadScuro.svg",
-          "dark": "media/dark/uploadGrigio.svg"
+          "light": "media/light/export.svg",
+          "dark": "media/dark/export.svg"
         }
       },
       {
@@ -82,20 +79,26 @@
           "light": "media/light/page.svg",
           "dark": "media/dark/page.svg"
         }
+      },
+      {
+        "command": "skaffolder.generate",
+        "title": "Generate Code",
+        "icon": {
+          "light": "media/light/generate.svg",
+          "dark": "media/dark/generate.svg"
+        }
+      },
+      {
+        "command": "skaffolder.goToSkaffolder",
+        "title": "Go To Skaffolder",
+        "icon": {
+          "light": "media/light/logo.svg",
+          "dark": "media/dark/logo.svg"
+        }
       }
     ],
     "menus": {
       "view/title": [
-        {
-          "command": "skaffolder.generate",
-          "group": "navigation",
-          "when": "isSkaffolderProject"
-        },
-        {
-          "command": "skaffolder.export",
-          "group": "navigation",
-          "when": "isSkaffolderProject"
-        },
         {
           "command": "skaffolder.createPage",
           "group": "navigation",
@@ -152,6 +155,7 @@
     "handlebars-helpers": "^0.10.0",
     "jsonc-parser": "^0.4.2",
     "node-sass": "^4.13.0",
+    "opn": "^6.0.0",
     "sass": "^1.23.7",
     "skaffolder-cli": "^1.1.30",
     "yaml": "^1.6.0"

@@ -1,17 +1,20 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+/**
+ * The module 'vscode' contains the VS Code extensibility API
+ * Import the module and reference it with the alias vscode in your code below
+ */
 import * as vscode from "vscode";
 import { TreeProviderSkaffolder } from "./providers/treeProviderSkaffolder";
 import { DataService } from "./services/DataService";
 import { Commands } from "./utils/Commands";
 import { TreeProviderTemplateSkaffolder } from "./providers/treeProviderTemplateSkaffolder";
-import SkaffolderCli = require("skaffolder-cli");
 import { StatusBarManager } from "./utils/StatusBarManager";
 
 let contextExtension: vscode.ExtensionContext;
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+/**
+ *  This method is called when your extension is activated
+ *  your extension is activated the very first time the command is executed
+ */
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "Skaffolder" is now active!');
   vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
@@ -51,15 +54,15 @@ export function refreshTree() {
 let refresh = function() {
   if (DataService.isSkaffolderProject()) {
     // Create trees
+    const skaffolderProviderHeader = new TreeProviderTemplateSkaffolder(contextExtension, "header");
     const skaffolderProviderModel = new TreeProviderSkaffolder(contextExtension, "model");
-    // const skaffolderProviderApi = new TreeProviderSkaffolder(context, "api");
     const skaffolderProviderPage = new TreeProviderSkaffolder(contextExtension, "page");
 
     // Register trees
-    vscode.window.registerTreeDataProvider("skaffolderExplorerModel", skaffolderProviderModel);
-
     vscode.commands.executeCommand("setContext", "isSkaffolderProject", true);
+    vscode.window.registerTreeDataProvider("skaffolderExplorerModel", skaffolderProviderModel);
     vscode.window.registerTreeDataProvider("skaffolderExplorerPage", skaffolderProviderPage);
+    vscode.window.registerTreeDataProvider("skaffolderExplorerHeader", skaffolderProviderHeader);
 
     return {
       model: skaffolderProviderModel,
@@ -67,19 +70,15 @@ let refresh = function() {
     };
   } else {
     // Create trees
-    const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(contextExtension);
+    const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(contextExtension, "main");
 
     // Register trees
     vscode.window.registerTreeDataProvider("skaffolderExplorerTemplates", skaffolderProviderTemplate);
 
     // Set context
     vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
-
-    // vscode.window.showWarningMessage(
-    //   "Workspace has no openapi.yaml, this is not a Skaffolder project"
-    // );
   }
 };
 
-// this method is called when your extension is deactivated
+// This method is called when your extension is deactivated
 export function deactivate() {}

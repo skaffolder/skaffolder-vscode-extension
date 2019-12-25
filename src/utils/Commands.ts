@@ -11,6 +11,7 @@ import { EditNodeCommand } from "../commands/EditNodeCommand";
 import { OpenFilesCommand } from "../commands/OpenFilesCommand";
 import { EditValueYamlCommand } from "../commands/EditValueYamlCommand";
 import { CreatePageCommand } from "../commands/CreatePageCommand";
+import { GoToSkaffolderCommand } from "../commands/GoToSkaffolderCommand";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
@@ -32,6 +33,7 @@ export class Commands {
     let genCmd = vscode.commands.registerCommand("skaffolder.generate", GenerateCommand.command);
     let createCmd = vscode.commands.registerCommand("skaffolder.createProject", CreateProjectCommand.command);
     let createpageCmd = vscode.commands.registerCommand("skaffolder.createPage", CreatePageCommand.command);
+    let goToSkaffolder = vscode.commands.registerCommand("skaffolder.goToSkaffolder", GoToSkaffolderCommand.command);
     let editNodeCmd = vscode.commands.registerCommand("skaffolder.editNode", EditNodeCommand.command);
     let openFileCmd = vscode.commands.registerCommand("skaffolder.openfiles", OpenFilesCommand.command);
     let openYamlCmd = vscode.commands.registerCommand("skaffolder.openyaml", OpenYamlCommand.command);

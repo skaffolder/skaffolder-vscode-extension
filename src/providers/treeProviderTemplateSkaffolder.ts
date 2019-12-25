@@ -7,7 +7,7 @@ import { SkaffolderTemplateNode } from "../models/SkaffolderTemplateNode";
 export class TreeProviderTemplateSkaffolder implements vscode.TreeDataProvider<SkaffolderTemplateNode> {
   private templateList: any;
 
-  constructor(private context: vscode.ExtensionContext) {}
+  constructor(private context: vscode.ExtensionContext, private type: string) {}
 
   getTreeItem(element: SkaffolderTemplateNode): vscode.TreeItem | Thenable<vscode.TreeItem> {
     return element;
@@ -24,8 +24,7 @@ export class TreeProviderTemplateSkaffolder implements vscode.TreeDataProvider<S
 
   private createTree(): SkaffolderTemplateNode {
     let tree: SkaffolderTemplateNode;
-
-    tree = new SkaffolderTemplateNode(this.context, "main");
+    tree = new SkaffolderTemplateNode(this.context, this.type);
     return tree;
   }
 }

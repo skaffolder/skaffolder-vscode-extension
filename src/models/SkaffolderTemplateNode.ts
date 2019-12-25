@@ -10,9 +10,9 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
   constructor(private context: vscode.ExtensionContext, type: string) {
     super("", vscode.TreeItemCollapsibleState.None);
 
+    // Not a Skaffolder project tree
     if (type === "main") {
       this.label = "Skaffolder";
-
       this.children.push(new SkaffolderTemplateNode(context, "label"));
       this.children.push(new SkaffolderTemplateNode(context, "label2"));
       this.children.push(new SkaffolderTemplateNode(context, "createButton"));
@@ -30,6 +30,46 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
         command: "skaffolder.createProject",
         title: "Create project",
         arguments: []
+      };
+    }
+    // Header tree
+    else if (type === "header") {
+      this.label = "Welcome in Skaffolder";
+      this.children.push(new SkaffolderTemplateNode(context, "generate"));
+      this.children.push(new SkaffolderTemplateNode(context, "export"));
+      this.children.push(new SkaffolderTemplateNode(context, "skaffolder"));
+    } else if (type === "generate") {
+      this.label = "Generate Code";
+      this.contextValue = "empty";
+      this.command = {
+        command: "skaffolder.generate",
+        title: "Generate Code"
+      };
+      this.iconPath = {
+        light: this.context.asAbsolutePath(path.join("media", "light", "generate.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "generate.svg"))
+      };
+    } else if (type === "export") {
+      this.label = "Export project";
+      this.contextValue = "empty";
+      this.command = {
+        command: "skaffolder.export",
+        title: "Export project"
+      };
+      this.iconPath = {
+        light: this.context.asAbsolutePath(path.join("media", "light", "export.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "export.svg"))
+      };
+    } else if (type === "skaffolder") {
+      this.label = "Go To Skaffolder";
+      this.contextValue = "empty";
+      this.command = {
+        command: "skaffolder.goToSkaffolder",
+        title: "Go To Skaffolder"
+      };
+      this.iconPath = {
+        light: this.context.asAbsolutePath(path.join("media", "light", "logo.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "logo.svg"))
       };
     }
   }
