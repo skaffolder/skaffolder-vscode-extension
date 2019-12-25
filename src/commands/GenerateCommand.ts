@@ -39,7 +39,19 @@ export class GenerateCommand {
           const filePath: vscode.Uri = vscode.Uri.file(
             path.join(GenerateCommand.context.extensionPath, "public", "html", "reportGeneration.html")
           );
+          const logoPath: string = vscode.Uri.file(
+            path.join(GenerateCommand.context.extensionPath, "public", "img", "logo_white.svg")
+          )
+            .with({ scheme: "vscode-resource" })
+            .toString();
           var html = fs.readFileSync(filePath.fsPath, "utf8");
+
+          html += `
+          <style>
+           .logo {
+              background-image: url("${logoPath}");
+            };
+          </style>`;
           html += logs.join("\n");
           panel.webview.html = html;
         }
