@@ -7,6 +7,7 @@ import { Page } from "../../models/jsonreader/page";
 import { Service } from "../../models/jsonreader/service";
 import { refreshTree } from "../../extension";
 import { DataService } from "../../services/DataService";
+import { Db } from "../../models/jsonreader/db";
 
 export class PageView {
   static async open(contextNode: SkaffolderNode) {
@@ -43,18 +44,18 @@ export class PageView {
                 "x-skaffolder-resource": page._template_resource,
                 "x-skaffolder-services": page._services
                   ? (page._services as Service[]).map(_serv => {
-                      return _serv._id;
-                    })
+                    return _serv._id;
+                  })
                   : page._services,
                 "x-skaffolder-nesteds": page._nesteds
                   ? (page._nesteds as Page[]).map(_page => {
-                      return _page._id;
-                    })
+                    return _page._id;
+                  })
                   : page._nesteds,
                 "x-skaffolder-links": page._links
                   ? (page._links as Page[]).map(_page => {
-                      return _page._id;
-                    })
+                    return _page._id;
+                  })
                   : page._links,
                 "x-skaffolder-roles": page._roles
               };
@@ -70,7 +71,8 @@ export class PageView {
 
             refreshTree();
 
-            return;
+            break;
+            
           case "openFiles":
             panel.webview.postMessage({
               command: "openFiles"
@@ -78,6 +80,7 @@ export class PageView {
             // Execute Command
             vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
             break;
+
           case "getPage":
             panel.webview.postMessage({
               command: "getPage",
@@ -88,6 +91,7 @@ export class PageView {
               }
             });
             break;
+
           case "chooseRole":
             let roleList: any[] = DataService.getYaml().components["x-skaffolder-roles"];
             let roleArray: string[] = roleList.map(roleItem => roleItem["x-skaffolder-name"]);
@@ -124,17 +128,18 @@ export class PageView {
                 });
               });
             break;
+
           case "addLinked":
             let pageList: any[] = DataService.getYaml().components["x-skaffolder-page"];
             let pageNameList: string[] = pageList.map(pageItem => pageItem["x-skaffolder-name"]);
-            if(message.data === null) {
+            if (message.data === null) {
               message.data = [];
             }
-              let pageNameListPresent: string[] = message.data.map((pagePresent: any) => pagePresent["name"]);
-              pageNameList = pageNameList.filter( item => {
-                return pageNameListPresent.indexOf(item) === -1 && item !== contextNode.params!.page!.name ;
-              });
-              
+            let pageNameListPresent: string[] = message.data.map((pagePresent: any) => pagePresent["name"]);
+            pageNameList = pageNameList.filter(item => {
+              return pageNameListPresent.indexOf(item) === -1 && item !== contextNode.params!.page!.name;
+            });
+
             vscode.window
               .showQuickPick(pageNameList, {
                 placeHolder: "Select linked page"
@@ -143,8 +148,8 @@ export class PageView {
                 let linkItem: any = link;
                 if (link) {
                   pageList.filter(item => {
-                    if(item["x-skaffolder-name"] === link) {
-                      linkItem = { name: item["x-skaffolder-name"], _id: item["x-skaffolder-id"]};
+                    if (item["x-skaffolder-name"] === link) {
+                      linkItem = { name: item["x-skaffolder-name"], _id: item["x-skaffolder-id"] };
                     }
                   });
                 }
@@ -153,45 +158,49 @@ export class PageView {
                   data: linkItem
                 });
               });
-          case "addNested": 
-          let pageLists: any [] = DataService.getYaml().components["x-skaffolder-page"];
-          let pageNameLists: string[] = pageLists.map(pageItem => pageItem["x-skaffolder-name"]);
-          if(message.data === null) {
-            message.data = [];
-          }
-           let pageNameListPresents: string [] = message.data.map((pagePresent: any) => pagePresent["name"]);
-           pageNameLists = pageNameLists.filter( item => {
-             return pageNameListPresents.indexOf(item) === -1 && item !== contextNode.params!.page!.name;
-           });
+            break;
 
-           vscode.window.showQuickPick(pageNameLists, {
-            placeHolder: "Select nested page"
-           })
-           .then(nested => {
-             let nestedItem: any = nested;
-             if(nested) {
-               pageLists.filter( item => {
-                 if(item["x-skaffolder-name"] === nested) {
-                   nestedItem = { name: item["x-skaffolder-name"], _id: item["x-skaffolder-id"]};
-                 }
-               });
-             }
-             panel.webview.postMessage({
-               command: "addNested",
-               data: nestedItem
-             });
-           });
-           case "addTemplate": 
+          case "addNested":
+            let pageLists: any[] = DataService.getYaml().components["x-skaffolder-page"];
+            let pageNameLists: string[] = pageLists.map(pageItem => pageItem["x-skaffolder-name"]);
+            if (message.data === null) {
+              message.data = [];
+            }
+            let pageNameListPresents: string[] = message.data.map((pagePresent: any) => pagePresent["name"]);
+            pageNameLists = pageNameLists.filter(item => {
+              return pageNameListPresents.indexOf(item) === -1 && item !== contextNode.params!.page!.name;
+            });
+
+            vscode.window.showQuickPick(pageNameLists, {
+              placeHolder: "Select nested page"
+            })
+              .then(nested => {
+                let nestedItem: any = nested;
+                if (nested) {
+                  pageLists.filter(item => {
+                    if (item["x-skaffolder-name"] === nested) {
+                      nestedItem = { name: item["x-skaffolder-name"], _id: item["x-skaffolder-id"] };
+                    }
+                  });
+                }
+                panel.webview.postMessage({
+                  command: "addNested",
+                  data: nestedItem
+                });
+              });
+            break;
+
+          case "addTemplate":
             let template = ["List", "Edit"];
             let templateResource: any[] = [];
             contextNode.skaffolderObject.resources.forEach(db => {
-              templateResource =templateResource.concat(db._resources);
+              templateResource = templateResource.concat(db._resources);
             });
             templateResource = templateResource.map(templateItem => {
-                return {
-                  label: templateItem["name"],
-                  value: templateItem._id
-                };
+              return {
+                label: templateItem["name"],
+                value: templateItem._id
+              };
             });
             vscode.window.showQuickPick(template, {
               placeHolder: "Select template"
@@ -200,17 +209,28 @@ export class PageView {
                 placeHolder: "Select resource",
                 matchOnDescription: false
               }).then(result => {
-                  result.type = template;
+                result.type = template;
                 panel.webview.postMessage({
                   command: "addTemplate",
                   data: result
                 });
               });
             });
-          
-
-           
-          
+          case "getResourceName":
+            for (let i in contextNode.skaffolderObject.resources) {
+              let db: Db = contextNode.skaffolderObject.resources[i];
+              for (let index in db._resources) {
+                let resource = db._resources[index];
+                if (resource._id === message.data) {
+                  panel.webview.postMessage({
+                    command: "getResourceName",
+                    data: resource.name
+                  });
+                  return;
+                }
+              }
+            }
+            break;
         }
       },
       undefined,

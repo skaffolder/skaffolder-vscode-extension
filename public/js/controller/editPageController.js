@@ -5,6 +5,7 @@ app.controller("EditPageController", [
     // Get data
     DataService.getPage().then(data => {
       $scope.page = data;
+      $scope.refreshResourceName();
     });
 
     // Actions
@@ -80,8 +81,22 @@ app.controller("EditPageController", [
           }
           $scope.page.page.template = data.type + "_Crud";
           $scope.page.page._template_resource = data.value;
+
+          $scope.refreshResourceName();
         }
       })
+    }
+    $scope.removeTemplate = () =>  {
+      $scope.page.page.template = undefined;
+      $scope.page.page._template_resource = undefined;
+    }
+
+    $scope.refreshResourceName = () => {
+      if($scope.page.page._template_resource) {
+        DataService.getResourceName($scope.page.page._template_resource).then(data => {
+          $scope.resourceCrudName = data;
+        });
+      }
     }
   }
 ]);

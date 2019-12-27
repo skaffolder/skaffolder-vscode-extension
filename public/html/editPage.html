@@ -82,12 +82,17 @@
         Template
       </label>
       <div ng-if="page.page.template" class="badge">
-        {{ page.page.template }}
+        {{ page.page.template }} {{resourceCrudName}}
         <div class="ico-remove" ng-click="removeTemplate()"></div>
       </div>
       <div class="mt-10">
         <a href="" ng-click="addTemplate()">Select Template</a>
       </div>
+    </div>
+    <div class="form-group">
+      <label>
+        API Used
+      </label>
     </div>
   </div>
   <div class="footer">
