@@ -92,8 +92,25 @@ button {
   margin-right: 10px;
   border-radius: 8px;
   margin-top: 10px; }
+  .badge .resource-name {
+    font-weight: bold; }
+  .badge .service-name {
+    color: var(--vscode-editor-foreground);
+    font-weight: normal; }
   .badge.public {
     background-color: #58b75c; }
+  .badge.post {
+    background-color: #4895fa; }
+  .badge.get {
+    background-color: #80d4a0; }
+  .badge.delete {
+    background-color: #f55448; }
+  .badge.option {
+    background-color: #ffb858; }
+  .badge.path {
+    background-color: #ffb858; }
+  .badge.put {
+    background-color: #4895fa; }
 
 select {
   background-color: var(--vscode-editorIndentGuide-background);

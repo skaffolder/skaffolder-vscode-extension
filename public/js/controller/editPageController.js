@@ -98,5 +98,9 @@ app.controller("EditPageController", [
         });
       }
     }
+
+    $scope.removeApi = index => {
+      $scope.page.page._services.splice(index, 1);
+    } 
   }
 ]);
