@@ -25,6 +25,11 @@ app.service("DataService", [
         return DataServiceUtils.askData("getApi");
       },
 
+      // Generation
+      getLogs: () => {
+        return DataServiceUtils.askData("getLogs");
+      },
+
       // Utils
       chooseRole: roles => {
         return DataServiceUtils.askData("chooseRole", roles);

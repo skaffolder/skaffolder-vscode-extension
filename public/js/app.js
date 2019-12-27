@@ -1,3 +1,7 @@
+// Get vscode api
+vscode = acquireVsCodeApi();
+
+// Start app
 var app = angular.module("Skaffolder_Extension", []).config([
   "$sceDelegateProvider",
   function($sceDelegateProvider) {
@@ -5,6 +9,20 @@ var app = angular.module("Skaffolder_Extension", []).config([
   }
 ]);
 
-vscode = acquireVsCodeApi();
+// Init app
+app.run([
+  "$rootScope",
+  function($rootScope) {
+    $rootScope.pathExtension = pathExtension;
+  }
+]);
 
-// app.run(["$rootScope", function($rootScope) {}]);
+// Filter
+app.filter("to_trusted", [
+  "$sce",
+  function($sce) {
+    return function(text) {
+      return $sce.trustAsHtml(text);
+    };
+  }
+]);

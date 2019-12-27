@@ -1,0 +1,49 @@
+.report-generation {
+  .logo {
+    width: 200px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-image: url(../img/logo_white.svg);
+    background-image-size-y: 30px;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding-top: 40px;
+  }
+
+  h1 {
+  }
+
+  .file-result {
+    margin-left: 15px;
+  }
+
+  .file-result.elaborated {
+    margin-left: 0px;
+  }
+
+  .file-result.elaborated label {
+    color: #dadada;
+  }
+
+  .file-result.edit label {
+    color: #0078ce;
+  }
+
+  .file-result.created label {
+    color: green;
+  }
+
+  .file-result.error label {
+    color: red;
+  }
+
+  .file-result label {
+    width: 100px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .file-result .file-name {
+    display: inline-block;
+  }
+}

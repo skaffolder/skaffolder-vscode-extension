@@ -1,9 +1,8 @@
 import * as vscode from "vscode";
-
-import * as path from "path";
 import * as SkaffolderCli from "skaffolder-cli";
 import { DataService } from "../services/DataService";
-import * as fs from "fs";
+import { ReportGenerationView } from "./views/ReportGenerationView";
+import { refreshTree } from "../extension";
 
 export class GenerateCommand {
   static context: vscode.ExtensionContext;
@@ -13,8 +12,12 @@ export class GenerateCommand {
   }
 
   static async command() {
-    vscode.window.showInformationMessage("Generation starts");
+    // Print results in HTML
+    let view = new ReportGenerationView();
+    view.open();
+
     try {
+      // Start Generation
       SkaffolderCli.generate(
         vscode.workspace.rootPath + "/",
         DataService.getSkObject(),
@@ -24,36 +27,14 @@ export class GenerateCommand {
           }
         },
         async function(err: string[], logs: string[]) {
-          vscode.window.showInformationMessage("Generation completed");
+          // Refresh Tree View
+          refreshTree();
 
-          // Print results in HTML
-          const panel = vscode.window.createWebviewPanel(
-            "skaffolder", // Identifies the type of the webview. Used internally
-            "Skaffolder Generation Result", // Title of the panel displayed to the user
-            vscode.ViewColumn.One, // Editor column to show the new webview panel in.
-            {
-              enableScripts: true
-            }
-          );
+          // Callback
+          let html = logs.join("\n");
 
-          const filePath: vscode.Uri = vscode.Uri.file(
-            path.join(GenerateCommand.context.extensionPath, "public", "html", "reportGeneration.html")
-          );
-          const logoPath: string = vscode.Uri.file(
-            path.join(GenerateCommand.context.extensionPath, "public", "img", "logo_white.svg")
-          )
-            .with({ scheme: "vscode-resource" })
-            .toString();
-          var html = fs.readFileSync(filePath.fsPath, "utf8");
-
-          html += `
-          <style>
-           .logo {
-              background-image: url("${logoPath}");
-            };
-          </style>`;
-          html += logs.join("\n");
-          panel.webview.html = html;
+          // Update page
+          view.sendLogs(html);
         }
       );
     } catch (e) {

@@ -23,7 +23,8 @@ export class Webview {
         </body>
 
         <!-- Import --> 
-        <script src="${Webview.assetsFile("/js/angular.min.js")}"></script>
+        <script src="${Webview.assetsFile("/js/lib/angular.min.js")}"></script>
+        <script src="${Webview.assetsFile("/js/lib/angular-sanitize.js")}"></script>
         <script src="${Webview.assetsFile("/js/app.js")}"></script>
         
         <!-- Import Services --> 
@@ -35,7 +36,11 @@ export class Webview {
         <script src="${Webview.assetsFile("/js/controller/editApiController.js")}"></script>
         <script src="${Webview.assetsFile("/js/controller/editPageController.js")}"></script>
         <script src="${Webview.assetsFile("/js/controller/editDbController.js")}"></script>
+        <script src="${Webview.assetsFile("/js/controller/reportGenerationController.js")}"></script>
         
+        <script>
+          var pathExtension = "${Webview.assetsFile("/")}";
+        </script>
     </html>`;
   }
 
