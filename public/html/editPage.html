@@ -32,50 +32,49 @@
       <div>
         <div class="badge public" ng-if="!page.page._roles">Public</div>
         <div class="badge" ng-if="page.page._roles.length == 0">Private</div>
-        <div class="badge" ng-repeat="role in page.page._roles">
-          {{role.name}}
-          <div class="ico-remove" ng-click="removeRole($index)"></div>
+        <div ng-repeat="role in page.page._roles">
+          <div class="badge">
+            {{role.name}}
+            <div class="ico-remove" ng-click="removeRole($index)"></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="mt-10">
-      <a href="" ng-click="addRole()">Add role</a>
+      <div class="mt-10">
+        <a href="" ng-click="addRole()">Add role</a>
+      </div>
     </div>
 
-    <div class="name">
-      <h3 class="ft-13 inline-block">
+    <div class="form-group">
+      <label>
         Link
-      </h3>
-      <div class="inline-block" ng-repeat="links in page.page._links ">
-        <div class="link inline-block">
-          {{ links.name }}
+      </label>
+      <div>
+        <div ng-repeat="link in page.page._links">
+          <div class="badge">
+            {{link.name}}
+            <div class="ico-remove" ng-click="removeLink($index)"></div>
+          </div>
         </div>
       </div>
-      <div class="inline-block">
-        <select placeholder="Link" ng-model="page.prova">
-          <option ng-repeat="link in page.api" value="link.name">{{ link.name }}</option>
-        </select>
-      </div>
-      <div class="inline-block">
-        <button id="add-link" ng-click="addLinked()" class="button-param mt-5">Add linked</button>
+      <div class="mt-10">
+        <a href="" ng-click="addLinked()">Add linked</a>
       </div>
     </div>
-    <div class="name">
-      <h3 class="ft-13 inline-block">
+
+    <div class="form-group">
+      <label>
         Nesteds
-      </h3>
-      <div class="inline-block" ng-repeat="nesteds in page.page._nesteds ">
-        <div class="nested inline-block">
-          {{ nesteds.name }}
+      </label>
+      <div>
+        <div ng-repeat="nesteds in page.page._nesteds ">
+          <div class="badge">
+            {{ nesteds.name }}
+            <div class="ico-remove" ng-click="removeNested($index)"></div>
+          </div>
         </div>
       </div>
-      <div class="inline-block">
-        <select class="input-page ml-15" placeholder="Nested" ng-model="page.page.__nesteds" value="{{ page.page._nesteds }}">
-          <option ng-repeat="nested in page.api" value="nested.name">{{ nested.name }}</option>
-        </select>
-      </div>
-      <div class="inline-block">
-        <button id="add-nesteds" class="button-param mt-5">Add nested</button>
+      <div class="mt-10">
+        <a href="" ng-click="addNested()">Add nested</a>
       </div>
     </div>
   </div>

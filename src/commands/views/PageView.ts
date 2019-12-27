@@ -125,23 +125,62 @@ export class PageView {
               });
             break;
           case "addLinked":
-            let linkList: any[] = DataService.getYaml().components["x-skaffolder-page"];
-            let linkArray: string[] = linkList.map(linkItem => linkItem["x-skaffolder-links"]);
-            let pageList: string[] = linkList.map(pageItem => pageItem["x-skaffolder-name"]);
-            console.log(message.data);
+            let pageList: any[] = DataService.getYaml().components["x-skaffolder-page"];
+            let pageNameList: string[] = pageList.map(pageItem => pageItem["x-skaffolder-name"]);
+            if(message.data === null) {
+              message.data = [];
+            }
+              let pageNameListPresent: string[] = message.data.map((pagePresent: any) => pagePresent["name"]);
+              pageNameList = pageNameList.filter( item => {
+                return pageNameListPresent.indexOf(item) === -1 && item !== contextNode.params!.page!.name ;
+              });
+              
             vscode.window
-              .showQuickPick(pageList, {
+              .showQuickPick(pageNameList, {
                 placeHolder: "Select linked page"
               })
               .then(link => {
                 let linkItem: any = link;
                 if (link) {
+                  pageList.filter(item => {
+                    if(item["x-skaffolder-name"] === link) {
+                      linkItem = { name: item["x-skaffolder-name"], _id: item["x-skaffolder-id"]};
+                    }
+                  });
                 }
                 panel.webview.postMessage({
                   command: "addLinked",
                   data: linkItem
                 });
               });
+          case "addNested": 
+          let pageLists: any [] = DataService.getYaml().components["x-skaffolder-page"];
+          let pageNameLists: string[] = pageLists.map(pageItem => pageItem["x-skaffolder-name"]);
+          if(message.data === null) {
+            message.data = [];
+          }
+           let pageNameListPresents: string [] = message.data.map((pagePresent: any) => pagePresent["name"]);
+           pageNameLists = pageNameLists.filter( item => {
+             return pageNameListPresents.indexOf(item) === -1 && item !== contextNode.params!.page!.name;
+           });
+
+           vscode.window.showQuickPick(pageNameLists, {
+            placeHolder: "Select nested page"
+           })
+           .then(nested => {
+             let nestedItem: any = nested;
+             if(nested) {
+               pageLists.filter( item => {
+                 if(item["x-skaffolder-name"] === nested) {
+                   nestedItem = { name: item["x-skaffolder-name"], _id: item["x-skaffolder-id"]};
+                 }
+               });
+             }
+             panel.webview.postMessage({
+               command: "addNested",
+               data: nestedItem
+             });
+           });
         }
       },
       undefined,

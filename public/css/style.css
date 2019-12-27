@@ -4,6 +4,9 @@
 .pull-left {
   float: left; }
 
+body {
+  min-width: 400px; }
+
 .mt-10 {
   margin-top: 10px; }
 
@@ -87,7 +90,8 @@ button {
   padding: 3px 6px;
   font-weight: bold;
   margin-right: 10px;
-  border-radius: 8px; }
+  border-radius: 8px;
+  margin-top: 10px; }
   .badge.public {
     background-color: #58b75c; }
 

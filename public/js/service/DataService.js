@@ -32,6 +32,9 @@ app.service("DataService", [
       addLinked: link => {
         return DataServiceUtils.askData("addLinked", link);
       },
+      addNested: nested => {
+        return DataServiceUtils.askData("addNested", nested)
+      },
       openFiles: link => {
         return DataServiceUtils.askData("openFiles", link);
       }
