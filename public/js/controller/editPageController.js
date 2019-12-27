@@ -69,5 +69,19 @@ app.controller("EditPageController", [
         }
       });
     };
+
+    // Template functions
+
+    $scope.addTemplate = () => {
+      DataService.addTemplate().then(data => {
+        if(data) {
+          if($scope.page.page.template === null ) {
+            $scope.page.page.template = [];
+          }
+          $scope.page.page.template = data.type + "_Crud";
+          $scope.page.page._template_resource = data.value;
+        }
+      })
+    }
   }
 ]);

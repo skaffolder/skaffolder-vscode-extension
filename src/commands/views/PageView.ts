@@ -181,6 +181,36 @@ export class PageView {
                data: nestedItem
              });
            });
+           case "addTemplate": 
+            let template = ["List", "Edit"];
+            let templateResource: any[] = [];
+            contextNode.skaffolderObject.resources.forEach(db => {
+              templateResource =templateResource.concat(db._resources);
+            });
+            templateResource = templateResource.map(templateItem => {
+                return {
+                  label: templateItem["name"],
+                  value: templateItem._id
+                };
+            });
+            vscode.window.showQuickPick(template, {
+              placeHolder: "Select template"
+            }).then(template => {
+              vscode.window.showQuickPick(templateResource, {
+                placeHolder: "Select resource",
+                matchOnDescription: false
+              }).then(result => {
+                  result.type = template;
+                panel.webview.postMessage({
+                  command: "addTemplate",
+                  data: result
+                });
+              });
+            });
+          
+
+           
+          
         }
       },
       undefined,

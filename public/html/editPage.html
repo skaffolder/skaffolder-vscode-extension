@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="mt-10">
-        <a href="" ng-click="addLinked()">Add linked</a>
+        <a href="" ng-click="addLinked()">Add Linked Page</a>
       </div>
     </div>
 
@@ -74,11 +74,22 @@
         </div>
       </div>
       <div class="mt-10">
-        <a href="" ng-click="addNested()">Add nested</a>
+        <a href="" ng-click="addNested()">Add Nested Page</a>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>
+        Template
+      </label>
+      <div ng-if="page.page.template" class="badge">
+        {{ page.page.template }}
+        <div class="ico-remove" ng-click="removeTemplate()"></div>
+      </div>
+      <div class="mt-10">
+        <a href="" ng-click="addTemplate()">Select Template</a>
       </div>
     </div>
   </div>
-
   <div class="footer">
     <button class="primary-button" ng-click="save()">Save</button>
     <button class="delete-button" ng-click="delete()">Delete</button>

@@ -35,6 +35,9 @@ app.service("DataService", [
       addNested: nested => {
         return DataServiceUtils.askData("addNested", nested)
       },
+      addTemplate: template => {
+        return DataServiceUtils.askData("addTemplate", template)
+      },
       openFiles: link => {
         return DataServiceUtils.askData("openFiles", link);
       }
