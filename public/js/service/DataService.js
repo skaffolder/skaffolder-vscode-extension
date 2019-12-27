@@ -9,6 +9,18 @@ app.service("DataService", [
       getPage: () => {
         return DataServiceUtils.askData("getPage");
       },
+      addLinked: link => {
+        return DataServiceUtils.askData("addLinked", link);
+      },
+      addNested: nested => {
+        return DataServiceUtils.askData("addNested", nested)
+      },
+      addTemplate: template => {
+        return DataServiceUtils.askData("addTemplate", template)
+      },
+      getResourceName: idRes => {
+        return DataServiceUtils.askData("getResourceName", idRes)
+      },
       // Model
       getModel: () => {
         return DataServiceUtils.askData("getModel");
@@ -33,9 +45,6 @@ app.service("DataService", [
       // Utils
       chooseRole: roles => {
         return DataServiceUtils.askData("chooseRole", roles);
-      },
-      addLinked: link => {
-        return DataServiceUtils.askData("addLinked", link);
       },
       openFiles: link => {
         return DataServiceUtils.askData("openFiles", link);

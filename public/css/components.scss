@@ -86,9 +86,36 @@ button {
   font-weight: bold;
   margin-right: 10px;
   border-radius: 8px;
+  margin-top: 10px;
 
+  .resource-name {
+    font-weight: bold;
+  }
+
+  .service-name {
+    color: $light-gray;
+    font-weight: normal;
+  }
   &.public {
     background-color: $green;
+  }
+  &.post {
+    background-color: $blu-post;
+  }
+  &.get {
+    background-color: $green-get;
+  }
+  &.delete {
+    background-color: $red-delete;
+  }
+  &.option {
+    background-color: $yellow-option;
+  }
+  &.path {
+    background-color: $yellow-option;
+  }
+  &.put {
+    background-color: $blu-post;
   }
 }
 
