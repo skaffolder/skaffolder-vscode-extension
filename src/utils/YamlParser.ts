@@ -212,7 +212,7 @@ export class YamlParser {
 
         // populate services
         res._services.forEach(serv => {
-          serv._resource = YamlParser.searchResource(obj.resources, String(serv._resource));
+          serv._resource = YamlParser.searchResource(obj.resources, String(serv._resource), serv);
 
           // Populate roles
           if (serv._roles) {
@@ -276,7 +276,7 @@ export class YamlParser {
     });
   }
 
-  static searchResource(resources: Db[], resId: string): Resource | undefined {
+  static searchResource(resources: Db[], resId: string, service: Service): Resource | undefined {
     for (let d in resources) {
       let db: Db = resources[d];
 
@@ -297,7 +297,7 @@ export class YamlParser {
         }
       }
     }
-    console.error("Resource not found with id " + resId);
+    console.error("Resource not found with id " + resId + " for service " + service.name);
 
     return;
   }
