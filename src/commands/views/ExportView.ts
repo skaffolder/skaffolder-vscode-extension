@@ -24,7 +24,6 @@ export class ExportView {
       message => {
         switch (message.command) {
           case "getLogs":
-            // let html = "<div>" + logs.join("</div><div>") + "</div>";
             let html = logs.join("");
 
             panel.webview.postMessage({
