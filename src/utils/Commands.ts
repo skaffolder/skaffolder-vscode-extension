@@ -12,6 +12,7 @@ import { OpenFilesCommand } from "../commands/OpenFilesCommand";
 import { EditValueYamlCommand } from "../commands/EditValueYamlCommand";
 import { CreatePageCommand } from "../commands/CreatePageCommand";
 import { GoToSkaffolderCommand } from "../commands/GoToSkaffolderCommand";
+import { LogoutCommand } from "../commands/LogoutCommand";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
@@ -29,6 +30,7 @@ export class Commands {
 
     // Register commands
     let loginCmd = vscode.commands.registerCommand("skaffolder.login", LoginCommand.command);
+    let logoutCmd = vscode.commands.registerCommand("skaffolder.logout", LogoutCommand.command);
     let exportCmd = vscode.commands.registerCommand("skaffolder.export", ExportCommand.command);
     let genCmd = vscode.commands.registerCommand("skaffolder.generate", GenerateCommand.command);
     let createCmd = vscode.commands.registerCommand("skaffolder.createProject", CreateProjectCommand.command);

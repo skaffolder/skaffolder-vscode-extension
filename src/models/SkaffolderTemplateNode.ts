@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import * as path from "path";
+import SkaffolderCli = require("skaffolder-cli");
 
 /**
  * Tree interface for not Skaffolder project folder
@@ -42,6 +43,7 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
       this.children.push(new SkaffolderTemplateNode(context, "generate"));
       this.children.push(new SkaffolderTemplateNode(context, "export"));
       this.children.push(new SkaffolderTemplateNode(context, "skaffolder"));
+      this.children.push(new SkaffolderTemplateNode(context, "user"));
     } else if (type === "generate") {
       this.label = "Generate Code";
       this.contextValue = "empty";
@@ -75,6 +77,31 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
         light: this.context.asAbsolutePath(path.join("media", "light", "logo.svg")),
         dark: this.context.asAbsolutePath(path.join("media", "dark", "logo.svg"))
       };
+    } else if (type === "user") {
+      let user: string | undefined = SkaffolderCli.getUser();
+      if (user) {
+        this.label = "Logout user: " + user;
+        this.contextValue = "empty";
+        this.command = {
+          command: "skaffolder.logout",
+          title: "Logout"
+        };
+        this.iconPath = {
+          light: this.context.asAbsolutePath(path.join("media", "light", "user.svg")),
+          dark: this.context.asAbsolutePath(path.join("media", "dark", "user.svg"))
+        };
+      } else {
+        this.label = "Login";
+        this.contextValue = "empty";
+        this.command = {
+          command: "skaffolder.login",
+          title: "Login Skaffolder"
+        };
+        this.iconPath = {
+          light: this.context.asAbsolutePath(path.join("media", "light", "user.svg")),
+          dark: this.context.asAbsolutePath(path.join("media", "dark", "user.svg"))
+        };
+      }
     }
   }
 }

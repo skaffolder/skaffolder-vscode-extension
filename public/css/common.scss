@@ -11,6 +11,18 @@ body {
   min-width: 400px;
 }
 
+// Logo
+.logo {
+  width: 200px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-image: url(../img/logo_white.svg);
+  background-image-size-y: 30px;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-top: 40px;
+}
+
 // Margins
 .mt-10 {
   margin-top: 10px;

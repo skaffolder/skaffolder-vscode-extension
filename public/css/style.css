@@ -7,6 +7,16 @@
 body {
   min-width: 400px; }
 
+.logo {
+  width: 200px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-image: url(../img/logo_white.svg);
+  background-image-size-y: 30px;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-top: 40px; }
+
 .mt-10 {
   margin-top: 10px; }
 
@@ -178,16 +188,6 @@ select {
 
 .rel-container .remove-rel {
   display: inline-block; }
-
-.report-generation .logo {
-  width: 200px;
-  height: 40px;
-  background-repeat: no-repeat;
-  background-image: url(../img/logo_white.svg);
-  background-image-size-y: 30px;
-  margin-top: 20px;
-  margin-left: 20px;
-  padding-top: 40px; }
 
 .report-generation .file-result {
   margin-left: 15px; }

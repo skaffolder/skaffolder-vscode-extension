@@ -1,8 +1,10 @@
 import * as SkaffolderCli from "skaffolder-cli";
 import { StatusBarManager } from "../utils/StatusBarManager";
+import { refreshTree } from "../extension";
+import { isFunction } from "util";
 
 export class LoginCommand {
-  static async command(data: any) {
+  static async command(callback: any) {
     SkaffolderCli.login(
       {},
       {},
@@ -11,7 +13,13 @@ export class LoginCommand {
           console.log(msg);
         }
       },
-      StatusBarManager.refresh
+      () => {
+        refreshTree();
+        StatusBarManager.refresh();
+        if (isFunction(callback)) {
+          callback();
+        }
+      }
     );
   }
 }

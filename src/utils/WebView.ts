@@ -37,6 +37,7 @@ export class Webview {
         <script src="${Webview.assetsFile("/js/controller/editPageController.js")}"></script>
         <script src="${Webview.assetsFile("/js/controller/editDbController.js")}"></script>
         <script src="${Webview.assetsFile("/js/controller/reportGenerationController.js")}"></script>
+        <script src="${Webview.assetsFile("/js/controller/exportController.js")}"></script>
         
         <script>
           var pathExtension = "${Webview.assetsFile("/")}";

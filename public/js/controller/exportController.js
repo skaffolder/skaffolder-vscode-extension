@@ -1,4 +1,4 @@
-app.controller("ReportGenerationController", [
+app.controller("ExportController", [
   "$scope",
   "DataService",
   function($scope, DataService) {

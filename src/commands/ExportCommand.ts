@@ -1,6 +1,7 @@
 import { DataService } from "../services/DataService";
 import * as vscode from "vscode";
 import { isArray } from "util";
+import { ExportView } from "./views/ExportView";
 
 export class ExportCommand {
   static async command() {
@@ -11,17 +12,15 @@ export class ExportCommand {
     DataService.exportProject(params, function(err: any, logs: any) {
       if (logs && logs === "Not authorized") {
         vscode.window.showWarningMessage("Login in Skaffolder required");
-        vscode.commands.executeCommand<vscode.Location[]>("skaffolder.login");
-        vscode.commands.executeCommand<vscode.Location[]>("skaffolder.export");
+        vscode.commands.executeCommand<vscode.Location[]>("skaffolder.login", (err: any, user: string) => {
+          // Retry
+          // vscode.commands.executeCommand<vscode.Location[]>("skaffolder.export");
+        });
       } else {
         if (err) {
           vscode.window.showErrorMessage(err);
         }
-        if (isArray(logs)) {
-          logs.forEach(msg => {
-            vscode.window.showInformationMessage(msg);
-          });
-        } else { vscode.window.showInformationMessage(logs); }
+        ExportView.open(logs);
       }
     });
   }
