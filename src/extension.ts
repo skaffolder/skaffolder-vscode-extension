@@ -8,6 +8,7 @@ import { DataService } from "./services/DataService";
 import { Commands } from "./utils/Commands";
 import { TreeProviderTemplateSkaffolder } from "./providers/treeProviderTemplateSkaffolder";
 import { StatusBarManager } from "./utils/StatusBarManager";
+import SkaffolderCli = require("skaffolder-cli");
 
 let contextExtension: vscode.ExtensionContext;
 
@@ -18,6 +19,10 @@ let contextExtension: vscode.ExtensionContext;
 export function activate(context: vscode.ExtensionContext) {
   console.clear();
   console.log('Congratulations, your extension "Skaffolder" is now active!');
+
+  // TODO Dev environment
+  SkaffolderCli.setEnv("http://localhost:3001");
+
   vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
   contextExtension = context;
 
