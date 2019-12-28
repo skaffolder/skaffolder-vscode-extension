@@ -2,6 +2,7 @@ import { DataService } from "../services/DataService";
 import * as vscode from "vscode";
 import * as SkaffolderCli from "skaffolder-cli";
 import * as fs from "fs";
+import { refreshTree } from "../extension";
 
 export class CreateProjectCommand {
   static template: any[];
@@ -49,19 +50,23 @@ export class CreateProjectCommand {
               })
               .then(async backendObj => {
                 vscode.window.showInformationMessage("Start creation project!");
+                // Create metadata
                 let skObj = DataService.createSkObj(nameProj as string);
+
+                // Create project
                 SkaffolderCli.createProjectExtension(
                   vscode.workspace.rootPath + "/",
                   "",
                   {
                     info: function(msg: string) {
-                      vscode.window.showInformationMessage(msg);
+                      // vscode.window.showInformationMessage(msg);
                     }
                   },
                   frontendObj,
                   backendObj,
                   skObj,
                   function(skObj) {
+                    // Init CLI
                     SkaffolderCli.init(
                       vscode.workspace.rootPath + "/",
                       skObj.project,
@@ -75,6 +80,8 @@ export class CreateProjectCommand {
                       "utf-8"
                     );
                     let file = SkaffolderCli.getProperties(content, "openapi.yaml.hbs", "/.skaffolder/template/");
+
+                    // Generate Openapi YAML
                     SkaffolderCli.generateFile(
                       [],
                       {
@@ -85,7 +92,11 @@ export class CreateProjectCommand {
                       skObj,
                       {}
                     );
-                    vscode.window.showInformationMessage("Project create with openapi");
+
+                    // Refresh tree
+                    console.log("refresh");
+                    // Refresh Tree View
+                    refreshTree();
                   }
                 );
               });

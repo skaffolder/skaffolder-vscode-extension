@@ -18,6 +18,10 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
       this.children.push(new SkaffolderTemplateNode(context, "createButton"));
     } else if (type === "label") {
       this.label = "Welcome in Skaffolder";
+      this.iconPath = {
+        light: this.context.asAbsolutePath(path.join("media", "light", "logo.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "logo.svg"))
+      };
     } else if (type === "label2") {
       this.description = "Workspace has no openapi.yaml";
     } else if (type === "createButton") {

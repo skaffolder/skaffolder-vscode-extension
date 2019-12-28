@@ -42,7 +42,7 @@
         },
         {
           "id": "skaffolderExplorerTemplates",
-          "name": "Create project",
+          "name": "",
           "when": "!isSkaffolderProject"
         }
       ]
