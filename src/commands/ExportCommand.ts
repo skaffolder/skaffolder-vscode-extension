@@ -9,12 +9,14 @@ export class ExportCommand {
 
     let params: any = DataService.readConfig();
     params.skObject = DataService.getYaml();
+    params.outputHtml = true;
+
     DataService.exportProject(params, function(err: any, logs: any) {
       if (logs && logs === "Not authorized") {
         vscode.window.showWarningMessage("Login in Skaffolder required");
         vscode.commands.executeCommand<vscode.Location[]>("skaffolder.login", (err: any, user: string) => {
           // Retry
-          // vscode.commands.executeCommand<vscode.Location[]>("skaffolder.export");
+          vscode.commands.executeCommand<vscode.Location[]>("skaffolder.export");
         });
       } else {
         if (err) {

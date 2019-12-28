@@ -88,7 +88,7 @@ button {
 
 .delete-button {
   background-color: transparent;
-  color: var(--vscode-inputValidation-errorBorder);
+  color: #f55448;
   font-weight: bold; }
   .delete-button:hover {
     background-color: var(--vscode-inputValidation-errorBackground); }
@@ -189,6 +189,18 @@ select {
 .rel-container .remove-rel {
   display: inline-block; }
 
+.export .error {
+  color: var(--vscode-inputValidation-errorBorder); }
+
+.export .create {
+  color: #80d4a0; }
+
+.export .update {
+  color: #4895fa; }
+
+.export .delete {
+  color: #f55448; }
+
 .report-generation .file-result {
   margin-left: 15px; }
 
@@ -196,16 +208,16 @@ select {
   margin-left: 0px; }
 
 .report-generation .file-result.elaborated label {
-  color: #dadada; }
+  color: var(--vscode-editor-foreground); }
 
 .report-generation .file-result.edit label {
-  color: #0078ce; }
+  color: #4895fa; }
 
 .report-generation .file-result.created label {
-  color: green; }
+  color: #80d4a0; }
 
 .report-generation .file-result.error label {
-  color: red; }
+  color: #f55448; }
 
 .report-generation .file-result label {
   width: 100px;

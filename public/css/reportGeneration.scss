@@ -1,3 +1,21 @@
+.export {
+  .error {
+    color: $red;
+  }
+
+  .create {
+    color: $green-get;
+  }
+
+  .update {
+    color: $blu-post;
+  }
+
+  .delete {
+    color: $red-delete;
+  }
+}
+
 .report-generation {
   h1 {
   }
@@ -11,19 +29,19 @@
   }
 
   .file-result.elaborated label {
-    color: #dadada;
+    color: $light-gray;
   }
 
   .file-result.edit label {
-    color: #0078ce;
+    color: $blu-post;
   }
 
   .file-result.created label {
-    color: green;
+    color: $green-get;
   }
 
   .file-result.error label {
-    color: red;
+    color: $red-delete;
   }
 
   .file-result label {
