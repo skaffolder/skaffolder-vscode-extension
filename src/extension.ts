@@ -28,6 +28,11 @@ export function activate(context: vscode.ExtensionContext) {
   StatusBarManager.init();
 
   // Check changes file
+
+  vscode.workspace.onDidChangeTextDocument(e => {
+    console.log(e);
+  });
+
   vscode.workspace.onDidSaveTextDocument(e => {
     var filename = e.fileName
       .replace(/\//g, "")
