@@ -257,19 +257,10 @@ export class PageView {
             if(message.data === null) {
               message.data = [];
             }
-            let prova: any [] = contextNode.params!.page!._services;
-            prova = prova.map(item => {
-              return {
-                id: item["_id"],
-              };
-            });
-            
             let serviceListPresent: string [] = message.data.map((servicePresent: any) => servicePresent["_id"]);
             serviceList = serviceList.filter(item => {
-              console.log(item)
               return serviceListPresent.indexOf(item["id"]) === -1;
             });
-            console.log(serviceList);
             vscode.window.showQuickPick(entity, {
               placeHolder: "Select entity"
             }).then(api => {
@@ -285,7 +276,10 @@ export class PageView {
                 }).then(result => {
                   panel.webview.postMessage({
                     command: "addApi",
-                    data: "ciao"
+                    data: {
+                      name: result,
+                      entity: api
+                    }
                   });
                 });
               }
