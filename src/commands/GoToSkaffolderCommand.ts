@@ -1,16 +1,35 @@
 import { SkaffolderNode } from "../models/SkaffolderNode";
-import { DataService } from "../services/DataService";
 import * as SkaffolderCli from "skaffolder-cli";
+import * as vscode from "vscode";
 const opn = require("opn");
 
 export class GoToSkaffolderCommand {
   static async command(context: SkaffolderNode) {
-    const obj = DataService.getSkObject();
-    let projectId = obj.project ? obj.project._id : "";
+    let projectId = SkaffolderCli.getProject();
 
-    let url = `${SkaffolderCli.getEnv()}/#!/projects/${projectId}/models`;
-    opn(url, {
-      wait: false
-    });
+    if (!projectId) {
+      // Ask for export
+      vscode.window
+        .showQuickPick(
+          [
+            { label: "Ok, export the openapi.yaml file to Skaffolder", value: 1 },
+            { label: "Cancel", value: 0 }
+          ],
+          {
+            placeHolder: "To access your Skaffolder web dashboard you should export the project"
+          }
+        )
+        .then(response => {
+          if (response && response.value === 1) {
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.export");
+          }
+        });
+    } else {
+      // Open browser
+      let url = `${SkaffolderCli.getEnv()}/#!/projects/${projectId}/models`;
+      opn(url, {
+        wait: false
+      });
+    }
   }
 }

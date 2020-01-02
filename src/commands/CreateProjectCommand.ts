@@ -93,8 +93,6 @@ export class CreateProjectCommand {
                       {}
                     );
 
-                    // Refresh tree
-                    console.log("refresh");
                     // Refresh Tree View
                     refreshTree();
                   }
