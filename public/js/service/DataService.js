@@ -21,6 +21,9 @@ app.service("DataService", [
       getResourceName: idRes => {
         return DataServiceUtils.askData("getResourceName", idRes)
       },
+      addApi: api => {
+        return DataServiceUtils.askData("addApi", api)
+      },
       // Model
       getModel: () => {
         return DataServiceUtils.askData("getModel");

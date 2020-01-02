@@ -99,6 +99,14 @@ app.controller("EditPageController", [
       }
     }
 
+    //API functions
+
+    $scope.addApi = () => {
+      DataService.addApi($scope.page.page._services).then(data => {
+
+      })
+    }
+
     $scope.removeApi = index => {
       $scope.page.page._services.splice(index, 1);
     } 
