@@ -1,11 +1,13 @@
 import { SkaffolderNode } from "../models/SkaffolderNode";
 import * as SkaffolderCli from "skaffolder-cli";
 import * as vscode from "vscode";
+import { DataService } from "../services/DataService";
 const opn = require("opn");
 
 export class GoToSkaffolderCommand {
   static async command(context: SkaffolderNode) {
-    let projectId = SkaffolderCli.getProject();
+    let yaml: any = DataService.getYaml();
+    let projectId = yaml && yaml["info"] ? yaml["info"]["x-skaffolder-id-project"] : null;
 
     if (!projectId) {
       // Ask for export

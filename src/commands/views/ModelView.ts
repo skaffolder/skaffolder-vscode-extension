@@ -27,7 +27,7 @@ export class ModelView {
     panel.webview.onDidReceiveMessage(
       message => {
         switch (message.command) {
-          case "save":
+          case "saveModel":
             vscode.window.showInformationMessage("Save");
             return;
           case "openFiles":

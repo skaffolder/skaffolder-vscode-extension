@@ -13,18 +13,21 @@ app.service("DataService", [
         return DataServiceUtils.askData("addLinked", link);
       },
       addNested: nested => {
-        return DataServiceUtils.askData("addNested", nested)
+        return DataServiceUtils.askData("addNested", nested);
       },
       addTemplate: template => {
-        return DataServiceUtils.askData("addTemplate", template)
+        return DataServiceUtils.askData("addTemplate", template);
       },
       getResourceName: idRes => {
-        return DataServiceUtils.askData("getResourceName", idRes)
+        return DataServiceUtils.askData("getResourceName", idRes);
       },
       addApi: api => {
-        return DataServiceUtils.askData("addApi", api)
+        return DataServiceUtils.askData("addApi", api);
       },
       // Model
+      saveModel: page => {
+        return DataServiceUtils.askData("saveModel", page);
+      },
       getModel: () => {
         return DataServiceUtils.askData("getModel");
       },

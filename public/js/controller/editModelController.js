@@ -15,6 +15,10 @@ app.controller("EditModelController", [
       DataService.openFiles();
     };
 
+    $scope.save = () => {
+      DataService.saveModel();
+    };
+
     // Attribues functions
     $scope.removeAttr = index => {
       $scope.model._entity._attrs.splice(index, 1);

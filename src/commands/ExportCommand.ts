@@ -24,6 +24,7 @@ export class ExportCommand {
             vscode.window.showErrorMessage(err);
           }
           ExportView.open(logs);
+          DataService.refreshData();
         }
       });
     } catch (e) {
