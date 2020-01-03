@@ -76,8 +76,24 @@
         "command": "skaffolder.createPage",
         "title": "Create new Page",
         "icon": {
-          "light": "media/light/page.svg",
-          "dark": "media/dark/page.svg"
+          "light": "media/light/plus.svg",
+          "dark": "media/dark/plus.svg"
+        }
+      },
+      {
+        "command": "skaffolder.createApi",
+        "title": "Create new API",
+        "icon": {
+          "light": "media/light/plus.svg",
+          "dark": "media/dark/plus.svg"
+        }
+      },
+      {
+        "command": "skaffolder.createModel",
+        "title": "Create new Model",
+        "icon": {
+          "light": "media/light/plus.svg",
+          "dark": "media/dark/plus.svg"
         }
       },
       {
@@ -115,6 +131,16 @@
           "command": "skaffolder.openfiles",
           "group": "inline",
           "when": "viewItem == 'resource' || viewItem == 'module' || viewItem == 'service' || viewItem == 'db' && isSkaffolderProject"
+        },
+        {
+          "command": "skaffolder.createModel",
+          "group": "inline",
+          "when": "viewItem == 'db' && isSkaffolderProject"
+        },
+        {
+          "command": "skaffolder.createApi",
+          "group": "inline",
+          "when": "viewItem == 'resource' && isSkaffolderProject"
         }
       ]
     },

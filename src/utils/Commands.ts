@@ -13,6 +13,8 @@ import { EditValueYamlCommand } from "../commands/EditValueYamlCommand";
 import { CreatePageCommand } from "../commands/CreatePageCommand";
 import { GoToSkaffolderCommand } from "../commands/GoToSkaffolderCommand";
 import { LogoutCommand } from "../commands/LogoutCommand";
+import { CreateModelCommand } from "../commands/CreateModelCommand";
+import { CreateApiCommand } from "../commands/CreateApiCommand";
 
 export class Commands {
   static registerCommands(context: vscode.ExtensionContext) {
@@ -34,7 +36,9 @@ export class Commands {
     let exportCmd = vscode.commands.registerCommand("skaffolder.export", ExportCommand.command);
     let genCmd = vscode.commands.registerCommand("skaffolder.generate", GenerateCommand.command);
     let createCmd = vscode.commands.registerCommand("skaffolder.createProject", CreateProjectCommand.command);
-    let createpageCmd = vscode.commands.registerCommand("skaffolder.createPage", CreatePageCommand.command);
+    let createPageCmd = vscode.commands.registerCommand("skaffolder.createPage", CreatePageCommand.command);
+    let createModelCmd = vscode.commands.registerCommand("skaffolder.createModel", CreateModelCommand.command);
+    let createApiCmd = vscode.commands.registerCommand("skaffolder.createApi", CreateApiCommand.command);
     let goToSkaffolder = vscode.commands.registerCommand("skaffolder.goToSkaffolder", GoToSkaffolderCommand.command);
     let editNodeCmd = vscode.commands.registerCommand("skaffolder.editNode", EditNodeCommand.command);
     let openFileCmd = vscode.commands.registerCommand("skaffolder.openfiles", OpenFilesCommand.command);
