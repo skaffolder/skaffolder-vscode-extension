@@ -66,14 +66,38 @@ button {
   }
 }
 
-// Delete button
-.delete-button {
+// files button
+.files-button {
+  background-image: url("../img/files.svg");
+  background-repeat: no-repeat;
+  background-size: 18px;
+  background-position-y: 5px;
+  background-position-x: 5px;
+  padding-left: 30px;
   background-color: transparent;
-  color: $red-delete;
-  font-weight: bold;
+  color: $light-gray2;
 
   &:hover {
-    background-color: $red-hover;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+}
+
+// Delete button
+.delete-button {
+  background-image: url("../img/delete.svg");
+  background-repeat: no-repeat;
+  background-size: 13px;
+  background-position-y: 4px;
+  background-position-x: 5px;
+  padding-left: 30px;
+  color: $red-delete-btn;
+  font-weight: bold;
+  background-color: transparent;
+
+  &:hover {
+    background-color: transparent;
+    text-decoration: underline;
   }
 }
 
@@ -137,7 +161,7 @@ select {
 
 // Icons
 .ico-remove {
-  background-image: url(../img/x.svg);
+  background-image: url(.../img/files.svg./ibackground-repeat:no-repeat;background-size:30px;mg/x.svg);
   background-repeat: no-repeat;
   display: inline-block;
   width: 10px;

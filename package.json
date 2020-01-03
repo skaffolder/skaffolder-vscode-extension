@@ -52,16 +52,16 @@
         "command": "skaffolder.editNode",
         "title": "Edit",
         "icon": {
-          "light": "media/light/editScuro.svg",
-          "dark": "media/dark/editGrigio.svg"
+          "light": "media/light/edit.svg",
+          "dark": "media/dark/edit.svg"
         }
       },
       {
         "command": "skaffolder.openfiles",
         "title": "Open files",
         "icon": {
-          "light": "media/light/openFilesScuro.svg",
-          "dark": "media/dark/openFilesGrigio.svg"
+          "light": "media/light/files.svg",
+          "dark": "media/dark/files.svg"
         }
       },
       {

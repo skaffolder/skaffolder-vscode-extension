@@ -51,7 +51,7 @@
       <div>
         <div ng-repeat="link in page.page._links">
           <div class="badge">
-            {{link.name}} 
+            {{link.name}}
             <div class="ico-remove" ng-click="removeLink($index)"></div>
           </div>
         </div>
@@ -96,7 +96,7 @@
       <div>
         <div ng-repeat="service in page.page._services">
           <div class="badge" ng-class="{ {{service.method}} : true}">
-            <span class="resource-name" >{{ service._resource.name }} </span>
+            <span class="resource-name">{{ service._resource.name }} </span>
             <span class="service-name">{{ service.name }}</span>
             <div class="ico-remove" ng-click="removeApi()"></div>
           </div>
@@ -110,6 +110,6 @@
   <div class="footer">
     <button class="primary-button" ng-click="save()">Save</button>
     <button class="delete-button" ng-click="delete()">Delete</button>
-    <button class="secondary-button" ng-click="openFiles()">Open related files</button>
+    <button class="files-button" ng-click="openFiles()">Open related files</button>
   </div>
 </div>

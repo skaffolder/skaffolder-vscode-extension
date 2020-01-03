@@ -87,8 +87,8 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
           title: "Logout"
         };
         this.iconPath = {
-          light: this.context.asAbsolutePath(path.join("media", "light", "user.svg")),
-          dark: this.context.asAbsolutePath(path.join("media", "dark", "user.svg"))
+          light: this.context.asAbsolutePath(path.join("media", "light", "logout.svg")),
+          dark: this.context.asAbsolutePath(path.join("media", "dark", "logout.svg"))
         };
       } else {
         this.label = "Login";
@@ -98,8 +98,8 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
           title: "Login Skaffolder"
         };
         this.iconPath = {
-          light: this.context.asAbsolutePath(path.join("media", "light", "user.svg")),
-          dark: this.context.asAbsolutePath(path.join("media", "dark", "user.svg"))
+          light: this.context.asAbsolutePath(path.join("media", "light", "login.svg")),
+          dark: this.context.asAbsolutePath(path.join("media", "dark", "login.svg"))
         };
       }
     }

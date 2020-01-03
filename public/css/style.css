@@ -86,12 +86,32 @@ button {
   .primary-button:hover {
     background-color: var(--vscode-button-hoverBackground); }
 
-.delete-button {
+.files-button {
+  background-image: url("../img/files.svg");
+  background-repeat: no-repeat;
+  background-size: 18px;
+  background-position-y: 5px;
+  background-position-x: 5px;
+  padding-left: 30px;
   background-color: transparent;
-  color: #f55448;
-  font-weight: bold; }
+  color: var(--vscode-input-placeholderForeground); }
+  .files-button:hover {
+    background-color: transparent;
+    text-decoration: underline; }
+
+.delete-button {
+  background-image: url("../img/delete.svg");
+  background-repeat: no-repeat;
+  background-size: 13px;
+  background-position-y: 4px;
+  background-position-x: 5px;
+  padding-left: 30px;
+  color: #cb4747;
+  font-weight: bold;
+  background-color: transparent; }
   .delete-button:hover {
-    background-color: var(--vscode-inputValidation-errorBackground); }
+    background-color: transparent;
+    text-decoration: underline; }
 
 .badge {
   background-color: var(--vscode-editor-foreground);
@@ -135,7 +155,7 @@ select {
     outline: 0; }
 
 .ico-remove {
-  background-image: url(../img/x.svg);
+  background-image: url(.../img/files.svg./ibackground-repeat:no-repeat;background-size:30px;mg/x.svg);
   background-repeat: no-repeat;
   display: inline-block;
   width: 10px;
@@ -167,6 +187,8 @@ select {
   position: fixed;
   bottom: 0px;
   left: 0px; }
+  .footer [class*="-button"] {
+    margin-right: 20px; }
 
 .attr-container .btn-attr {
   display: inline-block;

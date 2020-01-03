@@ -13,12 +13,16 @@ export class ExportCommand {
 
     try {
       DataService.exportProject(params, function(err: any, logs: any) {
-        if (logs && logs === "Not authorized") {
-          vscode.window.showWarningMessage("Login in Skaffolder required");
-          vscode.commands.executeCommand<vscode.Location[]>("skaffolder.login", (err: any, user: string) => {
-            // Retry
-            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.export");
-          });
+        if (err || (logs && logs === "Not authorized")) {
+          if (err && err !== "You should login with the command: 'sk login'") {
+            vscode.window.showWarningMessage(err);
+          } else {
+            vscode.window.showWarningMessage("Login in Skaffolder required");
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.login", (err: any, user: string) => {
+              // Retry
+              vscode.commands.executeCommand<vscode.Location[]>("skaffolder.export");
+            });
+          }
         } else {
           if (err) {
             vscode.window.showErrorMessage(err);
