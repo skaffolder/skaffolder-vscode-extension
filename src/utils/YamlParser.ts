@@ -69,6 +69,10 @@ export class YamlParser {
 
       // find token position of item
       let lineId: number = YamlParser.getLinesNumberOf(fileString, "x-skaffolder-id: " + itemDb["x-skaffolder-id"]);
+      if (lineId === -1) {
+        lineId = YamlParser.getLinesNumberOf(fileString, "x-skaffolder-name: " + itemDb["x-skaffolder-name"]);
+      }
+
       let pos: vscode.Position = new vscode.Position(lineId >= 0 ? lineId - 1 : 0, 0);
 
       let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
@@ -92,6 +96,9 @@ export class YamlParser {
 
       // find token position of item
       let lineId: number = YamlParser.getLinesNumberOf(fileString, "x-skaffolder-id: " + item["x-skaffolder-id"]);
+      if (lineId === -1) {
+        lineId = YamlParser.getLinesNumberOf(fileString, r + ":");
+      }
       let pos: vscode.Position = new vscode.Position(lineId >= 0 ? lineId : 0, 0);
 
       let pos2: vscode.Position = new vscode.Position(lineId + 2, 0);
@@ -149,6 +156,10 @@ export class YamlParser {
           let res = resourceMap.get(resName.toLowerCase());
           // find token position of item
           let lineId: number = YamlParser.getLinesNumberOf(fileString, fileObj.paths[s][m]["x-skaffolder-id"]);
+          if (lineId === -1) {
+            lineId = YamlParser.getLinesNumberOf(fileString, "x-skaffolder-name: " + fileObj.paths[s][m]["x-skaffolder-name"]);
+          }
+
           let pos: vscode.Position = new vscode.Position(lineId >= 0 ? lineId - 1 : 0, 0);
 
           let pos2: vscode.Position = new vscode.Position(lineId + 1, 0);
@@ -187,6 +198,10 @@ export class YamlParser {
       let item = fileObj.components["x-skaffolder-page"][p];
       // find token position of item
       let lineId: number = YamlParser.getLinesNumberOf(fileString, item["x-skaffolder-id"]);
+      if (lineId === -1) {
+        lineId = YamlParser.getLinesNumberOf(fileString, "x-skaffolder-name: " + item["x-skaffolder-name"]);
+      }
+
       let pos: vscode.Position = new vscode.Position(lineId >= 0 ? lineId : 0, 0);
 
       let pos2: vscode.Position = new vscode.Position(lineId + 2, 0);

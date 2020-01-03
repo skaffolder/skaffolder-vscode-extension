@@ -15,8 +15,9 @@ export class OpenYamlCommand {
           tab.selection = selection;
 
           // Scroll to pos
-          let posend: vscode.Position = new vscode.Position(rangeModel.end.line + 100, 0);
-          let rangeScroll: vscode.Range = new vscode.Range(rangeModel.start, posend);
+          let posStart: vscode.Position = new vscode.Position(rangeModel.start.line - 1, 0);
+          let posEnd: vscode.Position = new vscode.Position(rangeModel.end.line + 100, 0);
+          let rangeScroll: vscode.Range = new vscode.Range(posStart, posEnd);
           tab.revealRange(rangeScroll);
         });
       });
