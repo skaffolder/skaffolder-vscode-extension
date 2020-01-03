@@ -109,12 +109,12 @@
         {
           "command": "skaffolder.editNode",
           "group": "inline",
-          "when": "viewItem != empty && isSkaffolderProject"
+          "when": "viewItem == 'resource' || viewItem == 'module' || viewItem == 'service' || viewItem == 'db' && isSkaffolderProject"
         },
         {
           "command": "skaffolder.openfiles",
           "group": "inline",
-          "when": "viewItem != empty && isSkaffolderProject"
+          "when": "viewItem == 'resource' || viewItem == 'module' || viewItem == 'service' || viewItem == 'db' && isSkaffolderProject"
         }
       ]
     },

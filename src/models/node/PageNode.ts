@@ -18,6 +18,8 @@ export class PageNode {
     let contexturl = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
     let rangeModel = page.index;
 
+    node.contextValue = "module";
+
     node.params = {
       type: "module",
       contextUrl: contexturl,

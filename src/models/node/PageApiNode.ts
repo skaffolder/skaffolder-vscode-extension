@@ -42,6 +42,7 @@ export class PageApiNode {
       light: node.context.asAbsolutePath(path.join("media", "light", "api_" + api.method + ".svg")),
       dark: node.context.asAbsolutePath(path.join("media", "dark", "api_" + api.method + ".svg"))
     };
+    node.contextValue = "service";
     node.params = {
       type: "service",
       db: db,

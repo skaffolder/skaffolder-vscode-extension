@@ -22,6 +22,7 @@ export class ModelApiNode {
       title: "Edit",
       arguments: [node]
     };
+    node.contextValue = "service";
 
     node.iconPath = {
       light: node.context.asAbsolutePath(

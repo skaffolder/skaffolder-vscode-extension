@@ -18,7 +18,7 @@ export class ModelResourceNode {
       light: node.context.asAbsolutePath(path.join("media", "light", "model.svg")),
       dark: node.context.asAbsolutePath(path.join("media", "dark", "model.svg"))
     };
-    node.contextValue = "model";
+    node.contextValue = "resource";
 
     // Set params node
     node.params = {

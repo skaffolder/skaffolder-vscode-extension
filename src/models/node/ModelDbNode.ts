@@ -16,7 +16,7 @@ export class ModelDbNode {
       light: node.context.asAbsolutePath(path.join("media", "light", "database.svg")),
       dark: node.context.asAbsolutePath(path.join("media", "dark", "database.svg"))
     };
-
+    node.contextValue = "db";
     node.params = {
       type: "db",
       db: db,
