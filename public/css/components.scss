@@ -83,6 +83,12 @@ button {
   }
 }
 
+body.vscode-light {
+  .files-button {
+    background-image: url("../img/files_black.svg");
+  }
+}
+
 // Delete button
 .delete-button {
   background-image: url("../img/delete.svg");

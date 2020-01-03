@@ -99,6 +99,9 @@ button {
     background-color: transparent;
     text-decoration: underline; }
 
+body.vscode-light .files-button {
+  background-image: url("../img/files_black.svg"); }
+
 .delete-button {
   background-image: url("../img/delete.svg");
   background-repeat: no-repeat;
