@@ -230,61 +230,68 @@ export class PageView {
                 }
               }
             }
-            break;
-          case "addApi":
-            let entity: any[] = [];
-            let serviceList: any [] = [];
-            contextNode.skaffolderObject.resources.forEach(db => {
-              entity = entity.concat(db._resources);
-            });
-            entity.forEach(api => {
-              serviceList = serviceList.concat(api._services);
-            });
-            serviceList = serviceList.map (serviceItem => {
-              return {
-                label: serviceItem["name"],
-                id: serviceItem["_id"],
-                nameResource: serviceItem._resource.name,
-                url: serviceItem["url"]
-              };
-            });
-            entity = entity.map(entityItem => {
-              return {
-                label: entityItem["name"],
-                value: entityItem._id,
-              };
-            });
-            if(message.data === null) {
-              message.data = [];
-            }
-            let serviceListPresent: string [] = message.data.map((servicePresent: any) => servicePresent["_id"]);
-            serviceList = serviceList.filter(item => {
-              return serviceListPresent.indexOf(item["id"]) === -1;
-            });
-            vscode.window.showQuickPick(entity, {
-              placeHolder: "Select entity"
-            }).then(api => {
-              let apiItem: any[] = [];
-              if(apiItem) {
-                serviceList.filter(item => {
-                  if(item.nameResource === api.label) {
-                    apiItem.push(item.label + " " + item.url);
-                  }
-                });
-                vscode.window.showQuickPick(apiItem, {
-                  placeHolder:"Select api"
-                }).then(result => {
-                  panel.webview.postMessage({
-                    command: "addApi",
-                    data: {
-                      name: result,
-                      entity: api
+            break;    
+            case "addApi":
+              let entity: any[] = [];
+              let serviceList: any [] = [];
+              contextNode.skaffolderObject.resources.forEach(db => {
+                entity = entity.concat(db._resources);
+              });
+              entity.forEach(api => {
+                serviceList = serviceList.concat(api._services);
+              });
+
+              serviceList = serviceList.map(serviceItem => {  
+                return {
+                  label: serviceItem["name"],
+                  id: serviceItem["_id"],
+                  nameResource: serviceItem._resource.name,
+                  url: serviceItem["url"],
+                  method: serviceItem["method"]
+                };
+              });
+              entity = entity.map(entityItem => {
+                return {
+                  label: entityItem["name"],
+                  value: entityItem._id,
+                };
+              });
+              if(message.data === null) {
+                message.data = [];
+              }
+              let serviceListPresent: string [] = message.data.map((servicePresent: any) => servicePresent["_id"]);
+              serviceList = serviceList.filter(item => {
+                return serviceListPresent.indexOf(item["id"]) === -1;
+              });
+
+              vscode.window.showQuickPick(entity, {
+                placeHolder: "Select entity"
+              }).then(api => {
+                console.log(api);
+                let apiItem: any[] = [];
+                if(apiItem) {
+                  apiItem = serviceList.filter(item => {
+                    if(item.nameResource === api.label) {
+                      return {
+                        label: item.label + " " + item.url,
+                        id_service: item.id,
+                        nameResource: item.nameResource,
+                        method: item.method,
+                        name: item.label
+                      };
                     }
                   });
-                });
-              }
-            });
-            break;
+                  vscode.window.showQuickPick(apiItem, {
+                    placeHolder:"Select api"
+                  }).then(result => {
+                    panel.webview.postMessage({
+                      command: "addApi",
+                      data: result
+                    });
+                  });
+                }
+              });
+              break;
         }
       },
       undefined,

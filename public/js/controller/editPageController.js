@@ -101,9 +101,14 @@ app.controller("EditPageController", [
 
     //API functions
 
-    $scope.addApi = () => {
+    $scope.addApi = index => {
       DataService.addApi($scope.page.page._services).then(data => {
-
+         if(data) {
+          if($scope.page.page._services === null) {
+            $scope.page.page._services = [];
+          }
+         $scope.page.page._services.push({ _id: data.id, _resource: {name: data.nameResource } ,name: data.label, method: data.method });
+         }
       })
     }
 
