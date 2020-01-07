@@ -125,24 +125,38 @@ body.vscode-light .files-button {
   border-radius: 8px;
   margin-top: 10px; }
   .badge .resource-name {
-    font-weight: bold; }
+    font-weight: bold;
+    color: black; }
   .badge .service-name {
-    color: var(--vscode-editor-foreground);
     font-weight: normal; }
+    .badge .service-name.public {
+      color: #337151; }
+    .badge .service-name.post {
+      color: #163D77 !important; }
+    .badge .service-name.get {
+      color: #337151 !important; }
+    .badge .service-name.delete {
+      color: #842422; }
+    .badge .service-name.option {
+      color: #B46A02; }
+    .badge .service-name.path {
+      color: #B46A02; }
+    .badge .service-name.put {
+      color: #163D77; }
   .badge.public {
-    background-color: #58b75c; }
+    background-color: #60DB9B; }
   .badge.post {
-    background-color: #4895fa; }
+    background-color: #388CFF; }
   .badge.get {
-    background-color: #80d4a0; }
+    background-color: #60DB9B; }
   .badge.delete {
-    background-color: #f55448; }
+    background-color: #FF423D; }
   .badge.option {
-    background-color: #ffb858; }
+    background-color: #FFB958; }
   .badge.path {
-    background-color: #ffb858; }
+    background-color: #FFB958; }
   .badge.put {
-    background-color: #4895fa; }
+    background-color: #388CFF; }
 
 select {
   background-color: var(--vscode-editorIndentGuide-background);
