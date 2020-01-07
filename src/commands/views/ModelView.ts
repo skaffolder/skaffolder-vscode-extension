@@ -4,6 +4,7 @@ import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
 import { Offline } from "skaffolder-cli";
 import { Resource } from "../../models/jsonreader/resource";
+import { Entity } from "../../models/jsonreader/entity";
 
 export class ModelView {
   static async open(contextNode: SkaffolderNode) {
@@ -28,6 +29,47 @@ export class ModelView {
       message => {
         switch (message.command) {
           case "saveModel":
+            if (message.data) {
+              var model = message.data as Resource;
+              var _entity = model._entity as Entity;
+
+              var yamlModel = {
+                "x-skaffolder-id": model._id,
+                "x-skaffolder-id-db": model._db,
+                "x-skaffolder-id-entity": _entity._id,
+                "x-skaffolder-url": model.url,
+                "x-skaffolder-relations": (model._relations as any[]).reduce((acc, cur) => {
+                  if (!acc) { acc = {}; }
+                  acc[cur.name] = {
+                    "x-skaffolder-id": cur._id,
+                    "x-skaffolder-ent1": cur._ent1._id,
+                    "x-skaffolder-ent2": cur._ent2._id,
+                    "x-skaffolder-type": cur.type,
+                  };
+
+                  return acc;
+                }, null),
+                "properties": (_entity._attrs as any[]).reduce((acc, cur) => {
+                  if (!acc) { acc = {}; }
+
+                  let attr_type = cur.type || "String";
+                  acc[cur.name] = {
+                    "type": attr_type.toLowerCase(),
+                    "x-skaffolder-id-attr": cur._id,
+                    "x-skaffolder-type": attr_type,
+                    "x-skaffolder-required": cur.required,
+                  };
+
+                  if (cur._enum) {
+                    acc[cur.name]["x-skaffolder-enumeration"] = (cur._enum as any[]).map((val) => { return val.name; });
+                  }
+
+                  return acc;
+                }, null)
+              };
+
+              Offline.createModel(model.name, yamlModel);
+            }
             vscode.window.showInformationMessage("Save");
             return;
           case "openFiles":

@@ -16,7 +16,9 @@ app.controller("EditModelController", [
     };
 
     $scope.save = () => {
-      DataService.saveModel();
+      DataService.saveModel($scope.model).then(data => {
+        console.log("saved");
+      });
     };
 
     // Attribues functions

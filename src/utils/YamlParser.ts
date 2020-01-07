@@ -119,10 +119,8 @@ export class YamlParser {
       for (let a in item.properties) {
         let attrItem = item.properties[a];
         if (attrItem) {
-          if (attrItem["x-skaffolder-id-attr"]) {
-            let attr = new ResourceAttr(a, attrItem);
-            entity._attrs.push(attr);
-          }
+          let attr = new ResourceAttr(a, attrItem);
+          entity._attrs.push(attr);
         }
       }
 

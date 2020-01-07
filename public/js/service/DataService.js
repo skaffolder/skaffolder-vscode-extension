@@ -25,8 +25,8 @@ app.service("DataService", [
         return DataServiceUtils.askData("addApi", api);
       },
       // Model
-      saveModel: page => {
-        return DataServiceUtils.askData("saveModel", page);
+      saveModel: model => {
+        return DataServiceUtils.askData("saveModel", model);
       },
       getModel: () => {
         return DataServiceUtils.askData("getModel");
