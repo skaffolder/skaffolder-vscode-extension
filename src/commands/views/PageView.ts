@@ -267,7 +267,6 @@ export class PageView {
               vscode.window.showQuickPick(entity, {
                 placeHolder: "Select entity"
               }).then(api => {
-                console.log(api);
                 let apiItem: any[] = [];
                 if(apiItem) {
                   apiItem = serviceList.filter(item => {

@@ -98,7 +98,7 @@
           <div class="badge" ng-class="{ {{service.method}} : true}">
             <span class="resource-name">{{ service._resource.name }} </span>
             <span class="service-name">{{ service.name }}</span>
-            <div class="ico-remove" ng-click="removeApi()"></div>
+            <div class="ico-remove" ng-click="removeApi($index)"></div>
           </div>
         </div>
       </div>
