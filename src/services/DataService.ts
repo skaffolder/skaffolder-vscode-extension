@@ -410,10 +410,10 @@ export class DataService {
       try {
         config = JSON.parse(configFile);
       } catch (e) {
-        console.error(".skaffolder/config.json JSON not parsable");
+        vscode.window.showErrorMessage(".skaffolder/config.json JSON not parsable");
       }
     } catch (e) {
-      console.error(".skaffolder/config.json JSON not found");
+      vscode.window.showErrorMessage(".skaffolder/config.json JSON not found");
     }
     return config;
   }
