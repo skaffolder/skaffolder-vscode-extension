@@ -43,6 +43,7 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
       this.children.push(new SkaffolderTemplateNode(context, "generate"));
       this.children.push(new SkaffolderTemplateNode(context, "export"));
       this.children.push(new SkaffolderTemplateNode(context, "skaffolder"));
+      this.children.push(new SkaffolderTemplateNode(context, "skaffolderDoc"));
       this.children.push(new SkaffolderTemplateNode(context, "user"));
     } else if (type === "generate") {
       this.label = "Generate Code";
@@ -76,6 +77,17 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
       this.iconPath = {
         light: this.context.asAbsolutePath(path.join("media", "light", "logo.svg")),
         dark: this.context.asAbsolutePath(path.join("media", "dark", "logo.svg"))
+      };
+    } else if (type === "skaffolderDoc") {
+      this.label = "Open online Documentation";
+      this.contextValue = "empty";
+      this.command = {
+        command: "skaffolder.goToSkaffolderDoc",
+        title: "Open online Documentation"
+      };
+      this.iconPath = {
+        light: this.context.asAbsolutePath(path.join("media", "light", "docs.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "docs.svg"))
       };
     } else if (type === "user") {
       let user: string | undefined = SkaffolderCli.getUser();

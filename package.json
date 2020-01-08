@@ -111,6 +111,14 @@
           "light": "media/light/logo.svg",
           "dark": "media/dark/logo.svg"
         }
+      },
+      {
+        "command": "skaffolder.goToSkaffolderDoc",
+        "title": "Open online Documentation",
+        "icon": {
+          "light": "media/light/docs.svg",
+          "dark": "media/dark/docs.svg"
+        }
       }
     ],
     "menus": {
