@@ -117,10 +117,12 @@ export class YamlParser {
       entity._id = item["x-skaffolder-id-entity"];
       // Parse attributes
       for (let a in item.properties) {
-        let attrItem = item.properties[a];
-        if (attrItem) {
-          let attr = new ResourceAttr(a, attrItem);
-          entity._attrs.push(attr);
+        if (a !== "_id") {
+          let attrItem = item.properties[a];
+          if (attrItem) {
+            let attr = new ResourceAttr(a, attrItem);
+            entity._attrs.push(attr);
+          }
         }
       }
 
@@ -254,13 +256,14 @@ export class YamlParser {
               resourcesMap.set(res._id, res);
             }
 
-            if (!acc) { acc = <Service[]>[]; }
+            if (!acc) {
+              acc = <Service[]>[];
+            }
             (acc as Service[]).push(serv);
           }
 
           return acc;
         }, null);
-
 
         resourcesMap.forEach(item => {
           page._resources.push(item);

@@ -18,9 +18,10 @@ export class GenerateCommand {
 
     try {
       // Start Generation
+      const data = DataService.getSkObject();
       SkaffolderCli.generate(
         vscode.workspace.rootPath + "/",
-        DataService.getSkObject(),
+        data,
         {
           info: function(msg: string) {
             vscode.window.showInformationMessage(msg);
