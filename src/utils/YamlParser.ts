@@ -243,15 +243,24 @@ export class YamlParser {
       // Populate pages
       if (page._services) {
         let resourcesMap: Map<String, Resource> = new Map<String, Resource>();
-        page._services.forEach((service: any, index: number) => {
-          page._services[index] = YamlParser.searchService(obj.resources, service);
+        page._services = (page._services as Array<Service | String>).reduce((acc: any, service: any) => {
+          var serv = YamlParser.searchService(obj.resources, service);
 
-          let resJSon = (page._services[index] as Service)._resource;
-          if (resJSon) {
-            let res: Resource = resJSon;
-            resourcesMap.set(res._id, res);
+          if (serv) {
+            let resJSon = (serv as Service)._resource;
+
+            if (resJSon) {
+              let res: Resource = resJSon;
+              resourcesMap.set(res._id, res);
+            }
+
+            if (!acc) { acc = <Service[]>[]; }
+            (acc as Service[]).push(serv);
           }
-        });
+
+          return acc;
+        }, null);
+
 
         resourcesMap.forEach(item => {
           page._resources.push(item);
@@ -296,7 +305,7 @@ export class YamlParser {
       for (let r in db._resources) {
         let res = JSON.parse(JSON.stringify(db._resources[r]));
 
-        if (res._id === resId) {
+        if (res._id === resId || `${res.name}`.toLowerCase() === `${resId}`.toLowerCase()) {
           // clean
           res._entity = String((res._entity as Entity)._id);
           res._services = JSON.parse(
@@ -310,7 +319,7 @@ export class YamlParser {
         }
       }
     }
-    console.error("Resource not found with id " + resId + " for service " + service.name);
+    console.error("Resource not found with id or name '" + resId + "' for service " + service.name);
 
     return;
   }
@@ -345,36 +354,38 @@ export class YamlParser {
     return "";
   }
 
-  static searchService(resources: Db[], serviceId: string): Service | string {
-    for (let d in resources) {
-      let db: Db = resources[d];
+  static searchService(resources: Db[], serviceId: string): Service | undefined {
+    if (serviceId) {
+      for (let d in resources) {
+        let db: Db = resources[d];
 
-      for (let r in db._resources) {
-        let res = db._resources[r];
+        for (let r in db._resources) {
+          let res = db._resources[r];
 
-        for (let s in res._services) {
-          let serv = JSON.parse(JSON.stringify(res._services[s]));
+          for (let s in res._services) {
+            let serv = JSON.parse(JSON.stringify(res._services[s]));
 
-          if (serv._id === serviceId) {
-            // clean
-            if (serv._resource) {
-              serv._resource._services = [];
-              serv._resource._entity = String((serv._resource._entity as Entity)._id);
+            if (serv._id === serviceId) {
+              // clean
+              if (serv._resource) {
+                serv._resource._services = [];
+                serv._resource._entity = String((serv._resource._entity as Entity)._id);
+              }
+              return serv;
             }
-            return serv;
           }
         }
       }
     }
     console.error("Service not found with id " + serviceId);
 
-    return "";
+    return undefined;
   }
 
   static searchRel(db: Db, rel_id: string): Entity {
     for (let r in db._resources) {
       let entity = db._resources[r]._entity as Entity;
-      if (entity._id === rel_id) {
+      if (entity._id === rel_id || `${entity.name}`.toLowerCase() === `${rel_id}`.toLowerCase()) {
         return new Entity(entity.name, entity._id, db._id, db._resources[r]);
       }
     }

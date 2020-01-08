@@ -19,7 +19,7 @@ export class Service {
     this.returnDesc = objYaml["x-skaffolder-returnDesc"];
     this.returnType = objYaml["x-skaffolder-returnType"];
     this.url = objYaml["x-skaffolder-url"];
-    this._resource = objYaml["x-skaffolder-id-resource"];
+    this._resource = objYaml["x-skaffolder-id-resource"] || objYaml["x-skaffolder-resource"];
 
     // Parse roles
     if (objYaml["x-skaffolder-roles"]) {
