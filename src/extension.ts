@@ -8,6 +8,7 @@ import { DataService } from "./services/DataService";
 import { Commands } from "./utils/Commands";
 import { TreeProviderTemplateSkaffolder } from "./providers/treeProviderTemplateSkaffolder";
 import { StatusBarManager } from "./utils/StatusBarManager";
+import { Config } from "./utils/Config";
 import SkaffolderCli = require("skaffolder-cli");
 
 let contextExtension: vscode.ExtensionContext;
@@ -21,9 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "Skaffolder" is now active!');
 
   // Retrieve endpoint value
-  const config = vscode.workspace.getConfiguration();
-  const endpoint: string = config.get("skaffolder.endpoint") || "https://app.skaffolder.com";
-  SkaffolderCli.setEnv(endpoint);
+  SkaffolderCli.setEnv(Config.endpoint);
 
   vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
   contextExtension = context;

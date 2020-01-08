@@ -1,7 +1,7 @@
 import { SkaffolderNode } from "../models/SkaffolderNode";
-import * as SkaffolderCli from "skaffolder-cli";
 import * as vscode from "vscode";
 import { DataService } from "../services/DataService";
+import { Config } from "../utils/Config";
 const opn = require("opn");
 
 export class GoToSkaffolderDocCommand {
@@ -28,9 +28,7 @@ export class GoToSkaffolderDocCommand {
         });
     } else {
       // Open browser
-      const config = vscode.workspace.getConfiguration();
-      const env: string = config.get("skaffolder.endpointDocs") || "https://docs.skaffolder.com";
-      let url = `${env}/#!/${projectId}/models`;
+      let url = `${Config.endpointDocs}/#!/${projectId}/models`;
       opn(url, {
         wait: false
       });
