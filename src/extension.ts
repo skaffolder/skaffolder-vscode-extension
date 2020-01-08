@@ -20,8 +20,10 @@ export function activate(context: vscode.ExtensionContext) {
   console.clear();
   console.log('Congratulations, your extension "Skaffolder" is now active!');
 
-  // TODO Dev environment
-  SkaffolderCli.setEnv("http://localhost:3001");
+  // Retrieve endpoint value
+  const config = vscode.workspace.getConfiguration();
+  const endpoint: string = config.get("skaffolder.endpoint") || "https://app.skaffolder.com";
+  SkaffolderCli.setEnv(endpoint);
 
   vscode.commands.executeCommand("setContext", "isSkaffolderProject", false);
   contextExtension = context;
