@@ -16,15 +16,6 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label>
-        URL
-      </label>
-      <div>
-        <input ng-model="model.url" type="text" placeholder="URL" />
-      </div>
-    </div>
-
     <!-- Attributes -->
 
     <div class="form-group">
@@ -97,7 +88,6 @@
         </div>
         <div class="mt-10">
           <select placeholder="Type" ng-model="rel._ent2.name">
-            <!-- TODO: UPDATES only the name, should update all the object or the _id -->
             <option ng-repeat="mod in model_list" ng-value="mod.name">{{mod.name}}</option>
           </select>
         </div>
@@ -124,6 +114,12 @@
     <!-- API -->
     <div class="form-group">
       <label>
+        Base URL
+      </label>
+      <div>
+        <input ng-model="model.url" type="text" placeholder="URL" />
+      </div>
+      <label class="mt-10">
         API
       </label>
       <div>
