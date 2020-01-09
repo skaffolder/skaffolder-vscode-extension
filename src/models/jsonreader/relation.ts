@@ -2,6 +2,7 @@ import { Entity } from "./entity";
 
 export class Relation {
   constructor(name: string, objOpenapi: any) {
+    this._id = objOpenapi["x-skaffolder-id"];
     this.name = name;
     this.required = objOpenapi["x-skaffolder-required"];
     this.type = objOpenapi["x-skaffolder-type"];
