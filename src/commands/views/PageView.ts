@@ -44,18 +44,18 @@ export class PageView {
                 "x-skaffolder-resource": page._template_resource,
                 "x-skaffolder-services": page._services
                   ? (page._services as Service[]).map(_serv => {
-                    return _serv._id;
-                  })
+                      return _serv._id;
+                    })
                   : page._services,
                 "x-skaffolder-nesteds": page._nesteds
                   ? (page._nesteds as Page[]).map(_page => {
-                    return _page._id;
-                  })
+                      return _page._id;
+                    })
                   : page._nesteds,
                 "x-skaffolder-links": page._links
                   ? (page._links as Page[]).map(_page => {
-                    return _page._id;
-                  })
+                      return _page._id;
+                    })
                   : page._links,
                 "x-skaffolder-roles": page._roles
               };
@@ -171,9 +171,10 @@ export class PageView {
               return pageNameListPresents.indexOf(item) === -1 && item !== contextNode.params!.page!.name;
             });
 
-            vscode.window.showQuickPick(pageNameLists, {
-              placeHolder: "Select nested page"
-            })
+            vscode.window
+              .showQuickPick(pageNameLists, {
+                placeHolder: "Select nested page"
+              })
               .then(nested => {
                 let nestedItem: any = nested;
                 if (nested) {
@@ -202,20 +203,24 @@ export class PageView {
                 value: templateItem._id
               };
             });
-            vscode.window.showQuickPick(template, {
-              placeHolder: "Select template"
-            }).then(template => {
-              vscode.window.showQuickPick(templateResource, {
-                placeHolder: "Select resource",
-                matchOnDescription: false
-              }).then(result => {
-                result.type = template;
-                panel.webview.postMessage({
-                  command: "addTemplate",
-                  data: result
-                });
+            vscode.window
+              .showQuickPick(template, {
+                placeHolder: "Select template"
+              })
+              .then(template => {
+                vscode.window
+                  .showQuickPick(templateResource, {
+                    placeHolder: "Select resource",
+                    matchOnDescription: false
+                  })
+                  .then(result => {
+                    result.type = template;
+                    panel.webview.postMessage({
+                      command: "addTemplate",
+                      data: result
+                    });
+                  });
               });
-            });
           case "getResourceName":
             for (let i in contextNode.skaffolderObject.resources) {
               let db: Db = contextNode.skaffolderObject.resources[i];
@@ -230,67 +235,64 @@ export class PageView {
                 }
               }
             }
-            break;    
-            case "addApi":
-              let entity: any[] = [];
-              let serviceList: any [] = [];
-              contextNode.skaffolderObject.resources.forEach(db => {
-                entity = entity.concat(db._resources);
-              });
-              entity.forEach(api => {
-                serviceList = serviceList.concat(api._services);
-              });
+            break;
+          case "addApi":
+            let entity: any[] = [];
+            let serviceList: any[] = [];
+            contextNode.skaffolderObject.resources.forEach(db => {
+              entity = entity.concat(db._resources);
+            });
+            entity.forEach(api => {
+              serviceList = serviceList.concat(api._services);
+            });
 
-              serviceList = serviceList.map(serviceItem => {  
-                return {
-                  label: serviceItem["name"],
-                  id: serviceItem["_id"],
-                  nameResource: serviceItem._resource.name,
-                  url: serviceItem["url"],
-                  method: serviceItem["method"]
-                };
-              });
-              entity = entity.map(entityItem => {
-                return {
-                  label: entityItem["name"],
-                  value: entityItem._id,
-                };
-              });
-              if(message.data === null) {
-                message.data = [];
-              }
-              let serviceListPresent: string [] = message.data.map((servicePresent: any) => servicePresent["_id"]);
-              serviceList = serviceList.filter(item => {
-                return serviceListPresent.indexOf(item["id"]) === -1;
-              });
+            serviceList = serviceList.map(serviceItem => {
+              return {
+                label: serviceItem["name"],
+                id: serviceItem["_id"],
+                _resource: serviceItem._resource,
+                url: serviceItem["url"],
+                method: serviceItem["method"]
+              };
+            });
+            entity = entity.map(entityItem => {
+              return {
+                label: entityItem["name"],
+                value: entityItem._id
+              };
+            });
+            if (message.data === null) {
+              message.data = [];
+            }
+            let serviceListPresent: string[] = message.data.map((servicePresent: any) => servicePresent["_id"]);
+            serviceList = serviceList.filter(item => {
+              return serviceListPresent.indexOf(item["id"]) === -1;
+            });
 
-              vscode.window.showQuickPick(entity, {
+            vscode.window
+              .showQuickPick(entity, {
                 placeHolder: "Select entity"
-              }).then(api => {
+              })
+              .then(api => {
                 let apiItem: any[] = [];
-                if(apiItem) {
+                if (apiItem) {
                   apiItem = serviceList.filter(item => {
-                    if(item.nameResource === api.label) {
-                      return {
-                        label: item.label + " " + item.url,
-                        id_service: item.id,
-                        nameResource: item.nameResource,
-                        method: item.method,
-                        name: item.label
-                      };
-                    }
+                    return item._resource === api.value;
                   });
-                  vscode.window.showQuickPick(apiItem, {
-                    placeHolder:"Select api"
-                  }).then(result => {
-                    panel.webview.postMessage({
-                      command: "addApi",
-                      data: result
+                  vscode.window
+                    .showQuickPick(apiItem, {
+                      placeHolder: "Select api"
+                    })
+                    .then(result => {
+                      result.nameResource = api.label;
+                      panel.webview.postMessage({
+                        command: "addApi",
+                        data: result
+                      });
                     });
-                  });
                 }
               });
-              break;
+            break;
         }
       },
       undefined,
