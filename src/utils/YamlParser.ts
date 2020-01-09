@@ -252,7 +252,7 @@ export class YamlParser {
             let resJSon = (serv as Service)._resource;
 
             if (resJSon) {
-              let res: Resource = resJSon;
+              let res: Resource = resJSon as Resource;
               resourcesMap.set(res._id, res);
             }
 

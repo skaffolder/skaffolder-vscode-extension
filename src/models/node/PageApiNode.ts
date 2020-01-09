@@ -25,7 +25,7 @@ export class PageApiNode {
 
     // Find api
     let api: Service = DataService.findApi(apiPage._id) as Service;
-    let resource: Resource = DataService.findResource((api._resource as Resource)._id) as Resource;
+    let resource: Resource = DataService.findResource(api._resource as string) as Resource;
 
     // Find db api
     let db;

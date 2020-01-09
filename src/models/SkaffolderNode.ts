@@ -41,35 +41,40 @@ export class SkaffolderNode extends vscode.TreeItem {
   ) {
     super("", vscode.TreeItemCollapsibleState.None);
 
-    // Switch action by node type
-    if (skaffolderObject !== undefined) {
-      // Pages tree
-      if (type === "page") {
-        PageRoot.execute(this);
-      } else if (type === "page_page") {
-        PageNode.execute(this, indexMap);
-      } else if (type === "page_page_api") {
-        PageApiNode.execute(this, indexMap);
-      } else if (type === "page_page_not_found") {
-        PageNotFound.execute(this);
-      } else if (type === "page_page_api_notfound") {
-        PageApiNotFound.execute(this);
-      }
+    try {
+      // Switch action by node type
+      if (skaffolderObject !== undefined) {
+        // Pages tree
+        if (type === "page") {
+          PageRoot.execute(this);
+        } else if (type === "page_page") {
+          PageNode.execute(this, indexMap);
+        } else if (type === "page_page_api") {
+          PageApiNode.execute(this, indexMap);
+        } else if (type === "page_page_not_found") {
+          PageNotFound.execute(this);
+        } else if (type === "page_page_api_notfound") {
+          PageApiNotFound.execute(this);
+        }
 
-      // Model tree
-      else if (type === "model") {
-        ModelRoot.execute(this);
-      } else if (type === "model_db") {
-        ModelDbNode.execute(this, indexMap);
-      } else if (type === "model_db_resource") {
-        ModelResourceNode.execute(this, indexMap);
-      } else if (type === "api_db_resource_api") {
-        ModelApiNode.execute(this, indexMap);
-      } else if (type === "api_db_resource_api_notfound") {
-        ModelApiNotFound.execute(this);
-      } else if (type === "model_db_not_found") {
-        ModelNotFound.execute(this);
+        // Model tree
+        else if (type === "model") {
+          ModelRoot.execute(this);
+        } else if (type === "model_db") {
+          ModelDbNode.execute(this, indexMap);
+        } else if (type === "model_db_resource") {
+          ModelResourceNode.execute(this, indexMap);
+        } else if (type === "api_db_resource_api") {
+          ModelApiNode.execute(this, indexMap);
+        } else if (type === "api_db_resource_api_notfound") {
+          ModelApiNotFound.execute(this);
+        } else if (type === "model_db_not_found") {
+          ModelNotFound.execute(this);
+        }
       }
+    } catch (e) {
+      console.error(e);
+      vscode.window.showErrorMessage(e.message + e.stack);
     }
   }
 }

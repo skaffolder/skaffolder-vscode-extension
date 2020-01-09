@@ -172,7 +172,15 @@ export class DataService {
       let yamlObjCopy: any;
       yamlObjCopy = JSON.parse(JSON.stringify(fileObj));
       try {
-        DataService.dataObj = YamlParser.parseYaml(yamlObjCopy, dataYaml);
+        // DataService.dataObj = YamlParser.parseYaml(yamlObjCopy, dataYaml);
+        DataService.dataObj = SkaffolderCli.getProjectData(
+          {
+            info: function(msg: string) {
+              vscode.window.showInformationMessage(msg);
+            }
+          },
+          vscode.workspace.rootPath + "/"
+        );
       } catch (e) {
         console.error("Error in parsing YAML");
         console.error(e);

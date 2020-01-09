@@ -5,11 +5,7 @@ import { Role } from "./role";
 import { ServiceParam } from "./service-param";
 
 export class Service {
-  constructor(
-    public index: Range | undefined,
-    public method: string,
-    objYaml: any
-  ) {
+  constructor(public index: Range | undefined, public method: string, objYaml: any) {
     this._id = objYaml["x-skaffolder-id"];
     this.name = objYaml["x-skaffolder-name"];
 
@@ -44,7 +40,7 @@ export class Service {
   public returnType?: string;
   public url?: string;
   public _crudEntity?: Entity;
-  public _resource?: Resource;
+  public _resource?: Resource | string;
   public _roles?: Role[];
   public _params: ServiceParam[] = [];
 }
