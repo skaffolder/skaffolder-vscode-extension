@@ -82,7 +82,10 @@ export class ModelView {
           case "getModel":
             panel.webview.postMessage({
               command: "getModel",
-              data: contextNode.params ? contextNode.params.model : null
+              data: { 
+                entity: contextNode.params ? contextNode.params.model : null,
+                service: contextNode.params!.model!._services
+              }
             });
             break;
           case "getAllModels":

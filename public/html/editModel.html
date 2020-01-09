@@ -121,6 +121,24 @@
       </div>
     </div>
 
+    <!-- API -->
+    <div class="form-group">
+      <label>
+        API
+      </label>
+      <div>
+        <div ng-repeat="api in service">
+          <div class="badge" ng-class="{ {{ api.method }} : true }" >
+            <span class="resource-name"> {{ api._resource.name }}</span>
+            <span class="service-name" ng-class="{{ api.method }} ">{{ api.name }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="mt-10">
+        <a href="" ng-click="">Add API</a>
+      </div> -->
+    </div>
+
     <!-- Footer -->
     <div class="footer">
       <button class="primary-button" ng-click="save()">Save</button>

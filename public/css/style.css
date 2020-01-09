@@ -171,7 +171,7 @@ select {
     outline: 0; }
 
 .ico-remove {
-  background-image: url(.../img/files.svg./ibackground-repeat:no-repeat;background-size:30px;mg/x.svg);
+  background-image: url(../img/x.svg);
   background-repeat: no-repeat;
   display: inline-block;
   width: 10px;
