@@ -4,7 +4,8 @@ app.controller("EditModelController", [
   function($scope, DataService) {
     // Get data
     DataService.getModel().then(data => {
-      $scope.model = data;
+      $scope.model = data.entity;
+      $scope.service = data.service;
     });
     DataService.getAllModels().then(data => {
       $scope.model_list = data;
@@ -48,8 +49,10 @@ app.controller("EditModelController", [
     };
 
     $scope.addRel = () => {
-      if (!$scope.model._entity._relations) $scope.model._entity._relations = [];
-      !$scope.model._entity._relations.push({});
+      if (!$scope.model._entity._relations) {
+        $scope.model._entity._relations = [];
+      }
+      $scope.model._entity._relations.push({});
     };
   }
 ]);
