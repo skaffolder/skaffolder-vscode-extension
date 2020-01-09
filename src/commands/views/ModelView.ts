@@ -5,6 +5,7 @@ import { SkaffolderNode } from "../../models/SkaffolderNode";
 import { Offline } from "skaffolder-cli";
 import { Resource } from "../../models/jsonreader/resource";
 import { Entity } from "../../models/jsonreader/entity";
+import { refreshTree } from "../../extension";
 
 export class ModelView {
   static async open(contextNode: SkaffolderNode) {
@@ -39,31 +40,44 @@ export class ModelView {
                 "x-skaffolder-id-entity": _entity._id,
                 "x-skaffolder-url": model.url,
                 "x-skaffolder-relations": (_entity._relations as any[]).reduce((acc, cur) => {
-                  if (!acc) { acc = {}; }
+                  if (!acc) {
+                    acc = {};
+                  }
                   var _ent2 = cur._ent2._id || cur._ent2.name;
 
                   acc[cur.name] = {
                     "x-skaffolder-id": cur._id,
                     "x-skaffolder-ent1": _entity._id,
                     "x-skaffolder-ent2": _ent2,
-                    "x-skaffolder-type": cur.type,
+                    "x-skaffolder-type": cur.type
                   };
 
                   return acc;
                 }, null),
-                "properties": (_entity._attrs as any[]).reduce((acc, cur) => {
-                  if (!acc) { acc = {}; }
+                properties: (_entity._attrs as any[]).reduce((acc, cur) => {
+                  if (!acc) {
+                    acc = {};
+                  }
 
                   let attr_type = cur.type || "String";
                   acc[cur.name] = {
-                    "type": attr_type.toLowerCase(),
+                    type: attr_type.toLowerCase(),
                     "x-skaffolder-id-attr": cur._id,
-                    "x-skaffolder-type": attr_type,
-                    "x-skaffolder-required": cur.required,
+                    "x-skaffolder-type": attr_type
                   };
 
-                  if (cur._enum) {
-                    acc[cur.name]["x-skaffolder-enumeration"] = (cur._enum as any[]).map((val) => { return val.name; });
+                  if (cur.required) {
+                    acc[cur.name]["x-skaffolder-required"] = true;
+                  }
+
+                  if (cur.unique) {
+                    acc[cur.name]["x-skaffolder-unique"] = true;
+                  }
+
+                  if (cur._enum && cur._enum.length > 0) {
+                    acc[cur.name]["x-skaffolder-enumeration"] = (cur._enum as any[]).map(val => {
+                      return val.name;
+                    });
                   }
 
                   return acc;
@@ -73,6 +87,7 @@ export class ModelView {
               Offline.createModel(model.name, yamlModel);
             }
             vscode.window.showInformationMessage("Save");
+            refreshTree();
             return;
           case "openFiles":
             panel.webview.postMessage({
@@ -84,7 +99,7 @@ export class ModelView {
           case "getModel":
             panel.webview.postMessage({
               command: "getModel",
-              data: { 
+              data: {
                 entity: contextNode.params ? contextNode.params.model : null,
                 service: contextNode.params!.model!._services
               }
