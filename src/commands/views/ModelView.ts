@@ -38,12 +38,14 @@ export class ModelView {
                 "x-skaffolder-id-db": model._db,
                 "x-skaffolder-id-entity": _entity._id,
                 "x-skaffolder-url": model.url,
-                "x-skaffolder-relations": (model._relations as any[]).reduce((acc, cur) => {
+                "x-skaffolder-relations": (_entity._relations as any[]).reduce((acc, cur) => {
                   if (!acc) { acc = {}; }
+                  var _ent2 = cur._ent2._id || cur._ent2.name;
+
                   acc[cur.name] = {
                     "x-skaffolder-id": cur._id,
-                    "x-skaffolder-ent1": cur._ent1._id,
-                    "x-skaffolder-ent2": cur._ent2._id,
+                    "x-skaffolder-ent1": _entity._id,
+                    "x-skaffolder-ent2": _ent2,
                     "x-skaffolder-type": cur.type,
                   };
 
