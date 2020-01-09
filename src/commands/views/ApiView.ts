@@ -34,7 +34,13 @@ export class ApiView {
     panel.webview.onDidReceiveMessage(
       message => {
         switch (message.command) {
-          case "save":
+          case "saveApi":
+            if (message.data && message.data._resource) {
+              var service = message.data as Service; 
+              var _res = DataService.findResource(service._resource as string);
+
+              Offline.createService(service, _res);
+            }
             vscode.window.showInformationMessage("Save");
             return;
           case "openFiles":

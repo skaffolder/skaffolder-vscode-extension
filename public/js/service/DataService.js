@@ -42,7 +42,9 @@ app.service("DataService", [
       getApi: () => {
         return DataServiceUtils.askData("getApi");
       },
-
+      saveApi: service => {
+        return DataServiceUtils.askData("saveApi", service);
+      },
       // Generation
       getLogs: () => {
         return DataServiceUtils.askData("getLogs");

@@ -7,6 +7,12 @@ app.controller("EditApiController", [
       $scope.api = data;
     });
 
+    $scope.save = () => {
+      DataService.saveApi($scope.api).then(data => {
+        console.log("saved");
+      });
+    };
+
     // Actions
     $scope.openFiles = () => {
       DataService.openFiles();
