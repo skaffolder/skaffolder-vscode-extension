@@ -6,7 +6,6 @@ import * as Handlebars from "handlebars";
 
 import { SkaffolderObject } from "../models/skaffolderObject";
 import { Db } from "../models/jsonreader/db";
-import { YamlParser } from "../utils/YamlParser";
 import { Resource } from "../models/jsonreader/resource";
 import { Page } from "../models/jsonreader/page";
 import { Project } from "../models/jsonreader/project";
