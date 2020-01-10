@@ -39,7 +39,35 @@ export class ApiView {
               var service = message.data as Service; 
               var _res = DataService.findResource(service._resource as string);
 
-              Offline.createService(service, _res);
+              if (_res) {
+                var service_yaml = {
+                  "x-skaffolder-id": service._id,
+                  "x-skaffolder-name": service.name,
+                  "x-skaffolder-id-resource": _res._id,
+                  "x-skaffolder-resource": _res.name,
+                  "x-skaffolder-crudAction": service.crudAction,
+                  "x-skaffolder-crudType": service.crudType,
+                  "x-skaffolder-description": service.description,
+                  "x-skaffolder-returnDesc": service.returnDesc,
+                  "x-skaffolder-returnType": service.returnType,
+                  "x-skaffolder-url": service.url,
+                  "parameters": service._params.map((val) => {
+                    return {
+                      "name": val.name,
+                      "x-skaffolder-type": val.type,
+                      "in": "path",
+                      "description": val.description,
+                      "required": true
+                    };
+                  })
+                } as any;
+
+                if (service._roles) {
+                  service_yaml["x-skaffolder-roles"] = service._roles.map((val) => { return val._id; });
+                }
+
+                Offline.createService(service_yaml, service.method, _res);
+              }
             }
             vscode.window.showInformationMessage("Save");
             return;
