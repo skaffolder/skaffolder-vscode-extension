@@ -2,8 +2,8 @@ import * as vscode from "vscode";
 import { Offline } from "skaffolder-cli";
 import { refreshTree } from "../extension";
 import { SkaffolderNode } from "../models/SkaffolderNode";
-import { ModelView } from "./views/ModelView";
 import { ApiView } from "./views/ApiView";
+import { DataService } from "../services/DataService";
 
 export class CreateApiCommand {
   static async command(contextNode: SkaffolderNode) {
@@ -21,20 +21,36 @@ export class CreateApiCommand {
       })
       .then(nameApi => {
         if (nameApi) {
-          var api_yaml = {
-            "x-skaffolder-id-db": contextNode.params && contextNode.params.db ? contextNode.params.db._id : ""
-          };
-          let service = Offline.createService(api_yaml);
-          vscode.window.showInformationMessage("API " + nameApi + " created");
-          let trees = refreshTree();
 
-          // Open model view
-          if (trees) {
-            let apiNodes: any = trees.model.getChildren();
-            for (let p in apiNodes) {
-              let apiNode: SkaffolderNode = apiNodes[p];
-              if (apiNode.params && apiNode.params.service && apiNode.params.service._id === service["x-skaffolder-id"]) {
-                ApiView.open(apiNode);
+          if (contextNode.params && contextNode.params.model && contextNode.params.model._id) {
+            var _res = DataService.findResource(contextNode.params.model._id);
+
+            if (_res) {
+              var api_yaml = {
+                "x-skaffolder-name": nameApi,
+                "x-skaffolder-id-resource": _res._id,
+                "x-skaffolder-resource": _res.name,
+                "x-skaffolder-url": "/custom_api",
+                "x-skaffolder-crudAction": null,
+                "x-skaffolder-crudType": null,
+                "x-skaffolder-description": null,
+                "x-skaffolder-returnDesc": null,
+                "x-skaffolder-returnType": null
+              };
+
+              let service = Offline.createService(api_yaml, "get", _res);
+              vscode.window.showInformationMessage("API " + nameApi + " created");
+              let trees = refreshTree();
+
+              // Open model view
+              if (trees) {
+                let apiNodes: any = trees.model.getChildren();
+                for (let p in apiNodes) {
+                  let apiNode: SkaffolderNode = apiNodes[p];
+                  if (apiNode.params && apiNode.params.service && apiNode.params.service._id === service["x-skaffolder-id"]) {
+                    ApiView.open(apiNode);
+                  }
+                }
               }
             }
           }
