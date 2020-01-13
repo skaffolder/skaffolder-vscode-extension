@@ -29,13 +29,17 @@ export class CreateModelCommand {
 
           // Open model view
           if (trees) {
-            let modelNodes: any = trees.model.getChildren();
-            for (let p in modelNodes) {
-              let modelNode: SkaffolderNode = modelNodes[p];
-              if (modelNode.params && modelNode.params.model && modelNode.params.model._id === model["x-skaffolder-id"]) {
-                ModelView.open(modelNode);
+            let dbNodes = <SkaffolderNode[]>trees.model.getChildren();
+
+            dbNodes.forEach((_db_node) => {
+              if (contextNode.params && contextNode.params.db && contextNode.params.db.name === _db_node.label) {
+                _db_node.children.forEach((_res_node) => {
+                  if (_res_node.params && _res_node.params.model && _res_node.params.model._id === model["x-skaffolder-id"]) {
+                    ModelView.open(_res_node);
+                  }
+                });
               }
-            }
+            });
           }
         }
       });

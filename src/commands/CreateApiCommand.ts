@@ -71,15 +71,21 @@ export class CreateApiCommand {
                             vscode.window.showInformationMessage("API " + nameApi + " created");
                             let trees = refreshTree();
 
-                            // Open model view
+                            // open api view
                             if (trees) {
-                              let apiNodes: any = trees.model.getChildren();
-                              for (let p in apiNodes) {
-                                let apiNode: SkaffolderNode = apiNodes[p];
-                                if (apiNode.params && apiNode.params.service && apiNode.params.service._id === service["x-skaffolder-id"]) {
-                                  ApiView.open(apiNode);
+                              let dbNodes = <SkaffolderNode[]>trees.model.getChildren();
+
+                              dbNodes.forEach((_db_node) => {
+                                if (contextNode.params && contextNode.params.db && contextNode.params.db.name === _db_node.label) {
+                                  _db_node.children.forEach((_res_node) => {
+                                    _res_node.children.forEach((_serv_node) => {
+                                      if (_serv_node.params && _serv_node.params.service && _serv_node.params.service._id === service["x-skaffolder-id"]) {
+                                        ApiView.open(_serv_node);
+                                      }
+                                    });
+                                  });
                                 }
-                              }
+                              });
                             }
                           }
                         }
