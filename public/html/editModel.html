@@ -124,9 +124,9 @@
       </label>
       <div>
         <div ng-repeat="api in service">
-          <div class="badge" ng-class="{ {{ api.method }} : true }" >
-            <span class="resource-name"> {{ api._resource.name }}</span>
-            <span class="service-name" ng-class="{{ api.method }} ">{{ api.name }}</span>
+          <div class="badge {{ api.method | lowercase }}">
+            <span class="resource-name">{{ api.method }}</span>
+            <span class="service-name">{{ api.name }}</span>
           </div>
         </div>
       </div>

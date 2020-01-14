@@ -124,49 +124,63 @@ body.vscode-light {
 
   .service-name {
     font-weight: normal;
-    &.public {
+  }
+
+  &.public {
+    background-color: $green-light;
+
+    .service-name {
       color: $green-dark;
     }
-    &.post {
+  }
+
+  &.post {
+    background-color: $blu-light;
+
+    .service-name {
       color: $blu-dark !important;
     }
-    &.get {
+  }
+
+  &.get {
+    background-color: $green-light;
+
+    .service-name {
       color: $green-dark !important;
     }
-    &.delete {
+  }
+
+  &.delete {
+    background-color: $red-light;
+
+    .service-name {
       color: $red-dark;
     }
-    &.option {
+  }
+
+  &.option {
+    background-color: $yellow-light;
+
+    .service-name {
       color: $yellow-dark;
     }
-    &.path {
+  }
+
+  &.patch {
+    background-color: $yellow-light;
+
+    .service-name {
       color: $yellow-dark;
     }
-    &.put {
+  }
+
+  &.put {
+    background-color: $blu-light;
+
+    .service-name {
       color: $blu-dark;
     }
   }
-    &.public {
-      background-color: $green-light;
-    }
-    &.post {
-      background-color: $blu-light;
-    }
-    &.get {
-      background-color: $green-light;
-    }
-    &.delete {
-      background-color: $red-light;
-    }
-    &.option {
-      background-color: $yellow-light;
-    }
-    &.path {
-      background-color: $yellow-light;
-    }
-    &.put {
-      background-color: $blu-light;
-    }
 }
 
 // Select

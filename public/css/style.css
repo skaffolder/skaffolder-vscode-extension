@@ -129,34 +129,34 @@ body.vscode-light .files-button {
     color: black; }
   .badge .service-name {
     font-weight: normal; }
-    .badge .service-name.public {
-      color: #337151; }
-    .badge .service-name.post {
-      color: #163D77 !important; }
-    .badge .service-name.get {
-      color: #337151 !important; }
-    .badge .service-name.delete {
-      color: #842422; }
-    .badge .service-name.option {
-      color: #B46A02; }
-    .badge .service-name.path {
-      color: #B46A02; }
-    .badge .service-name.put {
-      color: #163D77; }
   .badge.public {
     background-color: #60DB9B; }
+    .badge.public .service-name {
+      color: #337151; }
   .badge.post {
     background-color: #388CFF; }
+    .badge.post .service-name {
+      color: #163D77 !important; }
   .badge.get {
     background-color: #60DB9B; }
+    .badge.get .service-name {
+      color: #337151 !important; }
   .badge.delete {
     background-color: #FF423D; }
+    .badge.delete .service-name {
+      color: #842422; }
   .badge.option {
     background-color: #FFB958; }
-  .badge.path {
+    .badge.option .service-name {
+      color: #B46A02; }
+  .badge.patch {
     background-color: #FFB958; }
+    .badge.patch .service-name {
+      color: #B46A02; }
   .badge.put {
     background-color: #388CFF; }
+    .badge.put .service-name {
+      color: #163D77; }
 
 select {
   background-color: var(--vscode-editorIndentGuide-background);
