@@ -34,6 +34,9 @@ app.service("DataService", [
       getAllModels: () => {
         return DataServiceUtils.askData("getAllModels");
       },
+      addApiModel: api => {
+        return DataServiceUtils.askData("addApi", api);
+      },
       // Db
       getDb: () => {
         return DataServiceUtils.askData("getDb");

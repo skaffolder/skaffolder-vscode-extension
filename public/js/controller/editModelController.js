@@ -22,6 +22,10 @@ app.controller("EditModelController", [
       });
     };
 
+    $scope.addApi = () => {
+      DataService.addApiModel();
+    }
+
     // Attribues functions
     $scope.removeAttr = index => {
       $scope.model._entity._attrs.splice(index, 1);

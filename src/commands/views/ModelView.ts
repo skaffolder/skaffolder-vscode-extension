@@ -122,6 +122,13 @@ export class ModelView {
               data: listModels
             });
             break;
+            case "addApi":
+              panel.webview.postMessage({
+                command: "addApi"
+              });
+              // Execute Command
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.createApi", contextNode);
+            break;
         }
       },
       undefined,
