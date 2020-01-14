@@ -42,23 +42,26 @@ export class PageView {
                 "x-skaffolder-url": page.url,
                 "x-skaffolder-template": page.template,
                 "x-skaffolder-resource": page._template_resource,
-                "x-skaffolder-services": page._services
-                  ? (page._services as Service[]).map(_serv => {
-                      return _serv._id;
-                    })
-                  : page._services,
-                "x-skaffolder-nesteds": page._nesteds
-                  ? (page._nesteds as Page[]).map(_page => {
-                      return _page._id;
-                    })
-                  : page._nesteds,
-                "x-skaffolder-links": page._links
-                  ? (page._links as Page[]).map(_page => {
-                      return _page._id;
-                    })
-                  : page._links,
                 "x-skaffolder-roles": page._roles
-              };
+              } as any;
+
+              if (page._services && page._services.length > 0) {
+                yamlPage["x-skaffolder-services"] = (page._services as Service[]).map(_serv => {
+                  return _serv._id;
+                });
+              }
+
+              if (page._nesteds && page._nesteds.length > 0) {
+                yamlPage["x-skaffolder-nesteds"] = (page._nesteds as Page[]).map(_serv => {
+                  return _serv._id;
+                });
+              }
+
+              if (page._links && page._links.length > 0) {
+                yamlPage["x-skaffolder-links"] = (page._links as Page[]).map(_serv => {
+                  return _serv._id;
+                });
+              }
 
               Offline.createPage(yamlPage);
             }
@@ -293,6 +296,9 @@ export class PageView {
                 }
               });
             break;
+          case "removePage":
+            
+          break;
         }
       },
       undefined,
