@@ -297,8 +297,16 @@ export class PageView {
               });
             break;
           case "removePage":
-            
-          break;
+            if (message.data) {
+              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" page?`, "Yes", "No").then((val) => {
+                if (val && val === "Yes") {
+                  Offline.removePage(message.data._id);
+                  panel.dispose();
+                  refreshTree();
+                }
+              });
+            }
+            break;
         }
       },
       undefined,

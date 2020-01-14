@@ -19,6 +19,12 @@ app.controller("EditPageController", [
       });
     };
 
+    $scope.delete = () => {
+      if ($scope.page && $scope.page.page) {
+        DataService.removePage($scope.page.page);
+      }
+    }
+
     // Linked functions
     $scope.addLinked = index => {
       DataService.addLinked($scope.page.page._links).then(data => {

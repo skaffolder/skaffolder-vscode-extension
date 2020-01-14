@@ -6,6 +6,9 @@ app.service("DataService", [
       savePage: page => {
         return DataServiceUtils.askData("savePage", page);
       },
+      removePage: page => {
+        return DataServiceUtils.askData("removePage", page);
+      },
       getPage: () => {
         return DataServiceUtils.askData("getPage");
       },
