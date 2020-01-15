@@ -5,6 +5,7 @@ import { SkaffolderNode } from "../../models/SkaffolderNode";
 import { Offline } from "skaffolder-cli";
 import { Service } from "../../models/jsonreader/service";
 import { DataService } from "../../services/DataService";
+import { refreshTree } from "../../extension";
 
 export class ApiView {
   static async open(contextNode: SkaffolderNode) {
@@ -119,6 +120,20 @@ export class ApiView {
                   data: roleItem
                 });
               });
+            break;
+
+          case "removeApi":
+            if (message.data) {
+              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" API?`, "Yes", "No").then((val) => {
+                if (val && val === "Yes") {
+                  if (Offline.removeService(message.data._id)) {
+                    panel.dispose();
+                  }
+
+                  refreshTree();
+                }
+              });
+            }
             break;
         }
       },

@@ -13,6 +13,10 @@ app.controller("EditApiController", [
       });
     };
 
+    $scope.delete = () => {
+      DataService.removeApi($scope.api);
+    }
+
     // Actions
     $scope.openFiles = () => {
       DataService.openFiles();

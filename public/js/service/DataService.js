@@ -51,6 +51,9 @@ app.service("DataService", [
       saveApi: service => {
         return DataServiceUtils.askData("saveApi", service);
       },
+      removeApi: service => {
+        return DataServiceUtils.askData("removeApi", service);
+      },
       // Generation
       getLogs: () => {
         return DataServiceUtils.askData("getLogs");
