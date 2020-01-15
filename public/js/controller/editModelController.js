@@ -21,7 +21,11 @@ app.controller("EditModelController", [
         console.log("saved");
       });
     };
-
+    
+    $scope.delete = () => {
+      DataService.removeModel($scope.model);
+    };
+    
     $scope.addApi = () => {
       DataService.addApiModel();
     }

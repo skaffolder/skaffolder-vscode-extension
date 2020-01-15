@@ -130,6 +130,25 @@ export class ModelView {
             // Execute Command
             vscode.commands.executeCommand<vscode.Location[]>("skaffolder.createApi", contextNode);
             break;
+          case "removeModel":
+            if (message.data) {
+              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" model?`, "Yes", "No").then((removeModel) => {
+
+                if (removeModel && removeModel === "Yes") {
+                  vscode.window.showWarningMessage(`Do you want to delete "${message.data.name}" model template pages too?`, "Yes", "No").then((removePages) => {
+
+                    if (removePages) {
+                      if (Offline.removeModel(message.data._id, removePages === "Yes")) {
+                        panel.dispose();
+                      }
+
+                      refreshTree();
+                    }
+                  });
+                }
+              });
+            }
+            break;
         }
       },
       undefined,

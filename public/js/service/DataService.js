@@ -31,6 +31,9 @@ app.service("DataService", [
       saveModel: model => {
         return DataServiceUtils.askData("saveModel", model);
       },
+      removeModel: model => {
+        return DataServiceUtils.askData("removeModel", model);
+      },
       getModel: () => {
         return DataServiceUtils.askData("getModel");
       },
