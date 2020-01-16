@@ -52,6 +52,10 @@ export class ModelView {
                     "x-skaffolder-type": cur.type
                   };
 
+                  if (cur.required) {
+                    acc[cur.name]["x-skaffolder-required"] = true;
+                  }
+
                   return acc;
                 }, null),
                 properties: (_entity._attrs as any[]).reduce((acc, cur) => {
