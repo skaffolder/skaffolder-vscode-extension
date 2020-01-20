@@ -101,6 +101,7 @@ export class ModelView {
             vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
             break;
           case "getModel":
+            console.log(contextNode.params!.model!._entity);
             panel.webview.postMessage({
               command: "getModel",
               data: {

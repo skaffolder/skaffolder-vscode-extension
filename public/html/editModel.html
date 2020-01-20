@@ -76,7 +76,7 @@
       <label>
         Relations
       </label>
-      <div ng-repeat="rel in model._entity._relations" class="rel-container mt-30">
+      <div ng-repeat="rel in model._entity._relations" ng-hide="model.name === rel._ent2.name"class="rel-container mt-30">
         <div class="mt-10">
           <input type="text" ng-model="rel.name" placeholder="Name" />
         </div>
