@@ -30,6 +30,10 @@ app.controller("EditModelController", [
       DataService.addApiModel();
     }
 
+    $scope.createCrud = () => {
+      DataService.createCrud($scope.model);
+    }
+
     // Attribues functions
     $scope.removeAttr = index => {
       $scope.model._entity._attrs.splice(index, 1);

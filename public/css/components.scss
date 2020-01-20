@@ -89,6 +89,18 @@ body.vscode-light {
   }
 }
 
+//CRUD button
+
+.crud-button {
+  background-color: transparent;
+  color: $light-gray2;
+
+  &:hover {
+    background-color: transparent;
+    text-decoration: underline;
+  }
+}
+
 // Delete button
 .delete-button {
   background-image: url("../img/delete.svg");

@@ -43,6 +43,9 @@ app.service("DataService", [
       addApiModel: api => {
         return DataServiceUtils.askData("addApi", api);
       },
+      createCrud: model => {
+        return DataServiceUtils.askData("createCrud", model)
+      },
       // Db
       getDb: () => {
         return DataServiceUtils.askData("getDb");
