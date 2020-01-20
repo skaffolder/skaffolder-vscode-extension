@@ -153,6 +153,43 @@ export class ModelView {
               });
             }
             break;
+          case "createCrud":
+            if (message.data) {
+              let resource = message.data as Resource;
+              let _entity = resource._entity as Entity;
+
+              if (_entity) {
+                var model_yaml = {
+                  "x-skaffolder-id": resource._id,
+                  "x-skaffolder-id-entity": _entity._id
+                } as any;
+
+                if (resource._relations && resource._relations.length > 0) {
+                  model_yaml["x-skaffolder-relations"] = (resource._relations as any[]).reduce((acc, cur) => {
+                    if (!acc) {
+                      acc = {};
+                    }
+                    var _ent2 = cur._ent2._id || cur._ent2.name;
+
+                    acc[cur.name] = {
+                      "x-skaffolder-id": cur._id,
+                      "x-skaffolder-ent1": _entity._id,
+                      "x-skaffolder-ent2": _ent2,
+                      "x-skaffolder-type": cur.type
+                    };
+
+                    if (cur.required) {
+                      acc[cur.name]["x-skaffolder-required"] = true;
+                    }
+
+                    return acc;
+                  }, null);
+                }
+
+                Offline.createCrud(model_yaml);
+              }
+            }
+            break;
         }
       },
       undefined,
