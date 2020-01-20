@@ -18,6 +18,7 @@ SkaffolderCli.registerHelpers(Handlebars);
 export class DataService {
   private static dataObj: SkaffolderObject;
   private static yamlObj: any;
+  private static dataYaml: string;
   private static mapResource: Map<String, Resource> | undefined;
   private static mapService: Map<String, Service> | undefined;
   private static templateFiles: SkaffolderCli.GeneratorFile[];
@@ -146,19 +147,18 @@ export class DataService {
 
     // read file in workspace
     let contexturl = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
-    let dataYaml: string = "";
+
     try {
       // Read file
-      dataYaml = fs.readFileSync(contexturl.path, "utf-8");
+      DataService.dataYaml = fs.readFileSync(contexturl.path, "utf-8");
     } catch (e) {
       console.error('File "openapi.yaml" not found', e);
       vscode.window.showWarningMessage("Workspace has no openapi.yaml");
     }
 
-    if (dataYaml !== "") {
-      let fileObj;
+    if (DataService.dataYaml) {
       try {
-        fileObj = yaml.parse(dataYaml);
+        DataService.yamlObj = yaml.parse(DataService.dataYaml);
       } catch (e) {
         console.error('File "openapi.yaml" not parsable');
         console.error(e);
@@ -167,19 +167,8 @@ export class DataService {
         throw e;
       }
 
-      DataService.yamlObj = fileObj;
-      let yamlObjCopy: any;
-      yamlObjCopy = JSON.parse(JSON.stringify(fileObj));
       try {
-        // DataService.dataObj = YamlParser.parseYaml(yamlObjCopy, dataYaml);
-        DataService.dataObj = SkaffolderCli.getProjectData(
-          {
-            info: function(msg: string) {
-              vscode.window.showInformationMessage(msg);
-            }
-          },
-          vscode.workspace.rootPath + "/"
-        );
+        DataService.dataObj = SkaffolderCli.translateYamlProject(DataService.yamlObj);
       } catch (e) {
         console.error("Error in parsing YAML");
         console.error(e);
@@ -234,6 +223,13 @@ export class DataService {
       DataService.refreshData();
     }
     return DataService.yamlObj;
+  }
+
+  static getDataYaml(): string {
+    if (!DataService.dataYaml) {
+      DataService.refreshData();
+    }
+    return DataService.dataYaml;
   }
 
   public static getApi(): Db[] {
