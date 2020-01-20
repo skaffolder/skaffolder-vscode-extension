@@ -17,8 +17,8 @@ export class PageView {
     });
 
     // Open yaml
-    if (contextNode.params) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.range);
+    if (contextNode.params && contextNode.params.page) {
+      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.page._id);
     }
 
     // Serve page

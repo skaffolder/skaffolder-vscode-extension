@@ -15,8 +15,8 @@ export class ModelView {
     });
 
     // Open yaml
-    if (contextNode.params) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.range);
+    if (contextNode.params && contextNode.params.model) {
+      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.model._id);
     }
 
     // Serve page
@@ -39,35 +39,49 @@ export class ModelView {
                 "x-skaffolder-id-db": model._db,
                 "x-skaffolder-id-entity": _entity._id,
                 "x-skaffolder-url": model.url,
-                "x-skaffolder-relations": (_entity._relations as any[]).reduce((acc, cur) => {
+                "x-skaffolder-relations": (_entity._relations as any[]).filter((val) => {
+                  return val._ent2._id !== _entity._id;
+                }).reduce((acc, cur) => {
                   if (!acc) {
                     acc = {};
                   }
-                  var _ent2 = cur._ent2._id || cur._ent2.name;
-
-                  acc[cur.name] = {
-                    "x-skaffolder-id": cur._id,
-                    "x-skaffolder-ent1": _entity._id,
-                    "x-skaffolder-ent2": _ent2,
-                    "x-skaffolder-type": cur.type
-                  };
-
-                  if (cur.required) {
-                    acc[cur.name]["x-skaffolder-required"] = true;
-                  }
-
-                  return acc;
+                    var _ent2 = cur._ent2._id || cur._ent2.name;
+                    
+                    acc[cur.name] = {
+                      "x-skaffolder-id": cur._id,
+                      "x-skaffolder-ent1": _entity._id,
+                      "x-skaffolder-ent2": _ent2,
+                      "x-skaffolder-type": cur.type
+                    };
+                    
+                    if (cur.required) {
+                      acc[cur.name]["x-skaffolder-required"] = true;
+                    }
+                    
+                    return acc;
                 }, null),
                 properties: (_entity._attrs as any[]).reduce((acc, cur) => {
                   if (!acc) {
                     acc = {};
                   }
 
-                  let attr_type = cur.type || "String";
+                  let attr_type;
+                  switch (cur.type) {
+                    case "Date":
+                    case "Integer": attr_type = "integer"; break;
+                    case "Decimal":
+                    case "Number": attr_type = "number"; break;
+                    case "ObjectId":
+                    case "String": attr_type = "string"; break;
+                    case "Boolean": attr_type = "boolean"; break;
+                    case "Custom": attr_type = "object"; break;
+                    default: attr_type = "String";
+                  }
+
                   acc[cur.name] = {
-                    type: attr_type.toLowerCase(),
+                    type: attr_type,
                     "x-skaffolder-id-attr": cur._id,
-                    "x-skaffolder-type": attr_type
+                    "x-skaffolder-type": cur.type
                   };
 
                   if (cur.required) {
@@ -166,7 +180,9 @@ export class ModelView {
                 } as any;
 
                 if (resource._relations && resource._relations.length > 0) {
-                  model_yaml["x-skaffolder-relations"] = (resource._relations as any[]).reduce((acc, cur) => {
+                  model_yaml["x-skaffolder-relations"] = (resource._relations as any[]).filter((val) => {
+                    return val._ent2._id !== _entity._id;
+                  }).reduce((acc, cur) => {
                     if (!acc) {
                       acc = {};
                     }
