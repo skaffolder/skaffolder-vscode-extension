@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { DataService } from "../services/DataService";
 
 export class OpenYamlCommand {
   static async command(_id: string) {
@@ -10,7 +11,7 @@ export class OpenYamlCommand {
       docProm.then(doc => {
         let tab = vscode.window.showTextDocument(doc, vscode.ViewColumn.Two);
 
-        const docLines = doc.getText().split(/[\n\r\u2028\u2029]+/g);
+        const docLines = DataService.getDataYaml().split(/[\n\r\u2028\u2029]+/g);
         const regex = new RegExp(`x-skaffolder-id:\\s*${_id}`);
 
         var range: vscode.Range;
