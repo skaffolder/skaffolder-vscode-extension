@@ -32,7 +32,7 @@ export class PageNode {
     };
 
     // Find children
-    if (page._services) {
+    if (page._services && page._services.length > 0) {
       page._services.forEach((element: any, index: any) => {
         let indexArr: number[] = [indexMap[0], index];
         node.children.push(new SkaffolderNode(node.context, node.skaffolderObject, "page_page_api", indexArr));
