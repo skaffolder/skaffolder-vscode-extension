@@ -21,8 +21,8 @@ export class ApiView {
     );
 
     // Open yaml
-    if (contextNode.params) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.range);
+    if (contextNode.params && contextNode.params.service) {
+      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.service._id);
     }
 
     // Serve page

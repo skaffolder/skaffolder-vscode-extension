@@ -15,8 +15,8 @@ export class ModelView {
     });
 
     // Open yaml
-    if (contextNode.params) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.range);
+    if (contextNode.params && contextNode.params.model) {
+      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.model._id);
     }
 
     // Serve page

@@ -12,8 +12,8 @@ export class DbView {
     });
 
     // Open yaml
-    if (contextNode.params) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.range);
+    if (contextNode.params && contextNode.params.db) {
+      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.db._id);
     }
 
     // Serve page

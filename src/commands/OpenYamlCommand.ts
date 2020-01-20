@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 export class OpenYamlCommand {
-  static async command(rangeModel: vscode.Range) {
+  static async command(_id: string) {
     let configFilePath = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
     // Open file openapi
     try {
@@ -9,16 +9,31 @@ export class OpenYamlCommand {
       let docProm = vscode.workspace.openTextDocument(configFilePath);
       docProm.then(doc => {
         let tab = vscode.window.showTextDocument(doc, vscode.ViewColumn.Two);
-        tab.then(tab => {
-          // Select range
-          let selection: vscode.Selection = new vscode.Selection(rangeModel.start, rangeModel.end);
-          tab.selection = selection;
 
-          // Scroll to pos
-          let posStart: vscode.Position = new vscode.Position(rangeModel.start.line - 1, 0);
-          let posEnd: vscode.Position = new vscode.Position(rangeModel.end.line + 100, 0);
-          let rangeScroll: vscode.Range = new vscode.Range(posStart, posEnd);
-          tab.revealRange(rangeScroll);
+        const docLines = doc.getText().split(/[\n\r\u2028\u2029]+/g);
+        const regex = new RegExp(`x-skaffolder-id:\\s*${_id}`);
+
+        var range: vscode.Range;
+
+        for (let index = 0; index < docLines.length; index++) {
+          if (regex.test(docLines[index])) {
+            range = new vscode.Range(index, 0, index, docLines[index].length);
+            break;
+          }
+        }
+
+        tab.then(tab => {
+          if (range) {
+            // Select range
+            let selection: vscode.Selection = new vscode.Selection(range.start, range.end);
+            tab.selection = selection;
+
+            // Scroll to pos
+            let posStart: vscode.Position = new vscode.Position(range.start.line - 1, 0);
+            let posEnd: vscode.Position = new vscode.Position(range.end.line + 100, 0);
+            let rangeScroll: vscode.Range = new vscode.Range(posStart, posEnd);
+            tab.revealRange(rangeScroll);
+          }
         });
       });
     } catch (e) {
