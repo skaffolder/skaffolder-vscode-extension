@@ -1,7 +1,7 @@
 {
-  "name": "skaffolder-vscode",
-  "displayName": "skaffolder-vscode",
-  "description": "Skaffodler vscode plugin",
+  "name": "skaffolder-generator",
+  "displayName": "Skaffolder Generator",
+  "description": "Generate web apps in many programming languages starting from specs",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.34.0"
@@ -191,7 +191,7 @@
     "node-sass": "^4.13.0",
     "opn": "^6.0.0",
     "sass": "^1.23.7",
-    "skaffolder-cli": "*",
+    "skaffolder-cli": "^2.0",
     "yaml": "^1.6.0"
   }
 }
