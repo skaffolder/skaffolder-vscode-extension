@@ -51,6 +51,7 @@
       {
         "command": "skaffolder.editNode",
         "title": "Edit",
+        "category": "Skaffolder",
         "icon": {
           "light": "media/light/edit.svg",
           "dark": "media/dark/edit.svg"
@@ -59,6 +60,7 @@
       {
         "command": "skaffolder.openfiles",
         "title": "Open files",
+        "category": "Skaffolder",
         "icon": {
           "light": "media/light/files.svg",
           "dark": "media/dark/files.svg"
@@ -66,6 +68,7 @@
       },
       {
         "command": "skaffolder.export",
+        "category": "Skaffolder",
         "title": "Export YAML to Skaffolder",
         "icon": {
           "light": "media/light/export.svg",
@@ -74,6 +77,7 @@
       },
       {
         "command": "skaffolder.createPage",
+        "category": "Skaffolder",
         "title": "Create new Page",
         "icon": {
           "light": "media/light/plus.svg",
@@ -83,6 +87,7 @@
       {
         "command": "skaffolder.createApi",
         "title": "Create new API",
+        "category": "Skaffolder",
         "icon": {
           "light": "media/light/plus.svg",
           "dark": "media/dark/plus.svg"
@@ -91,6 +96,7 @@
       {
         "command": "skaffolder.createModel",
         "title": "Create new Model",
+        "category": "Skaffolder",
         "icon": {
           "light": "media/light/plus.svg",
           "dark": "media/dark/plus.svg"
@@ -99,6 +105,7 @@
       {
         "command": "skaffolder.generate",
         "title": "Generate Code",
+        "category": "Skaffolder",
         "icon": {
           "light": "media/light/generate.svg",
           "dark": "media/dark/generate.svg"
@@ -107,6 +114,7 @@
       {
         "command": "skaffolder.goToSkaffolder",
         "title": "Go To Skaffolder",
+        "category": "Skaffolder",
         "icon": {
           "light": "media/light/logo.svg",
           "dark": "media/dark/logo.svg"
@@ -115,6 +123,7 @@
       {
         "command": "skaffolder.goToSkaffolderDoc",
         "title": "Open online Documentation",
+        "category": "Skaffolder",
         "icon": {
           "light": "media/light/docs.svg",
           "dark": "media/dark/docs.svg"
