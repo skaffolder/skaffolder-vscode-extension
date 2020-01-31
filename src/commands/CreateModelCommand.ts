@@ -20,10 +20,17 @@ export class CreateModelCommand {
       })
       .then(nameModel => {
         if (nameModel) {
-          var model_yaml = {
-            "x-skaffolder-id-db": contextNode.params && contextNode.params.db ? contextNode.params.db._id : ""
-          };
-          let model = Offline.createModel(nameModel, model_yaml);
+          let model: any;
+
+          if (contextNode) {
+            var model_yaml = {
+              "x-skaffolder-id-db": contextNode.params && contextNode.params.db ? contextNode.params.db._id : ""
+            };
+            
+            model = Offline.createModel(nameModel, model_yaml);
+          } else {
+            model = Offline.createModel(nameModel, {});
+          }
           vscode.window.showInformationMessage("Model " + nameModel + " created");
           let trees = refreshTree();
 
