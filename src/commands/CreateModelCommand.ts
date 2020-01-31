@@ -39,13 +39,11 @@ export class CreateModelCommand {
             let dbNodes = <SkaffolderNode[]>trees.model.getChildren();
 
             dbNodes.forEach((_db_node) => {
-              if (contextNode.params && contextNode.params.db && contextNode.params.db.name === _db_node.label) {
-                _db_node.children.forEach((_res_node) => {
-                  if (_res_node.params && _res_node.params.model && _res_node.params.model._id === model["x-skaffolder-id"]) {
-                    ModelView.open(_res_node);
-                  }
-                });
-              }
+              _db_node.children.forEach((_res_node) => {
+                if (_res_node.params && _res_node.params.model && _res_node.params.model._id === model["x-skaffolder-id"]) {
+                  ModelView.open(_res_node);
+                }
+              });
             });
           }
         }
