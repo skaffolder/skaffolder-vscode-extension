@@ -159,6 +159,16 @@
           "group": "inline",
           "when": "viewItem == 'resource' && isSkaffolderProject"
         }
+      ],
+      "commandPalette": [
+        {
+          "command": "skaffolder.openfiles",
+          "when": "false"
+        },
+        {
+          "command": "skaffolder.editNode",
+          "when": "false"
+        }
       ]
     },
     "configuration": [
