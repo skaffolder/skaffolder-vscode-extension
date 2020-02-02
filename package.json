@@ -73,6 +73,14 @@
         }
       },
       {
+        "command": "skaffolder.refresh",
+        "title": "Refresh data from openapi.yaml",
+        "icon": {
+          "light": "media/light/refresh.svg",
+          "dark": "media/dark/refresh.svg"
+        }
+      },
+      {
         "command": "skaffolder.createPage",
         "title": "Create new Page",
         "icon": {
@@ -127,6 +135,11 @@
           "command": "skaffolder.createPage",
           "group": "navigation",
           "when": "isSkaffolderProject && view==skaffolderExplorerPage"
+        },
+        {
+          "command": "skaffolder.refresh",
+          "group": "navigation",
+          "when": "isSkaffolderProject && view==skaffolderExplorerHeader"
         }
       ],
       "view/item/context": [
