@@ -39,27 +39,29 @@ export class ModelView {
                 "x-skaffolder-id-db": model._db,
                 "x-skaffolder-id-entity": _entity._id,
                 "x-skaffolder-url": model.url,
-                "x-skaffolder-relations": (_entity._relations as any[]).filter((val) => {
-                  return val._ent2._id !== _entity._id;
-                }).reduce((acc, cur) => {
-                  if (!acc) {
-                    acc = {};
-                  }
+                "x-skaffolder-relations": (_entity._relations as any[])
+                  .filter(val => {
+                    return val._ent2._id !== _entity._id;
+                  })
+                  .reduce((acc, cur) => {
+                    if (!acc) {
+                      acc = {};
+                    }
                     var _ent2 = cur._ent2._id || cur._ent2.name;
-                    
+
                     acc[cur.name] = {
                       "x-skaffolder-id": cur._id,
                       "x-skaffolder-ent1": _entity._id,
                       "x-skaffolder-ent2": _ent2,
                       "x-skaffolder-type": cur.type
                     };
-                    
+
                     if (cur.required) {
                       acc[cur.name]["x-skaffolder-required"] = true;
                     }
-                    
+
                     return acc;
-                }, null),
+                  }, null),
                 properties: (_entity._attrs as any[]).reduce((acc, cur) => {
                   if (!acc) {
                     acc = {};
@@ -68,14 +70,25 @@ export class ModelView {
                   let attr_type;
                   switch (cur.type) {
                     case "Date":
-                    case "Integer": attr_type = "integer"; break;
+                    case "Integer":
+                      attr_type = "integer";
+                      break;
                     case "Decimal":
-                    case "Number": attr_type = "number"; break;
+                    case "Number":
+                      attr_type = "number";
+                      break;
                     case "ObjectId":
-                    case "String": attr_type = "string"; break;
-                    case "Boolean": attr_type = "boolean"; break;
-                    case "Custom": attr_type = "object"; break;
-                    default: attr_type = "String";
+                    case "String":
+                      attr_type = "string";
+                      break;
+                    case "Boolean":
+                      attr_type = "boolean";
+                      break;
+                    case "Custom":
+                      attr_type = "object";
+                      break;
+                    default:
+                      attr_type = "String";
                   }
 
                   acc[cur.name] = {
@@ -150,21 +163,23 @@ export class ModelView {
             break;
           case "removeModel":
             if (message.data) {
-              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" model?`, "Yes", "No").then((removeModel) => {
+              vscode.window
+                .showWarningMessage(`Are you sure you want to delete "${message.data.name}" model?`, "Yes", "No")
+                .then(removeModel => {
+                  if (removeModel && removeModel === "Yes") {
+                    vscode.window
+                      .showWarningMessage(`Do you want to delete "${message.data.name}" model template pages too?`, "Yes", "No")
+                      .then(removePages => {
+                        if (removePages) {
+                          if (Offline.removeModel(message.data._id, removePages === "Yes")) {
+                            panel.dispose();
+                          }
 
-                if (removeModel && removeModel === "Yes") {
-                  vscode.window.showWarningMessage(`Do you want to delete "${message.data.name}" model template pages too?`, "Yes", "No").then((removePages) => {
-
-                    if (removePages) {
-                      if (Offline.removeModel(message.data._id, removePages === "Yes")) {
-                        panel.dispose();
-                      }
-
-                      refreshTree();
-                    }
-                  });
-                }
-              });
+                          refreshTree();
+                        }
+                      });
+                  }
+                });
             }
             break;
           case "createCrud":
@@ -179,30 +194,33 @@ export class ModelView {
                 } as any;
 
                 if (resource._relations && resource._relations.length > 0) {
-                  model_yaml["x-skaffolder-relations"] = (resource._relations as any[]).filter((val) => {
-                    return val._ent2._id !== _entity._id;
-                  }).reduce((acc, cur) => {
-                    if (!acc) {
-                      acc = {};
-                    }
-                    var _ent2 = cur._ent2._id || cur._ent2.name;
+                  model_yaml["x-skaffolder-relations"] = (resource._relations as any[])
+                    .filter(val => {
+                      return val._ent2._id !== _entity._id;
+                    })
+                    .reduce((acc, cur) => {
+                      if (!acc) {
+                        acc = {};
+                      }
+                      var _ent2 = cur._ent2._id || cur._ent2.name;
 
-                    acc[cur.name] = {
-                      "x-skaffolder-id": cur._id,
-                      "x-skaffolder-ent1": _entity._id,
-                      "x-skaffolder-ent2": _ent2,
-                      "x-skaffolder-type": cur.type
-                    };
+                      acc[cur.name] = {
+                        "x-skaffolder-id": cur._id,
+                        "x-skaffolder-ent1": _entity._id,
+                        "x-skaffolder-ent2": _ent2,
+                        "x-skaffolder-type": cur.type
+                      };
 
-                    if (cur.required) {
-                      acc[cur.name]["x-skaffolder-required"] = true;
-                    }
+                      if (cur.required) {
+                        acc[cur.name]["x-skaffolder-required"] = true;
+                      }
 
-                    return acc;
-                  }, null);
+                      return acc;
+                    }, null);
                 }
 
                 Offline.createCrud(model_yaml);
+                refreshTree();
               }
             }
             break;
