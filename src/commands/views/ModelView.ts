@@ -67,6 +67,10 @@ export class ModelView {
                     acc = {};
                   }
 
+                  if (!cur.name) {
+                    return acc;
+                  }
+
                   let attr_type;
                   switch (cur.type) {
                     case "Date":
@@ -88,7 +92,8 @@ export class ModelView {
                       attr_type = "object";
                       break;
                     default:
-                      attr_type = "String";
+                      attr_type = "string";
+                      cur.type = "String";
                   }
 
                   acc[cur.name] = {
