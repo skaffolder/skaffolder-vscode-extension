@@ -200,19 +200,15 @@ export class ModelView {
 
                 if (resource._relations && resource._relations.length > 0) {
                   model_yaml["x-skaffolder-relations"] = (resource._relations as any[])
-                    .filter(val => {
-                      return val._ent2._id !== _entity._id;
-                    })
                     .reduce((acc, cur) => {
                       if (!acc) {
                         acc = {};
                       }
-                      var _ent2 = cur._ent2._id || cur._ent2.name;
 
                       acc[cur.name] = {
                         "x-skaffolder-id": cur._id,
-                        "x-skaffolder-ent1": _entity._id,
-                        "x-skaffolder-ent2": _ent2,
+                        "x-skaffolder-ent1": cur._ent1._id || cur._ent1.name,
+                        "x-skaffolder-ent2": cur._ent2._id || cur._ent2.name,
                         "x-skaffolder-type": cur.type
                       };
 
