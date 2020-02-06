@@ -6,27 +6,40 @@ import { Offline } from "skaffolder-cli";
 import { Resource } from "../../models/jsonreader/resource";
 import { Entity } from "../../models/jsonreader/entity";
 import { refreshTree } from "../../extension";
+import { SkaffolderView } from "./SkaffolderView";
 
-export class ModelView {
+export class ModelView extends SkaffolderView {
   static async open(contextNode: SkaffolderNode) {
-    // Init panel
-    const panel = vscode.window.createWebviewPanel("skaffolder", "SK Model - " + contextNode.label, vscode.ViewColumn.One, {
-      enableScripts: true
+    if (!ModelView.instance) {
+      ModelView.instance = new ModelView(contextNode);
+    } else {
+      ModelView.instance.contextNode = contextNode;
+    }
+
+    await ModelView.instance.updatePanel();
+  }
+
+  public registerOnDisposePanel() {
+    this.panel.onDidDispose((e) => {
+      ModelView.instance = undefined;
     });
+  }
 
-    // Open yaml
-    if (contextNode.params && contextNode.params.model) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.model._id);
-    }
+  public getTitle(): string {
+    return `SK Model - ${this.contextNode.label}`;
+  }
 
-    // Serve page
-    if (vscode.workspace.rootPath !== undefined) {
-      Offline.pathWorkspace = vscode.workspace.rootPath;
+  public getYamlID(): string | undefined {
+    if (this.contextNode.params && this.contextNode.params.model) {
+      return this.contextNode.params.model._id;
     }
-    panel.webview.html = Webview.serve("editModel");
+  }
+
+  public registerPanelListeners(): void {
+    this.panel.webview.html = Webview.serve("editModel");
 
     // Message.Command editModel
-    panel.webview.onDidReceiveMessage(
+    this.panel.webview.onDidReceiveMessage(
       message => {
         switch (message.command) {
           case "saveModel":
@@ -126,45 +139,45 @@ export class ModelView {
             refreshTree();
             return;
           case "openFiles":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "openFiles"
             });
             // Execute Command
-            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", this.contextNode);
             break;
           case "getModel":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "getModel",
               data: {
-                entity: contextNode.params ? contextNode.params.model : null,
-                service: contextNode.params!.model!._services
+                entity: this.contextNode.params ? this.contextNode.params.model : null,
+                service: this.contextNode.params!.model!._services
               }
             });
             break;
           case "getAllModels":
             let listModels: Resource[] = [];
-            if (contextNode.skaffolderObject.resources && contextNode.skaffolderObject.resources.length === 1) {
-              listModels = contextNode.skaffolderObject.resources[0]._resources;
-            } else if (contextNode.skaffolderObject.resources) {
-              contextNode.skaffolderObject.resources.forEach(db => {
-                if (contextNode.params && contextNode.params.db && db._id === contextNode.params.db._id) {
+            if (this.contextNode.skaffolderObject.resources && this.contextNode.skaffolderObject.resources.length === 1) {
+              listModels = this.contextNode.skaffolderObject.resources[0]._resources;
+            } else if (this.contextNode.skaffolderObject.resources) {
+              this.contextNode.skaffolderObject.resources.forEach(db => {
+                if (this.contextNode.params && this.contextNode.params.db && db._id === this.contextNode.params.db._id) {
                   listModels = db._resources;
                 }
               });
             }
 
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "getAllModels",
               data: listModels
             });
             break;
           case "addApi":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "addApi"
             });
 
             // Execute Command
-            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.createApi", contextNode);
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.createApi", this.contextNode);
             break;
           case "removeModel":
             if (message.data) {
@@ -177,7 +190,7 @@ export class ModelView {
                       .then(removePages => {
                         if (removePages) {
                           if (Offline.removeModel(message.data._id, removePages === "Yes")) {
-                            panel.dispose();
+                            this.panel.dispose();
                           }
 
                           refreshTree();
