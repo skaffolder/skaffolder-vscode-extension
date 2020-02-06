@@ -3,16 +3,21 @@ app.controller("EditPageController", [
   "DataService",
   function($scope, DataService) {
     // Get data
-    DataService.getPage().then(data => {
-      $scope.page = data;
-      $scope.refreshResourceName();
-    });
+    var getData = () => {
+      DataService.getPage().then(data => {
+        $scope.page = data;
+        $scope.refreshResourceName();
+      });
+    }
+    getData();
 
     // Actions
     $scope.openFiles = () => {
       DataService.openFiles();
     };
 
+    DataService.onRequestedUpdate(getData);
+  
     $scope.save = () => {
       DataService.savePage($scope.page).then(data => {
         console.log("saved");

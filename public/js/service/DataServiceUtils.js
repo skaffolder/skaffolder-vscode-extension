@@ -16,10 +16,10 @@ app.service("DataServiceUtils", [
               deferred.resolve(data);
 
               // Remove listener
-              window.removeEventListener("message", cb);
+              // window.removeEventListener("message", cb);
             } catch (err) {
               // Remove listener
-              window.removeEventListener("message", cb);
+              // window.removeEventListener("message", cb);
               deferred.reject(err);
             }
           }
@@ -36,6 +36,15 @@ app.service("DataServiceUtils", [
 
         // Return promise
         return deferred.promise;
+      },
+      onRequestedUpdate: (callback) => {
+        window.addEventListener("message", event => {
+          if (event.data.update) {
+            if (callback) {
+              callback();
+            }
+          }
+        });
       }
     };
   }
