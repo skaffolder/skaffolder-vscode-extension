@@ -2,44 +2,56 @@ import * as vscode from "vscode";
 import { Webview } from "../../utils/WebView";
 import { EditNodeCommand } from "../EditNodeCommand";
 import { SkaffolderNode } from "../../models/SkaffolderNode";
-import { Offline } from "skaffolder-cli";
+import { SkaffolderView } from "./SkaffolderView";
 
-export class DbView {
+export class DbView extends SkaffolderView {
   static async open(contextNode: SkaffolderNode) {
-    // Init panel
-    const panel = vscode.window.createWebviewPanel("skaffolder", "Sk Database - " + contextNode.label, vscode.ViewColumn.One, {
-      enableScripts: true
+    if (!DbView.instance) {
+      DbView.instance = new DbView(contextNode);
+    } else {
+      DbView.instance.contextNode = contextNode;
+    }
+
+    await DbView.instance.updatePanel();
+  }
+
+  public registerOnDisposePanel(): void {
+    this.panel.onDidDispose((e) => {
+      DbView.instance = undefined;
     });
+  }
 
-    // Open yaml
-    if (contextNode.params && contextNode.params.db) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.db._id);
-    }
+  public getTitle(): string {
+    return `SK Database - ${this.contextNode.label}`;
+  }
 
-    // Serve page
-    if (vscode.workspace.rootPath !== undefined) {
-      Offline.pathWorkspace = vscode.workspace.rootPath;
+  public getYamlID(): string | undefined {
+    if (this.contextNode.params && this.contextNode.params.db) {
+      return this.contextNode.params.db._id;
     }
-    panel.webview.html = Webview.serve("editDb");
+  }
+
+  public registerPanelListeners() {
+    this.panel.webview.html = Webview.serve("editDb");
 
     // Message.Command editDb
-    panel.webview.onDidReceiveMessage(
+    this.panel.webview.onDidReceiveMessage(
       message => {
         switch (message.command) {
           case "save":
             vscode.window.showInformationMessage("Save");
             return;
           case "openFiles":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "openFiles"
             });
             // Execute Command
             vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
             break;
           case "getDb":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "getDb",
-              data: contextNode.params ? contextNode.params.db : null
+              data: this.contextNode.params ? this.contextNode.params.db : null
             });
             break;
         }

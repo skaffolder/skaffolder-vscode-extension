@@ -1,11 +1,16 @@
 app.controller("EditDbController", [
   "$scope",
   "DataService",
-  function($scope, DataService) {
+  function ($scope, DataService) {
     // Get data
-    DataService.getDb().then(data => {
-      $scope.db = data;
-    });
+    var getData = () => {
+      DataService.getDb().then(data => {
+        $scope.db = data;
+      });
+    }
+    getData();
+
+    DataService.onRequestedUpdate(getData);
 
     // Actions
     $scope.openFiles = () => {
