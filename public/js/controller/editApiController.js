@@ -3,9 +3,14 @@ app.controller("EditApiController", [
   "DataService",
   function($scope, DataService) {
     // Get data
-    DataService.getApi().then(data => {
-      $scope.api = data;
-    });
+    var getData = () => {
+      DataService.getApi().then(data => {
+        $scope.api = data;
+      });
+    }
+    getData();
+
+    DataService.onRequestedUpdate(getData);
 
     $scope.save = () => {
       DataService.saveApi($scope.api).then(data => {
