@@ -46,7 +46,7 @@ export class DbView extends SkaffolderView {
               command: "openFiles"
             });
             // Execute Command
-            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", this.contextNode);
             break;
           case "getDb":
             this.panel.webview.postMessage({
