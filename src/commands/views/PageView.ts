@@ -8,23 +8,9 @@ import { Service } from "../../models/jsonreader/service";
 import { refreshTree } from "../../extension";
 import { DataService } from "../../services/DataService";
 import { Db } from "../../models/jsonreader/db";
+import { SkaffolderView } from "./SkaffolderView";
 
-export class PageView {
-  static instance?: PageView;
-  private panel: vscode.WebviewPanel;
-
-  constructor(public contextNode: SkaffolderNode) {
-    this.panel = vscode.window.createWebviewPanel("skaffolder", "SK Page", vscode.ViewColumn.One, {
-      enableScripts: true
-    });
-
-    if (vscode.workspace.rootPath !== undefined) {
-      Offline.pathWorkspace = vscode.workspace.rootPath;
-    }
-
-    this.createListeners();
-  }
-
+export class PageView extends SkaffolderView {
   static async open(contextNode: SkaffolderNode) {
     if (!PageView.instance) {
       PageView.instance = new PageView(contextNode);
@@ -32,29 +18,26 @@ export class PageView {
       PageView.instance.contextNode = contextNode;
     }
 
-    PageView.instance.panel.title = "Sk Page - " + contextNode.label;
-
-    PageView.instance.notifyUpdate();
-    await PageView.instance.openYaml();
+    await PageView.instance.updatePanel();
   }
 
-  async openYaml() {
-    if (this.contextNode.params && this.contextNode.params.page) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", this.contextNode.params.page._id);
-    }
-  }
-  
-  public notifyUpdate() {
-    this.panel.webview.postMessage({
-      update: true
-    });
-  }
-
-  private createListeners() {
+  public registerOnDisposePanel() {
     this.panel.onDidDispose((e) => {
       PageView.instance = undefined;
     });
+  }
 
+  public getTitle(): string {
+    return `SK Page - ${this.contextNode.label}`;
+  }
+
+  public getYamlID(): string | undefined {
+    if (this.contextNode.params && this.contextNode.params.page) {
+      return this.contextNode.params.page._id;
+    }
+  }
+
+  public registerPanelListeners(): void {
     this.panel.webview.html = Webview.serve("editPage");
 
     // Message.Command editPage
@@ -341,5 +324,6 @@ export class PageView {
       undefined,
       EditNodeCommand.context.subscriptions
     );
+
   }
 }
