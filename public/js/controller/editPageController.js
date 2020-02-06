@@ -16,7 +16,9 @@ app.controller("EditPageController", [
       DataService.openFiles();
     };
 
-    DataService.onRequestedUpdate(getData);
+    $scope.$on("requestedUpdate", e => {
+      getData();
+    });
   
     $scope.save = () => {
       DataService.savePage($scope.page).then(data => {

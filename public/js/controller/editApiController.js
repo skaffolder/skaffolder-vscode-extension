@@ -10,7 +10,9 @@ app.controller("EditApiController", [
     }
     getData();
 
-    DataService.onRequestedUpdate(getData);
+    $scope.$on("requestedUpdate", e => {
+      getData();
+    });
 
     $scope.save = () => {
       DataService.saveApi($scope.api).then(data => {

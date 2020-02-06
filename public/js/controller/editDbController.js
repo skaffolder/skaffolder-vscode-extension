@@ -10,7 +10,9 @@ app.controller("EditDbController", [
     }
     getData();
 
-    DataService.onRequestedUpdate(getData);
+    $scope.$on("requestedUpdate", e => {
+      getData();
+    });
 
     // Actions
     $scope.openFiles = () => {

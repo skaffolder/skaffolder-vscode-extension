@@ -71,10 +71,7 @@ app.service("DataService", [
       },
       openFiles: link => {
         return DataServiceUtils.askData("openFiles", link);
-      },
-      onRequestedUpdate: (cb) => {
-        return DataServiceUtils.onRequestedUpdate(cb);
-      },
+      }
     };
   }
 ]);

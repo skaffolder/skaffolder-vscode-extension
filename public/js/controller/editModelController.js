@@ -14,7 +14,9 @@ app.controller("EditModelController", [
     }
     getData();
 
-    DataService.onRequestedUpdate(getData);
+    $scope.$on("requestedUpdate", e => {
+      getData();
+    });
 
     // Actions
     $scope.openFiles = () => {
