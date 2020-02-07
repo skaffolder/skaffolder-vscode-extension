@@ -199,25 +199,22 @@ export class ModelView {
                 } as any;
 
                 if (resource._relations && resource._relations.length > 0) {
-                  model_yaml["x-skaffolder-relations"] = (resource._relations as any[])
-                    .reduce((acc, cur) => {
-                      if (!acc) {
-                        acc = {};
-                      }
+                  model_yaml["x-skaffolder-relations"] = (resource._relations as any[]).reduce((acc, cur) => {
+                    if (!acc) {
+                      acc = [];
+                    }
 
-                      acc[cur.name] = {
-                        "x-skaffolder-id": cur._id,
-                        "x-skaffolder-ent1": cur._ent1._id || cur._ent1.name,
-                        "x-skaffolder-ent2": cur._ent2._id || cur._ent2.name,
-                        "x-skaffolder-type": cur.type
-                      };
+                    acc.push({
+                      "x-skaffolder-id": cur._id,
+                      "x-skaffolder-name": cur.name,
+                      "x-skaffolder-ent1": cur._ent1._id || cur._ent1.name,
+                      "x-skaffolder-ent2": cur._ent2._id || cur._ent2.name,
+                      "x-skaffolder-type": cur.type,
+                      "x-skaffolder-required": cur.required
+                    });
 
-                      if (cur.required) {
-                        acc[cur.name]["x-skaffolder-required"] = true;
-                      }
-
-                      return acc;
-                    }, null);
+                    return acc;
+                  }, null);
                 }
 
                 Offline.createCrud(model_yaml);
