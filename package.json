@@ -217,7 +217,7 @@
     "grunt": "^1.0.4",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-sass": "^3.1.0",
-    "handlebars": "^4.2.0",
+    "handlebars": "^4.3.0",
     "handlebars-helpers": "^0.10.0",
     "jsonc-parser": "^0.4.2",
     "node-sass": "^4.13.0",
