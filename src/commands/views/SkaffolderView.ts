@@ -20,13 +20,15 @@ export abstract class SkaffolderView {
 		this.registerOnDisposePanel();
 	}
 
-	public async updatePanel() {
+	public async updatePanel(silentUpdate = false) {
 		this.panel.title = this.getTitle();
 		this.notifyUpdate();
 
-		this.openYamlFile(this.getYamlID());
+		if (!silentUpdate) {
+			this.openYamlFile(this.getYamlID());
+		}
 
-		if (!this.panel.visible) {
+		if (!silentUpdate && !this.panel.visible) {
 			this.panel.reveal();
 		}
 	}

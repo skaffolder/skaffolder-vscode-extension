@@ -10,6 +10,10 @@ import { TreeProviderTemplateSkaffolder } from "./providers/treeProviderTemplate
 import { StatusBarManager } from "./utils/StatusBarManager";
 import { Config } from "./utils/Config";
 import SkaffolderCli = require("skaffolder-cli");
+import { PageView } from "./commands/views/PageView";
+import { SkaffolderNode } from "./models/SkaffolderNode";
+import { ModelView } from "./commands/views/ModelView";
+import { ApiView } from "./commands/views/ApiView";
 
 let contextExtension: vscode.ExtensionContext;
 
@@ -42,7 +46,60 @@ export function activate(context: vscode.ExtensionContext) {
       .replace((vscode.workspace.rootPath || "").replace(/\//g, "").replace(/\\/g, ""), "");
 
     if (filename === "openapi.yaml") {
-      refreshTree();
+      let trees = refreshTree();
+
+      if (trees) {
+        let pageView = PageView.instance, modelView = ModelView.instance, apiView = ApiView.instance;
+
+        if (pageView && pageView.contextNode.params && pageView.contextNode.params.page) {
+          let page_id = pageView.contextNode.params.page._id;
+          let pageNodes = <SkaffolderNode[]>trees.page.getChildren();
+
+          for (let p in pageNodes) {
+            let pageNode = pageNodes[p];
+
+            if (pageNode.params && pageNode.params.page && pageNode.params.page._id === page_id) {
+              pageView.contextNode = pageNode;
+              pageView.updatePanel(true);
+            }
+          }
+        }
+
+        let model;
+        if (modelView && modelView.contextNode.params && modelView.contextNode.params.model) {
+          model = modelView.contextNode.params.model;
+        }
+
+        let service;
+        if (apiView && apiView.contextNode.params && apiView.contextNode.params.service) {
+          service = apiView.contextNode.params.service;
+        }
+        let dbNodes = <SkaffolderNode[]>trees.model.getChildren();
+
+        for (let db in dbNodes) {
+          let dbNode = dbNodes[db];
+
+          for (let m in dbNode.children) {
+            let resNode = dbNode.children[m];
+
+            if (model && modelView && resNode.params && resNode.params.model && resNode.params.model._id === model._id) {
+              modelView.contextNode = resNode;
+              modelView.updatePanel(true);
+            }
+
+            if (apiView && service) {
+              for (let s in resNode.children) {
+                let servNode = resNode.children[s];
+
+                if (servNode.params && servNode.params.service && servNode.params.service._id === service._id) {
+                  apiView.contextNode = servNode;
+                  apiView.updatePanel(true);
+                }
+              }
+            }
+          }
+        }
+      }
     }
   });
 
