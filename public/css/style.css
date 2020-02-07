@@ -87,7 +87,7 @@ button {
     background-color: var(--vscode-button-hoverBackground); }
 
 .files-button {
-  background-image: url("../img/files.svg");
+  background-image: url("../img/dark/files.svg");
   background-repeat: no-repeat;
   background-size: 18px;
   background-position-y: 5px;
@@ -100,7 +100,7 @@ button {
     text-decoration: underline; }
 
 body.vscode-light .files-button {
-  background-image: url("../img/files_black.svg"); }
+  background-image: url("../img/light/files.svg"); }
 
 .crud-button {
   background-color: transparent;
@@ -178,8 +178,9 @@ select {
     outline: 0; }
 
 .ico-remove {
-  background-image: url(../img/x.svg);
+  background-image: url(../img/close.svg);
   background-repeat: no-repeat;
+  background-position: center;
   display: inline-block;
   width: 10px;
   height: 10px;
