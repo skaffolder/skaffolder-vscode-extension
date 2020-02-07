@@ -15,8 +15,8 @@ export class ModelResourceNode {
     node.description = resource.url;
     node.collapsibleState = vscode.TreeItemCollapsibleState.Expanded;
     node.iconPath = {
-      light: node.context.asAbsolutePath(path.join("media", "light", "model.svg")),
-      dark: node.context.asAbsolutePath(path.join("media", "dark", "model.svg"))
+      light: node.context.asAbsolutePath(path.join("media", "light", "circle-filled.svg")),
+      dark: node.context.asAbsolutePath(path.join("media", "dark", "circle-filled.svg"))
     };
     node.contextValue = "resource";
 

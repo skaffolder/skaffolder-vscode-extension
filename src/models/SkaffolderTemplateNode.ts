@@ -28,8 +28,8 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
     } else if (type === "createButton") {
       this.label = "Create projects";
       this.iconPath = {
-        light: this.context.asAbsolutePath(path.join("media", "light", "plus.svg")),
-        dark: this.context.asAbsolutePath(path.join("media", "dark", "plus.svg"))
+        light: this.context.asAbsolutePath(path.join("media", "light", "add.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "add.svg"))
       };
       this.command = {
         command: "skaffolder.createProject",
@@ -53,8 +53,8 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
         title: "Generate Code"
       };
       this.iconPath = {
-        light: this.context.asAbsolutePath(path.join("media", "light", "generate.svg")),
-        dark: this.context.asAbsolutePath(path.join("media", "dark", "generate.svg"))
+        light: this.context.asAbsolutePath(path.join("media", "light", "code.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "code.svg"))
       };
     } else if (type === "export") {
       this.label = "Export project";
@@ -64,8 +64,8 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
         title: "Export project"
       };
       this.iconPath = {
-        light: this.context.asAbsolutePath(path.join("media", "light", "export.svg")),
-        dark: this.context.asAbsolutePath(path.join("media", "dark", "export.svg"))
+        light: this.context.asAbsolutePath(path.join("media", "light", "link-external.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "link-external.svg"))
       };
     } else if (type === "skaffolder") {
       this.label = "Go To Skaffolder";
@@ -86,8 +86,8 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
         title: "Open online Documentation"
       };
       this.iconPath = {
-        light: this.context.asAbsolutePath(path.join("media", "light", "docs.svg")),
-        dark: this.context.asAbsolutePath(path.join("media", "dark", "docs.svg"))
+        light: this.context.asAbsolutePath(path.join("media", "light", "book.svg")),
+        dark: this.context.asAbsolutePath(path.join("media", "dark", "book.svg"))
       };
     } else if (type === "user") {
       let user: string | undefined = SkaffolderCli.getUser();
