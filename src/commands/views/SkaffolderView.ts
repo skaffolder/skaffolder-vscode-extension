@@ -24,10 +24,7 @@ export abstract class SkaffolderView {
 		this.panel.title = this.getTitle();
 		this.notifyUpdate();
 
-		let _id = this.getYamlID();
-		if (_id) {
-			await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", _id);
-		}
+		this.openYamlFile(this.getYamlID());
 
 		if (!this.panel.visible) {
 			this.panel.reveal();
@@ -38,6 +35,12 @@ export abstract class SkaffolderView {
 		this.panel.webview.postMessage({
 			update: true
 		});
+	}
+
+	private async openYamlFile(idItem: string | undefined) {
+		if (idItem) {
+			await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", idItem);
+		}
 	}
 
 	public abstract registerPanelListeners(): void;
