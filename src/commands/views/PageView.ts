@@ -8,28 +8,40 @@ import { Service } from "../../models/jsonreader/service";
 import { refreshTree } from "../../extension";
 import { DataService } from "../../services/DataService";
 import { Db } from "../../models/jsonreader/db";
+import { SkaffolderView } from "./SkaffolderView";
 
-export class PageView {
+export class PageView extends SkaffolderView {
   static async open(contextNode: SkaffolderNode) {
-    // Init panel
-    const panel = vscode.window.createWebviewPanel("skaffolder", "SK Page - " + contextNode.label, vscode.ViewColumn.One, {
-      enableScripts: true
+    if (!PageView.instance) {
+      PageView.instance = new PageView(contextNode);
+    } else {
+      PageView.instance.contextNode = contextNode;
+    }
+
+    await PageView.instance.updatePanel();
+  }
+
+  public registerOnDisposePanel() {
+    this.panel.onDidDispose((e) => {
+      PageView.instance = undefined;
     });
+  }
 
-    // Open yaml
-    if (contextNode.params && contextNode.params.page) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.page._id);
+  public getTitle(): string {
+    return `SK Page - ${this.contextNode.label}`;
+  }
+
+  public getYamlID(): string | undefined {
+    if (this.contextNode.params && this.contextNode.params.page) {
+      return this.contextNode.params.page._id;
     }
+  }
 
-    // Serve page
-    if (vscode.workspace.rootPath !== undefined) {
-      Offline.pathWorkspace = vscode.workspace.rootPath;
-    }
-
-    panel.webview.html = Webview.serve("editPage");
+  public registerPanelListeners(): void {
+    this.panel.webview.html = Webview.serve("editPage");
 
     // Message.Command editPage
-    panel.webview.onDidReceiveMessage(
+    this.panel.webview.onDidReceiveMessage(
       message => {
         switch (message.command) {
           case "savePage":
@@ -67,7 +79,7 @@ export class PageView {
             }
 
             // vscode.window.showInformationMessage("Saved");
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "savePage",
               data: { result: "ok" }
             });
@@ -77,20 +89,20 @@ export class PageView {
             break;
 
           case "openFiles":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "openFiles"
             });
             // Execute Command
-            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", this.contextNode);
             break;
 
           case "getPage":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "getPage",
               data: {
-                page: contextNode.params!.page!,
-                label: contextNode.label,
-                api: contextNode.skaffolderObject.modules
+                page: this.contextNode.params!.page!,
+                label: this.contextNode.label,
+                api: this.contextNode.skaffolderObject.modules
               }
             });
             break;
@@ -125,7 +137,7 @@ export class PageView {
                   });
                 }
 
-                panel.webview.postMessage({
+                this.panel.webview.postMessage({
                   command: "chooseRole",
                   data: roleItem
                 });
@@ -140,7 +152,7 @@ export class PageView {
             }
             let pageNameListPresent: string[] = message.data.map((pagePresent: any) => pagePresent["name"]);
             pageNameList = pageNameList.filter(item => {
-              return pageNameListPresent.indexOf(item) === -1 && item !== contextNode.params!.page!.name;
+              return pageNameListPresent.indexOf(item) === -1 && item !== this.contextNode.params!.page!.name;
             });
 
             vscode.window
@@ -156,7 +168,7 @@ export class PageView {
                     }
                   });
                 }
-                panel.webview.postMessage({
+                this.panel.webview.postMessage({
                   command: "addLinked",
                   data: linkItem
                 });
@@ -171,7 +183,7 @@ export class PageView {
             }
             let pageNameListPresents: string[] = message.data.map((pagePresent: any) => pagePresent["name"]);
             pageNameLists = pageNameLists.filter(item => {
-              return pageNameListPresents.indexOf(item) === -1 && item !== contextNode.params!.page!.name;
+              return pageNameListPresents.indexOf(item) === -1 && item !== this.contextNode.params!.page!.name;
             });
 
             vscode.window
@@ -187,7 +199,7 @@ export class PageView {
                     }
                   });
                 }
-                panel.webview.postMessage({
+                this.panel.webview.postMessage({
                   command: "addNested",
                   data: nestedItem
                 });
@@ -197,7 +209,7 @@ export class PageView {
           case "addTemplate":
             let template = ["List", "Edit"];
             let templateResource: any[] = [];
-            contextNode.skaffolderObject.resources.forEach(db => {
+            this.contextNode.skaffolderObject.resources.forEach(db => {
               templateResource = templateResource.concat(db._resources);
             });
             templateResource = templateResource.map(templateItem => {
@@ -218,19 +230,19 @@ export class PageView {
                   })
                   .then(result => {
                     result.type = template;
-                    panel.webview.postMessage({
+                    this.panel.webview.postMessage({
                       command: "addTemplate",
                       data: result
                     });
                   });
               });
           case "getResourceName":
-            for (let i in contextNode.skaffolderObject.resources) {
-              let db: Db = contextNode.skaffolderObject.resources[i];
+            for (let i in this.contextNode.skaffolderObject.resources) {
+              let db: Db = this.contextNode.skaffolderObject.resources[i];
               for (let index in db._resources) {
                 let resource = db._resources[index];
                 if (resource._id === message.data) {
-                  panel.webview.postMessage({
+                  this.panel.webview.postMessage({
                     command: "getResourceName",
                     data: resource.name
                   });
@@ -242,7 +254,7 @@ export class PageView {
           case "addApi":
             let entity: any[] = [];
             let serviceList: any[] = [];
-            contextNode.skaffolderObject.resources.forEach(db => {
+            this.contextNode.skaffolderObject.resources.forEach(db => {
               entity = entity.concat(db._resources);
             });
             entity.forEach(api => {
@@ -288,7 +300,7 @@ export class PageView {
                     })
                     .then(result => {
                       result.nameResource = api.label;
-                      panel.webview.postMessage({
+                      this.panel.webview.postMessage({
                         command: "addApi",
                         data: result
                       });
@@ -301,7 +313,7 @@ export class PageView {
               vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" page?`, "Yes", "No").then((val) => {
                 if (val && val === "Yes") {
                   Offline.removePage(message.data._id);
-                  panel.dispose();
+                  this.panel.dispose();
                   refreshTree();
                 }
               });
@@ -312,5 +324,6 @@ export class PageView {
       undefined,
       EditNodeCommand.context.subscriptions
     );
+
   }
 }

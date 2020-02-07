@@ -6,33 +6,47 @@ import { Offline } from "skaffolder-cli";
 import { Service } from "../../models/jsonreader/service";
 import { DataService } from "../../services/DataService";
 import { refreshTree } from "../../extension";
+import { SkaffolderView } from "./SkaffolderView";
 
-export class ApiView {
+export class ApiView extends SkaffolderView {
+  
   static async open(contextNode: SkaffolderNode) {
-    // Init panel
-    let nameRes = contextNode.params!.model!.name;
-    const panel = vscode.window.createWebviewPanel(
-      "skaffolder",
-      "Sk API - " + nameRes + " " + contextNode.label,
-      vscode.ViewColumn.One,
-      {
-        enableScripts: true
-      }
-    );
+    if (!ApiView.instance) {
+      ApiView.instance = new ApiView(contextNode);
+    } else {
+      ApiView.instance.contextNode = contextNode;
+    }
+    
+    await ApiView.instance.updatePanel();
+  }
+  
+  public registerOnDisposePanel() {
+    this.panel.onDidDispose((e) => {
+      ApiView.instance = undefined;
+    });
+  }
 
-    // Open yaml
-    if (contextNode.params && contextNode.params.service) {
-      await vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openyaml", contextNode.params.service._id);
+  public getTitle(): string {
+    let resName = "";
+
+    if (this.contextNode.params && this.contextNode.params.model) {
+      resName = this.contextNode.params.model.name;
     }
 
-    // Serve page
-    if (vscode.workspace.rootPath !== undefined) {
-      Offline.pathWorkspace = vscode.workspace.rootPath;
+    return `SK API - ${resName} ${this.contextNode.label}`;
+  }
+
+  public getYamlID(): string | undefined {
+    if (this.contextNode.params && this.contextNode.params.service) {
+      return this.contextNode.params.service._id;
     }
-    panel.webview.html = Webview.serve("editApi");
+  }
+
+  public registerPanelListeners(): void {
+    this.panel.webview.html = Webview.serve("editApi");
 
     // Message.Command editApi
-    panel.webview.onDidReceiveMessage(
+    this.panel.webview.onDidReceiveMessage(
       message => {
         switch (message.command) {
           case "saveApi":
@@ -73,16 +87,16 @@ export class ApiView {
             vscode.window.showInformationMessage("Save");
             return;
           case "openFiles":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "openFiles"
             });
             // Execute Command
-            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", contextNode);
+            vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openfiles", this.contextNode);
             break;
           case "getApi":
-            panel.webview.postMessage({
+            this.panel.webview.postMessage({
               command: "getApi",
-              data: contextNode.params ? contextNode.params.service : null
+              data: this.contextNode.params ? this.contextNode.params.service : null
             });
             break;
 
@@ -115,7 +129,7 @@ export class ApiView {
                   });
                 }
 
-                panel.webview.postMessage({
+                this.panel.webview.postMessage({
                   command: "chooseRole",
                   data: roleItem
                 });
@@ -127,7 +141,7 @@ export class ApiView {
               vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" API?`, "Yes", "No").then((val) => {
                 if (val && val === "Yes") {
                   if (Offline.removeService(message.data._id)) {
-                    panel.dispose();
+                    this.panel.dispose();
                   }
 
                   refreshTree();

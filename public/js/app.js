@@ -14,6 +14,12 @@ app.run([
   "$rootScope",
   function($rootScope) {
     $rootScope.pathExtension = pathExtension;
+
+    window.addEventListener("message", event => {
+      if (event.data.update) {
+        $rootScope.$broadcast("requestedUpdate");
+      }
+    });
   }
 ]);
 

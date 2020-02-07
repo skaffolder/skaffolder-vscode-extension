@@ -3,12 +3,19 @@ app.controller("EditModelController", [
   "DataService",
   function($scope, DataService) {
     // Get data
-    DataService.getModel().then(data => {
-      $scope.model = data.entity;
-      $scope.service = data.service;
-    });
-    DataService.getAllModels().then(data => {
-      $scope.model_list = data;
+    var getData = () => {
+      DataService.getModel().then(data => {
+        $scope.model = data.entity;
+        $scope.service = data.service;
+      });
+      DataService.getAllModels().then(data => {
+        $scope.model_list = data;
+      });
+    }
+    getData();
+
+    $scope.$on("requestedUpdate", e => {
+      getData();
     });
 
     // Actions
