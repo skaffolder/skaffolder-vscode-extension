@@ -71,8 +71,8 @@
         "category": "Skaffolder",
         "title": "Export YAML to Skaffolder",
         "icon": {
-          "light": "media/light/export.svg",
-          "dark": "media/dark/export.svg"
+          "light": "media/light/link-external.svg",
+          "dark": "media/dark/link-external.svg"
         }
       },
       {
@@ -88,8 +88,8 @@
         "category": "Skaffolder",
         "title": "Create new Page",
         "icon": {
-          "light": "media/light/plus.svg",
-          "dark": "media/dark/plus.svg"
+          "light": "media/light/add.svg",
+          "dark": "media/dark/add.svg"
         }
       },
       {
@@ -97,8 +97,8 @@
         "title": "Create new API",
         "category": "Skaffolder",
         "icon": {
-          "light": "media/light/plus.svg",
-          "dark": "media/dark/plus.svg"
+          "light": "media/light/add.svg",
+          "dark": "media/dark/add.svg"
         }
       },
       {
@@ -106,8 +106,8 @@
         "title": "Create new Model",
         "category": "Skaffolder",
         "icon": {
-          "light": "media/light/plus.svg",
-          "dark": "media/dark/plus.svg"
+          "light": "media/light/add.svg",
+          "dark": "media/dark/add.svg"
         }
       },
       {
@@ -115,8 +115,8 @@
         "title": "Generate Code",
         "category": "Skaffolder",
         "icon": {
-          "light": "media/light/generate.svg",
-          "dark": "media/dark/generate.svg"
+          "light": "media/light/code.svg",
+          "dark": "media/dark/code.svg"
         }
       },
       {
@@ -133,8 +133,8 @@
         "title": "Open online Documentation",
         "category": "Skaffolder",
         "icon": {
-          "light": "media/light/docs.svg",
-          "dark": "media/dark/docs.svg"
+          "light": "media/light/book.svg",
+          "dark": "media/dark/book.svg"
         }
       }
     ],
