@@ -310,8 +310,8 @@ export class PageView extends SkaffolderView {
             break;
           case "removePage":
             if (message.data) {
-              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" page?`, "Yes", "No").then((val) => {
-                if (val && val === "Yes") {
+              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" page?`, { modal: true }, { title: "Remove" }).then((val) => {
+                if (val && val.title === "Remove") {
                   Offline.removePage(message.data._id);
                   this.panel.dispose();
                   refreshTree();
