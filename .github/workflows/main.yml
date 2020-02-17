@@ -1,5 +1,7 @@
 on: [push]
 
+name: main
+
 jobs:
   build:
     strategy:
