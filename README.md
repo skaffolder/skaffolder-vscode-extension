@@ -1,3 +1,14 @@
+<p align="center"><a href="https://skaffolder.com"><img src="https://skaffolder.com/img/logo/skaffolder_logo-nero.svg" width="70%"></a></p>
+
+<p align="center">
+	<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/skaffolder/skaffolder-vscode-extension/main">
+	<img alt="GitHub" src="https://img.shields.io/github/license/skaffolder/skaffolder-vscode-extension">
+</p>
+
+<p align="center">
+	<img alt="Skaffolder Extention Window" src="media/vscode_screen.png">
+</p>
+
 # Skaffolder Generator
 
 This extension allows to interact with the [Skaffolder](https://www.skaffolder.com) platform.
