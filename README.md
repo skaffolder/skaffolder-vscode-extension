@@ -31,14 +31,14 @@ The documentation can be defined from the [Skaffolder web interface](https://app
 ## Requirements
 
 Optional free Skaffolder account:
-https://skaffolder.com/#/register
+https://skaffolder.com/register
 
 ## Extension Settings
 
 - `skaffolder.endpoint`: configure link with on-prem Skaffolder platform
 - `skaffolder.endpointDocs`: configure link with on-prem Skaffolder platform for displaying documentation
 
-More info on Skaffolder on-prem for enterprises [here](https://skaffolder.com/#/enterprise/overview).
+More info on Skaffolder on-prem for enterprises [here](https://skaffolder.com/enterprise/overview).
 
 Get Skaffolder on-premise from:
 
