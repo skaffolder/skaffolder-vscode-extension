@@ -182,14 +182,14 @@ export class ModelView extends SkaffolderView {
           case "removeModel":
             if (message.data) {
               vscode.window
-                .showWarningMessage(`Are you sure you want to delete "${message.data.name}" model?`, "Yes", "No")
+                .showWarningMessage(`Are you sure you want to delete "${message.data.name}" model?`, { modal: true }, { title: "Remove" })
                 .then(removeModel => {
-                  if (removeModel && removeModel === "Yes") {
+                  if (removeModel && removeModel.title === "Remove") {
                     vscode.window
-                      .showWarningMessage(`Do you want to delete "${message.data.name}" model template pages too?`, "Yes", "No")
+                      .showWarningMessage(`Do you want to delete "${message.data.name}" model template Pages too?`, { modal: true }, { title: "Remove" }, { title: "Keep" })
                       .then(removePages => {
                         if (removePages) {
-                          if (Offline.removeModel(message.data._id, removePages === "Yes")) {
+                          if (Offline.removeModel(message.data._id, removePages.title === "Remove")) {
                             this.panel.dispose();
                           }
 
