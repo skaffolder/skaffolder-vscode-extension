@@ -5,9 +5,7 @@
 	<img alt="GitHub" src="https://img.shields.io/github/license/skaffolder/skaffolder-vscode-extension">
 </p>
 
-<p align="center">
-	<img alt="Skaffolder Extention Window" src="media/vscode_screen.png">
-</p>
+![Extension Gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/media/gif/vscode_sample.gif)
 
 # Skaffolder Generator
 
