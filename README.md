@@ -35,21 +35,26 @@ The documentation can be defined from the [Skaffolder web interface](https://app
 
 ### Create Project
 
+Create a new local Skaffolder project by clicking on _Create projects_. The button will only appear if the extension can't find an openapi.yaml file in the root of the current workspace.
+
 ![Create project Gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/gif/create_project.gif)
 
 ### Generate code
+
+Generate the source code of your project from the openapi.yaml file.
 
 ![Generate code Gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/gif/generate_code.gif)
 
 ### Export project
 
+Export your local project to Skaffolder Platform.
 Before exporting your project you need to login with your Skaffolder [account](#requirements).
 
 ![Export project Gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/gif/export_project.gif)
 
 ### Create model
 
-You can create a new model by clicking on the symbol `+` of a database from the TreeView of your project:
+Create a new model in the Skaffolder project by clicking on the symbol `+` of a database from the TreeView of your project:
 
 ![Create model gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/gif/create_model.gif)
 
@@ -59,7 +64,7 @@ Or by typing `sk model` in the Command Palette:
 
 ### Create api
 
-You can create a new model by clicking on the symbol `+` of a model from the TreeView of your project:
+Create a new api int the Skaffolder project by clicking on the symbol `+` of a model from the TreeView of your project:
 
 ![Create api gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/gif/create_api.gif)
 
@@ -69,7 +74,7 @@ Or by typing `sk api` in the Command Palette:
 
 ### Create page
 
-You can create a new model by clicking on the symbol `+` on the _PAGES_ panel of your project:
+Create a new page in the Skaffolder project by clicking on the symbol `+` on the _PAGES_ panel of your project:
 
 ![Create page gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/gif/create_page.gif)
 
@@ -79,7 +84,7 @@ Or by typing `sk page` in the Command Palette:
 
 ### Create CRUD
 
-You can create a CRUD for a model by clicking by _Create CRUD_ of a the model editing panel:
+Create a CRUD interface for a model by clicking by _Create CRUD_ of a the model editing panel:
 
 ![Create crud gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/gif/create_crud.gif)
 
@@ -91,7 +96,7 @@ Open files related to a model, api or a page by clicking on the icon next the ed
 
 ### Editing components
 
-You can edit a component by clicking the edit icon and a new editing panel will open. When saving, any modification will be written in the openapi.yaml file.
+Edit a component by clicking the edit icon and a new editing panel will open. When saving, any modification will be written in the openapi.yaml file.
 
 ![Add attribute from panel gif](https://raw.githubusercontent.com/skaffolder/skaffolder-vscode-extension/assets/gif/add_attribute.gif)
 
