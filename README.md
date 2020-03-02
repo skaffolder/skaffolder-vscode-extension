@@ -1,4 +1,4 @@
-<p align="center"><a href="https://skaffolder.com"><img src="https://skaffolder.com/img/logo/skaffolder_logo-nero.svg" width="70%"></a></p>
+<p align="center"><a href="https://skaffolder.com"><img src="https://skaffolder.com/img/logo/skaffolder_logo-nero.png" width="70%"></a></p>
 
 <p align="center">
   <a href="https://github.com/skaffolder/skaffolder-vscode-extension/actions">
