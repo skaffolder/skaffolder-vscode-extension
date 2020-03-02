@@ -9,30 +9,51 @@
     margin-bottom: 5px;
     display: block;
   }
+
+  select {
+    background-color: #4E4F56;
+    color: $light-gray;
+    width: 50%;
+    margin-left: 20px;
+    height: 33px;
+    padding: 3px 7px;
+    font-size: small;
+   
+  }
+
+  .button-add {
+    font-weight: normal !important;
+    margin-left: 20px !important;
+  }
 }
 
 input {
-  background-color: $mid-gray;
+  background-color: #4E4F56;
   color: $light-gray;
   border: none;
   font-size: small;
   padding: 3px 7px;
-  width: 100%;
-  max-width: 400px;
+  height: 25px;
+  // width: 100%;
+  // max-width: 400px;
   &:focus {
     outline: 0;
   }
 }
 
+.input-name {
+  width: 90%;
+}
+
 // Textarea
 textarea {
-  background-color: $mid-gray;
+  background-color: #4E4F56;
   color: $light-gray;
   border: none;
   font-size: small;
   padding: 3px 7px;
-  width: 100%;
-  max-width: 400px;
+  // width: 100%;
+  // max-width: 400px;
   height: 60px;
   &:focus {
     outline: 0;
@@ -58,11 +79,15 @@ button {
 }
 
 .primary-button {
-  background-color: $button-bg;
-  color: $button-text;
+  // background-color: $button-bg;
+  background-color: $blu-light !important;
+  // color: $button-text;
+  color: white !important;
+  border: none !important;
 
   &:hover {
     background-color: $button-bg-hover;
+    
   }
 }
 

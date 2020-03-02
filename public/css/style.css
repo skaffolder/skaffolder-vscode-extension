@@ -24,7 +24,7 @@ body {
   margin-top: 20px; }
 
 .mt-30 {
-  margin-top: 30px; }
+  margin-top: 30px !important; }
 
 .ml-10 {
   margin-left: 10px; }
@@ -44,26 +44,37 @@ body {
     font-weight: bold;
     margin-bottom: 5px;
     display: block; }
+  .form-group select {
+    background-color: #4E4F56;
+    color: var(--vscode-editor-foreground);
+    width: 50%;
+    margin-left: 20px;
+    height: 33px;
+    padding: 3px 7px;
+    font-size: small; }
+  .form-group .button-add {
+    font-weight: normal !important;
+    margin-left: 20px !important; }
 
 input {
-  background-color: var(--vscode-editorIndentGuide-background);
+  background-color: #4E4F56;
   color: var(--vscode-editor-foreground);
   border: none;
   font-size: small;
   padding: 3px 7px;
-  width: 100%;
-  max-width: 400px; }
+  height: 25px; }
   input:focus {
     outline: 0; }
 
+.input-name {
+  width: 90%; }
+
 textarea {
-  background-color: var(--vscode-editorIndentGuide-background);
+  background-color: #4E4F56;
   color: var(--vscode-editor-foreground);
   border: none;
   font-size: small;
   padding: 3px 7px;
-  width: 100%;
-  max-width: 400px;
   height: 60px; }
   textarea:focus {
     outline: 0; }
@@ -81,8 +92,9 @@ button {
     background-color: var(--vscode-input-placeholderForeground); }
 
 .primary-button {
-  background-color: var(--vscode-button-background);
-  color: var(--vscode-button-foreground); }
+  background-color: #388CFF !important;
+  color: white !important;
+  border: none !important; }
   .primary-button:hover {
     background-color: var(--vscode-button-hoverBackground); }
 
@@ -218,13 +230,21 @@ select {
   display: inline-block;
   margin-right: 10px; }
   .attr-container .btn-attr button {
-    margin-top: 10px; }
+    margin-top: 10px;
+    margin-right: 10px;
+    border: 1px solid white;
+    background-color: transparent;
+    color: #757575; }
 
 .attr-container .remove-attr {
   display: inline-block; }
 
 .attr-container .enum-container input {
   width: 70%; }
+
+.rel-container .select-rel {
+  width: 20% !important;
+  margin-right: 20px; }
 
 .rel-container .btn-rel {
   display: inline-block;

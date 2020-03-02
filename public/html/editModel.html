@@ -7,12 +7,15 @@
   </div>
 
   <div class="container-content">
-    <div class="form-group">
+    <div class="form-group mt-30">
       <label>
         Name
       </label>
       <div>
-        <input ng-model="model.name" type="text" placeholder="Name" />
+        <input class="input-name" ng-model="model.name" type="text" placeholder="Name" />
+      </div>
+      <div class="mt-30">
+        <hr />
       </div>
     </div>
 
@@ -21,12 +24,12 @@
     <div class="form-group">
       <label>
         Attributes
+          <a class="button-add" href="" ng-click="addAttr()">Add Attribute</a>
       </label>
       <div ng-repeat="attr in model._entity._attrs" class="attr-container mt-30">
+
         <div class="mt-10">
           <input type="text" ng-model="attr.name" placeholder="Name" />
-        </div>
-        <div class="mt-10">
           <select placeholder="Type" ng-model="attr.type">
             <option value="" disabled>Type</option>
             <option value="String">String</option>
@@ -40,9 +43,11 @@
         </div>
         <div class="mt-10">
           <div class="btn-attr">
-            <button ng-class="{'primary-button':attr.required }" ng-click="attr.required=!attr.required">Required</button>
+            <button ng-class="{'primary-button':attr.required }"
+              ng-click="attr.required=!attr.required">Required</button>
             <button ng-class="{'primary-button':attr.unique }" ng-click="attr.unique=!attr.unique">Unique</button>
-            <button ng-class="{'primary-button':attr._enum.length > 0 }" ng-click="showEnums = !showEnums">Enumeration</button>
+            <button ng-class="{'primary-button':attr._enum.length > 0 }"
+              ng-click="showEnums = !showEnums">Enumeration</button>
           </div>
 
           <div class="remove-attr">
@@ -61,13 +66,10 @@
             <a href="" ng-click="attr = addEnum(attr)">Add enumeration value</a>
           </div>
         </div>
-        <div class="mt-30">
-          <hr />
-        </div>
       </div>
-      <div>
-        <button class="primary-button button-xs mt-20" ng-click="addAttr()">Add Attribute</button>
-      </div>
+    </div>
+    <div class="mt-30">
+      <hr />
     </div>
 
     <!-- Relations -->
@@ -75,9 +77,22 @@
     <div class="form-group">
       <label>
         Relations
+        <a class="button-add" href="" ng-click="addRel()">Add Relation</a>
       </label>
-      <div ng-repeat="rel in model._entity._relations" ng-if="model._id === rel._ent1._resource._id" class="rel-container mt-30">
+      <div ng-repeat="rel in model._entity._relations" ng-if="!rel._id || model._id === rel._ent1._resource._id"
+        class="rel-container mt-30">
+
         <div class="mt-10">
+          <select  class="select-rel" placeholder="Type" ng-model="rel.type">
+            <option value="m:m">m:m</option>
+            <option value="1:m">1:m</option>
+          </select>
+          <input type="text" ng-model="rel.name" placeholder="Name" />
+          <select class="select-rel" placeholder="Type" ng-model="rel._ent2.name">
+            <option ng-repeat="mod in model_list" ng-value="mod.name">{{mod.name}}</option>
+          </select>
+        </div>
+        <!-- <div class="mt-10">
           <input type="text" ng-model="rel.name" placeholder="Name" />
         </div>
         <div class="mt-10">
@@ -90,25 +105,20 @@
           <select placeholder="Type" ng-model="rel._ent2.name">
             <option ng-repeat="mod in model_list" ng-value="mod.name">{{mod.name}}</option>
           </select>
-        </div>
+        </div> -->
 
         <div class="mt-10">
           <div class="btn-rel">
             <button ng-class="{'primary-button':rel.required }" ng-click="rel.required=!rel.required">Required</button>
           </div>
-
           <div class="remove-rel">
             <a href="" ng-click="removeRel($index)">Remove relation</a>
           </div>
-
-          <div class="mt-30">
-            <hr />
-          </div>
         </div>
       </div>
-      <div>
-        <button class="primary-button button-xs mt-20" ng-click="addRel()">Add Relation</button>
-      </div>
+    </div>
+    <div class="mt-30">
+      <hr />
     </div>
 
     <!-- API -->
