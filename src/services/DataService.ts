@@ -4,7 +4,7 @@ import * as yaml from "yaml";
 import * as vscode from "vscode";
 import * as Handlebars from "handlebars";
 
-import { SkaffolderObject } from "../models/skaffolderObject";
+import { SkaffolderObject } from "../models/SkaffolderObject";
 import { Db } from "../models/jsonreader/db";
 import { Resource } from "../models/jsonreader/resource";
 import { Page } from "../models/jsonreader/page";

@@ -138,8 +138,8 @@ export class ApiView extends SkaffolderView {
 
           case "removeApi":
             if (message.data) {
-              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" API?`, "Yes", "No").then((val) => {
-                if (val && val === "Yes") {
+              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" API?`, { modal: true }, { title: "Remove" }).then((val) => {
+                if (val && val.title === "Remove") {
                   if (Offline.removeService(message.data._id)) {
                     this.panel.dispose();
                   }
