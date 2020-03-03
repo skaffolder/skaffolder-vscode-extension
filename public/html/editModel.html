@@ -88,7 +88,9 @@
             <option value="m:m">m:m</option>
             <option value="1:m">1:m</option>
           </select>
-          <input class="mt-20 mr-20" type="text" ng-model="rel.name" placeholder="Name" />
+          <label class="label-model">Name</label>
+          <input class="mr-20" type="text" ng-model="rel.name" placeholder="Name" />
+          <label class="label-model">Model</label>
           <select class="select-rel mt-20" placeholder="Type" ng-model="rel._ent2.name">
             <option value="" disabled>Model</option>
             <option ng-repeat="mod in model_list" ng-value="mod.name">{{mod.name}}</option>
