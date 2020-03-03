@@ -2,8 +2,9 @@
   "name": "skaffolder-generator",
   "displayName": "Skaffolder Generator - OpenAPI 3.0",
   "description": "Generate web apps in many programming languages starting from specs, OpenAPI 3.0 supported",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "Skaffolder",
+  "icon": "https://skaffolder.com/img/logo/skaffolder_logo-square.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/skaffolder/skaffolder-vscode-extension"
@@ -12,6 +13,10 @@
   "homepage": "https://skaffolder.com",
   "engines": {
     "vscode": "^1.34.0"
+  },
+  "bugs": {
+    "url": "https://github.com/skaffolder/skaffolder-vscode-extension/issues",
+    "email": "info@skaffolder.com"
   },
   "categories": [
     "Other"
