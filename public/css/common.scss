@@ -28,12 +28,20 @@ body {
   margin-top: 10px;
 }
 
+.mb-10 {
+  margin-bottom: 10px;
+}
+
 .mt-20 {
   margin-top: 20px;
 }
 
 .mt-30 {
-  margin-top: 30px;
+  margin-top: 30px !important;
+}
+
+.ml-0 {
+  margin-left: 0px !important;
 }
 
 .ml-10 {
@@ -47,4 +55,8 @@ body {
 
 .ml-30 {
   margin-left: 30px;
+}
+
+.mr-20 {
+  margin-right: 20px;
 }
