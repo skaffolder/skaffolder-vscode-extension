@@ -10,7 +10,11 @@ export class TreeProviderSkaffolder implements vscode.TreeDataProvider<Skaffolde
   private skObject: SkaffolderObject;
 
   constructor(private context: vscode.ExtensionContext, private type: string) {
-    this.skObject = DataService.getSkObject();
+    try {
+      this.skObject = DataService.getSkObject();
+    } catch (e) {
+      this.skObject = new SkaffolderObject();
+    }
   }
 
   getTreeItem(element: SkaffolderNode): vscode.TreeItem | Thenable<vscode.TreeItem> {
