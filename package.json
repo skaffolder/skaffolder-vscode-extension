@@ -2,7 +2,7 @@
   "name": "skaffolder-generator",
   "displayName": "Skaffolder Generator - OpenAPI 3.0",
   "description": "Generate web apps in many programming languages starting from specs, OpenAPI 3.0 supported",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "Skaffolder",
   "icon": "media/skaffolder_logo-square.png",
   "repository": {
@@ -209,10 +209,7 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "webpack --mode production",
-    "webpack": "webpack --mode development",
-    "webpack-dev": "webpack --mode development --watch",
-    "test-compile": "tsc -p ./",
+    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "build-css": "cd public/css && sass style.scss style.css",
