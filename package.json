@@ -4,7 +4,7 @@
   "description": "Generate web apps in many programming languages starting from specs, OpenAPI 3.0 supported",
   "version": "0.1.2",
   "publisher": "Skaffolder",
-  "icon": "https://skaffolder.com/img/logo/skaffolder_logo-square.png",
+  "icon": "media/skaffolder_logo-square.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/skaffolder/skaffolder-vscode-extension"
@@ -209,7 +209,10 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "webpack --mode production",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch",
+    "test-compile": "tsc -p ./",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "build-css": "cd public/css && sass style.scss style.css",
@@ -218,11 +221,14 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^10.12.21",
+    "ts-loader": "^6.2.1",
+    "tslint": "^5.12.1",
     "typescript": "^3.3.1",
     "vscode": "^1.1.28",
-    "tslint": "^5.12.1",
-    "@types/node": "^10.12.21",
-    "@types/mocha": "^2.2.42"
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
     "@types/yaml": "^1.0.2",
@@ -235,7 +241,7 @@
     "node-sass": "^4.13.0",
     "opn": "^6.0.0",
     "sass": "^1.23.7",
-    "skaffolder-cli": "^2.0",
+    "skaffolder-cli": "^2.0.5",
     "yaml": "^1.6.0"
   }
 }
