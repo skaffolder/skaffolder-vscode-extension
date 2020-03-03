@@ -20,11 +20,17 @@ body {
 .mt-10 {
   margin-top: 10px; }
 
+.mb-10 {
+  margin-bottom: 10px; }
+
 .mt-20 {
   margin-top: 20px; }
 
 .mt-30 {
   margin-top: 30px !important; }
+
+.ml-0 {
+  margin-left: 0px !important; }
 
 .ml-10 {
   margin-left: 10px; }
@@ -35,6 +41,9 @@ body {
 
 .ml-30 {
   margin-left: 30px; }
+
+.mr-20 {
+  margin-right: 20px; }
 
 .form-group {
   margin-top: 10px;
@@ -48,7 +57,6 @@ body {
     background-color: #4E4F56;
     color: var(--vscode-editor-foreground);
     width: 50%;
-    margin-left: 20px;
     height: 33px;
     padding: 3px 7px;
     font-size: small; }

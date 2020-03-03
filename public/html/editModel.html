@@ -29,8 +29,8 @@
       <div ng-repeat="attr in model._entity._attrs" class="attr-container mt-30">
 
         <div class="mt-10">
-          <input type="text" ng-model="attr.name" placeholder="Name" />
-          <select placeholder="Type" ng-model="attr.type">
+          <input class="mt-20 mr-20" type="text" ng-model="attr.name" placeholder="Name" />
+          <select class="mt-20" placeholder="Type" ng-model="attr.type">
             <option value="" disabled>Type</option>
             <option value="String">String</option>
             <option value="Number">Number</option>
@@ -83,34 +83,21 @@
         class="rel-container mt-30">
 
         <div class="mt-10">
-          <select  class="select-rel" placeholder="Type" ng-model="rel.type">
+          <select  class="select-rel mt-20 ml-0" placeholder="Type" ng-model="rel.type">
+            <option value="" disabled>Type</option>
             <option value="m:m">m:m</option>
             <option value="1:m">1:m</option>
           </select>
-          <input type="text" ng-model="rel.name" placeholder="Name" />
-          <select class="select-rel" placeholder="Type" ng-model="rel._ent2.name">
+          <input class="mt-20 mr-20" type="text" ng-model="rel.name" placeholder="Name" />
+          <select class="select-rel mt-20" placeholder="Type" ng-model="rel._ent2.name">
+            <option value="" disabled>Model</option>
             <option ng-repeat="mod in model_list" ng-value="mod.name">{{mod.name}}</option>
           </select>
-        </div>
-        <!-- <div class="mt-10">
-          <input type="text" ng-model="rel.name" placeholder="Name" />
-        </div>
-        <div class="mt-10">
-          <select placeholder="Type" ng-model="rel.type">
-            <option value="m:m">m:m</option>
-            <option value="1:m">1:m</option>
-          </select>
-        </div>
-        <div class="mt-10">
-          <select placeholder="Type" ng-model="rel._ent2.name">
-            <option ng-repeat="mod in model_list" ng-value="mod.name">{{mod.name}}</option>
-          </select>
-        </div> -->
-
-        <div class="mt-10">
           <div class="btn-rel">
             <button ng-class="{'primary-button':rel.required }" ng-click="rel.required=!rel.required">Required</button>
           </div>
+        </div>
+        <div class="mt-10">
           <div class="remove-rel">
             <a href="" ng-click="removeRel($index)">Remove relation</a>
           </div>
