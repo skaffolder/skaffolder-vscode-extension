@@ -11,13 +11,12 @@
   }
 
   select {
-    background-color: #4E4F56;
+    background-color: #4e4f56;
     color: $light-gray;
     width: 50%;
     height: 33px;
     padding: 3px 7px;
     font-size: small;
-   
   }
 
   .button-add {
@@ -27,14 +26,12 @@
 }
 
 input {
-  background-color: #4E4F56;
+  background-color: #4e4f56;
   color: $light-gray;
   border: none;
   font-size: small;
   padding: 3px 7px;
   height: 25px;
-  // width: 100%;
-  // max-width: 400px;
   &:focus {
     outline: 0;
   }
@@ -46,13 +43,11 @@ input {
 
 // Textarea
 textarea {
-  background-color: #4E4F56;
+  background-color: #4e4f56;
   color: $light-gray;
   border: none;
   font-size: small;
   padding: 3px 7px;
-  // width: 100%;
-  // max-width: 400px;
   height: 60px;
   &:focus {
     outline: 0;
@@ -78,15 +73,12 @@ button {
 }
 
 .primary-button {
-  // background-color: $button-bg;
   background-color: $blu-light !important;
-  // color: $button-text;
   color: white !important;
   border: none !important;
 
   &:hover {
     background-color: $button-bg-hover;
-    
   }
 }
 

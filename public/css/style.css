@@ -54,7 +54,7 @@ body {
     margin-bottom: 5px;
     display: block; }
   .form-group select {
-    background-color: #4E4F56;
+    background-color: #4e4f56;
     color: var(--vscode-editor-foreground);
     width: 50%;
     height: 33px;
@@ -65,7 +65,7 @@ body {
     margin-left: 20px !important; }
 
 input {
-  background-color: #4E4F56;
+  background-color: #4e4f56;
   color: var(--vscode-editor-foreground);
   border: none;
   font-size: small;
@@ -78,7 +78,7 @@ input {
   width: 90%; }
 
 textarea {
-  background-color: #4E4F56;
+  background-color: #4e4f56;
   color: var(--vscode-editor-foreground);
   border: none;
   font-size: small;
