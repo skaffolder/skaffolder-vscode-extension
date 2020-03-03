@@ -50,7 +50,6 @@ body {
   margin-bottom: 25px; }
   .form-group .label-model {
     font-size: 12px;
-    color: white;
     font-weight: normal;
     display: inline;
     position: absolute; }
@@ -249,7 +248,7 @@ select {
   .attr-container .btn-attr button {
     margin-top: 10px;
     margin-right: 10px;
-    border: 1px solid white;
+    border: 1px solid #757575;
     background-color: transparent;
     color: #757575; }
 
@@ -269,7 +268,7 @@ select {
   .rel-container .btn-rel button {
     margin-top: 10px;
     margin-right: 10px;
-    border: 1px solid white;
+    border: 1px solid #757575;
     background-color: transparent;
     color: #757575; }
 
