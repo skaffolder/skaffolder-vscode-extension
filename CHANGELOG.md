@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2020-02-01
+## [0.1.0] - 2020-02-01
 
 ### Added
 
@@ -19,3 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add and edit page
 - Add and edit API
 - Add and edit database
+
+## [0.1.3] - 2020-02-01
+
+### Added
+
+- WebPack
