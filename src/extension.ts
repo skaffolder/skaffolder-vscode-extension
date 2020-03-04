@@ -107,7 +107,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Load interface
   try {
-    refresh();
+    vscode.window.showInformationMessage("Refresh start");
+    refreshTree();
   } catch (e) {}
 }
 

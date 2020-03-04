@@ -142,6 +142,7 @@ export class DataService {
   }
 
   public static refreshData() {
+    vscode.window.showWarningMessage("ref");
     // Example JSON
     // let data = fs.readFileSync(
     //   __dirname + "/../../src/services/dataExample.json",

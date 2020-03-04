@@ -123,6 +123,7 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
       this.children.push(new SkaffolderTemplateNode(context, "yamlMsg"));
       this.children.push(new SkaffolderTemplateNode(context, "yamlErrorMsg"));
       this.children.push(new SkaffolderTemplateNode(context, "yamlLine"));
+      this.children.push(new SkaffolderTemplateNode(context, "yamlLineContent"));
     } else if (type === "yamlMsg") {
       this.label = "YAML parse error";
       this.command = {
@@ -139,12 +140,24 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
         command: "skaffolder.openYamlParseError",
         title: "Open Yaml Parse Error"
       };
+    } else if (type === "yamlLineContent") {
+      let errorYamlLabel = "";
+      try {
+        let parseError = DataService.getYamlError();
+        errorYamlLabel = "value: " + parseError.source.rawValue;
+
+        this.command = {
+          command: "skaffolder.openYamlParseError",
+          title: "Open Yaml Parse Error"
+        };
+      } catch (e) {}
+      this.label = errorYamlLabel;
     } else if (type === "yamlLine") {
       let errorYamlLabel = "";
       try {
         let parseError = DataService.getYamlError();
         errorYamlLabel =
-          "line: " + parseError.source.rangeAsLinePos.start.line + ", col " + parseError.source.rangeAsLinePos.start.col;
+          "line: " + parseError.source.rangeAsLinePos.start.line + ", col: " + parseError.source.rangeAsLinePos.start.col;
 
         this.command = {
           command: "skaffolder.openYamlParseError",
