@@ -16,6 +16,7 @@ import { LogoutCommand } from "../commands/LogoutCommand";
 import { CreateModelCommand } from "../commands/CreateModelCommand";
 import { CreateApiCommand } from "../commands/CreateApiCommand";
 import { GoToSkaffolderDocCommand } from "../commands/GoToSkaffolderDocCommand";
+import { OpenYamlParseErrorCommand } from "../commands/OpenYamlParseErrorCommand";
 import { RefreshCommand } from "../commands/RefreshCommand";
 
 export class Commands {
@@ -43,6 +44,10 @@ export class Commands {
     let createApiCmd = vscode.commands.registerCommand("skaffolder.createApi", CreateApiCommand.command);
     let goToSkaffolder = vscode.commands.registerCommand("skaffolder.goToSkaffolder", GoToSkaffolderCommand.command);
     let goToSkaffolderDoc = vscode.commands.registerCommand("skaffolder.goToSkaffolderDoc", GoToSkaffolderDocCommand.command);
+    let openYamlParseErrorCommand = vscode.commands.registerCommand(
+      "skaffolder.openYamlParseError",
+      OpenYamlParseErrorCommand.command
+    );
     let refreshCmd = vscode.commands.registerCommand("skaffolder.refresh", RefreshCommand.command);
     let editNodeCmd = vscode.commands.registerCommand("skaffolder.editNode", EditNodeCommand.command);
     let openFileCmd = vscode.commands.registerCommand("skaffolder.openfiles", OpenFilesCommand.command);

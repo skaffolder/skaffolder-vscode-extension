@@ -45,12 +45,17 @@
         {
           "id": "skaffolderExplorerModel",
           "name": "Models",
-          "when": "isSkaffolderProject"
+          "when": "isSkaffolderProject && isYamlParsable"
         },
         {
           "id": "skaffolderExplorerPage",
           "name": "Pages",
-          "when": "isSkaffolderProject"
+          "when": "isSkaffolderProject && isYamlParsable"
+        },
+        {
+          "id": "skaffolderExplorerYaml",
+          "name": "YAML Error",
+          "when": "isSkaffolderProject && !isYamlParsable"
         },
         {
           "id": "skaffolderExplorerTemplates",
