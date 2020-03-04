@@ -49,7 +49,9 @@ export function activate(context: vscode.ExtensionContext) {
       let trees = refreshTree();
 
       if (trees) {
-        let pageView = PageView.instance, modelView = ModelView.instance, apiView = ApiView.instance;
+        let pageView = PageView.instance,
+          modelView = ModelView.instance,
+          apiView = ApiView.instance;
 
         if (pageView && pageView.contextNode.params && pageView.contextNode.params.page) {
           let page_id = pageView.contextNode.params.page._id;
@@ -105,7 +107,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Load interface
   try {
-    refresh();
+    refreshTree();
   } catch (e) {}
 }
 
@@ -120,19 +122,26 @@ let refresh = function() {
   if (DataService.isSkaffolderProject()) {
     // Create trees
     const skaffolderProviderHeader = new TreeProviderTemplateSkaffolder(contextExtension, "header");
-    const skaffolderProviderModel = new TreeProviderSkaffolder(contextExtension, "model");
-    const skaffolderProviderPage = new TreeProviderSkaffolder(contextExtension, "page");
 
     // Register trees
     vscode.commands.executeCommand("setContext", "isSkaffolderProject", true);
-    vscode.window.registerTreeDataProvider("skaffolderExplorerModel", skaffolderProviderModel);
-    vscode.window.registerTreeDataProvider("skaffolderExplorerPage", skaffolderProviderPage);
     vscode.window.registerTreeDataProvider("skaffolderExplorerHeader", skaffolderProviderHeader);
 
-    return {
-      model: skaffolderProviderModel,
-      page: skaffolderProviderPage
-    };
+    if (DataService.isYamlParsable()) {
+      const skaffolderProviderModel = new TreeProviderSkaffolder(contextExtension, "model");
+      const skaffolderProviderPage = new TreeProviderSkaffolder(contextExtension, "page");
+
+      vscode.window.registerTreeDataProvider("skaffolderExplorerModel", skaffolderProviderModel);
+      vscode.window.registerTreeDataProvider("skaffolderExplorerPage", skaffolderProviderPage);
+
+      return {
+        model: skaffolderProviderModel,
+        page: skaffolderProviderPage
+      };
+    } else {
+      const skaffolderProviderYaml = new TreeProviderTemplateSkaffolder(contextExtension, "yaml");
+      vscode.window.registerTreeDataProvider("skaffolderExplorerYaml", skaffolderProviderYaml);
+    }
   } else {
     // Create trees
     const skaffolderProviderTemplate = new TreeProviderTemplateSkaffolder(contextExtension, "main");

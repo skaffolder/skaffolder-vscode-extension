@@ -4,10 +4,12 @@ app.controller("EditApiController", [
   function($scope, DataService) {
     // Get data
     var getData = () => {
+      console.log("start");
       DataService.getApi().then(data => {
-        $scope.api = data;
+        $scope.api = data.api;
+        $scope.model = data.model;
       });
-    }
+    };
     getData();
 
     $scope.$on("requestedUpdate", e => {
@@ -22,7 +24,7 @@ app.controller("EditApiController", [
 
     $scope.delete = () => {
       DataService.removeApi($scope.api);
-    }
+    };
 
     // Actions
     $scope.openFiles = () => {

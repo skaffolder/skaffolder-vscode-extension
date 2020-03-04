@@ -18,6 +18,8 @@ SkaffolderCli.registerHelpers(Handlebars);
 export class DataService {
   private static dataObj: SkaffolderObject;
   private static yamlObj: any;
+  private static isYamlParsableObj: boolean = false;
+  private static yamlError: any;
   private static dataYaml: string;
   private static mapResource: Map<String, Resource> | undefined;
   private static mapService: Map<String, Service> | undefined;
@@ -131,6 +133,14 @@ export class DataService {
     return fs.existsSync(contexturl.path);
   }
 
+  static isYamlParsable(): boolean {
+    return DataService.isYamlParsableObj;
+  }
+
+  static getYamlError(): any {
+    return DataService.yamlError;
+  }
+
   public static refreshData() {
     // Example JSON
     // let data = fs.readFileSync(
@@ -159,12 +169,24 @@ export class DataService {
     if (DataService.dataYaml) {
       try {
         DataService.yamlObj = yaml.parse(DataService.dataYaml);
-      } catch (e) {
+        DataService.isYamlParsableObj = true;
+        vscode.commands.executeCommand("setContext", "isYamlParsable", true);
+      } catch (parseError) {
+        DataService.isYamlParsableObj = false;
+        DataService.yamlError = parseError;
+        vscode.commands.executeCommand("setContext", "yamlError", 'File "openapi.yaml" not parsable: ' + parseError.message);
         console.error('File "openapi.yaml" not parsable');
-        console.error(e);
-        vscode.window.showErrorMessage(e.message);
-        vscode.window.showErrorMessage('File "openapi.yaml" not parsable');
-        throw e;
+        console.error(parseError);
+        vscode.window.showErrorMessage("Line: " + parseError.source.rawValue);
+        vscode.window.showErrorMessage(
+          "ERROR at line " + parseError.source.rangeAsLinePos.start.line + ", col " + parseError.source.rangeAsLinePos.start.col
+        );
+        vscode.window.showErrorMessage('File "openapi.yaml" not parsable: ' + parseError.message);
+
+        // Open yaml file
+        vscode.commands.executeCommand<vscode.Location[]>("skaffolder.openYamlParseError");
+
+        return parseError;
       }
 
       try {
