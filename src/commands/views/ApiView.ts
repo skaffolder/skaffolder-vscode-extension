@@ -9,19 +9,18 @@ import { refreshTree } from "../../extension";
 import { SkaffolderView } from "./SkaffolderView";
 
 export class ApiView extends SkaffolderView {
-  
   static async open(contextNode: SkaffolderNode) {
     if (!ApiView.instance) {
       ApiView.instance = new ApiView(contextNode);
     } else {
       ApiView.instance.contextNode = contextNode;
     }
-    
+
     await ApiView.instance.updatePanel();
   }
-  
+
   public registerOnDisposePanel() {
-    this.panel.onDidDispose((e) => {
+    this.panel.onDidDispose(e => {
       ApiView.instance = undefined;
     });
   }
@@ -51,7 +50,7 @@ export class ApiView extends SkaffolderView {
         switch (message.command) {
           case "saveApi":
             if (message.data && message.data._resource) {
-              var service = message.data as Service; 
+              var service = message.data as Service;
               var _res = DataService.findResource(service._resource as string);
 
               if (_res) {
@@ -66,19 +65,21 @@ export class ApiView extends SkaffolderView {
                   "x-skaffolder-returnDesc": service.returnDesc,
                   "x-skaffolder-returnType": service.returnType,
                   "x-skaffolder-url": service.url,
-                  "parameters": service._params.map((val) => {
+                  parameters: service._params.map(val => {
                     return {
-                      "name": val.name,
+                      name: val.name,
                       "x-skaffolder-type": val.type,
-                      "in": "path",
-                      "description": val.description,
-                      "required": true
+                      in: "path",
+                      description: val.description,
+                      required: true
                     };
                   })
                 } as any;
 
                 if (service._roles) {
-                  service_yaml["x-skaffolder-roles"] = service._roles.map((val) => { return val._id; });
+                  service_yaml["x-skaffolder-roles"] = service._roles.map(val => {
+                    return val._id;
+                  });
                 }
 
                 Offline.createService(service_yaml, service.method, _res);
@@ -96,7 +97,10 @@ export class ApiView extends SkaffolderView {
           case "getApi":
             this.panel.webview.postMessage({
               command: "getApi",
-              data: this.contextNode.params ? this.contextNode.params.service : null
+              data: {
+                api: this.contextNode.params ? this.contextNode.params.service : null,
+                model: this.contextNode.params ? this.contextNode.params.model : null
+              }
             });
             break;
 
@@ -138,15 +142,21 @@ export class ApiView extends SkaffolderView {
 
           case "removeApi":
             if (message.data) {
-              vscode.window.showWarningMessage(`Are you sure you want to delete "${message.data.name}" API?`, { modal: true }, { title: "Remove" }).then((val) => {
-                if (val && val.title === "Remove") {
-                  if (Offline.removeService(message.data._id)) {
-                    this.panel.dispose();
-                  }
+              vscode.window
+                .showWarningMessage(
+                  `Are you sure you want to delete "${message.data.name}" API?`,
+                  { modal: true },
+                  { title: "Remove" }
+                )
+                .then(val => {
+                  if (val && val.title === "Remove") {
+                    if (Offline.removeService(message.data._id)) {
+                      this.panel.dispose();
+                    }
 
-                  refreshTree();
-                }
-              });
+                    refreshTree();
+                  }
+                });
             }
             break;
         }
