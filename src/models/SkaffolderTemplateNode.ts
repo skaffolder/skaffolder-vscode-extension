@@ -165,6 +165,7 @@ export class SkaffolderTemplateNode extends vscode.TreeItem {
         };
       } catch (e) {}
       this.label = errorYamlLabel;
+      this.tooltip = errorYamlLabel;
     }
   }
 }
