@@ -20,7 +20,7 @@ export class ModelView extends SkaffolderView {
   }
 
   public registerOnDisposePanel() {
-    this.panel.onDidDispose((e) => {
+    this.panel.onDidDispose(e => {
       ModelView.instance = undefined;
     });
   }
@@ -182,11 +182,20 @@ export class ModelView extends SkaffolderView {
           case "removeModel":
             if (message.data) {
               vscode.window
-                .showWarningMessage(`Are you sure you want to delete "${message.data.name}" model?`, { modal: true }, { title: "Remove" })
+                .showWarningMessage(
+                  `Are you sure you want to delete "${message.data.name}" model?`,
+                  { modal: true },
+                  { title: "Remove" }
+                )
                 .then(removeModel => {
                   if (removeModel && removeModel.title === "Remove") {
                     vscode.window
-                      .showWarningMessage(`Do you want to delete "${message.data.name}" model template Pages too?`, { modal: true }, { title: "Remove" }, { title: "Keep" })
+                      .showWarningMessage(
+                        `Do you want to delete "${message.data.name}" model template Pages too?`,
+                        { modal: true },
+                        { title: "Remove" },
+                        { title: "Keep" }
+                      )
                       .then(removePages => {
                         if (removePages) {
                           if (Offline.removeModel(message.data._id, removePages.title === "Remove")) {
@@ -230,7 +239,11 @@ export class ModelView extends SkaffolderView {
                   }, null);
                 }
 
-                Offline.createCrud(model_yaml);
+                try {
+                  Offline.createCrud(model_yaml);
+                } catch (e) {
+                  vscode.window.showErrorMessage(e);
+                }
                 refreshTree();
               }
             }

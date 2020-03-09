@@ -272,11 +272,11 @@ export class DataService {
     skObj.project = project;
 
     // Create Db
-    let db = new Db("", nameProj + "_db");
+    let db = new Db(nameProj + "_db_dummy_id", nameProj + "_db");
     skObj.resources = [db];
 
     // Create Resource
-    let resource = new Resource(undefined, "", "User", "/Users", "", "users");
+    let resource = new Resource(undefined, "", "User", "/Users", nameProj + "_db_dummy_id", "users");
 
     // Create Attributes
     let attributes: ResourceAttr[] = [];
