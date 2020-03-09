@@ -2,7 +2,7 @@
   "name": "skaffolder-generator",
   "displayName": "Skaffolder Generator - OpenAPI 3.0",
   "description": "Generate web apps in many programming languages starting from specs, OpenAPI 3.0 supported",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "publisher": "Skaffolder",
   "icon": "media/skaffolder_logo-square.png",
   "repository": {
@@ -243,7 +243,7 @@
     "node-sass": "^4.13.0",
     "opn": "^6.0.0",
     "sass": "^1.23.7",
-    "skaffolder-cli": "^2.0.7",
+    "skaffolder-cli": "^2.0.8",
     "yaml": "^1.6.0"
   }
 }
