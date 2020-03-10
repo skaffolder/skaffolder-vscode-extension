@@ -22,7 +22,6 @@ let contextExtension: vscode.ExtensionContext;
  *  your extension is activated the very first time the command is executed
  */
 export function activate(context: vscode.ExtensionContext) {
-  console.clear();
   console.log('Congratulations, your extension "Skaffolder" is now active!');
 
   // Retrieve endpoint value
