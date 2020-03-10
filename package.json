@@ -248,7 +248,7 @@
     "node-sass": "^4.13.0",
     "opn": "^6.0.0",
     "sass": "^1.23.7",
-    "skaffolder-cli": "^2.0.8",
+    "skaffolder-cli": "^2.0.10",
     "yaml": "^1.6.0"
   }
 }
