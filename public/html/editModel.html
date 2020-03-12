@@ -27,7 +27,6 @@
         <a class="button-add" href="" ng-click="addAttr()">Add Attribute</a>
       </label>
       <div ng-repeat="attr in model._entity._attrs" class="attr-container mt-30">
-
         <div class="mt-10">
           <input class="mt-20 mr-20" type="text" ng-model="attr.name" placeholder="Name" />
           <select class="mt-20" placeholder="Type" ng-model="attr.type">
@@ -43,11 +42,9 @@
         </div>
         <div class="mt-10">
           <div class="btn-attr">
-            <button ng-class="{'primary-button':attr.required }"
-              ng-click="attr.required=!attr.required">Required</button>
+            <button ng-class="{'primary-button':attr.required }" ng-click="attr.required=!attr.required">Required</button>
             <button ng-class="{'primary-button':attr.unique }" ng-click="attr.unique=!attr.unique">Unique</button>
-            <button ng-class="{'primary-button':attr._enum.length > 0 }"
-              ng-click="showEnums = !showEnums">Enumeration</button>
+            <button ng-class="{'primary-button':attr._enum.length > 0 }" ng-click="showEnums = !showEnums">Enumeration</button>
           </div>
 
           <div class="remove-attr">
@@ -73,15 +70,16 @@
     </div>
 
     <!-- Relations -->
-
     <div class="form-group">
       <label>
         Relations
         <a class="button-add" href="" ng-click="addRel()">Add Relation</a>
       </label>
-      <div ng-repeat="rel in model._entity._relations" ng-if="!rel._id || model._id === rel._ent1._resource._id"
-        class="rel-container mt-30">
-
+      <div
+        ng-repeat="rel in model._entity._relations"
+        ng-if="!rel._id || model._id === rel._ent1._resource._id"
+        class="rel-container mt-30"
+      >
         <div class="mt-10">
           <select class="select-rel mt-20 ml-0" placeholder="Type" ng-model="rel.type">
             <option value="" disabled>Type</option>

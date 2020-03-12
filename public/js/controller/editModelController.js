@@ -11,7 +11,7 @@ app.controller("EditModelController", [
       DataService.getAllModels().then(data => {
         $scope.model_list = data;
       });
-    }
+    };
     getData();
 
     $scope.$on("requestedUpdate", e => {
@@ -28,18 +28,18 @@ app.controller("EditModelController", [
         console.log("saved");
       });
     };
-    
+
     $scope.delete = () => {
       DataService.removeModel($scope.model);
     };
-    
+
     $scope.addApi = () => {
       DataService.addApiModel();
-    }
+    };
 
     $scope.createCrud = () => {
       DataService.createCrud($scope.model);
-    }
+    };
 
     // Attribues functions
     $scope.removeAttr = index => {

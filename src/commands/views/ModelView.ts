@@ -220,8 +220,8 @@ export class ModelView extends SkaffolderView {
                   "x-skaffolder-id-entity": _entity._id
                 } as any;
 
-                if (resource._relations && resource._relations.length > 0) {
-                  model_yaml["x-skaffolder-relations"] = (resource._relations as any[]).reduce((acc, cur) => {
+                if (_entity._relations && _entity._relations.length > 0) {
+                  model_yaml["x-skaffolder-relations"] = (_entity._relations as any[]).reduce((acc, cur) => {
                     if (!acc) {
                       acc = [];
                     }
@@ -229,7 +229,7 @@ export class ModelView extends SkaffolderView {
                     acc.push({
                       "x-skaffolder-id": cur._id,
                       "x-skaffolder-name": cur.name,
-                      "x-skaffolder-ent1": cur._ent1._id || cur._ent1.name,
+                      "x-skaffolder-ent1": _entity._id,
                       "x-skaffolder-ent2": cur._ent2._id || cur._ent2.name,
                       "x-skaffolder-type": cur.type,
                       "x-skaffolder-required": cur.required
