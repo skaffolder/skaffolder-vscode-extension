@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as SkaffolderCli from "skaffolder-cli";
 import * as yaml from "yaml";
 import * as vscode from "vscode";
+import * as path from "path";
 import * as Handlebars from "handlebars";
 
 import { SkaffolderObject } from "../models/SkaffolderObject";
@@ -129,8 +130,8 @@ export class DataService {
   }
 
   static isSkaffolderProject(): boolean {
-    let contexturl = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
-    return fs.existsSync(contexturl.path);
+    let contexturl = vscode.workspace.rootPath + path.sep + "openapi.yaml";
+    return fs.existsSync(contexturl);
   }
 
   static isYamlParsable(): boolean {
@@ -156,11 +157,12 @@ export class DataService {
     // );
 
     // read file in workspace
-    let contexturl = vscode.Uri.file(vscode.workspace.rootPath + "/openapi.yaml");
+    console.log(vscode.workspace.rootPath);
+    let contexturl = vscode.workspace.rootPath + path.sep + "openapi.yaml";
 
     try {
       // Read file
-      DataService.dataYaml = fs.readFileSync(contexturl.path, "utf-8");
+      DataService.dataYaml = fs.readFileSync(contexturl, "utf-8");
     } catch (e) {
       console.error('File "openapi.yaml" not found', e);
       vscode.window.showWarningMessage("Workspace has no openapi.yaml");
