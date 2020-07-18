@@ -250,17 +250,14 @@ select {
     border: 1px solid #757575;
     background-color: transparent;
     color: #757575; }
-
 .attr-container .remove-attr {
   display: inline-block; }
-
 .attr-container .enum-container input {
   width: 70%; }
 
 .rel-container .select-rel {
   width: 20% !important;
   margin-right: 20px; }
-
 .rel-container .btn-rel {
   display: inline-block;
   margin-right: 10px; }
@@ -270,45 +267,34 @@ select {
     border: 1px solid #757575;
     background-color: transparent;
     color: #757575; }
-
 .rel-container .remove-rel {
   display: inline-block; }
 
 .export .error {
   color: var(--vscode-inputValidation-errorBorder); }
-
 .export .create {
   color: #80d4a0; }
-
 .export .update {
   color: #4895fa; }
-
 .export .delete {
   color: #f55448; }
 
 .report-generation .file-result {
   margin-left: 15px; }
-
 .report-generation .file-result.elaborated {
   margin-left: 0px; }
-
 .report-generation .file-result.elaborated label {
   color: var(--vscode-editor-foreground); }
-
 .report-generation .file-result.edit label {
   color: #4895fa; }
-
 .report-generation .file-result.created label {
   color: #80d4a0; }
-
 .report-generation .file-result.error label {
   color: #f55448; }
-
 .report-generation .file-result label {
   width: 100px;
   font-weight: bold;
   display: inline-block; }
-
 .report-generation .file-result .file-name {
   display: inline-block; }
 
