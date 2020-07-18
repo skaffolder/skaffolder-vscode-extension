@@ -3,11 +3,15 @@ vscode = acquireVsCodeApi();
 
 // Start app
 var app = angular.module("Skaffolder_Extension", []).config([
-  "$sceDelegateProvider",
-  function($sceDelegateProvider) {
-    $sceDelegateProvider.resourceUrlWhitelist(["vscode-resource:/**"]);
+  "$sceProvider",
+  function($sceProvider) {
+    $sceProvider.enabled(false);
   }
 ]);
+
+angular.element(document).ready(function () {  
+  angular.bootstrap(document, ['Skaffolder_Extension']);
+});
 
 // Init app
 app.run([
